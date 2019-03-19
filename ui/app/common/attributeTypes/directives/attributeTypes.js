@@ -15,13 +15,21 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
         },
         templateUrl: '../common/attributeTypes/views/attributeInformation.html',
         restrict: 'E',
-        controller: function ($scope) {
+        controller: function ($scope, $log) {
             $scope.getAutoCompleteList = $scope.getAutoCompleteList();
             $scope.getDataResults = $scope.getDataResults();
             // to avoid watchers in one way binding
-            $scope.isAutoComplete = $scope.isAutoComplete() || function () { return false; };
-            $scope.isReadOnly = $scope.isReadOnly() || function () { return false; };
-            $scope.handleUpdate = $scope.handleUpdate() || function () { return false; };
+            $scope.isAutoComplete = $scope.isAutoComplete() || function () {
+                return false;
+            };
+            $scope.isReadOnly = $scope.isReadOnly() || function () {
+                return false;
+            };
+            $scope.handleUpdate = $scope.handleUpdate() || function () {
+                return false;
+            };
+
+            $scope.suggestions = $scope.attribute.answers;
 
             $scope.appendConceptNameToModel = function (attribute) {
                 var attributeValueConceptType = $scope.targetModel[attribute.name];
@@ -30,6 +38,25 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                 });
                 attributeValueConceptType.value = concept && concept.fullySpecifiedName;
             };
+
+
+            $scope.suggest = function (string) {
+                $scope.hideList = false;
+                var output = [];
+                angular.forEach($scope.suggestions, function (country) {
+                    if (country.description.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
+                        output.push(country.description);
+                    }
+                });
+                $scope.filterOcuppation = output;
+            };
+
+            $scope.hideSuggestions = function (string) {
+                $scope.targetModel[$scope.attribute.name] = string;
+                $scope.hideList = true;
+            };
+
+
         }
     };
 }]);
