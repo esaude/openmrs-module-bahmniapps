@@ -30,6 +30,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             };
 
             $scope.suggestions = $scope.attribute.answers;
+            $scope.showTag = false;
 
             $scope.appendConceptNameToModel = function (attribute) {
                 var attributeValueConceptType = $scope.targetModel[attribute.name];
@@ -42,6 +43,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
 
             $scope.suggest = function (string) {
                 $scope.hideList = false;
+                $scope.showTag = true;
                 var output = [];
                 angular.forEach($scope.suggestions, function (country) {
                     if (country.description.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
