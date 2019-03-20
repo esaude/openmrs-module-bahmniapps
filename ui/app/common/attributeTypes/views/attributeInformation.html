@@ -4,7 +4,7 @@
         <span class="asterick" ng-show="{{::attribute.required}}">*</span></label>
 </div>
 <div class="field-value" data-ng-switch on="::attribute.format">
-    <div data-ng-switch-when="java.lang.String">
+    <div data-ng-switch-when="java.lang.String" ng-if="attribute.name != 'occupation'">
         <span data-ng-switch="::isAutoComplete(attribute.name)">
             <input data-ng-switch-when="true"
                    type="text" id="{{::attribute.name}}"
@@ -29,11 +29,11 @@
                    ng-blur="::handleUpdate(attribute.name)">
         </span>
     </div>
-    <div class="left" data-ng-switch-when="org.openmrs.Concept" ng-if="attribute.name == 'occupation'">
+    <div class="left" data-ng-switch-when="java.lang.String" ng-if="attribute.name == 'occupation'">
         <input type="text"
                class="ui-autocomplete-input"
-               id="occupation"
-               name="occupation"
+               id="{{::attribute.name}}"
+               name="{{::attribute.name}}"
                placeholder="Search Occupation"
                ng-model="targetModel[attribute.name]"
                ng-keyup="suggest(targetModel[attribute.name])"

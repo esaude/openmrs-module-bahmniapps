@@ -29,7 +29,8 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                 return false;
             };
 
-            $scope.suggestions = $scope.attribute.answers;
+            //$scope.suggestions = $scope.attribute.answers;
+            $scope.suggestions = professions;
             $scope.showTag = false;
 
             $scope.appendConceptNameToModel = function (attribute) {
@@ -42,12 +43,13 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
 
 
             $scope.suggest = function (string) {
+
                 $scope.hideList = false;
                 $scope.showTag = true;
                 var output = [];
-                angular.forEach($scope.suggestions, function (country) {
-                    if (country.description.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
-                        output.push(country.description);
+                angular.forEach($scope.suggestions, function (suggestion) {
+                    if (suggestion.name.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
+                        output.push(suggestion.name);
                     }
                 });
                 $scope.filterOcuppation = output;
