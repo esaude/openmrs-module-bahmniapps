@@ -122,6 +122,7 @@ module.exports = function (grunt) {
                 '<%= yeoman.app %>/**/*.js',
                 '!<%= yeoman.app %>/**/*.min.js',
                 '!<%= yeoman.app %>/components/**/*.js',
+                '!<%= yeoman.app %>/common/angularjs-dropdown/src/*.js',
                 '!<%= yeoman.app %>/lib/**/*.js',
                 '!app/lib/**/*.js'
             ]
@@ -301,6 +302,24 @@ module.exports = function (grunt) {
                             'clinical/config/*.json',
                             'i18n/**/*.json',
                             'lib/**/*'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= yeoman.app %>/common/bootstrap/fonts',
+                        dest: '<%= yeoman.dist %>/fonts',
+                        src: [
+                            '*.*'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= yeoman.app %>/common/bootstrap',
+                        dest: '<%= yeoman.dist %>/common/bootstrap',
+                        src: [
+                            '*.*'
                         ]
                     }
                 ]

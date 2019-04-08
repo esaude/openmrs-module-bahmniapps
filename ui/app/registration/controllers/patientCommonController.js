@@ -7,6 +7,52 @@ angular.module('bahmni.registration')
             var showCasteSameAsLastNameCheckbox = appService.getAppDescriptor().getConfigValue("showCasteSameAsLastNameCheckbox");
             var personAttributes = [];
             var caste;
+
+            var mozambicanIdentifiers = appService.getAppDescriptor().getConfigValue("mozambicanIdentifiers", []);
+            var foreignerIdentifiers = appService.getAppDescriptor().getConfigValue("foreignerIdentifiers", []);
+
+            var allMozambicanIdentifiers = _.map($scope.patient.extraIdentifiers, function (obj, index) {
+                if (_.includes(mozambicanIdentifiers, obj.identifierType.name)) {
+                    return obj;
+                }
+            });
+
+            allMozambicanIdentifiers = _.filter(allMozambicanIdentifiers);
+
+            var allForeignerIdentifiers = _.map($scope.patient.extraIdentifiers, function (obj, index) {
+                if (_.includes(foreignerIdentifiers, obj.identifierType.name)) {
+                    return obj;
+                }
+            });
+
+            allForeignerIdentifiers = _.filter(allForeignerIdentifiers);
+
+            $scope.mozambicanIdentifiersDropdownDisplay = _.map($scope.patient.extraIdentifiers, function (obj, index) {
+                if (_.includes(mozambicanIdentifiers, obj.identifierType.name)) {
+                    return _.pick(obj.identifierType, ['name']);
+                }
+            });
+
+            $scope.mozambicanIdentifiersDropdownDisplay = _.filter($scope.mozambicanIdentifiersDropdownDisplay);
+            $scope.mozambicanIdentifiersDropdownDisplay = _.map($scope.mozambicanIdentifiersDropdownDisplay, function (obj, index) {
+                obj.id = index;
+                return obj;
+            });
+
+            $scope.foreignerIdentifiersDropdownDisplay = _.map($scope.patient.extraIdentifiers, function (obj, index) {
+                if (_.includes(foreignerIdentifiers, obj.identifierType.name)) {
+                    return _.pick(obj.identifierType, ['name']);
+                }
+            });
+
+            $scope.foreignerIdentifiersDropdownDisplay = _.filter($scope.foreignerIdentifiersDropdownDisplay);
+            $scope.foreignerIdentifiersDropdownDisplay = _.map($scope.foreignerIdentifiersDropdownDisplay, function (obj, index) {
+                obj.id = index;
+                return obj;
+            });
+
+            $scope.selectedMozambicanIdentifiers = [];
+            $scope.selectedForeignerIdentifiers = [];
             $scope.showMiddleName = appService.getAppDescriptor().getConfigValue("showMiddleName");
             $scope.showLastName = appService.getAppDescriptor().getConfigValue("showLastName");
             $scope.isLastNameMandatory = $scope.showLastName && appService.getAppDescriptor().getConfigValue("isLastNameMandatory");
@@ -21,6 +67,85 @@ angular.module('bahmni.registration')
             var dontSaveButtonClicked = false;
 
             var isHref = false;
+
+            $scope.additionalMozambicanIdentifiers = [];
+            $rootScope.allExtraIdentifiers = [];
+            var newMozambicanIdentifierObj = {};
+            var tempMozambicanIdentifierObj = {};
+
+            $scope.createPatientsMozambicanIdentifiersDropdownEvents = {
+                onItemSelect: function (item) {
+                    newMozambicanIdentifierObj = _.filter($scope.patient.extraIdentifiers, function (obj) {
+                        if (obj.identifierType.name == item.name) {
+                            obj.id = item.id;
+                            return obj;
+                        }
+                    });
+                    $scope.additionalMozambicanIdentifiers.push(newMozambicanIdentifierObj[0]);
+                    $rootScope.additionalMozambicanIdentifiers = $scope.additionalMozambicanIdentifiers;
+                },
+
+                onItemDeselect: function (item) {
+                    var removed = _.remove($rootScope.additionalMozambicanIdentifiers, function (n) {
+                        return n.id == item.id;
+                    });
+                },
+
+                onSelectAll: function () {
+                    $scope.additionalMozambicanIdentifiers = [];
+                    tempMozambicanIdentifierObj = _.filter(allMozambicanIdentifiers, function (obj, index) {
+                        obj.id = index;
+                        return obj;
+                    });
+                    $scope.additionalMozambicanIdentifiers = tempMozambicanIdentifierObj;
+                    $rootScope.additionalMozambicanIdentifiers = $scope.additionalMozambicanIdentifiers;
+                },
+
+                onDeselectAll: function () {
+                    $scope.additionalMozambicanIdentifiers = [];
+                    $rootScope.allExtraIdentifiers = [];
+                    $rootScope.additionalMozambicanIdentifiers = [];
+                }
+            };
+
+            $scope.additionalForeignerIdentifiers = [];
+            var newForeignerIdentifierObj = {};
+            var tempForeignerIdentifierObj = {};
+
+            $scope.createPatientsForeignerIdentifiersDropdownEvents = {
+                onItemSelect: function (item) {
+                    newForeignerIdentifierObj = _.filter($scope.patient.extraIdentifiers, function (obj) {
+                        if (obj.identifierType.name == item.name) {
+                            obj.id = item.id;
+                            return obj;
+                        }
+                    });
+                    $scope.additionalForeignerIdentifiers.push(newForeignerIdentifierObj[0]);
+                    $rootScope.additionalForeignerIdentifiers = $scope.additionalForeignerIdentifiers;
+                },
+
+                onItemDeselect: function (item) {
+                    var removed = _.remove($rootScope.additionalForeignerIdentifiers, function (n) {
+                        return n.id == item.id;
+                    });
+                },
+
+                onSelectAll: function () {
+                    $scope.additionalForeignerIdentifiers = [];
+                    tempForeignerIdentifierObj = _.filter(allForeignerIdentifiers, function (obj, index) {
+                        obj.id = index;
+                        return obj;
+                    });
+                    $scope.additionalForeignerIdentifiers = tempForeignerIdentifierObj;
+                    $rootScope.additionalForeignerIdentifiers = $scope.additionalForeignerIdentifiers;
+                },
+
+                onDeselectAll: function () {
+                    $scope.additionalForeignerIdentifiers = [];
+                    $rootScope.allExtraIdentifiers = [];
+                    $rootScope.additionalForeignerIdentifiers = [];
+                }
+            };
 
             $rootScope.duplicatePatients;
             $rootScope.duplicatePatientCount = 0;

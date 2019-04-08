@@ -112,5 +112,10 @@
     "ATIP_SELECT":"ATIP",
     "HEALTH_FACILITY_NAME":"Unidade Sanitária",
     "HEALTH_FACILITY_DISTRICT":"Distrito",
-    "HEALTH_FACILITY_PROVINCE":"Província"
+    "HEALTH_FACILITY_PROVINCE":"Província",
+    "REGISTRATION_ADD_MORE" :"Adicione Mais",
+    "REGISTRATION_ID_CHECK": "Selecionar Tudo",
+    "REGISTRATION_ID_UN_CHECK" : "Desmarque Todos",
+    "REGISTRATION_MOZAMBICAN":"Nacionalidade Moçambicana",
+    "REGISTRATION_FOREIGNER":"Nacionalidade Estrangeira"
 }

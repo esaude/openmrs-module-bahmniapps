@@ -139,5 +139,10 @@
   "ATIP_SELECT":"ATIP",
   "HEALTH_FACILITY_NAME":"Health Facility Name",
   "HEALTH_FACILITY_DISTRICT":"Health Facility District",
-  "HEALTH_FACILITY_PROVINCE":"Health Facility Province"
+  "HEALTH_FACILITY_PROVINCE":"Health Facility Province",
+  "REGISTRATION_ADD_MORE" :"Add More",
+  "REGISTRATION_ID_CHECK": "Check All",
+  "REGISTRATION_ID_UN_CHECK" : "Uncheck All",
+  "REGISTRATION_MOZAMBICAN":"Mozambican Nationality",
+  "REGISTRATION_FOREIGNER":"Foreign Nationality"
 }

@@ -152,6 +152,17 @@ angular.module('bahmni.registration')
             };
 
             $scope.create = function () {
+                $scope.patient.extraIdentifiers = [];
+                if ($rootScope.allExtraIdentifiers.length == 0) {
+                    if ($rootScope.additionalMozambicanIdentifiers !== undefined) {
+                        $scope.patient.extraIdentifiers = $scope.patient.extraIdentifiers.concat($rootScope.additionalMozambicanIdentifiers);
+                    }
+                    if ($rootScope.additionalForeignerIdentifiers !== undefined) {
+                        $scope.patient.extraIdentifiers = $scope.patient.extraIdentifiers.concat($rootScope.additionalForeignerIdentifiers);
+                    }
+                } else {
+                    $scope.patient.extraIdentifiers = $scope.patient.extraIdentifiers.concat($rootScope.allExtraIdentifiers);
+                }
                 addNewRelationships();
                 var errorMessages = Bahmni.Common.Util.ValidationUtil.validate($scope.patient, $scope.patientConfiguration.attributeTypes);
                 if (errorMessages.length > 0) {

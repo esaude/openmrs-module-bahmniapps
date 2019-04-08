@@ -36,12 +36,14 @@ Bahmni.Registration.UpdatePatientRequestMapper = (function () {
 
         var allIdentifiers = _.concat(patient.extraIdentifiers, patient.primaryIdentifier);
         var nonEmptyIdentifiers = _.filter(allIdentifiers, function (identifier) {
-            return identifier.uuid || identifier.identifier;
+            return identifier.uuid || identifier.identifier || identifier.selectedIdentifierSource;
         });
 
         openMRSPatientProfile.patient.identifiers = _.map(nonEmptyIdentifiers, function (identifier) {
             return {
                 uuid: identifier.uuid,
+                identifierSourceUuid: identifier.selectedIdentifierSource ? identifier.selectedIdentifierSource.uuid : undefined,
+                identifierPrefix: identifier.selectedIdentifierSource ? identifier.selectedIdentifierSource.prefix : undefined,
                 identifier: identifier.identifier,
                 identifierType: identifier.identifierType.uuid,
                 preferred: identifier.preferred,

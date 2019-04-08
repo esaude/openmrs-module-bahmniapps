@@ -157,81 +157,34 @@
                  field-validation="::fieldValidation" ng-if="::addressHierarchyConfigs.showAddressFieldsTopDown"
                  strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel"></section>
 
+
+
+
         <legend class="registraion_legend" ng-if="patient.extraIdentifiers.length>0">
-            <span class="mylegend">{{ ::'REGISTRATION_ADDTIONAL_IDENTIFIERS' | translate}}</span>
+            <span class="mylegend">{{ ::'REGISTRATION_MOZAMBICAN' | translate}}</span>
         </legend>
 
         <section>
-            <!--edit patient flow-->
-           <section>
-                <div ng-if="patient.uuid != undefined">
-                    <article ng-repeat="identifier in patient.extraIdentifiers" class="form-field existing-patient">
-                        <div class="field-attribute">
-                            <label class="control-label" for="patientID">{{:: identifier.identifierType.name}}
-                                <span ng-show=":: identifier.identifierType.required && !identifier.hasIdentifierSources()"
-                                      class="asterick">*</span>
-                            </label>
-                        </div>
-                        <div class="field-value">
-                            <input type="text" ng-model="identifier.identifier" disabled
-                                   ng-if="identifier.hasIdentifierSources()"/>
+            <div ng-dropdown-multiselect="" options="mozambicanIdentifiersDropdownDisplay" selected-model="selectedMozambicanIdentifiers" events="createPatientsMozambicanIdentifiersDropdownEvents" style = "position: relative; left:60%;" ng-if = "patient.uuid == undefined"></div>
 
-                            <input type="text" id="registrationNumber" ng-model="identifier.registrationNumber"
-                                   ng-if="!identifier.hasIdentifierSources()"
-                                   non-blank="identifier.identifierType.required && !identifier.hasIdentifierSources()"
-                                   pattern-validate ng-change="identifier.generate()"
-                                   ng-disabled="readOnlyExtraIdentifiers.indexOf(identifier.identifierType.name)>-1">
-                        </div>
-                    </article>
-                </div>
-                <div ng-if="patient.uuid == undefined">
-                    <article ng-repeat="identifier in patient.extraIdentifiers"
-                             class="form-field existing-patient">
-                        <div class="field-attribute">
-                            <label class="control-label" for="patientID">{{:: identifier.identifierType.name}}
-                            <span ng-show="::identifier.identifierType.required && !identifier.hasIdentifierSources()"
-                                  class="asterick">*</span>
-                            </label>
-                        </div>
-                        <div ng-show="::(identifier.hasIdentifierSources() && !identifier.hasIdentifierSourceWithEmptyPrefix())"
-                             class="field-value" id="patientID">
-                            <select id="identifierPrefix" ng-model="identifier.selectedIdentifierSource"
-                                    ng-options="identifierSource.prefix for identifierSource in ::identifier.identifierType.identifierSources"
-                                    ng-change="patient.generateIdentifier(identifier)"
-                                    required>
-                            </select>
-                        </div>
-                        <div class="field-value" ng-if="!identifier.hasIdentifierSources()">
-                            <input type="text" id="registrationNumber" ng-model="identifier.registrationNumber"
-                                   non-blank="identifier.isIdentifierRequired()" pattern-validate
-                                   ng-change="identifier.generate()" focus-on="identifier.hasOldIdentifier"
-                                   ng-show="identifier.hasOldIdentifier || !identifier.hasIdentifierSources()"
-                                   ng-disabled="readOnlyExtraIdentifiers.indexOf(identifier.identifierType.name)>-1">
-                        </div>
-
-                        <div class="field-value field-value-has-identifier"  ng-show="::identifier.hasIdentifierSources()">
-                            <input type="text" id="registrationNumber" ng-model="identifier.registrationNumber"
-                                   non-blank="identifier.isIdentifierRequired()" pattern-validate
-                                   ng-change="identifier.generate()" focus-on="identifier.hasOldIdentifier"
-                                   ng-show="identifier.hasOldIdentifier || !identifier.hasIdentifierSources()"
-                                   ng-disabled="readOnlyExtraIdentifiers.indexOf(identifier.identifierType.name)>-1">
-
-                            <div class="fl">
-                                <div class="field-attribute hasOldIdentifier-field-attribute">
-                                    <label for="hasOldIdentifier" ng-show="::showEnterID" class="control-label">{{::'REGISTRATION_LABEL_ENTER_ID' |
-                                        translate}}</label>
-                                </div>
-                                <div class="field-value">
-                                    <input class="input-label-inline" ng-show="::showEnterID" type="checkbox"
-                                           id="hasOldIdentifier" ng-model="identifier.hasOldIdentifier"
-                                           ng-change="identifier.clearRegistrationNumber()">
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-           </section>
+            <div ng-dropdown-multiselect="" options="dropdownMozambicanIdentifiers" selected-model="editSelectedMozambicanIdentifiers" events="editPatientsMozambicanIdentifiersDropdownEvents" style = "position: relative; left:60%;" ng-if = "patient.uuid != undefined && dropdownMozambicanIdentifiers.length > 0"></div>
+           <section ng-include="'views/mozambicanIdentifiers.html'"></section>
         </section>
+
+
+
+
+        <legend class="registraion_legend" ng-if="patient.extraIdentifiers.length>0">
+            <span class="mylegend">{{ ::'REGISTRATION_FOREIGNER' | translate}}</span>
+        </legend>
+
+         <section>
+            <div ng-dropdown-multiselect="" options="foreignerIdentifiersDropdownDisplay" selected-model="selectedForeignerIdentifiers" events="createPatientsForeignerIdentifiersDropdownEvents" style = "position: relative; left:60%;" ng-if = "patient.uuid == undefined"></div>
+
+            <div ng-dropdown-multiselect="" options="dropdownForeignerIdentifiers" selected-model="editSelectedForeignerIdentifiers" events="editPatientsForeignerIdentifiersDropdownEvents" style = "position: relative; left:60%;" ng-if = "patient.uuid != undefined && dropdownForeignerIdentifiers.length > 0"></div>
+           <section ng-include="'views/foreignerIdentifiers.html'"></section>
+        </section>
+
 
         <legend class="registraion_legend" ng-if="patientConfiguration.customAttributeRows().length > 0">
             <span class="mylegend">{{ ::'REGISTRATION_LABEL_OTHER_INFO' | translate}}</span>

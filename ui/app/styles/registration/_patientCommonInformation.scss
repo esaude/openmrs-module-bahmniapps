@@ -155,11 +155,11 @@ section.form-field-inline{
       .add-on{
         min-width: 0;
         background-color: $lightestGray!important;
-        height: 19px;
+        height: 25px;
 
       }
       input[type="number"]{
-        width: 40px !important;
+        width: 70px !important;
         &#ageMonths{
           @media (max-width : 768px){
             width: 53px !important;
