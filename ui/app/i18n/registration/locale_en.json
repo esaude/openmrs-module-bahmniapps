@@ -144,5 +144,6 @@
   "REGISTRATION_ID_CHECK": "Check All",
   "REGISTRATION_ID_UN_CHECK" : "Uncheck All",
   "REGISTRATION_MOZAMBICAN":"Mozambican Nationality",
-  "REGISTRATION_FOREIGNER":"Foreign Nationality"
+  "REGISTRATION_FOREIGNER":"Foreign Nationality",
+  "INVALID_OCCUPATION": "Invalid occupation"
 }

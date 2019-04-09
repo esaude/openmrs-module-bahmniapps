@@ -114,8 +114,9 @@
     "HEALTH_FACILITY_DISTRICT":"Distrito",
     "HEALTH_FACILITY_PROVINCE":"Província",
     "REGISTRATION_ADD_MORE" :"Adicione Mais",
-    "REGISTRATION_ID_CHECK": "Selecionar Tudo",
-    "REGISTRATION_ID_UN_CHECK" : "Desmarque Todos",
+    "REGISTRATION_ID_CHECK": "Seleccionar Tudo",
+    "REGISTRATION_ID_UN_CHECK" : "Desmarcar Todos",
     "REGISTRATION_MOZAMBICAN":"Nacionalidade Moçambicana",
-    "REGISTRATION_FOREIGNER":"Nacionalidade Estrangeira"
+    "REGISTRATION_FOREIGNER":"Nacionalidade Estrangeira",
+    "INVALID_OCCUPATION": "Seleccione uma ocupação válida"
 }
