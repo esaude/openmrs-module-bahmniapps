@@ -106,7 +106,7 @@
                     <i class="fa fa-exclamation-triangle"></i>
                     <span> {{'APPOINTMENT_CREATION_DATE_WARNING' | translate}} </span>
                 </p>
-                <p>
+<!--                 <p>
                     <label for="startTimeID">
                         {{'APPOINTMENT_START_TIME_KEY' | translate}}<sup class="asterick">*</sup>
                     </label>
@@ -169,6 +169,15 @@
                 <p class="warning-message" ng-if="warning.outOfRange">
                     <i class="fa fa-exclamation-triangle"></i>
                     <span> {{'APPOINTMENT_CREATION_OUT_OF_RANGE_WARNING' | translate}} </span>
+                </p> -->
+                <p>
+                    <label for="startTimeID">
+                        {{'APPOINTMENT_SELECT_BLOCK_KEY' | translate}}<sup class="asterick">*</sup>
+                    </label>
+                    <select id="appointmentBlock" ng-change="setBlockTimes()" ng-model="selectedAppointmentBlock"
+                            ng-options="appointmentBlock.name | translate for appointmentBlock in appointmentBlocks">
+                        <option value=""></option>
+                    </select>
                 </p>
                 <p class="walk-in-app">
                     <input type="checkbox" ng-model="appointment.appointmentKind" ng-true-value="'WalkIn'"
