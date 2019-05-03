@@ -38,8 +38,8 @@
                          title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}">
               </span>
 
-              <span data-ng-switch="::isAutoComplete('givenName')"
-                    ng-if="::!patientConfiguration.local()['showNameField']">
+              <span ng-class="{ 'has-error': submitted && this.myForm.giveName.$invalid}" data-ng-switch="::isAutoComplete('givenName')"
+                          ng-if="::!patientConfiguration.local()['showNameField']">
                   <input data-ng-switch-when="true"
                          type="text" id="givenName" ng-model="$parent.patient.givenName" non-blank pattern-validate
                          my-autocomplete source="getAutoCompleteList" response-map="getDataResults"
@@ -48,9 +48,9 @@
                          title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}" focus-me="true" >
 
                   <input data-ng-switch-default
-                         type="text" id="givenName" ng-model="patient.givenName" non-blank pattern-validate
+                         type="text" id="givenName" name="giveName" ng-model="patient.givenName" non-blank pattern-validate
                          placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
-                         title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}" focus-me="true" ng-change="checkDuplicatePatients()">
+                         title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}" focus-me="true" ng-change="checkDuplicatePatients()" required>
               </span>
 
               <span ng-show="::showMiddleName" data-ng-switch="::isAutoComplete('middleName')">
@@ -67,16 +67,17 @@
                          title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_MIDDLE_NAME' | translate}}">
               </span>
 
-              <span ng-show="::showLastName" data-ng-switch="::isAutoComplete('familyName')">
+
+              <span ng-class="{ 'has-error': submitted && this.myForm.familyName.$invalid}" ng-show="::showLastName" data-ng-switch="::isAutoComplete('familyName')">
                   <input data-ng-switch-when="true"
-                         type="text" id="familyName" ng-model="$parent.patient.familyName"  pattern-validate
+                         type="text" name="familyName" id="familyName" ng-model="$parent.patient.familyName"  pattern-validate
                          my-autocomplete source="getAutoCompleteList" response-map="getDataResults"
                          data-item-type="personName"
                          placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_LAST_NAME' | translate}}"
                          title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_LAST_NAME' | translate}}" ng-required="::isLastNameMandatory" ng-change="checkDuplicatePatients()">
 
                   <input data-ng-switch-default
-                         type="text" id="familyName" ng-model="patient.familyName"  pattern-validate
+                         type="text" name="apelido" id="familyName" ng-model="patient.familyName"  pattern-validate
                          placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_LAST_NAME' | translate}}"
                          title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_LAST_NAME' | translate}}" ng-required="::isLastNameMandatory">
               </span>
@@ -90,7 +91,7 @@
                                                get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                   </article>
                 </section>
-              <span>
+              </span>
 
                     <!--<span class="input-label-inline caste-lastname" ng-show="showCasteSameAsLastName()">
                         <input type="checkbox" id="casteSameAsLastNameCheck" ng-model="patient.sameAsLastName"
@@ -119,7 +120,7 @@
                             class="asterick">*</span></label>
                 </div>
 
-                <div class="field-value">
+                <div class="field-value" ng-class="{ 'has-error': submitted && patient.gender == undefined}">
                     <select id="gender" ng-model="patient.gender" required="required" title="{{ 'REGISTRATION_LABEL_SELECT_GENDER'|translate }}"
                             ng-options="genderMap[genderCode] | translate for genderCode in genderCodes track by genderCode" ng-change="handleUpdate('gender');checkDuplicatePatients()">
                         <option value=""></option>
@@ -177,10 +178,6 @@
             </section>
         </section>
 
-
-
-
-
         <legend class="registraion_legend">
             <span class="mylegend"> {{ ::'REGISTRATION_LABEL_ADDRESS_INFO' | translate}}</span>
         </legend>
@@ -192,7 +189,8 @@
 
         <section top-down-address-fields data-address-levels="::addressLevels" data-address="patient.address"
                  field-validation="::fieldValidation" ng-if="::addressHierarchyConfigs.showAddressFieldsTopDown"
-                 strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel"></section>
+                 strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel">
+        </section>
 
          <legend class="registraion_legend">
             <span class="mylegend"> {{ ::'REGISTRATION_CONTACT_INFORMATION' | translate}}</span>

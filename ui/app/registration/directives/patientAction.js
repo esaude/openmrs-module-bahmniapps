@@ -89,6 +89,7 @@ angular.module('bahmni.registration')
                 };
 
                 $scope.setSubmitSource = function (source) {
+                    $rootScope.submitted = true;
                     $scope.actions.submitSource = source;
                 };
 

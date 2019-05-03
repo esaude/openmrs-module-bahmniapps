@@ -3,20 +3,25 @@
 </div>
 <div class="reg-body-wrapper">
     <div class="simple-form-ui new-patient">
-        <form name="myForm" class="form-horizontal well" single-submit="create()">
+        <form name="myForm" class="form-horizontal well" single-submit="create()" novalidate>
             <div class="box-container box-container-default">
                 <legend class="registraion_legend first-registraion_legend">
                     <span class="mylegend"><strong>{{::'REGISTRATION_LABEL_NEW_PATIENT' | translate}}</strong></span>
                 </legend>
-                <span class="form-field-inline clearfix" ng-repeat="attribute in ::patientConfiguration.attributeTypes">
-                    <article class="form-field" ng-if="attribute.name == 'TYPE_OF_REGISTRATION'" 
-                    ng-class="::{'right-form-field' : $index%2 != 0}">
-                            <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation" 
-                                is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList" 
-                                on-change="checkDuplicatePatients()"
-                                get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
+
+
+                <span class="form-field-inline clearfix" ng-repeat="attribute in ::patientConfiguration.attributeTypes"
+                      ng-class="{'has-error' : submitted && logicalValue}">
+                    <article class="form-field" ng-if="attribute.name == 'TYPE_OF_REGISTRATION'"
+                             ng-class="::{'right-form-field' : $index%2 != 0}">
+                            <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
+                                             is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
+                                             on-change="checkDuplicatePatients()"
+                                             get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate" required="true">
+                            </attribute-types>
                     </article>
                  </span>
+
                 <section class="clearfix">
                     <div class="photo-container-wrapper" ng-if="!disablePhotoCapture">
                         <span class="pull-right photo-container">
@@ -25,6 +30,7 @@
                         </span>
                     </div>
                 </section>
+
                 <section>
                     <article class="form-field existing-patient">
                         <div class="field-attribute">
@@ -32,12 +38,15 @@
                                 <span ng-show="::patient.primaryIdentifier.identifierType.required && !patient.primaryIdentifier.hasIdentifierSources()" class="asterick">*</span>
                             </label>
                         </div>
-                        <div class="input-prepend">
+
+                        <div class="input-prepend" ng-class="{ 'has-error': submitted && this.myForm.registrationNumber.$invalid}">
                             <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
-                            <input type="text" id="registrationNumber" ng-model="NID.healthFacilityCode"
+                            <input type="text" name="registrationNumber" id="registrationNumber" ng-model="NID.healthFacilityCode"
                                    pattern-validate
                                    focus-on="patient.primaryIdentifier.hasOldIdentifier"
                                    ng-blur="buildFinalNID()" minlength="8" maxlength="8" size=8 required>
+                            <p class="help-block" ng-show="submitted && this.myForm.registrationNumber.$error.minlength">{{::'MINLENGTH_HFC' | translate}}</p>
+
                         </div>
 
                         <div class="input-prepend">
@@ -48,20 +57,21 @@
                                    disabled size="2" ng-init="NID.serviceCode='01'">
                         </div>
 
-                        <div class="input-prepend">
+                        <div class="input-prepend" ng-class="{ 'has-error': submitted && this.myForm.NIDYear.$invalid}">
                             <span class="add-on">{{ ::'REGISTRATION_NID_YEAR' | translate}}</span>
-                            <input type="number" ng-model="NID.year"
+                            <input type="number" name="NIDYear" ng-model="NID.year"
                                    pattern-validate
                                    focus-on="patient.primaryIdentifier.hasOldIdentifier"
                                    ng-blur="buildFinalNID()" min="0" max="{{currentYear}}" required>
                         </div>
 
-                        <div class="input-prepend">
+                        <div class="input-prepend" ng-class="{ 'has-error': submitted && this.myForm.NIDSequentialCode.$invalid}">
                             <span class="add-on">{{ ::'REGISTRATION_SEQUENTIAL_CODE' | translate}}</span>
-                            <input type="text" id="registrationNumber" ng-model="NID.sequentialCode"
+                            <input type="text" id="registrationNumber" name="NIDSequentialCode" ng-model="NID.sequentialCode"
                                    pattern-validate
                                    focus-on="patient.primaryIdentifier.hasOldIdentifier"
                                    ng-blur="buildFinalNID()" minlength="5" maxlength="5" size="5" required>
+                            <p class="help-block" ng-show="submitted && this.myForm.NIDSequentialCode.$error.minlength">{{::'MINLENGTH_SEQUENTIAL_CODE' | translate}}</p>
                         </div>
 
                     </article>

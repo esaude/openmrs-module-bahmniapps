@@ -5,7 +5,10 @@
                 class="asterick"
                 ng-show="::addressLevel.required">*</span></label>
         </div>
-        <div class="field-value">
+        <div class="field-value"
+             ng-if="addressLevel.addressField != 'address3' && addressLevel.addressField != 'address4' &&
+                    addressLevel.addressField != 'address5' && addressLevel.addressField != 'address6' &&
+                    addressLevel.addressField != 'latitude'">
             <input type="text"
                    id="{{::addressLevel.addressField}}"
                    pattern-validate
@@ -23,6 +26,51 @@
                    ng-class="{'illegalValue': addressFieldInvalid}"
                    on-edit="removeAutoCompleteEntry(addressLevel.addressField)"
                    required/>
+        </div>
+
+        <div class="field-value" ng-if="addressLevel.addressField == 'latitude'">
+            <input type="text"
+                   id="{{::addressLevel.addressField}}"
+                   min-length="1"
+                   only-letters-numbers-input="{{regex}}"
+                   with=""
+                   ng-model="address[addressLevel.addressField]"/>
+        </div>
+
+        <div class="field-value" ng-if="addressLevel.addressField == 'address3'">
+            <input type="text"
+                   id="{{::addressLevel.addressField}}"
+                   min-length="1"
+                   only-numbers-input="{{onlyNumber}}"
+                   with=""
+                   ng-model="address[addressLevel.addressField]"/>
+        </div>
+
+        <div class="field-value" ng-if="addressLevel.addressField == 'address4'">
+            <input type="text"
+                   id="{{::addressLevel.addressField}}"
+                   min-length="1"
+                   only-letters-numbers-input="{{regex}}"
+                   with=""
+                   ng-model="address[addressLevel.addressField]"/>
+        </div>
+
+        <div class="field-value" ng-if="addressLevel.addressField == 'address5'">
+            <input type="text"
+                   id="{{::addressLevel.addressField}}"
+                   min-length="1"
+                   only-numbers-input="{{onlyNumber}}"
+                   with=""
+                   ng-model="address[addressLevel.addressField]"/>
+        </div>
+
+        <div class="field-value" ng-if="addressLevel.addressField == 'address6'">
+            <input type="text"
+                   id="{{::addressLevel.addressField}}"
+                   min-length="1"
+                   only-letters-numbers-input="{{regex}}"
+                   with=""
+                   ng-model="address[addressLevel.addressField]"/>
         </div>
     </article>
 </section>

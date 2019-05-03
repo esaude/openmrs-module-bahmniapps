@@ -33,6 +33,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             $scope.showTag = false;
             $scope.borderColor = "1px solid #d1d1d1";
             $rootScope.canSave = true;
+            $rootScope.logicalValue = true;
 
             $scope.appendConceptNameToModel = function (attribute) {
                 var attributeValueConceptType = $scope.targetModel[attribute.name];
@@ -40,6 +41,12 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                     return answer.conceptId === attributeValueConceptType.conceptUuid;
                 });
                 attributeValueConceptType.value = concept && concept.fullySpecifiedName;
+
+                if (attributeValueConceptType.value == undefined) {
+                    $rootScope.logicalValue = true;
+                } else {
+                    $rootScope.logicalValue = false;
+                }
             };
 
             $scope.suggest = function (string) {
