@@ -1,4 +1,5 @@
 {
+
     "CONSULTATION_TAB_KEY": "<u>C</u>onsultas",
     "CONSULTATION_SHORTCUT_KEY": "c",
     "NO_ACTIVE_PASSIVE_PROGRAMS_MESSAGE": "Nenhum programa ativo/inativo para este paciente.",
@@ -230,5 +231,9 @@
     "CLINICAL_LIST_PATIENT_MAIN_CONTACT":"Contacto Principal",
     "CLINICAL_LIST_PATIENT_STATUS":"Estado do Paciente",
     "CLINICAL_LIST_PATIENT_REGISTRATION_DATE":"Data do Registo",
-    "CLINICAL_LIST_PATIENT_NID":"NID"
-}
+    "CLINICAL_LIST_PATIENT_NID":"NID",
+    "VISIT_STATUS_FINISHED":"Acabado",
+    "VISIT_STATUS_ABSENT":"Ausente",
+    "VISIT_STATUS_PROGRESS":"Em progresso"
+ }
+
