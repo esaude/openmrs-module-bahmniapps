@@ -131,12 +131,11 @@
     "REGISTRATION_PROFESSIONAL_INFORMATION": "Informação profissional",
     "REGISTRATION_LABEL_NATIONALITY": "Nacionalidade",
     "REGISTRATION_LABEL_DOCUMENT": "Documento",
-    "REGISTRATION_PROFESSIONAL_INFORMATION":"Informação profissional",
     "HEALTH_FACILITY": "Unidade Sanitária",
     "HF_NAME": "Unidade Sanitária",
     "HF_PROVINCE": "Província",
     "HF_DISTRICT": "Distrito",
-    "REGISTRATION_LABEL_US_REG_DATE": "Data de Registo na US"
+    "REGISTRATION_LABEL_US_REG_DATE": "Data de Registo na US",
     "REGISTRATION_LABEL_PASSPORT_MOZ": "Passporte Mocambicano",
     "REGISTRATION_LABEL_PASSPORT_FOR": "Passaporte Estrangeiro"
 }

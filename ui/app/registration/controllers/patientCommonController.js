@@ -24,7 +24,7 @@ angular.module('bahmni.registration')
             var isHref = false;
             $rootScope.duplicatePatients;
             $rootScope.duplicatePatientCount = 0;
-            $rootScope.personSearchResultsConfig = ["NICK_NAME", "PRIMARY_CONTACT_NUMBER_1", "PATIENT_STATUS"];
+            $rootScope.personSearchResultsConfig = ["NICK_NAME", "PRIMARY_CONTACT_NUMBER_1", "PATIENT_STATUS","US_REG_DATE"];
             $rootScope.searchActions = appService.getAppDescriptor().getExtensions("org.bahmni.registration.patient.search.result.action");
             $scope.checkDuplicatePatients = function () {
                 var patientGivenName = $scope.patient.givenName || '';

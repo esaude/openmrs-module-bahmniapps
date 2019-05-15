@@ -36,7 +36,7 @@ angular.module('bahmni.registration')
                     q: query,
                     gender: gender,
                     birthDate: birthDate,
-                    patientSearchResultsConfig: ["NICK_NAME", "PRIMARY_CONTACT_NUMBER_1", "PATIENT_STATUS"],
+                    patientSearchResultsConfig: ["NICK_NAME", "PRIMARY_CONTACT_NUMBER_1", "PATIENT_STATUS","US_REG_DATE"],
                     loginLocationUuid: sessionService.getLoginLocationUuid()
                 },
                 withCredentials: true
