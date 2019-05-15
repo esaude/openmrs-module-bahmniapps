@@ -152,10 +152,6 @@ angular.module('bahmni.registration')
                 }
             };
 
-
-
-
-
             var setPatientIdentifierSearchConfig = function () {
                 $scope.patientIdentifierSearchConfig = {};
                 $scope.patientIdentifierSearchConfig.show = allSearchConfigs.searchByPatientIdentifier === undefined ? true : allSearchConfigs.searchByPatientIdentifier;
@@ -295,7 +291,7 @@ angular.module('bahmni.registration')
             };
             var isUserPrivilegedForSearch = function () {
                 var applicablePrivs = [Bahmni.Common.Constants.viewPatientsPrivilege, Bahmni.Common.Constants.editPatientsPrivilege,
-                Bahmni.Common.Constants.addVisitsPrivilege, Bahmni.Common.Constants.deleteVisitsPrivilege];
+                    Bahmni.Common.Constants.addVisitsPrivilege, Bahmni.Common.Constants.deleteVisitsPrivilege];
                 var userPrivs = _.map($rootScope.currentUser.privileges, function (privilege) {
                     return privilege.name;
                 });
