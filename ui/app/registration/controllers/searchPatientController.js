@@ -13,17 +13,11 @@ angular.module('bahmni.registration')
             $scope.extraIdentifierTypes = _.filter($rootScope.patientConfiguration.identifierTypes, function (identifierType, index) {
                 return extraIdentifiersToDisplay.indexOf(identifierType.name) !== -1;
             });
-            console.log(extraIdentifiersToDisplay);
-
             var searching = false;
             var maxAttributesFromConfig = 5;
             var allSearchConfigs = appService.getAppDescriptor().getConfigValue("patientSearch") || {};
             var patientSearchResultConfigs = appService.getAppDescriptor().getConfigValue("patientSearchResults") || {};
             maxAttributesFromConfig = !_.isEmpty(allSearchConfigs.programAttributes) ? maxAttributesFromConfig - 1 : maxAttributesFromConfig;
-            
-            console.log($rootScope.patientConfiguration.attributeTypes);
-            $scope.extraAttributesToDisplay = $rootScope.patientConfiguration.attributeTypes;
-            console.log($scope.extraAttributesToDisplay);
 
             $scope.getAddressColumnName = function (column) {
                 var columnName = "";
@@ -79,8 +73,6 @@ angular.module('bahmni.registration')
                         return response;
                     });
 
-                    console.log(promise);
-                        
                     searchPromise['finally'](function () {
                         searching = false;
                     });
@@ -134,8 +126,6 @@ angular.module('bahmni.registration')
                     _.map(data.pageOfResults, function (result) {
                         var programAttributesObj = {};
                         var arrayOfStringOfKeysValue = result.patientProgramAttributeValue && result.patientProgramAttributeValue.substring(2, result.patientProgramAttributeValue.length - 2).split('","');
-                        console.log(result);
-                
                         _.each(arrayOfStringOfKeysValue, function (keyValueString) {
                             var keyValueArray = keyValueString.split('":"');
                             var key = keyValueArray[0];
@@ -269,7 +259,6 @@ angular.module('bahmni.registration')
                 $scope.results = [];
 
                 var patientIdentifier = $scope.searchParameters.registrationNumber;
-                console.log($scope);
 
                 $location.search({
                     registrationNumber: $scope.searchParameters.registrationNumber,

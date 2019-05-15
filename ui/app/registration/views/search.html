@@ -96,8 +96,7 @@
                 <!-- <td ng-repeat = "field in ::addressSearchResultsConfig.fields">{{::result.addressFieldValue[field] || ""}}</td> -->
                 <td ng-repeat = "field in ::personSearchResultsConfig.fields track by $index" ng-if="field=='PRIMARY_CONTACT_NUMBER_1'">{{::result.customAttribute[field] || "" | bahmniDateInStrictMode}}</td>
                 <td ng-repeat = "field in ::personSearchResultsConfig.fields track by $index" ng-if="field=='PATIENT_STATUS'">{{::result.customAttribute[field] || "" | bahmniDateInStrictMode}}</td>
-                <td>{{::extraAttributesToDisplay.name}}</td>
-                <!--<td ng-repeat = "name in ::extraAttributesToDisplay.name track by $index" ng-if="name=='US_REG_DATE'">{{::result.extraAttributesToDisplay[name]}}</td>-->
+                <td ng-repeat = "field in ::personSearchResultsConfig.fields track by $index" ng-if="field=='US_REG_DATE'">{{::result.customAttribute[field] || "" | bahmniDateInStrictMode}}</td>
                 <td ng-if="::programAttributesSearchConfig.show">{{getProgramAttributeValues(result) | bahmniDateInStrictMode}}</td>
             </tr>
             </tbody>
