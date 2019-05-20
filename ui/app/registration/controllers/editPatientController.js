@@ -146,7 +146,6 @@ angular.module('bahmni.registration')
                 setReadOnlyFields();
                 expandDataFilledSections();
                 $scope.patientLoaded = true;
-
             };
 
             var expandDataFilledSections = function () {
