@@ -258,6 +258,9 @@ angular.module('bahmni.registration')
             };
 
             $scope.nationality = function () {
+                var mozAttributes = ['BI', 'Cartao_de_Eleitor', 'Cedula_de_Nascimento', 'NUIT', 'NUIC', 'Passaporte_Mocambicano'];
+                var foreignAttributes = ['DIRE', 'NUIT', 'Passaporte_Estrangeiro'];
+
                 if ($scope.patient.NATIONALITY == undefined) {
                     $scope.patient.NATIONALITY = "";
                 }

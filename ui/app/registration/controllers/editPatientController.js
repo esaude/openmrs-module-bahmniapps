@@ -28,7 +28,8 @@ angular.module('bahmni.registration')
                 var mozAttributes = ['BI', 'Cartao_de_Eleitor', 'Cedula_de_Nascimento', 'NUIT', 'NUIC', 'Passaporte_Mocambicano'];
                 var foreignAttributes = ['DIRE', 'NUIT', 'Passaporte_Estrangeiro'];
                 $scope.editPatientDocuments = [];
-                var nationalityVar = function () {
+                
+            var nationalityVar = function () {
                     if ($scope.patient.NATIONALITY == undefined) {
                         $scope.patient.NATIONALITY = "";
                     }
@@ -47,6 +48,30 @@ angular.module('bahmni.registration')
                     }
                 };
                 nationalityVar();
+
+                var existingPatientDocs = function () {
+                    if ($scope.nationalityDocs == undefined) {
+                        $scope.nationalityDocs = "";
+                    }
+                    else {
+                        for (var i = 0; i <= $scope.nationalityDocs.length; i++) {
+                            _.each($scope.nationalityDocs, function (doc) {
+                                // if ($scope.patient[doc] == undefined) { }
+                                // else {
+                                if ($scope.patient[doc].length > 0) {
+                                    $scope.editPatientDocuments.push(doc);
+                                    // $scope.nationalityDocs.splice($scope.nationalityDocs.indexOf(doc), 1);
+                                    // $scope.existDocs = $scope.nationalityDocs;
+                                    $scope.existDocs.splice($scope.existDocs.indexOf(doc), 1);
+                                    console.log($scope.nationalityDocs);
+                                    console.log($scope.existDocs);
+                                }
+                                // }
+                            });
+                        }
+                    }
+                };
+                existingPatientDocs();
 
                 $scope.nationality = function () {
                     if ($scope.patient.NATIONALITY == undefined) {
@@ -68,28 +93,7 @@ angular.module('bahmni.registration')
                         }
                     }
                 };
-                var existingPatientDocs = function () {
-                    if ($scope.nationalityDocs == undefined) {
-                        $scope.nationalityDocs = "";
-                    }
-                    else {
-                        var i = 0;
-                        for (i = 0; i <= $scope.nationalityDocs.length; i++) {
-                            _.each($scope.nationalityDocs, function (doc) {
-                                if ($scope.patient[doc] == undefined) { }
-                                else {
-                                    if ($scope.patient[doc].length > 0) {
-                                        $scope.editPatientDocuments.push(doc);
-                                        $scope.nationalityDocs.splice($scope.nationalityDocs.indexOf(doc), 1);
-                                        $scope.existDocs = $scope.nationalityDocs;
-                                    }
-                                }
-                            });
-                        }
-                    }
-                };
 
-                existingPatientDocs();
                 $scope.$watch('patient.NATIONALITY.value', function (newValue, oldValue) {
                     if (newValue != oldValue) {
                         if (oldValue == undefined) {
@@ -146,6 +150,7 @@ angular.module('bahmni.registration')
                 setReadOnlyFields();
                 expandDataFilledSections();
                 $scope.patientLoaded = true;
+
             };
 
             var expandDataFilledSections = function () {
