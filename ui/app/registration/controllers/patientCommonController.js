@@ -7,8 +7,6 @@ angular.module('bahmni.registration')
             var showCasteSameAsLastNameCheckbox = appService.getAppDescriptor().getConfigValue("showCasteSameAsLastNameCheckbox");
             var personAttributes = [];
             var caste;
-            var mozAttributes = ['BI', 'Cartao_de_Eleitor', 'Cedula_de_Nascimento', 'NUIT', 'NUIC', 'Passaporte_Mocambicano'];
-            var foreignAttributes = ['DIRE', 'NUIT', 'Passaporte_Estrangeiro'];
             $scope.patientDocuments = [];
             $scope.showMiddleName = appService.getAppDescriptor().getConfigValue("showMiddleName");
             $scope.showLastName = appService.getAppDescriptor().getConfigValue("showLastName");

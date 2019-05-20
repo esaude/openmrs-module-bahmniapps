@@ -28,8 +28,8 @@ angular.module('bahmni.registration')
                 var mozAttributes = ['BI', 'Cartao_de_Eleitor', 'Cedula_de_Nascimento', 'NUIT', 'NUIC', 'Passaporte_Mocambicano'];
                 var foreignAttributes = ['DIRE', 'NUIT', 'Passaporte_Estrangeiro'];
                 $scope.editPatientDocuments = [];
-                
-            var nationalityVar = function () {
+
+                var nationalityVar = function () {
                     if ($scope.patient.NATIONALITY == undefined) {
                         $scope.patient.NATIONALITY = "";
                     }
@@ -56,17 +56,13 @@ angular.module('bahmni.registration')
                     else {
                         for (var i = 0; i <= $scope.nationalityDocs.length; i++) {
                             _.each($scope.nationalityDocs, function (doc) {
-                                // if ($scope.patient[doc] == undefined) { }
-                                // else {
-                                if ($scope.patient[doc].length > 0) {
-                                    $scope.editPatientDocuments.push(doc);
-                                    // $scope.nationalityDocs.splice($scope.nationalityDocs.indexOf(doc), 1);
-                                    // $scope.existDocs = $scope.nationalityDocs;
-                                    $scope.existDocs.splice($scope.existDocs.indexOf(doc), 1);
-                                    console.log($scope.nationalityDocs);
-                                    console.log($scope.existDocs);
+                                if ($scope.patient[doc] == undefined) { }
+                                else {
+                                    if ($scope.patient[doc].length > 0) {
+                                        $scope.editPatientDocuments.push(doc);
+                                        $scope.existDocs.splice($scope.existDocs.indexOf(doc), 1);
+                                    }
                                 }
-                                // }
                             });
                         }
                     }
