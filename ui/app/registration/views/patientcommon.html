@@ -211,7 +211,7 @@
                     <article class="form-field ng-scope right-form-field">
                         <div class="field-attribute ng-scope">
                             <label for="docSelect" class="ng-binding"
-                                ng-hide="editPatientDocuments.length == nationalityDocs.length">
+                                ng-hide="existDocs.length==0">
                                 {{ ::'REGISTRATION_LABEL_DOCUMENT' | translate}} <span ng-show="isForm"
                                     class="ng-hide"></span></label>
                         </div>
@@ -219,11 +219,11 @@
                             <div class="left ng-scope">
                                 <select id="docSelect" ng-model="attributeChoice"
                                     ng-Options="attributeChoice for attributeChoice in existDocs"
-                                    ng-hide="editPatientDocuments.length == nationalityDocs.length"
+                                    ng-hide="existDocs.length==0"
                                     ng-Click="nationalityEditAttribute(attributeChoice)"></select>
 
                                 <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                    ng-hide="editPatientDocuments.length == nationalityDocs.length" style="margin-left: 30px; height:27px"
+                                    ng-hide="existDocs.length==0" style="margin-left: 30px; height:27px"
                                     ng-click="addEditDocRow();removeEditDoc();">
                                     <i class="fa-plus fa fa-green small"></i>
                                 </button>

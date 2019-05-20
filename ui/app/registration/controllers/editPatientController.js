@@ -25,8 +25,6 @@ angular.module('bahmni.registration')
             var successCallBack = function (openmrsPatient) {
                 $scope.openMRSPatient = openmrsPatient["patient"];
                 $scope.patient = openmrsPatientMapper.map(openmrsPatient);
-                var mozAttributes = ['BI', 'Cartao_de_Eleitor', 'Cedula_de_Nascimento', 'NUIT', 'NUIC', 'Passaporte_Mocambicano'];
-                var foreignAttributes = ['DIRE', 'NUIT', 'Passaporte_Estrangeiro'];
                 $scope.editPatientDocuments = [];
 
                 var nationalityVar = function () {
@@ -36,14 +34,16 @@ angular.module('bahmni.registration')
                     else {
                         $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
                         if ($scope.nationalityChoice == 'Mocambicano' || $scope.nationalityChoice == 'Mozambican') {
+                            var mozAttributes = ['BI', 'Cartao_de_Eleitor', 'Cedula_de_Nascimento', 'NUIT', 'NUIC', 'Passaporte_Mocambicano'];
+                            $scope.nationalityDocs = [];
                             $scope.nationalityDocs = mozAttributes;
                             $scope.existDocs = $scope.nationalityDocs;
-                            $scope.nationalityDocs = [];
                         }
                         else if ($scope.nationalityChoice == 'Estrangeiro' || $scope.nationalityChoice == 'Foreigner') {
+                            var foreignAttributes = ['DIRE', 'NUIT', 'Passaporte_Estrangeiro'];
+                            $scope.nationalityDocs = [];
                             $scope.nationalityDocs = foreignAttributes;
                             $scope.existDocs = $scope.nationalityDocs;
-                            $scope.nationalityDocs = [];
                         }
                     }
                 };
@@ -56,7 +56,9 @@ angular.module('bahmni.registration')
                     else {
                         for (var i = 0; i <= $scope.nationalityDocs.length; i++) {
                             _.each($scope.nationalityDocs, function (doc) {
-                                if ($scope.patient[doc] == undefined) { }
+                                if ($scope.patient[doc] == undefined) {
+                                    $scope.patient[doc] = "";
+                                }
                                 else {
                                     if ($scope.patient[doc].length > 0) {
                                         $scope.editPatientDocuments.push(doc);
@@ -77,15 +79,15 @@ angular.module('bahmni.registration')
                         $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
                         if ($scope.nationalityChoice == 'Mocambicano' || $scope.nationalityChoice == 'Mozambican') {
                             var mozAttributes = ['BI', 'Cartao_de_Eleitor', 'Cedula_de_Nascimento', 'NUIT', 'NUIC', 'Passaporte_Mocambicano'];
+                            $scope.nationalityDocs = [];
                             $scope.nationalityDocs = mozAttributes;
                             $scope.existDocs = $scope.nationalityDocs;
-                            $scope.nationalityDocs = [];
                         }
                         else if ($scope.nationalityChoice == 'Estrangeiro' || $scope.nationalityChoice == 'Foreigner') {
                             var foreignAttributes = ['DIRE', 'NUIT', 'Passaporte_Estrangeiro'];
+                            $scope.nationalityDocs = [];
                             $scope.nationalityDocs = foreignAttributes;
                             $scope.existDocs = $scope.nationalityDocs;
-                            $scope.nationalityDocs = [];
                         }
                     }
                 };
