@@ -256,8 +256,8 @@ angular.module('bahmni.registration')
             };
 
             $scope.nationality = function () {
-                var mozAttributes = ['BI', 'Cartao_de_Eleitor', 'Cedula_de_Nascimento', 'NUIT', 'NUIC', 'Passaporte_Mocambicano'];
-                var foreignAttributes = ['DIRE', 'NUIT', 'Passaporte_Estrangeiro'];
+                var mozAttributes = ['BI', 'CARTAO_DE_ELEITOR', 'CEDULA_DE_NASCIMENTO', 'NUIT', 'NUIC', 'PASSAPORTE_MOCAMBICANO'];
+                var foreignAttributes = ['DIRE', 'NUIT', 'PASSAPORTE_ESTRANGEIRO'];
 
                 if ($scope.patient.NATIONALITY == undefined) {
                     $scope.patient.NATIONALITY = "";
@@ -266,11 +266,11 @@ angular.module('bahmni.registration')
                     $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
                     if ($scope.nationalityChoice == 'Mocambicano' || $scope.nationalityChoice == 'Mozambican') {
                         $scope.nationalityDocs = mozAttributes;
-                        $scope.patientDocuments = [];
+                        // $scope.patientDocuments = [];
                     }
                     else if ($scope.nationalityChoice == 'Estrangeiro' || $scope.nationalityChoice == 'Foreigner') {
                         $scope.nationalityDocs = foreignAttributes;
-                        $scope.patientDocuments = [];
+                        // $scope.patientDocuments = [];
                     }
                 }
             };
@@ -291,29 +291,25 @@ angular.module('bahmni.registration')
                 }
             });
 
-            $scope.nationalityAttribute = function () {
+            $scope.nationalityAttribute = function (docz) {
+                $scope.nationalAttribute = docz;
                 $scope.patient.attribute = $scope.nationalAttribute;
-                $scope.docRemoved = $scope.nationalAttribute;
             };
-
             $scope.addDocumentRow = function () {
                 if ($scope.patientDocuments.includes($scope.nationalAttribute)) {
                     alert("Selecione outro documento");
                 }
                 else {
                     $scope.patientDocuments.push($scope.nationalAttribute);
+                    $scope.nationalityDocs.splice($scope.nationalityDocs.indexOf($scope.nationalAttribute), 1);
+                    $scope.nationalAttribute = "";
                 }
             };
-
-            $scope.removeDoc = function () {
-                $scope.nationalityDocs.splice($scope.docRemoved, 1);
-            };
-
-            $scope.removeDocumentRow = function (document) {
-                if ($scope.patientDocuments.includes(document)) {
-                    $scope.patientDocuments.splice($scope.patientDocuments.indexOf(document), 1);
-                    $scope.nationalityDocs.push(document);
-                    $scope.patient[document] = "";
+            $scope.removeDocumentRow = function (documnt) {
+                if ($scope.patientDocuments.includes(documnt)) {
+                    $scope.patientDocuments.splice($scope.patientDocuments.indexOf(documnt), 1);
+                    $scope.nationalityDocs.push(documnt);
+                    $scope.patient[documnt] = "";
                 }
                 else {
                     alert("Remova outro documento");
