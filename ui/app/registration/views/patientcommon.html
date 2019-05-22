@@ -563,17 +563,18 @@
 
             </section>
 
-
-
-
-
-
-
-
-
-
-
-
+                <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if = "attribute.name == 'MOTHER_NAME'" ng-class="::{'right-form-field' : $index%2 != 0}">
+                    <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
+                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
+                                     get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
+                </article>
+                  
+                  <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if = "attribute.name == 'FATHER_NAME'" ng-class="::{'right-form-field' : $index%2 != 0}">
+                    <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
+                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
+                                     get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
+                </article>
+        </section>
 
 
             <legend class="registraion_legend">
@@ -607,16 +608,11 @@
 
                 </section>
             </section>
-
-
-
-
-
-
-
-            <legend class="registraion_legend">
-                <span class="mylegend"> {{ ::'REGISTRATION_LABEL_ADDRESS_INFO' | translate}}</span>
-            </legend>
+              
+        <legend class="registraion_legend">
+            <span class="mylegend"> {{ ::'REGISTRATION_LABEL_ADDRESS_INFO' | translate}}</span>
+        </legend>
+              
 
             <section address-fields data-address-levels="::addressLevels" data-address="patient.address"
                 field-validation="::fieldValidation"
@@ -727,26 +723,27 @@
                 <span class="mylegend">{{ ::'REGISTRATION_LABEL_OTHER_INFO' | translate}}</span>
             </legend>
 
+              
             <section class="form-field-inline clearfix"
                 ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">
                 <article class="form-field" ng-repeat="attribute in ::attributeRow"
                     ng-class="::{'right-form-field' : $index%2 != 0}"
                     ng-if="attribute.name != 'NICK_NAME' && attribute.name != 'TYPE_OF_REGISTRATION' && attribute.name != 'education' && attribute.name != 'MARITAL_STATUS' && attribute.name != 'NATIONALITY'
                     && attribute.name != 'BI' && attribute.name != 'NUIC' && attribute.name != 'NUIT' && attribute.name != 'DIRE' && attribute.name != 'CEDULA_DE_NASCIMENTO'
-                    && attribute.name != 'CARTAO_DE_ELEITOR' && attribute.name != 'CEDULA_DE_NASCIMENTO' && attribute.name != 'PASSAPORTE_MOCAMBICANO' && attribute.name != 'PASSAPORTE_ESTRANGEIRO' && attribute.name != 'US_REG_DATE'">
-                    <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
+                    && attribute.name != 'CARTAO_DE_ELEITOR' && attribute.name != 'CEDULA_DE_NASCIMENTO' && attribute.name != 'PASSAPORTE_MOCAMBICANO' && attribute.name != 'PASSAPORTE_ESTRANGEIRO' && attribute.name != 'TRANSFERENCE_HF_NAME'  && attribute.name != 'TRANSFERENCE_HF_DISTRICT' && attribute.name != 'TRANSFERENCE_HF_PROVINCE' && attribute.name != 'US_REG_DATE'">
+
+<attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
                         is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
                         get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate">
                     </attribute-types>
                 </article>
             </section>
-
     </div>
 
     <div ng-repeat="section in ::patientConfiguration.getOrderedPatientAttributesSections()"
-        class="additional-info-wrapper" ng-if="section.title!='patientHIVTestInformation' &&  section.title!='patientContactInformation' 
+        class="additional-info-wrapper" ng-if="section.title!='patientHIVTestInformation' &&  section.title!='patientContactInformation'
          &&  section.title!='patientProfessionInformation'">
-        <div ng-if="section.canShow">
+        <div ng-if="section.canShow && patient.TYPE_OF_REGISTRATION.value === 'TRANSFERRED_PATIENT'">
             <div class="box-container form" ng-if="::(section.attributes.length > 0 && section.title)">
                 <legend class="additional-attribute" toggle="section.expand">
                     <span>
@@ -767,8 +764,12 @@
                         <attribute-types target-model="patient" attribute="::attribute"
                             field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
                             get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                            is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
+                            is-read-only="isReadOnly" handle-update="handleUpdate" ng-if="attribute.name !== 'PATIENT_STATUS' && attribute.name !== 'TRANSFERRED_OUT_HF_NAME'"></attribute-types>
                     </article>
+                    <div class="testlocation"><b>{{'TRANSFERED_OUT_FROM' | translate}}</b></div>
+                    <section transference-health-facility-address-fields data-address-levels="::addressLevels" data-address="patient.address"
+                             field-validation="::fieldValidation" ng-if="::addressHierarchyConfigs.showAddressFieldsTopDown"
+                             strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel"></section>
                 </section>
             </div>
         </div>
@@ -818,15 +819,6 @@
                             get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
                             is-read-only="isReadOnly" handle-update="handleUpdate"
                             handle-sector-change="handleSectorChange"></attribute-types>
-                    </article>
-
-                    <article class="form-field" ng-repeat="attribute in ::section.attributes"
-                        ng-if="attribute.name == 'ATIP_SELECT'" ng-class="::{'right-form-field' : $index%2 != 0}"
-                        ng-show="isATIPSelectShown" style="visibility: hidden;">
-                        <attribute-types target-model="patient" attribute="::attribute"
-                            field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                            get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                            is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                     </article>
 
                     <article class="form-field" ng-repeat="attribute in ::section.attributes"
