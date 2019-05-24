@@ -148,6 +148,7 @@
             <legend class="registraion_legend">
                 <span class="mylegend"> {{ ::'REGISTRATION_PERSONAL_INFORMATION' | translate}}</span>
             </legend>
+            <section ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">
 
             <section ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">
                 <article class="form-field" ng-repeat="attribute in ::attributeRow"
