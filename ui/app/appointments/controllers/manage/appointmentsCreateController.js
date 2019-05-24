@@ -69,6 +69,7 @@ angular.module('bahmni.appointments')
 
                 $scope.validatedAppointment = Bahmni.Appointments.Appointment.create($scope.appointment);
                 var conflictingAppointments = getConflictingAppointments($scope.validatedAppointment);
+                console.log(conflictingAppointments);
                 if (conflictingAppointments.length === 0) {
                     return saveAppointment($scope.validatedAppointment);
                 } else {
@@ -475,7 +476,13 @@ angular.module('bahmni.appointments')
 
             var checkForConflict = function (existingAppointment, newAppointment) {
                 var isOnSameDay = moment(existingAppointment.startDateTime).diff(moment(newAppointment.startDateTime), 'days') === 0;
+                console.log("day:"+isOnSameDay);
                 var isAppointmentTimingConflicted = isNewAppointmentConflictingWithExistingAppointment(existingAppointment, newAppointment);
+                var isAppointmentSameService = existingAppointment.service.uuid === newAppointment.serviceUuid;
+                console.log("service:"+isAppointmentSameService);
+                console.log(existingAppointment.uuid !== newAppointment.uuid &&
+                    existingAppointment.status !== 'Cancelled' &&
+                    isOnSameDay && isAppointmentTimingConflicted && isAppointmentSameService);
                 return existingAppointment.uuid !== newAppointment.uuid &&
                     existingAppointment.status !== 'Cancelled' &&
                     isOnSameDay && isAppointmentTimingConflicted;
