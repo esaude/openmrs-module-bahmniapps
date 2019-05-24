@@ -2,7 +2,7 @@
 
 angular.module('bahmni.registration')
     .directive('patientAction', ['$window', '$location', '$state', 'spinner', '$rootScope', '$stateParams',
-        '$bahmniCookieStore', 'appService', 'visitService', 'sessionService', 'encounterService',
+        '$bahmniCookieStore', 'appService', 'visitService','sessionService', 'encounterService',
         'messagingService', '$translate', 'auditLogService',
         function ($window, $location, $state, spinner, $rootScope, $stateParams,
             $bahmniCookieStore, appService, visitService, sessionService, encounterService,
@@ -84,8 +84,20 @@ angular.module('bahmni.registration')
                     defaultVisitType, encounterService, $translate, visitService
                 );*/
 
+
+                var getVisitHistory = function() {
+
+                    return visitService.search({patient: uuid, v: 'custom:(uuid,visitType,startDatetime,stopDatetime,location,encounters:(uuid))', includeInactive: true})
+                        .then(function (data) {
+                           console.log("Response",data);
+                            });
+
+                        };
+
+
+
                 var visitHist = function () {
-                    return visitService.search({
+ /*                   return visitService.search({
                         patient: uuid, includeInactive: true, v: "custom:(uuid,location:(uuid))"
                     }).then(function (response) {
                         console.log(response);
@@ -96,26 +108,18 @@ angular.module('bahmni.registration')
                             $scope.visitSummary = new Bahmni.Common.VisitSummary(response.data);
                         });
 
-                        /*var activeVisitForCurrentLoginLocation;
-                        if (results) {
-                            activeVisitForCurrentLoginLocation = _.filter(results, function (result) {
-                                return result.location.uuid === visitLocationUuid;
-                            });
-                        }
+                    });*/
 
-                        var hasActiveVisit = activeVisitForCurrentLoginLocation.length > 0;
-                        vm.visitUuid = hasActiveVisit ? activeVisitForCurrentLoginLocation[0].uuid : "";
-                        $scope.canCloseVisit = isUserPrivilegedToCloseVisit() && hasActiveVisit;
-                    */});
+                        return getVisitHistory(uuid);
                     
                 };
                 visitHist();
-                console.log(visitHist);
+
 
                 var allVisits = $rootScope.regEncounterConfiguration.getVisitTypesAsArray();
                 var startVisits = [allVisits[2], allVisits[3]];
-                console.log(allVisits);
-                console.log(startVisits);
+                console.log("ALL ",allVisits);
+                //console.log(startVisits);
 
                 $scope.visitControl = new Bahmni.Common.VisitControl(
                     startVisits, defaultVisitType, encounterService, $translate, visitService
