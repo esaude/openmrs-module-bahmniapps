@@ -123,10 +123,14 @@
     "SEVERELY OBESE": "Obesidade Aguda",
     "VERY SEVERELY OBESE": "Obesidade Aguda Grave",
     "REGISTRATION_LABEL_ENTER_VALID_WEIGHT": "O valor do peso não deve ter mais de 2 casas decimais",
-    "FOLLOWUP_APSS_CONSULTATION":"Consulta Seguimento APSS&PP",
+    "FOLLOWUP_APSS_CONSULTATION":"Consulta APSS&PP",
+    "FOLLOWUP_APSS_CONSULTATION_A":"Consulta APSS&PP de Seguimento",
     "FIRST_APSS_CONSULTATION":"Consulta APSS&PP",
+    "FIRST_APSS_CONSULTATION_A":"Primeira Consulta APSS&PP",
     "FIRST_CLINICAL_CONSULTATION":"Consulta Clínica",
-    "FOLLOWUP_CLINICAL_CONSULTATION":"Consulta Seguimento Clinica",
+    "FIRST_CLINICAL_CONSULTATION_A":"Primeira Consulta Clínica",
+    "FOLLOWUP_CLINICAL_CONSULTATION":"Consulta Clinica",
+    "FOLLOWUP_CLINICAL_CONSULTATION_A":"Consulta Clinica de Seguimento",
     "REGISTRATION_PERSONAL_INFORMATION":"Detalhes pessoais",
     "REGISTRATION_PROFESSIONAL_INFORMATION":"Informação profissional",
     "FATHER_NAME": "Nome do Pai",
@@ -140,5 +144,6 @@
     "REGISTRATION_LABEL_US_REG_DATE": "Data de Registo na US",
     "REGISTRATION_LABEL_PASSPORT_MOZ": "Passporte Mocambicano",
     "REGISTRATION_LABEL_PASSPORT_FOR": "Passaporte Estrangeiro",
-    "TRANSFERED_OUT_FROM": "Proveniência"
+    "TRANSFERED_OUT_FROM": "Proveniência",
+    "REGISTRATION_LABEL_VISIT_TYPE":"Tipo de Visita:"
 }

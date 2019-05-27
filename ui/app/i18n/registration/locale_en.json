@@ -150,10 +150,12 @@
   "SEVERELY OBESE": "Severely Obese",
   "VERY SEVERELY OBESE": "Very Severely Obese",
   "REGISTRATION_LABEL_ENTER_VALID_WEIGHT": "Weight value should not contain more than 2 decimals",
-  "FOLLOWUP_APSS_CONSULTATION":"Follow Up APSS&PP Consultation",
+  "FOLLOWUP_APSS_CONSULTATION":"APSS&PP Consultation",
   "FIRST_APSS_CONSULTATION":"APSS&PP Consultation",
+  "FIRST_APSS_CONSULTATION_A":"First APSS&PP Consultation",
   "FIRST_CLINICAL_CONSULTATION":"Clinical Consultation",
-  "FOLLOWUP_CLINICAL_CONSULTATION":"Follow Up Clinical Consultation",
+  "FIRST_CLINICAL_CONSULTATION_A":"First Clinical Consultation",
+  "FOLLOWUP_CLINICAL_CONSULTATION":"Clinical Consultation",
   "REGISTRATION_PERSONAL_INFORMATION":"Personal Details",
   "REGISTRATION_PROFESSIONAL_INFORMATION":"Professional Information",
   "FATHER_NAME": "Father Name",
@@ -170,5 +172,6 @@
   "REGISTRATION_LABEL_US_REG_DATE": "Health Facility Registration Date",
   "REGISTRATION_LABEL_PASSPORT_MOZ": "Mozambican Passport",
   "REGISTRATION_LABEL_PASSPORT_FOR": "Foreigner Passport",
-  "TRANSFERED_OUT_FROM": "Provenance"
+  "TRANSFERED_OUT_FROM": "Provenance",
+  "REGISTRATION_LABEL_VISIT_TYPE":"Visit Type:"
 }
