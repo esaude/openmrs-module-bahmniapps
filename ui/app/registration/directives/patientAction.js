@@ -2,12 +2,12 @@
 
 angular.module('bahmni.registration')
     .directive('patientAction', ['$window', '$location', '$state', 'spinner', '$rootScope', '$stateParams',
-        '$bahmniCookieStore', 'appService', 'visitService','sessionService', 'encounterService',
+        '$bahmniCookieStore', 'appService', 'visitService', 'sessionService', 'encounterService',
         'messagingService', '$translate', 'auditLogService',
         function ($window, $location, $state, spinner, $rootScope, $stateParams,
             $bahmniCookieStore, appService, visitService, sessionService, encounterService,
-            messagingService, $translate, auditLogService) {
-            var controller = function ($scope) {
+            messagingService, $translate) {
+            var controller = function ($scope, $timeout) {
                 var self = this;
                 var uuid = $stateParams.patientUuid;
                 var editActionsConfig = appService.getAppDescriptor().getExtensions(Bahmni.Registration.Constants.nextStepConfigId, "config") || [];
@@ -79,66 +79,122 @@ angular.module('bahmni.registration')
                     }));
                 };
 
-                /*$scope.visitControl = new Bahmni.Common.VisitControl(
-                    $rootScope.regEncounterConfiguration.getVisitTypesAsArray(),
-                    defaultVisitType, encounterService, $translate, visitService
-                );*/
+                $scope.visitTable = [];
+                $scope.allVisits = $rootScope.regEncounterConfiguration.getVisitTypesAsArray();
+                console.log($scope.allVisits);
 
-
-                var getVisitHistory = function() {
-
-                    return visitService.search({patient: uuid, v: 'custom:(uuid,visitType,startDatetime,stopDatetime,location,encounters:(uuid))', includeInactive: true})
+                var getVisitHistory = function () {
+                    var historyTable = [];
+                    var visitTb = []
+                    return visitService.search({ patient: uuid, v: 'custom:(uuid,visitType,startDatetime,stopDatetime,location,encounters:(uuid))', includeInactive: true })
                         .then(function (data) {
-                           console.log("Response",data);
-                            });
+                            historyTable = data.data.results;
 
-                        };
+                            // get all visits, counts and date, location??
+                            for (var i = 0; i <= historyTable.length; i++) {
+                                if (historyTable[i] == undefined) { }
+                                else {
+                                    visitTb.push({ "type": historyTable[i].visitType.display, "date": historyTable[i].stopDatetime, "encounters": historyTable[i].encounters.length })
+                                }
+                            }
+                            $scope.visitTable = visitTb;
+                        })
+                };
+                getVisitHistory();
 
+                $timeout(function () {
+                    var visitTableList = []
+                    $scope.visitTable.forEach( function(item,index,array){
+                        visitTableList.push($scope.visitTable[index].type);
+                    });
+                    if (visitTableList == undefined) {
+                         $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                        }
+                     else if (visitTableList == "") {
+                         $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                        }
+                     else if (visitTableList.includes("FIRST_APSS_CONSULTATION", "FIRST_CLINICAL_CONSULTATION") == true) {
+                         $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[1]];
+                        }
+ 
+                     else if (visitTableList.includes("FIRST_APSS_CONSULTATION") == true) {
+                         $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[2]];
+                        }
+ 
+                     else if (visitTableList.includes("FIRST_CLINICAL_CONSULTATION") == true) {
+                         $scope.startVisits = [$scope.allVisits[1], $scope.allVisits[3]];
+                        }
 
+                         else if (visitTableList.includes("FIRST CONSULTATION") == true){
+                            $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                        }
+                        /* switch (visitTableList) {
+                        case (visitTableList == undefined):
+                            $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                            console.log("1");
+                            break;
+                        case (visitTableList == ""):
+                            $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                            console.log("2");
+                            break;
+                        case (visitTableList.includes("FIRST_APSS_CONSULTATION", "FIRST_CLINICAL_CONSULTATION") == true):
+                            $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[1]];
+                            console.log("3");
+                            break;
 
-                var visitHist = function () {
- /*                   return visitService.search({
-                        patient: uuid, includeInactive: true, v: "custom:(uuid,location:(uuid))"
-                    }).then(function (response) {
-                        console.log(response);
-                        var results = response.data;
-                        console.log(results);
+                        case (visitTableList.includes("FIRST_APSS_CONSULTATION") == true):
+                            $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[2]];
+                            console.log("4");
+                            break;
 
-                        visitService.getVisitSummary(response.data.visitUuid).then(function (response) {
-                            $scope.visitSummary = new Bahmni.Common.VisitSummary(response.data);
+                        case (visitTableList.includes("FIRST_CLINICAL_CONSULTATION") == true):
+                            $scope.startVisits = [$scope.allVisits[1], $scope.allVisits[3]];
+                            console.log("5");
+                            break;
+
+                            case (visitTableList.includes("FIRST CONSULTATION") == true):
+                            $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                            console.log("6");
+                            break;
+
+                    } */
+                    console.log($scope.startVisits);
+                }, 3000);
+                /* if (uuid != undefined) {
+                    var visitHist = visitService.search({ patient: uuid, v: 'custom:(uuid,visitType,startDatetime,stopDatetime,location,encounters:(uuid))', includeInactive: true })
+                        .then(function (data) {
+                            console.log("Response", data.data.results)
                         });
+                }
+                else { visitHist = "" };
+                
+                $scope.allVisits = $rootScope.regEncounterConfiguration.getVisitTypesAsArray();
+                
+                if (visitHist.length == 0) {
+                
+                    $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                }
+                else {
+                    $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[1]];
+                
+                } */
+                $timeout(function () {
+                    $scope.visitControl = new Bahmni.Common.VisitControl(
+                        $scope.startVisits, defaultVisitType, encounterService, $translate, visitService
+                    );
 
-                    });*/
+                    $scope.visitControl.onStartVisit = function () {
+                        $scope.setSubmitSource('startVisit');
+                    };
 
-                        return getVisitHistory(uuid);
-                    
-                };
-                visitHist();
+                    $scope.setSubmitSource = function (source) {
+                        $scope.actions.submitSource = source;
+                    };
 
-
-                var allVisits = $rootScope.regEncounterConfiguration.getVisitTypesAsArray();
-                var startVisits = [allVisits[2], allVisits[3]];
-                console.log("ALL ",allVisits);
-                //console.log(startVisits);
-
-                $scope.visitControl = new Bahmni.Common.VisitControl(
-                    startVisits, defaultVisitType, encounterService, $translate, visitService
-                );
-
-                console.log($scope.visitControl);
-                console.log($scope.patient);
-
-                $scope.visitControl.onStartVisit = function () {
-                    $scope.setSubmitSource('startVisit');
-                };
-
-                $scope.setSubmitSource = function (source) {
-                    $scope.actions.submitSource = source;
-                };
-
-                $scope.showStartVisitButton = function () {
-                    return showStartVisitButton;
-                };
+                    $scope.showStartVisitButton = function () {
+                        return showStartVisitButton;
+                    }
+                }, 5000);
 
                 var goToForwardUrlPage = function (patientData) {
                     var forwardUrl = appService.getAppDescriptor().formatUrl($scope.activeVisitConfig.forwardUrl, { 'patientUuid': patientData.patient.uuid });
@@ -147,7 +203,6 @@ angular.module('bahmni.registration')
 
                 $scope.actions.followUpAction = function (patientProfileData) {
                     messagingService.clearAll();
-                    console.log(patientProfileData);
                     switch ($scope.actions.submitSource) {
                         case 'startVisit':
                             var entry = getForwardUrlEntryForVisitFromTheConfig();
@@ -176,7 +231,6 @@ angular.module('bahmni.registration')
                 var goToVisitPage = function (patientData) {
                     $scope.patient.uuid = patientData.patient.uuid;
                     $scope.patient.name = patientData.patient.person.names[0].display;
-                    console.log($scope.patient);
                     $location.path("/patient/" + patientData.patient.uuid + "/visit");
                 };
 
