@@ -115,15 +115,15 @@ angular.module('bahmni.registration')
                         else if (visitTableList == "") {
                             $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
                         }
-                        else if (visitTableList.includes("FIRST_APSS_CONSULTATION", "FIRST_CLINICAL_CONSULTATION") == true) {
+                        else if (visitTableList.includes("FIRST_APSS_CONSULTATION", "FIRST_CLINICAL_CONSULTATION") === true) {
                             $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[1]];
                         }
 
-                        else if (visitTableList.includes("FIRST_APSS_CONSULTATION") == true) {
+                        else if (visitTableList.includes("FIRST_APSS_CONSULTATION") === true) {
                             $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[2]];
                         }
 
-                        else if (visitTableList.includes("FIRST_CLINICAL_CONSULTATION") == true) {
+                        else if (visitTableList.includes("FIRST_CLINICAL_CONSULTATION") === true) {
                             $scope.startVisits = [$scope.allVisits[1], $scope.allVisits[3]];
                         }
 
