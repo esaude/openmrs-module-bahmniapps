@@ -140,6 +140,7 @@
   "RESET_KEY": "Restabelecer",
   "SATURDAY": "Sab",
   "SAVE_CONFIRMATION_DIALOG_CONFLICT_KEY": "Este paciente já tem uma marcação para esta hora. Pretende continuar a editar o horário?",
+  "SAVE_CONFIRMATION_DIALOG_CONFLICT_KEY2": "Este paciente já tem uma marcação com este serviço para esta hora. Por favor mude o horario ou o serviço.",
   "SAVE_CONFIRMATION_OPTION_CONFLICT_CANCEL_KEY": "Voltar para editar",
   "SAVE_CONFIRMATION_OPTION_CONFLICT_SAVE_KEY": "Avançar e gravar",
   "SEARCH_KEY": "Pesquisar ...",
