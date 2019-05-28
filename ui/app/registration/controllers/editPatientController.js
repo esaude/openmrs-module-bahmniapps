@@ -54,7 +54,7 @@ angular.module('bahmni.registration')
                         $scope.nationalityDocs = "";
                     }
                     else {
-                        for (var i = 0; i <= $scope.nationalityDocs.length; i++) {
+                        for (var i = -1; i <= $scope.nationalityDocs.length; i++) {
                             _.each($scope.nationalityDocs, function (doc) {
                                 if ($scope.patient[doc] == undefined) {
                                     $scope.patient[doc] = "";
@@ -95,7 +95,7 @@ angular.module('bahmni.registration')
                 $scope.$watch('patient.NATIONALITY.value', function (newValue, oldValue) {
                     if (newValue != oldValue) {
                         if (oldValue == undefined) {
-                            $scope.nationality();
+                            nationalityVar();
                         }
                         else {
                             for (var i = 0; i <= $scope.nationalityDocs.length; i++) {
@@ -103,7 +103,7 @@ angular.module('bahmni.registration')
                             }
 
                             $scope.editPatientDocuments = [];
-                            $scope.nationality();
+                            nationalityVar();
                         }
                     }
                 });
