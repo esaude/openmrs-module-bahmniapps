@@ -281,8 +281,7 @@ angular.module('bahmni.registration')
                         $scope.nationality();
                     }
                     else {
-                        var i;
-                        for (i = 0; i <= $scope.nationalityDocs.length; i++) {
+                        for (var i = 0; i <= $scope.nationalityDocs.length; i++) {
                             $scope.patient[$scope.nationalityDocs[i]] = "";
                         }
                         $scope.patientDocuments = [];
@@ -295,14 +294,14 @@ angular.module('bahmni.registration')
                 $scope.nationalAttribute = docz;
                 $scope.patient.attribute = $scope.nationalAttribute;
             };
-            $scope.addDocumentRow = function () {
-                if ($scope.patientDocuments.includes($scope.nationalAttribute)) {
+            $scope.addDocumentRow = function (dcmt) {
+                if ($scope.patientDocuments.includes(dcmt)) {
                     alert("Selecione outro documento");
                 }
                 else {
-                    $scope.patientDocuments.push($scope.nationalAttribute);
-                    $scope.nationalityDocs.splice($scope.nationalityDocs.indexOf($scope.nationalAttribute), 1);
-                    $scope.nationalAttribute = "";
+                    $scope.patientDocuments.push(dcmt);
+                    $scope.nationalityDocs.splice($scope.nationalityDocs.indexOf(dcmt), 1);
+                    // $scope.nationalAttribute = "";
                 }
             };
             $scope.removeDocumentRow = function (documnt) {
