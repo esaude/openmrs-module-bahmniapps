@@ -74,7 +74,6 @@ angular.module('bahmni.common.conceptSet')
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
                             if (currentObj.concept.name == 'Probable delivery date') {
                                 var currentEnteredDate = new Date(scope.observation.value);
-                                alert(currentEnteredDate);
                                 if(currentEnteredDate == 'Invalid Date'){
                                     var date ="";
                                     currentObj.value = date;
