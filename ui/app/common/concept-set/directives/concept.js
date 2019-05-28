@@ -74,10 +74,16 @@ angular.module('bahmni.common.conceptSet')
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
                             if (currentObj.concept.name == 'Probable delivery date') {
                                 var currentEnteredDate = new Date(scope.observation.value);
+                                alert(currentEnteredDate);
+                                if(currentEnteredDate == 'Invalid Date'){
+                                    var date ="";
+                                    currentObj.value = date;
+                                }else{
                                 currentEnteredDate = moment(currentEnteredDate).add(9, 'M');
                                 currentEnteredDate = moment(currentEnteredDate).add(7, 'days');
                                 currentEnteredDate = moment(currentEnteredDate).format('YYYY-MM-DD');
-                                currentObj.value = currentEnteredDate;
+                                  currentObj.value = currentEnteredDate;
+                                 }                             
                                 return currentObj;
                             }
                             return currentObj;
