@@ -119,9 +119,7 @@ angular.module('bahmni.registration')
                     else {
                         $scope.editPatientDocuments.push($scope.attributeChoice);
                         $scope.existDocs.splice($scope.existDocs.indexOf($scope.attributeChoice), 1);
-                        console.log($scope.attributeChoice);
                         $scope.attributeChoice = "";
-                        console.log($scope.attributeChoice);
                     }
                 };
                 $scope.removeEditDocRow = function (docu) {
