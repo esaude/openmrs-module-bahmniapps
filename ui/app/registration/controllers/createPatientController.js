@@ -16,6 +16,7 @@ angular.module('bahmni.registration')
             $scope.isHealthFacilityShown = false;
             $scope.NID = {};
             $scope.currentYear = new Date().getFullYear();
+            $rootScope.typeOfRegistrationSelected = "";
 
             var getPersonAttributeTypes = function () {
                 return $rootScope.patientConfiguration.attributeTypes;
