@@ -79,12 +79,14 @@ angular.module('bahmni.clinical')
                 var init = function () {
                     return $q.all([getVisits()]).then(function (results) {
                         $scope.visits = results[0].visits;
+                        console.log($scope.visits);
                         $scope.visits = _.map($scope.visits, function (current) {
                             if (current.stopDatetime) {
                                 if (current.encounters.length > 1) {
                                     current.visitStatus = "VISIT_STATUS_FINISHED";
                                     return current;
                                 }
+                                console.log(current);
                                 current.visitStatus = "VISIT_STATUS_ABSENT";
                                 return current;
                             }
