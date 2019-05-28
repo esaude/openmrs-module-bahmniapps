@@ -145,16 +145,11 @@
             </div>
         </section>
 
-        <section>
             <legend class="registraion_legend">
                 <span class="mylegend"> {{ ::'REGISTRATION_PERSONAL_INFORMATION' | translate}}</span>
             </legend>
 
-
             <section ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">
-                <!--class="form-field-inline clearfix"-->
-
-
                 <article class="form-field" ng-repeat="attribute in ::attributeRow"
                     ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'MARITAL_STATUS'">
                     <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
@@ -163,20 +158,36 @@
                     </attribute-types>
                 </article>
 
-                <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                    ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'NATIONALITY'">
+                <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if="attribute.name == 'MOTHER_NAME'"
+                         ng-class="::{'right-form-field' : $index%2 != 0}">
+                    <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
+                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
+                                     get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
+                </article>
 
-                    <attribute-types target-model="patient" attribute="::attribute" ng-Click="nationality()"
-                        field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                        get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                        is-read-only="isReadOnly" handle-update="handleUpdate">
-                    </attribute-types>
+                <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if="attribute.name == 'FATHER_NAME'"
+                         ng-class="::{'right-form-field' : $index%2 != 0}">
+                    <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
+                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
+                                     get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                 </article>
 
             </section>
 
+            <section ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">
+                <article class="form-field" ng-repeat="attribute in ::attributeRow"
+                         ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'NATIONALITY'">
 
-<section>
+                    <attribute-types target-model="patient" attribute="::attribute" ng-Click="nationality()"
+                                     field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
+                                     get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
+                                     is-read-only="isReadOnly" handle-update="handleUpdate">
+                    </attribute-types>
+                </article>
+            </section>
+
+
+        <section>
                     <!--NEW PATIENT-->
                     <div ng-show="patient.uuid==undefined && patient.NATIONALITY.value!= undefined">
     
@@ -330,6 +341,7 @@
                                             <i class="fa-remove fa fa-red small"></i>
                                         </button>
                                     </div>
+                                </div>
                             </article>
 
                             <article class="form-field" ng-repeat="attribute in ::attributeRow"
@@ -487,6 +499,7 @@
                                         <i class="fa-remove fa fa-red small"></i>
                                     </button>
                                 </div>
+                            </div>
                         </article>
 
                         <article class="form-field" ng-repeat="attribute in ::attributeRow"
@@ -549,17 +562,7 @@
 
             </section>
 
-                <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if = "attribute.name == 'MOTHER_NAME'" ng-class="::{'right-form-field' : $index%2 != 0}">
-                    <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
-                                     get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
-                </article>
 
-                <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if = "attribute.name == 'FATHER_NAME'" ng-class="::{'right-form-field' : $index%2 != 0}">
-                    <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
-                                     get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
-                </article>
         </section>
 
         <legend class="registraion_legend">
@@ -705,21 +708,21 @@
             <span class="mylegend">{{ ::'REGISTRATION_LABEL_OTHER_INFO' | translate}}</span>
         </legend>
 
-        <section class="form-field-inline clearfix"
-            ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">
-            <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                ng-class="::{'right-form-field' : $index%2 != 0}"
-                ng-if="attribute.name != 'NICK_NAME' && attribute.name != 'TYPE_OF_REGISTRATION' && attribute.name != 'education' && attribute.name != 'MARITAL_STATUS' && attribute.name != 'NATIONALITY'
-                    && attribute.name != 'BI' && attribute.name != 'NUIC' && attribute.name != 'NUIT' && attribute.name != 'DIRE' && attribute.name != 'Cedula_de_Nascimento'
-                    && attribute.name != 'Cartao_de_Eleitor' && attribute.name != 'Cedula_de_Nascimento' && attribute.name != 'Passaporte_Mocambicano' && attribute.name != 'Passaporte_Estrangeiro'
-                    && attribute.name != 'TRANSFERENCE_HF_NAME'  && attribute.name != 'TRANSFERENCE_HF_DISTRICT' && attribute.name != 'TRANSFERENCE_HF_PROVINCE' && attribute.name != 'US_REG_DATE'
-                    && attribute.name != 'TRANSFERED_OUT_HF_NAME' && attribute.name != 'Transferred out HF name'">
-                    <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                        is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
-                        get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate">
-                    </attribute-types>
-                </article>
-            </section>
+        <!--<section class="form-field-inline clearfix"-->
+            <!--ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">-->
+            <!--<article class="form-field" ng-repeat="attribute in ::attributeRow"-->
+                <!--ng-class="::{'right-form-field' : $index%2 != 0}"-->
+                <!--ng-if="attribute.name != 'NICK_NAME' && attribute.name != 'TYPE_OF_REGISTRATION' && attribute.name != 'education' && attribute.name != 'MARITAL_STATUS' && attribute.name != 'NATIONALITY'-->
+                    <!--&& attribute.name != 'BI' && attribute.name != 'NUIC' && attribute.name != 'NUIT' && attribute.name != 'DIRE' && attribute.name != 'Cedula_de_Nascimento'-->
+                    <!--&& attribute.name != 'Cartao_de_Eleitor' && attribute.name != 'Cedula_de_Nascimento' && attribute.name != 'Passaporte_Mocambicano' && attribute.name != 'Passaporte_Estrangeiro'-->
+                    <!--&& attribute.name != 'TRANSFERENCE_HF_NAME'  && attribute.name != 'TRANSFERENCE_HF_DISTRICT' && attribute.name != 'TRANSFERENCE_HF_PROVINCE' && attribute.name != 'US_REG_DATE'-->
+                    <!--&& attribute.name != 'TRANSFERED_OUT_HF_NAME' && attribute.name != 'Transferred out HF name'">-->
+                    <!--<attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"-->
+                        <!--is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"-->
+                        <!--get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate">-->
+                    <!--</attribute-types>-->
+                <!--</article>-->
+            <!--</section>-->
     </div>
 
     <div ng-repeat="section in ::patientConfiguration.getOrderedPatientAttributesSections()"
