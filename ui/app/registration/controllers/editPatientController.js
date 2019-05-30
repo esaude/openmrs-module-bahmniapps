@@ -33,7 +33,7 @@ angular.module('bahmni.registration')
                     }
                     else {
                         $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
-                        if ($scope.nationalityChoice == 'Mocambicano' || $scope.nationalityChoice == 'Mozambican') {
+                        if ($scope.nationalityChoice == 'Moçambicana' || $scope.nationalityChoice == 'Mozambican') {
                             var mozAttributes = ['BI', 'CARTAO_DE_ELEITOR', 'CEDULA_DE_NASCIMENTO', 'NUIT', 'NUIC', 'PASSAPORTE_MOCAMBICANO'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = mozAttributes;
@@ -77,7 +77,7 @@ angular.module('bahmni.registration')
                     }
                     else {
                         $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
-                        if ($scope.nationalityChoice == 'Mocambicano' || $scope.nationalityChoice == 'Mozambican') {
+                        if ($scope.nationalityChoice == 'Moçambicana' || $scope.nationalityChoice == 'Mozambican') {
                             var mozAttributes = ['BI', 'CARTAO_DE_ELEITOR', 'CEDULA_DE_NASCIMENTO', 'NUIT', 'NUIC', 'PASSAPORTE_MOCAMBICANO'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = mozAttributes;
