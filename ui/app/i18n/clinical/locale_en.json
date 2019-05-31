@@ -344,5 +344,14 @@
     "CLINICAL_LIST_PATIENT_NID":"NID",
     "ORDER_TYPE": "Lab Tests",
     "BIRTHDATE_ESTIMATED": "Estimated",
-    "CLINICAL_ORDER_URGENT_TITLE": "Urgent"
+    "CLINICAL_ORDER_URGENT_TITLE": "Urgent",
+    "FIRST_CLINICAL_CONSULTATION":"Clinical Consultation",
+    "FIRST_CLINICAL_CONSULTATION_A":"First Clinical Consultation",
+    "FIRST_APSS_CONSULTATION":"APSS&PP Consultation",
+    "FIRST_APSS_CONSULTATION_A":"First APSS&PP Consultation",
+    "FOLLOWUP_APSS_CONSULTATION":"APSS&PP Consultation",
+    "FOLLOWUP_APSS_CONSULTATION_A":"APSS&PP - Follow Up Consultation",
+    "FOLLOWUP_CLINICAL_CONSULTATION":"Clinical Consultation",
+    "FOLLOWUP_CLINICAL_CONSULTATION_A":"Clinical - Follow Up Consultation",
+    "BIRTHDATE_ESTIMATED": "Estimated"
 }
