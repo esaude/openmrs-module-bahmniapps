@@ -343,6 +343,8 @@
     "CLINICAL_LIST_PATIENT_REGISTRATION_DATE":"Registration Date",
     "CLINICAL_LIST_PATIENT_NID":"NID",
     "ORDER_TYPE": "Lab Tests",
+    "BIRTHDATE_ESTIMATED": "Estimated",
+    "CLINICAL_ORDER_URGENT_TITLE": "Urgent",
     "FIRST_CLINICAL_CONSULTATION":"Clinical Consultation",
     "FIRST_CLINICAL_CONSULTATION_A":"First Clinical Consultation",
     "FIRST_APSS_CONSULTATION":"APSS&PP Consultation",
