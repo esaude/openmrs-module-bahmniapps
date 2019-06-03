@@ -353,5 +353,6 @@
     "FOLLOWUP_APSS_CONSULTATION_A":"APSS&PP - Follow Up Consultation",
     "FOLLOWUP_CLINICAL_CONSULTATION":"Clinical Consultation",
     "FOLLOWUP_CLINICAL_CONSULTATION_A":"Clinical - Follow Up Consultation",
-    "BIRTHDATE_ESTIMATED": "Estimated"
+    "BIRTHDATE_ESTIMATED": "Estimated",
+    "SPECIAL_OPD": "Special OPD"
 }

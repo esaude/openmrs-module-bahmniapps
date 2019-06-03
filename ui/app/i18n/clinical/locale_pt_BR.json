@@ -362,5 +362,6 @@
 "FOLLOWUP_CLINICAL_CONSULTATION_A":"Consulta Clínica de Seguimento",
 "ORDER_TYPE": "Exames",
 "BIRTHDATE_ESTIMATED": "Estimado",
-"CLINICAL_ORDER_URGENT_TITLE": "Urgente"
+"CLINICAL_ORDER_URGENT_TITLE": "Urgente",
+  "SPECIAL_OPD": "OPD Especial"
  }
