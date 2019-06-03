@@ -22,7 +22,6 @@ angular.module('bahmni.appointments')
             var loginLocationUuid = sessionService.getLoginLocationUuid();
             $scope.minCharLengthToTriggerPatientSearch = appService.getAppDescriptor().getConfigValue('minCharLengthToTriggerPatientSearch') || 3;
             $scope.appointmentBlocks = appService.getAppDescriptor().getConfigValue('appointmentBlocks');
-            $scope.selectedAppointmentBlock;
 
             $scope.setBlockTimes = function () {
                 $scope.appointment.startTime = $scope.selectedAppointmentBlock.startTime;
@@ -48,6 +47,12 @@ angular.module('bahmni.appointments')
                 $scope.selectedService = appointmentCreateConfig.selectedService;
                 $scope.isPastAppointment = $scope.isEditMode() ? Bahmni.Common.Util.DateUtil.isBeforeDate($scope.appointment.date, moment().startOf('day')) : false;
                 $scope.appointment.patient = $state.params.patient;
+                $scope.appointment.date = $stateParams.selectedAppointmentDate || null;
+                $scope.selectedAppointmentBlock = $stateParams.selectedAppointmentBlock;
+                if ($scope.selectedAppointmentBlock) {
+                    $scope.appointment.startTime = $scope.selectedAppointmentBlock.startTime;
+                    $scope.appointment.endTime = $scope.selectedAppointmentBlock.endTime;
+                }
                 if ($scope.appointment.patient) {
                     $scope.onSelectPatient($scope.appointment.patient);
                 }
@@ -520,6 +525,8 @@ angular.module('bahmni.appointments')
                     params.isFilterOpen = true;
                     params.isSearchEnabled = params.isSearchEnabled && $scope.isEditMode();
                     params.patient = $scope.appointment.patient;
+                    params.selectedAppointmentDate = $scope.appointment.date;
+                    params.selectedAppointmentBlock = $scope.selectedAppointmentBlock;
                     $state.go('home.manage.appointments.list.new', params, { reload: true });
                 }));
             };
