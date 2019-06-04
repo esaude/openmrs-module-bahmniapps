@@ -85,7 +85,7 @@ angular.module('bahmni.clinical')
                                     current.visitStatus = "VISIT_STATUS_FINISHED";
                                     return current;
                                 }
-                                if (current.visitType.display === "Special OPD" || current.visitType.display === "SPECIAL_OPD" || current.visitType.display === "SPECIAL OPD" ) {
+                                if (current.visitType.display === "Special OPD" || current.visitType.display === "SPECIAL_OPD" || current.visitType.display === "SPECIAL OPD") {
                                     current.visitStatus = "VISIT_STATUS_FINISHED";
                                     return current;
                                 }
