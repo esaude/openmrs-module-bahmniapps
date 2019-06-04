@@ -64,13 +64,13 @@
                         <td><a ng-click="forwardPatient(patient)">{{::patient.identifier}}</a></td>
                         <td>{{::patient.givenName}}</td>
                         <td>{{::patient.familyName}}</td>
-                        <td>{{::patient.customAttribute['NICK_NAME'] || "" || bahmniDateInStrictMode}}</td>
+                        <td ng-repeat = "field in ::personSearchResultsConfig track by $index" ng-if="field=='NICK_NAME'">{{::patient.customAttribute[field] || "" | bahmniDateInStrictMode}}</td>
                         <td>{{::patient.gender}}</td>
                         <td>{{::patient.age}}</td>
                         <td ng-if="!patient.birthdateEstimated">{{::patient.birthDate | date:'dd-MM-y'}}</td>
                         <td ng-if="patient.birthdateEstimated">{{::patient.birthDate | date:'dd-MM-y'}}&nbsp;&nbsp;&nbsp;({{::'BIRTHDATE_ESTIMATED' | translate}})</td>
-                        <td>{{::patient.customAttribute['PRIMARY_CONTACT_NUMBER_1'] || "" || bahmniDateInStrictMode}}</td>
-                        <td>{{::patient.customAttribute['PATIENT_STATUS'] || "" || bahmniDateInStrictMode}}</td>
+                        <td ng-repeat = "field in ::personSearchResultsConfig track by $index" ng-if="field=='PRIMARY_CONTACT_NUMBER_1'">{{::patient.customAttribute[field] || "" | bahmniDateInStrictMode}}</td>
+                        <td ng-repeat = "field in ::personSearchResultsConfig track by $index" ng-if="field=='PATIENT_STATUS'">{{::patient.customAttribute[field] || "" | bahmniDateInStrictMode}}</td>
                         <td>{{::patient.dateCreated | date:'dd-MM-y'}}</td>
                     </tr>
                     </tbody>
