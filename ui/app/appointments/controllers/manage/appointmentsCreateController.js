@@ -80,7 +80,7 @@ angular.module('bahmni.appointments')
                 if ($scope.conflictingAppointmentsArray.length === 0 || $scope.conflictingAppointmentsArray.includes($scope.validatedAppointment.serviceUuid) === false) {
                     saveAppointment($scope.validatedAppointment);
                 }
-                else if ($scope.conflictingAppointmentsArray.length != 0 && $scope.conflictingAppointmentsArray.includes($scope.validatedAppointment.serviceUuid) === true) {
+                else if ($scope.conflictingAppointmentsArray.length !== 0 && $scope.conflictingAppointmentsArray.includes($scope.validatedAppointment.serviceUuid) === true) {
                     $scope.allow = true;
                     $scope.displayConflictConfirmationDialog();
                 }
