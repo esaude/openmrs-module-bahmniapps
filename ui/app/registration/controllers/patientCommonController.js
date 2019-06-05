@@ -264,11 +264,11 @@ angular.module('bahmni.registration')
                 }
                 else {
                     $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
-                    if ($scope.nationalityChoice == 'Moçambicana' || $scope.nationalityChoice == 'Mozambican') {
+                    if ($scope.nationalityChoice == 'Mocambicana' || $scope.nationalityChoice == 'Mozambican') {
                         $scope.nationalityDocs = mozAttributes;
                         // $scope.patientDocuments = [];
                     }
-                    else if ($scope.nationalityChoice == 'Estrangeiro' || $scope.nationalityChoice == 'Foreigner') {
+                    else if ($scope.nationalityChoice == 'Outra' || $scope.nationalityChoice == 'Other') {
                         $scope.nationalityDocs = foreignAttributes;
                         // $scope.patientDocuments = [];
                     }

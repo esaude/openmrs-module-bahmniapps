@@ -33,13 +33,13 @@ angular.module('bahmni.registration')
                     }
                     else {
                         $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
-                        if ($scope.nationalityChoice == 'Moçambicana' || $scope.nationalityChoice == 'Mozambican') {
+                        if ($scope.nationalityChoice == 'Mocambicana' || $scope.nationalityChoice == 'Mozambican') {
                             var mozAttributes = ['BI', 'CARTAO_DE_ELEITOR', 'CEDULA_DE_NASCIMENTO', 'NUIT', 'NUIC', 'PASSAPORTE_MOCAMBICANO'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = mozAttributes;
                             $scope.existDocs = $scope.nationalityDocs;
                         }
-                        else if ($scope.nationalityChoice == 'Estrangeiro' || $scope.nationalityChoice == 'Foreigner') {
+                        else if ($scope.nationalityChoice == 'Outra' || $scope.nationalityChoice == 'Other') {
                             var foreignAttributes = ['DIRE', 'NUIT', 'PASSAPORTE_ESTRANGEIRO'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = foreignAttributes;
@@ -77,13 +77,13 @@ angular.module('bahmni.registration')
                     }
                     else {
                         $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
-                        if ($scope.nationalityChoice == 'Moçambicana' || $scope.nationalityChoice == 'Mozambican') {
+                        if ($scope.nationalityChoice == 'Mocambicana' || $scope.nationalityChoice == 'Mozambican') {
                             var mozAttributes = ['BI', 'CARTAO_DE_ELEITOR', 'CEDULA_DE_NASCIMENTO', 'NUIT', 'NUIC', 'PASSAPORTE_MOCAMBICANO'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = mozAttributes;
                             $scope.existDocs = $scope.nationalityDocs;
                         }
-                        else if ($scope.nationalityChoice == 'Estrangeiro' || $scope.nationalityChoice == 'Foreigner') {
+                        else if ($scope.nationalityChoice == 'Outra' || $scope.nationalityChoice == 'Other') {
                             var foreignAttributes = ['DIRE', 'NUIT', 'PASSAPORTE_ESTRANGEIRO'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = foreignAttributes;
