@@ -88,8 +88,7 @@
                         {{'APPOINTMENT_SELECT_BLOCK_KEY' | translate}}<sup class="asterick">*</sup>
                     </label>
                     <select id="appointmentBlock" ng-change="setBlockTimes()" ng-model="selectedAppointmentBlock"
-                            ng-options="appointmentBlock.name | translate for appointmentBlock in appointmentBlocks">
-                        <option value=""></option>
+                            ng-options="appointmentBlock.name | translate for appointmentBlock in appointmentBlocks track by appointmentBlock.name">
                     </select>
                 </p>
                 <p class="walk-in-app">
