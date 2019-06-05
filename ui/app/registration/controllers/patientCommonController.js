@@ -271,7 +271,7 @@ angular.module('bahmni.registration')
                         }
                         $scope.patientDocuments = [];
                     }
-                    else if ($scope.nationalityChoice == 'Estrangeiro' || $scope.nationalityChoice == 'Foreigner') {
+                    else if ($scope.nationalityChoice == 'Estrangeira' || $scope.nationalityChoice == 'Foreigner') {
                         $scope.nationalityDocs = foreignAttributes;
                         for (var i = 0; i <= $scope.nationalityDocs.length; i++) {
                             $scope.patient[$scope.nationalityDocs[i]] = "";
