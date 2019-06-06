@@ -97,7 +97,7 @@ angular.module('bahmni.common.conceptSet')
                             }
                             if (currentObj.concept.name == 'Probable delivery date') {
                             
-                                    if(scope.observation.value == true) {
+                                    if(scope.observation.value === true) {
                                     currentEnteredDate = moment(currentEnteredDate).add(9, 'M');
                                     currentEnteredDate = moment(currentEnteredDate).add(7, 'days');
                                     currentEnteredDate = moment(currentEnteredDate).format('YYYY-MM-DD');
