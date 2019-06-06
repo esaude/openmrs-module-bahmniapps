@@ -321,12 +321,12 @@
 "SELECTED_ORDERS_LABEL":"Requisições seleccionadas",
 "TAKE_PATIENT_PHOTO_TITTLE": "Capturar a foto do paciente",
 "TIME_OF_BIRTH_LABEL": "Hora de Nascimento ",
-"Treatment Date": "Data de tratamento",
+"Treatme7nt Date": "Data de tratamento",
 "TREATMENT_CHART_HEADER_LABEL":"Gráfico de tratamento",
 "TREATMENT_NOTES": "Notas do tratamento",
 "TREATMENT_SL_NO": "S. Não.",
 "TREATMENTS_SUMMARY_PRESCRIPTION_KEY": "Prescrições",
-"VISIT_ON_TRANSLATION_KEY": "Última Visita",
+"VISIT_ON_TRANSLATION_KEY": "Última Visita:",
 "VISIT_STATUS_ABSENT":"Faltoso",
 "VISIT_STATUS_FINISHED":"Encerrada",
 "VISIT_STATUS_PROGRESS":"Em progresso",
@@ -363,5 +363,6 @@
 "ORDER_TYPE": "Exames",
 "BIRTHDATE_ESTIMATED": "Estimado",
 "CLINICAL_ORDER_URGENT_TITLE": "Urgente",
-  "SPECIAL_OPD": "OPD Especial"
+  "SPECIAL_OPD": "OPD Especial",
+   "NO_VITALS_MESSAGE": "Nenhum dado registado para este paciente"
  }
