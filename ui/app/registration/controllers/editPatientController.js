@@ -39,7 +39,7 @@ angular.module('bahmni.registration')
                             $scope.nationalityDocs = mozAttributes;
                             $scope.existDocs = $scope.nationalityDocs;
                         }
-                        else if ($scope.nationalityChoice == 'Estrangeiro' || $scope.nationalityChoice == 'Foreigner') {
+                        else if ($scope.nationalityChoice == 'Estrangeira' || $scope.nationalityChoice == 'Foreigner') {
                             var foreignAttributes = ['DIRE', 'NUIT', 'PASSAPORTE_ESTRANGEIRO'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = foreignAttributes;
@@ -83,7 +83,7 @@ angular.module('bahmni.registration')
                             $scope.nationalityDocs = mozAttributes;
                             $scope.existDocs = $scope.nationalityDocs;
                         }
-                        else if ($scope.nationalityChoice == 'Estrangeiro' || $scope.nationalityChoice == 'Foreigner') {
+                        else if ($scope.nationalityChoice == 'Estrangeira' || $scope.nationalityChoice == 'Foreigner') {
                             var foreignAttributes = ['DIRE', 'NUIT', 'PASSAPORTE_ESTRANGEIRO'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = foreignAttributes;
