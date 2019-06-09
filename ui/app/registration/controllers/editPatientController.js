@@ -2,9 +2,9 @@
 
 angular.module('bahmni.registration')
     .controller('EditPatientController', ['$scope', 'patientService', 'encounterService', '$stateParams', 'openmrsPatientMapper',
-        '$window', '$q', 'spinner', 'appService', 'messagingService', '$rootScope', 'auditLogService',
+        '$window', '$q', 'spinner', 'appService', 'messagingService', '$rootScope', 'auditLogService', '$timeout',
         function ($scope, patientService, encounterService, $stateParams, openmrsPatientMapper, $window, $q, spinner,
-            appService, messagingService, $rootScope, auditLogService) {
+            appService, messagingService, $rootScope, auditLogService, $timeout) {
             var dateUtil = Bahmni.Common.Util.DateUtil;
             var uuid = $stateParams.patientUuid;
             $scope.patient = {};
@@ -26,6 +26,7 @@ angular.module('bahmni.registration')
                 $scope.openMRSPatient = openmrsPatient["patient"];
                 $scope.patient = openmrsPatientMapper.map(openmrsPatient);
                 $scope.editPatientDocuments = [];
+                console.log(openmrsPatientMapper.map(openmrsPatient));
 
                 var nationalityVar = function () {
                     if ($scope.patient.NATIONALITY == undefined) {
@@ -52,12 +53,14 @@ angular.module('bahmni.registration')
                 var existingPatientDocs = function () {
                     if ($scope.nationalityDocs == undefined) {
                         $scope.nationalityDocs = "";
+                        return;
                     }
                     else {
                         for (var i = -1; i <= $scope.nationalityDocs.length; i++) {
                             _.each($scope.nationalityDocs, function (doc) {
                                 if ($scope.patient[doc] == undefined) {
-                                    $scope.patient[doc] = "";
+                                    // $scope.patient[doc] = "";
+                                    return;
                                 }
                                 else {
                                     if ($scope.patient[doc].length > 0) {
@@ -113,7 +116,7 @@ angular.module('bahmni.registration')
                     $scope.patient.attribute = $scope.attributeChoice;
                 };
                 $scope.addEditDocRow = function () {
-                    if ($scope.editPatientDocuments.includes($scope.attributeChoice)) {
+                    if ($scope.editPatientDocuments.includes($scope.attributeChoice) || $scope.attributeChoice == undefined || !$scope.nationalityDocs.includes($scope.attributeChoice)) {
                         alert("Selecione outro documento");
                     }
                     else {

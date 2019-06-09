@@ -301,7 +301,7 @@ angular.module('bahmni.registration')
                 $scope.patient.attribute = $scope.nationalAttribute;
             };
             $scope.addDocumentRow = function (dcmt) {
-                if ($scope.patientDocuments.includes(dcmt)) {
+                if ($scope.patientDocuments.includes(dcmt) || dcmt == undefined || !$scope.nationalityDocs.includes(dcmt)) {
                     alert("Selecione outro documento");
                 }
                 else {
