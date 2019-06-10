@@ -261,7 +261,7 @@
 
                                 <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
                                     ng-hide="existDocs.length==0" style="margin-left: 30px; height:27px"
-                                    ng-click="addEditDocRow()">
+                                    ng-click="addEditDocRow(attributeChoice)">
                                     <i class="fa-plus fa fa-green small"></i>
                                 </button>
                             </div>
@@ -278,7 +278,6 @@
                 <div ng-if="patient.uuid == undefined">
 
                     <section ng-repeat="documentRow in patientDocuments" class="form-field ng-scope">
-
                         <article class="form-field" ng-repeat="attribute in ::attributeRow"
                             ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="::attribute.name==patient.attribute"
                             ng-show="::attribute.name==patient.attribute">
@@ -294,7 +293,6 @@
                                     <i class="fa-remove fa fa-red small"></i>
                                 </button>
                             </div>
-
                         </article>
                     </section>
 
@@ -303,10 +301,9 @@
                 <!--EXISTING PATIENT-->
                 <div ng-if="patient.uuid != undefined" ng-show="patient.NATIONALITY.value!= undefined"
                     class="form-field ng-scope">
-
                     <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                    ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="editPatientDocuments.indexOf(attribute.name)!=-1"
-                    ng-show="editPatientDocuments.indexOf(attribute.name)!=-1 || patient.attribute.length>0">
+                    ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="patient.attribute=attribute.name && editPatientDocuments.includes(attribute.name)==true"
+                    ng-show="editPatientDocuments.includes(attribute.name)==true || patient.attribute.length>0">
                     <attribute-types target-model="patient" attribute="::attribute"
                         get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
                         is-read-only="isReadOnly" handle-update="handleUpdate">
@@ -322,8 +319,7 @@
                 </article>
                 </div>
 
-
-            </section>
+               </section>
 
                 <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if = "attribute.name == 'MOTHER_NAME'" ng-class="::{'right-form-field' : $index%2 != 0}">
                     <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
@@ -338,8 +334,7 @@
                 </article>
         </section>
 
-
-            <legend class="registraion_legend">
+      <legend class="registraion_legend">
                 <span class="mylegend"> {{ ::'REGISTRATION_PROFESSIONAL_INFORMATION' | translate}}</span>
             </legend>
 

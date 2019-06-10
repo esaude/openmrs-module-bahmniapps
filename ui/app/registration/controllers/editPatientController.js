@@ -26,7 +26,6 @@ angular.module('bahmni.registration')
                 $scope.openMRSPatient = openmrsPatient["patient"];
                 $scope.patient = openmrsPatientMapper.map(openmrsPatient);
                 $scope.editPatientDocuments = [];
-                console.log(openmrsPatientMapper.map(openmrsPatient));
 
                 var nationalityVar = function () {
                     if ($scope.patient.NATIONALITY == undefined) {
@@ -59,7 +58,6 @@ angular.module('bahmni.registration')
                         for (var i = -1; i <= $scope.nationalityDocs.length; i++) {
                             _.each($scope.nationalityDocs, function (doc) {
                                 if ($scope.patient[doc] == undefined) {
-                                    // $scope.patient[doc] = "";
                                     return;
                                 }
                                 else {
