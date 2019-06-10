@@ -264,13 +264,13 @@ angular.module('bahmni.registration')
                 }
                 else {
                     $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
-                    if ($scope.nationalityChoice == 'Moçambicana' || $scope.nationalityChoice == 'Mozambican') {
+                    if ($scope.nationalityChoice == 'Mocambicana' || $scope.nationalityChoice == 'Mozambican') {
                         $scope.nationalityDocs = mozAttributes;
-                        // $scope.patientDocuments = [];
+                        $scope.patientDocuments = [];
                     }
-                    else if ($scope.nationalityChoice == 'Estrangeiro' || $scope.nationalityChoice == 'Foreigner') {
+                    else if ($scope.nationalityChoice == 'Outra' || $scope.nationalityChoice == 'Other') {
                         $scope.nationalityDocs = foreignAttributes;
-                        // $scope.patientDocuments = [];
+                        $scope.patientDocuments = [];
                     }
                 }
             };
@@ -295,13 +295,12 @@ angular.module('bahmni.registration')
                 $scope.patient.attribute = $scope.nationalAttribute;
             };
             $scope.addDocumentRow = function (dcmt) {
-                if ($scope.patientDocuments.includes(dcmt)) {
+                if ($scope.patientDocuments.includes(dcmt) || dcmt == undefined || !$scope.nationalityDocs.includes(dcmt)) {
                     alert("Selecione outro documento");
                 }
                 else {
                     $scope.patientDocuments.push(dcmt);
                     $scope.nationalityDocs.splice($scope.nationalityDocs.indexOf(dcmt), 1);
-                    // $scope.nationalAttribute = "";
                 }
             };
             $scope.removeDocumentRow = function (documnt) {

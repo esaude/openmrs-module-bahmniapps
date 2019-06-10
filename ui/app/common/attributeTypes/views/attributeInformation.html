@@ -68,7 +68,8 @@
                id="{{::attribute.name}}"
                name="{{::attribute.name}}"
                ng-disabled="true"
-               ng-model="targetModel[attribute.name].value"
+               ng-value="targetModel[attribute.name] = '-------------------------------------------'"
+               ng-model="targetModel[attribute.name]"
                ng-style="{'border': borderColor}">
     </div>
 
