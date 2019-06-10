@@ -174,5 +174,6 @@
   "APPOINTMENT_SUMMARY_START_LABEL": "Inicio:",
   "APPOINTMENT_SUMMARY_END_LABEL": "Fim:",
   "APPOINTMENT_SUMMARY_END_ALERT": "A Data de Fim deve ser maior que a de Inicio.",
-  "APPOINTMENT_CREATE_SAVE_ADD_NEW": "Salvar e adicionar nova visita"
+  "APPOINTMENT_CREATE_SAVE_ADD_NEW": "Salvar e adicionar nova visita",
+  "APPOINTMENT_DATE_WARNING": "Não pode ser inferior à data de hoje"
 }

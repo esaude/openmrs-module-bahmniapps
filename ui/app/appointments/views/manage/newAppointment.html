@@ -73,8 +73,11 @@
                     <label for="date">
                         {{'APPOINTMENT_DATE' | translate}}<sup class="asterick">*</sup>
                     </label>
-                    <input  id="date" type="date" ng-min="isEditMode() && !isEditAllowed()" min="{{today}}" required
+                    <input  id="date" type="date" ng-min="isEditMode() && !isEditAllowed()" required
                             ng-model="appointment.date"
+                            ng-change="validateDate()"
+                            ng-mouseleave="validateDate()"
+                            title="{{'APPOINTMENT_DATE_WARNING' | translate}}"
                             placeholder="Pick appointment date"
                             ng-disabled="isEditMode() && !isEditAllowed()"/>
                     <span class="slots-remaining"></span>
