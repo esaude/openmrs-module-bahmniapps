@@ -60,7 +60,7 @@ angular.module('bahmni.registration')
                 if (fieldName === "address10" && ($scope.$parent.$parent.patient.TRANSFERENCE_HF_NAME !== undefined)) {
                     $scope.provenanceHealthFacilityName = $scope.$parent.$parent.patient.TRANSFERENCE_HF_NAME;
                 }
-            }, 200);
+            }, 1000);
             return function (addressFieldItem) {
                 selectedAddressUuids[fieldName] = addressFieldItem.addressField.uuid;
                 if (fieldName === "address7") {
