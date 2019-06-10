@@ -52,12 +52,13 @@ angular.module('bahmni.registration')
                 var existingPatientDocs = function () {
                     if ($scope.nationalityDocs == undefined) {
                         $scope.nationalityDocs = "";
+                        return;
                     }
                     else {
                         for (var i = -1; i <= $scope.nationalityDocs.length; i++) {
                             _.each($scope.nationalityDocs, function (doc) {
                                 if ($scope.patient[doc] == undefined) {
-                                    $scope.patient[doc] = "";
+                                    return;
                                 }
                                 else {
                                     if ($scope.patient[doc].length > 0) {
@@ -113,7 +114,7 @@ angular.module('bahmni.registration')
                     $scope.patient.attribute = $scope.attributeChoice;
                 };
                 $scope.addEditDocRow = function () {
-                    if ($scope.editPatientDocuments.includes($scope.attributeChoice)) {
+                    if ($scope.editPatientDocuments.includes($scope.attributeChoice) || $scope.attributeChoice == undefined || !$scope.nationalityDocs.includes($scope.attributeChoice)) {
                         alert("Selecione outro documento");
                     }
                     else {
