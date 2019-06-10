@@ -62,6 +62,16 @@
         </ul>
     </div>
 
+    <div class="left" data-ng-switch-when="java.lang.String" ng-if="attribute.name == 'REGISTRATION_OPTION_NONE'" style="position: absolute">
+        <input type="text" autocomplete="off"
+               class="ui-autocomplete-input"
+               id="{{::attribute.name}}"
+               name="{{::attribute.name}}"
+               ng-disabled="true"
+               ng-model="targetModel[attribute.name].value"
+               ng-style="{'border': borderColor}">
+    </div>
+
 
     <div class="left" data-ng-switch-when="org.openmrs.Concept" ng-if="attribute.name != 'LOCATION_OF_TEST' && attribute.name != 'SECTOR_SELECT' && attribute.name != 'PATIENT_OCCUPATION' && attribute.name != 'TYPE_OF_REGISTRATION' && attribute.name != 'PATIENT_STATUS'">
         <select id="{{::attribute.name}}" ng-model="targetModel[attribute.name].conceptUuid"

@@ -209,14 +209,17 @@
                                     <select id="nationalAttribute" ng-model="nationalAttribute" ng-hide="nationalityDocs==0"
                                     ng-Click="nationalityAttribute(nationalAttribute)">
                                     <!--<option value="">{{::'REGISTRATION_DOC_OPTION_LABEL' | translate}}</option>-->
-                                    <option ng-show="nationalityDocs.includes('BI')" value="BI">BI</option>
-                                    <option ng-show="nationalityDocs.includes('CARTAO_DE_ELEITOR')" value="CARTAO_DE_ELEITOR">Cartao de Eleitor</option>
-                                    <option ng-show="nationalityDocs.includes('CEDULA_DE_NASCIMENTO')" value="CEDULA_DE_NASCIMENTO">Cedula de Nascimento</option>
-                                    <option ng-show="nationalityDocs.includes('DIRE')" value="DIRE">DIRE</option>
-                                    <option ng-show="nationalityDocs.includes('NUIT')" value="NUIT">NUIT</option>
-                                    <option ng-show="nationalityDocs.includes('NUIC')" value="NUIC">NUIC</option>
-                                    <option ng-show="nationalityDocs.includes('PASSAPORTE_MOCAMBICANO')" value="PASSAPORTE_MOCAMBICANO">{{::'REGISTRATION_LABEL_PASSPORT_MOZ' | translate}}</option>
-                                    <option ng-show="nationalityDocs.includes('PASSAPORTE_ESTRANGEIRO')" value="PASSAPORTE_ESTRANGEIRO">{{::'REGISTRATION_LABEL_PASSPORT_FOR' | translate}}</option>
+                                    <option ng-show="nationalityDocs.includes('REGISTRATION_OPTION_NONE') && nationalityDocs.includes('BI') &&
+                                                     nationalityDocs.includes('CARTAO_DE_ELEITOR') && nationalityDocs.includes('CEDULA_DE_NASCIMENTO') &&
+                                                     nationalityDocs.includes('NUIT') && nationalityDocs.includes('NUIC')"
+                                                     value="REGISTRATION_OPTION_NONE">{{::'REGISTRATION_OPTION_NONE' | translate}}</option>
+                                    <option ng-show="nationalityDocs.includes('BI') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="BI">BI</option>
+                                    <option ng-show="nationalityDocs.includes('CARTAO_DE_ELEITOR') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="CARTAO_DE_ELEITOR">Cartao de Eleitor</option>
+                                    <option ng-show="nationalityDocs.includes('CEDULA_DE_NASCIMENTO') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="CEDULA_DE_NASCIMENTO">Cedula de Nascimento</option>
+                                    <option ng-show="nationalityDocs.includes('DIRE') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="DIRE">DIRE</option>
+                                    <option ng-show="nationalityDocs.includes('NUIT') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="NUIT">NUIT</option>
+                                    <option ng-show="nationalityDocs.includes('NUIC') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="NUIC">NUIC</option>
+                                    <option ng-show="nationalityDocs.includes('PASSAPORTE_ESTRANGEIRO') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="PASSAPORTE_ESTRANGEIRO">{{::'REGISTRATION_LABEL_PASSPORT_FOR' | translate}}</option>
                                 </select>
 
                                 <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
@@ -249,14 +252,16 @@
                                     <select id="attributeChoice" ng-model="attributeChoice" ng-hide="existDocs.length==0"
                                     ng-Click="nationalityEditAttribute(attributeChoice)">
                                     <!--<option value="">{{::'REGISTRATION_DOC_OPTION_LABEL' | translate}}</option>-->
-                                    <option ng-show="existDocs.includes('BI')" value="BI">BI</option>
-                                    <option ng-show="existDocs.includes('CARTAO_DE_ELEITOR')" value="CARTAO_DE_ELEITOR">Cartao de Eleitor</option>
-                                    <option ng-show="existDocs.includes('CEDULA_DE_NASCIMENTO')" value="CEDULA_DE_NASCIMENTO">Cedula de Nascimento</option>
-                                    <option ng-show="existDocs.includes('DIRE')" value="DIRE">DIRE</option>
-                                    <option ng-show="existDocs.includes('NUIT')" value="NUIT">NUIT</option>
-                                    <option ng-show="existDocs.includes('NUIC')" value="NUIC">NUIC</option>
-                                    <option ng-show="existDocs.includes('PASSAPORTE_MOCAMBICANO')" value="PASSAPORTE_MOCAMBICANO">{{::'REGISTRATION_LABEL_PASSPORT_MOZ' | translate}}</option>
-                                    <option ng-show="existDocs.includes('PASSAPORTE_ESTRANGEIRO')" value="PASSAPORTE_ESTRANGEIRO">{{::'REGISTRATION_LABEL_PASSPORT_FOR' | translate}}</option>
+                                    <option ng-show="existDocs.includes('REGISTRATION_OPTION_NONE') && existDocs.includes('BI') &&
+                                                     existDocs.includes('CARTAO_DE_ELEITOR') && existDocs.includes('CEDULA_DE_NASCIMENTO') &&
+                                                     existDocs.includes('NUIT') && existDocs.includes('NUIC')" value="REGISTRATION_OPTION_NONE">{{::'REGISTRATION_OPTION_NONE' | translate}}</option>
+                                    <option ng-show="existDocs.includes('BI') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="BI">BI</option>
+                                    <option ng-show="existDocs.includes('CARTAO_DE_ELEITOR') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="CARTAO_DE_ELEITOR">Cartao de Eleitor</option>
+                                    <option ng-show="existDocs.includes('CEDULA_DE_NASCIMENTO') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="CEDULA_DE_NASCIMENTO">Cedula de Nascimento</option>
+                                    <option ng-show="existDocs.includes('DIRE') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="DIRE">DIRE</option>
+                                    <option ng-show="existDocs.includes('NUIT') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="NUIT">NUIT</option>
+                                    <option ng-show="existDocs.includes('NUIC') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="NUIC">NUIC</option>
+                                    <option ng-show="existDocs.includes('PASSAPORTE_ESTRANGEIRO') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="PASSAPORTE_ESTRANGEIRO">{{::'REGISTRATION_LABEL_PASSPORT_FOR' | translate}}</option>
                                 </select>
 
                                 <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
@@ -280,7 +285,7 @@
                     <section ng-repeat="documentRow in patientDocuments" class="form-field ng-scope">
 
                         <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                            ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'BI'"
+                            ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'REGISTRATION_OPTION_NONE'"
                             ng-show="::attribute.name==patient.attribute">
                             <attribute-types target-model="patient" attribute="::attribute"
                                 field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
@@ -289,8 +294,25 @@
                             </attribute-types>
                             <div class="left ng-scope">
                                 <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                    style="margin-left: 30px; height:27px" ng-hide="patientDocuments.length==0"
-                                    ng-click="removeDocumentRow('BI')">
+                                        style="margin-left: 30px; height:27px" ng-hide="patientDocuments.length==0"
+                                        ng-click="removeDocumentRow('REGISTRATION_OPTION_NONE')">
+                                    <i class="fa-remove fa fa-red small"></i>
+                                </button>
+                            </div>
+                        </article>
+
+                        <article class="form-field" ng-repeat="attribute in ::attributeRow"
+                                 ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'BI'"
+                                 ng-show="::attribute.name==patient.attribute">
+                            <attribute-types target-model="patient" attribute="::attribute"
+                                             field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
+                                             get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
+                                             is-read-only="isReadOnly" handle-update="handleUpdate">
+                            </attribute-types>
+                            <div class="left ng-scope">
+                                <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
+                                        style="margin-left: 30px; height:27px" ng-hide="patientDocuments.length==0"
+                                        ng-click="removeDocumentRow('BI')">
                                     <i class="fa-remove fa fa-red small"></i>
                                 </button>
                             </div>
@@ -434,15 +456,31 @@
 
 
                     <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                        ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'BI'"
-                        ng-show="attribute.name == 'BI' && editPatientDocuments.indexOf('BI')!=-1 || patient.BI.length>0">
+                        ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'REGISTRATION_OPTION_NONE'"
+                        ng-show="attribute.name == 'REGISTRATION_OPTION_NONE' && editPatientDocuments.indexOf('REGISTRATION_OPTION_NONE')!=-1 || patient.REGISTRATION_OPTION_NONE.length>0">
                         <attribute-types target-model="patient" attribute="::attribute"
                             get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
                             is-read-only="isReadOnly" handle-update="handleUpdate">
                         </attribute-types>
                         <div class="left ng-scope">
                             <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                style="margin-left: 30px; height:27px" ng-click="removeEditDocRow('BI')">
+                                    style="margin-left: 30px; height:27px" ng-click="removeEditDocRow('REGISTRATION_OPTION_NONE')">
+                                <!---->
+                                <i class="fa-remove fa fa-red small"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="form-field" ng-repeat="attribute in ::attributeRow"
+                             ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'BI'"
+                             ng-show="attribute.name == 'BI' && editPatientDocuments.indexOf('BI')!=-1 || patient.BI.length>0">
+                        <attribute-types target-model="patient" attribute="::attribute"
+                                         get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
+                                         is-read-only="isReadOnly" handle-update="handleUpdate">
+                        </attribute-types>
+                        <div class="left ng-scope">
+                            <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
+                                    style="margin-left: 30px; height:27px" ng-click="removeEditDocRow('BI')">
                                 <!---->
                                 <i class="fa-remove fa fa-red small"></i>
                             </button>
