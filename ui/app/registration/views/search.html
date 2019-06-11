@@ -60,6 +60,7 @@
                 <th><strong><a href="#"  ng-click="orderByField='identifier'; reverseSort = !reverseSort">{{ ::'REGISTRATION_LABEL_ID' | translate}}<span  class="sort-pos" ng-show="orderByField == 'identifier'"><span ng-show="!reverseSort"><i class="sort-by-asc"></i></span><span ng-show="reverseSort"><i class="sort-by-desc"></i></span></span></a></strong></th>
                 <th ng-repeat = "type in ::extraIdentifierTypes track by $index"><strong><a href="#" ng-click="$parent.orderByField= 'extraIdentifiers';$parent.idColumns = type.name; $parent.reverseSort = !$parent.reverseSort">{{type.name}}<span  class="sort-pos" ng-show="$parent.orderByField == 'extraIdentifiers'"><span ng-show="!$parent.reverseSort"><i class="sort-by-asc"></i></span><span ng-show="$parent.reverseSort"><i class="sort-by-desc"></i></span></span></a></strong></th>
                 <th><strong><a href="#"  ng-click="orderByField='givenName'; reverseSort = !reverseSort">{{ ::'REGISTRATION_LABEL_NAME' | translate}}<span  class="sort-pos" ng-show="orderByField == 'givenName'"><span ng-show="!reverseSort"><i class="sort-by-asc"></i></span><span ng-show="reverseSort"><i class="sort-by-desc"></i></span></span></a></strong></th>
+                <th><strong><a href="#"  ng-click="orderByField='familyName'; reverseSort = !reverseSort">{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}<span  class="sort-pos" ng-show="orderByField == 'middleName'"><span ng-show="!reverseSort"><i class="sort-by-asc"></i></span><span ng-show="reverseSort"><i class="sort-by-desc"></i></span></span></a></strong></th>
                 <th><strong><a href="#"  ng-click="orderByField='familyName'; reverseSort = !reverseSort">{{ ::'REGISTRATION_LABEL_PATIENT_LAST_NAME' | translate}}<span  class="sort-pos" ng-show="orderByField == 'familyName'"><span ng-show="!reverseSort"><i class="sort-by-asc"></i></span><span ng-show="reverseSort"><i class="sort-by-desc"></i></span></span></a></strong></th>
                 <th class="sort-by" ng-repeat = "field in ::personSearchResultsConfig.fields track by $index" ng-if="field == 'NICK_NAME'"><strong>{{ ::field | translate}}</strong></th>
                 <th><strong><a href="#"  ng-click="orderByField='gender'; reverseSort = !reverseSort">{{ ::'REGISTRATION_LABEL_GENDER' | translate}}<span  class="sort-pos" ng-show="orderByField == 'gender'"><span ng-show="!reverseSort"><i class="sort-by-asc"></i></span><span ng-show="reverseSort"><i class="sort-by-desc"></i></span></span></a></strong></th>
@@ -84,6 +85,7 @@
                 </td>
 
                 <td>{{::result.givenName}}</td>
+                <td>{{::result.middleName}}</td>
                 <td>{{::result.familyName}}</td>
                 <td ng-repeat = "field in ::personSearchResultsConfig.fields track by $index" ng-if="field=='NICK_NAME'">{{::result.customAttribute[field] || "" | bahmniDateInStrictMode}}</td>
                 <td>{{::result.gender}}</td>

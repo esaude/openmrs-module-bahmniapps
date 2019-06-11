@@ -57,7 +57,7 @@
   "NAVIGATION_CONFIRMATION_OPTION_DONT_SAVE_KEY" : "Don't save",
   "NAVIGATION_CONFIRMATION_OPTION_CANCEL_KEY" : "Stay on page",
   "SAVE_CONFIRMATION_DIALOG_CONFLICT_KEY": "This patient already has an appointment booked at this time. Would you like to proceed or edit the timings?",
-  "SAVE_CONFIRMATION_DIALOG_CONFLICT_KEY2": "This patient already has an appointment for this service booked at this time. Please edit the timings or service.",
+  "SAVE_CONFIRMATION_DIALOG_CONFLICT_KEY2": "This patient already has an appointment for this service booked at this day. Please edit the timings or service.",
   "SAVE_CONFIRMATION_OPTION_CONFLICT_SAVE_KEY" : "Proceed and save",
   "SAVE_CONFIRMATION_OPTION_CONFLICT_CANCEL_KEY" : "Back to edit",
   "DUPLICATE_SERVICE_NAME_ERROR_MESSAGE": "Service name already exists",

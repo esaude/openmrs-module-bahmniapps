@@ -1,6 +1,6 @@
  {
 "ACCEPT":"Aceitar",
-"ACCESSION_AT_LABEL": "Adesão",
+"ACCESSION_AT_LABEL": "Introduzido em",
 "ADD_FORM_KEY": "Adicionar formulário",
 "ADD_MORE_KEY": "Adicionar",
 "ADD_NEW_OBSERVATION": "Adicionar formulário de observação",
@@ -134,7 +134,7 @@
 "DISPOSITION_NOTE_LABEL":"Notas terapêuticas",
 "DISPOSITION_NOTE_WILL_BE_REMOVED_WARNING_MESSAGE":"As notas terapêuticas serão removidas",
 "DISPOSITION_TYPE_LABEL":"Tipo de terapêutica",
-"DOB_LABEL": "Data de nascimento",
+"DOB_LABEL": "Data de Nascimento",
 "Doctor-In-Charge": "Clinico responsável",
 "DRUG_DETAILS_ADDITIONAL_INSTRUCTIONS": "Instrucções adicionais",
 "DRUG_DETAILS_DOSE_INFO": "Dose",
@@ -321,14 +321,14 @@
 "SELECTED_ORDERS_LABEL":"Requisições seleccionadas",
 "TAKE_PATIENT_PHOTO_TITTLE": "Capturar a foto do paciente",
 "TIME_OF_BIRTH_LABEL": "Hora de Nascimento ",
-"Treatment Date": "Data de tratamento",
+"Treatme7nt Date": "Data de tratamento",
 "TREATMENT_CHART_HEADER_LABEL":"Gráfico de tratamento",
 "TREATMENT_NOTES": "Notas do tratamento",
 "TREATMENT_SL_NO": "S. Não.",
 "TREATMENTS_SUMMARY_PRESCRIPTION_KEY": "Prescrições",
-"VISIT_ON_TRANSLATION_KEY": "Consulta à",
+"VISIT_ON_TRANSLATION_KEY": "Última Visita:",
 "VISIT_STATUS_ABSENT":"Faltoso",
-"VISIT_STATUS_FINISHED":"Realizada",
+"VISIT_STATUS_FINISHED":"Encerrada",
 "VISIT_STATUS_PROGRESS":"Em progresso",
 "VISIT_TITLE_ADMISSION_DETAILS_KEY": "Detalhes da admissão",
 "VISIT_TITLE_DIAGNOSIS_KEY": "Diagnósticos",
@@ -363,5 +363,6 @@
 "ORDER_TYPE": "Exames",
 "BIRTHDATE_ESTIMATED": "Estimado",
 "CLINICAL_ORDER_URGENT_TITLE": "Urgente",
-  "SPECIAL_OPD": "OPD Especial"
+"SPECIAL_OPD": "OPD Especial",
+"NO_VITALS_MESSAGE": "Nenhum dado registado para este paciente"
  }
