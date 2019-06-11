@@ -363,6 +363,6 @@
 "ORDER_TYPE": "Exames",
 "BIRTHDATE_ESTIMATED": "Estimado",
 "CLINICAL_ORDER_URGENT_TITLE": "Urgente",
-  "SPECIAL_OPD": "OPD Especial",
-   "NO_VITALS_MESSAGE": "Nenhum dado registado para este paciente"
+"SPECIAL_OPD": "OPD Especial",
+"NO_VITALS_MESSAGE": "Nenhum dado registado para este paciente"
  }
