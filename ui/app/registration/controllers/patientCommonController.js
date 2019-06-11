@@ -264,7 +264,7 @@ angular.module('bahmni.registration')
                 }
                 else {
                     $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
-                    if ($scope.nationalityChoice == 'Mocambicana' || $scope.nationalityChoice == 'Mozambican') {
+                    if ($scope.nationalityChoice == 'Moçambicana' || $scope.nationalityChoice == 'Mozambican') {
                         $scope.nationalityDocs = mozAttributes;
                         $scope.patientDocuments = [];
                     }
