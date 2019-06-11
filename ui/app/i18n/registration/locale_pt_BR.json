@@ -150,6 +150,8 @@
     "REGISTRATION_PATIENT_DETAILS":"Detalhes do Paciente",
     "PATIENT_OCCUPATION":"Profissão/Ocupação",
     "REGISTRATION_OPTION_NONE": "Nenhum",
-    "REGISTRATION_OPTION_NONE_TEXT": "Documento"
+    "REGISTRATION_OPTION_NONE_TEXT": "Documento",
+    "BMI STATUS": "Estado Nutricional",
+    "BMI": "IMC"
 
 }
