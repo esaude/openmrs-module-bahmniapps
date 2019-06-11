@@ -17,6 +17,9 @@ angular.module('bahmni.registration')
             $scope.NID = {};
             $scope.currentYear = new Date().getFullYear();
             $rootScope.typeOfRegistrationSelected = "";
+            $rootScope.patientStatus = 'Pre TARV';
+            $rootScope.regexDigits = '\\d+';
+            $rootScope.regexCharacters = '^[a-záàãâéèêẽíìóòõôúùçA-ZÁÀÃÂÉÈÊẼÍÌÓÒÔÕÚÙÇ ]+$';
 
             var getPersonAttributeTypes = function () {
                 return $rootScope.patientConfiguration.attributeTypes;
@@ -152,6 +155,15 @@ angular.module('bahmni.registration')
                     return deferred.resolve({});
                 });
                 return deferred.promise;
+            };
+
+            $scope.validateOnChange = function (attribute) {
+                window.alert(attribute);
+                // if (this.myForm.$invalid){
+                //     $rootScope.canSave = false;
+                // } else {
+                //     $rootScope.canSave = true;
+                // }
             };
 
             $scope.create = function () {

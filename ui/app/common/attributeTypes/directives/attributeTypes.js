@@ -33,6 +33,8 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             $scope.showTag = false;
             $scope.borderColor = "1px solid #d1d1d1";
             $rootScope.canSave = true;
+            $scope.regexNumbers = '[^0-9+ ]';
+            $scope.regexCharacters = '[^a-záàãâéèêẽíìóòõôúùçA-ZÁÀÃÂÉÈÊẼÍÌÓÒÔÕÚÙÇ ]';
 
             if ($scope.attribute.name === "PATIENT_STATUS") {
                 for (var i = 0; i < $scope.attribute.answers.length; i++) {
@@ -55,13 +57,25 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                     return answer.conceptId === attributeValueConceptType.conceptUuid;
                 });
                 attributeValueConceptType.value = concept && concept.fullySpecifiedName;
+                if (attribute.name === "TYPE_OF_REGISTRATION" || attribute.name === "PATIENT_STATUS") {
+                    if (attributeValueConceptType.value === undefined) {
+                        $rootScope.canSave = false;
+                    }
+                    else {
+                        $rootScope.canSave = true;
+                    }
+                }
                 if (attributeValueConceptType.value === 'NEW_PATIENT' || attributeValueConceptType.value === 'TRANSFERRED_PATIENT' || attributeValueConceptType.value === undefined) {
                     $rootScope.typeOfRegistrationSelected = attributeValueConceptType.value;
+                }
+                if (attributeValueConceptType.value === 'Pre TARV' || attributeValueConceptType.value === 'TARV' || attributeValueConceptType.value === undefined) {
+                    $rootScope.patientStatus = attributeValueConceptType.value;
                 }
             };
 
             $scope.suggest = function (string) {
                 $scope.borderColor = "1px solid #d1d1d1";
+                $scope.backgroundColor = "#fff";
                 $scope.hideList = false;
                 $scope.showTag = true;
                 var output = [];
@@ -84,6 +98,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                 $scope.hideList = true;
                 $rootScope.canSave = true;
                 $scope.borderColor = "1px solid #d1d1d1";
+                $scope.backgroundColor = "#fff";
             };
 
             $scope.validateField = function (isMouse) {
@@ -97,6 +112,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                         }
                         if (alert) {
                             $scope.borderColor = "1px solid #ff5252";
+                            $scope.backgroundColor = "#ffcdcd";
                             if (!isMouse) {
                                 messagingService.showMessage("error", "INVALID_OCCUPATION");
                                 $scope.hideList = true;

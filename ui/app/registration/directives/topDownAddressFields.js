@@ -14,7 +14,7 @@ angular.module('bahmni.registration')
             }
         };
     })
-    .controller('TopDownAddressFieldsDirectiveController', ['$scope', 'addressHierarchyService', function ($scope, addressHierarchyService) {
+    .controller('TopDownAddressFieldsDirectiveController', ['$scope', '$rootScope', 'addressHierarchyService', function ($scope, $rootScope, addressHierarchyService) {
         $scope.addressFieldInvalid = false;
         var selectedAddressUuids = {};
         var selectedUserGeneratedIds = {};
@@ -44,7 +44,6 @@ angular.module('bahmni.registration')
                 });
             }
         };
-
         $scope.addressFieldSelected = function (fieldName) {
             return function (addressFieldItem) {
                 selectedAddressUuids[fieldName] = addressFieldItem.addressField.uuid;
@@ -62,6 +61,8 @@ angular.module('bahmni.registration')
                 });
             };
         };
+
+        // console.log($rootScope.submitted);
 
         $scope.findParentField = function (fieldName) {
             var found = _.find($scope.addressLevels, {addressField: fieldName});
@@ -120,6 +121,12 @@ angular.module('bahmni.registration')
                     selectedAddressUuids[childField] = null;
                     selectedUserGeneratedIds[childField] = null;
                 }
+                angular.element("#country").css("border", "1px solid #DDD");
+                angular.element("#country").css("background", "#fff");
+                angular.element("#stateProvince").css("border", "1px solid #DDD");
+                angular.element("#stateProvince").css("background", "#fff");
+                angular.element("#cityVillage").css("border", "1px solid #DDD");
+                angular.element("#cityVillage").css("background", "#fff");
             });
 
             if (_.isEmpty($scope.address[fieldName])) {

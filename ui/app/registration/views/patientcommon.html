@@ -25,55 +25,62 @@
 
                     <span data-ng-switch="::isAutoComplete('givenName')"
                         ng-if="::patientConfiguration.local()['showNameField']">
-                        <input data-ng-switch-when="true" type="text" id="givenName"
+                        <input data-ng-switch-when="true" type="text" name="givenName" id="givenName"
                             ng-model="$parent.patient.givenName" non-blank pattern-validate my-autocomplete
                             source="getAutoCompleteList" response-map="getDataResults" data-item-type="personName"
                             placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
-                            title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}">
+                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}">
 
-                        <input data-ng-switch-default type="text" id="givenName" ng-model="patient.givenName" non-blank
+                        <input data-ng-switch-default type="text" name="givenName" id="givenName" ng-model="patient.givenName" non-blank
                             pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
-                            title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}">
+                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}">
                     </span>
 
                     <span data-ng-switch="::isAutoComplete('givenName')"
                         ng-if="::!patientConfiguration.local()['showNameField']">
-                        <input data-ng-switch-when="true" type="text" id="givenName"
+                        <input data-ng-switch-when="true" type="text" name="givenName" id="givenName"
                             ng-model="$parent.patient.givenName" non-blank pattern-validate my-autocomplete
                             source="getAutoCompleteList" response-map="getDataResults" data-item-type="personName"
                             placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
-                            title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}" focus-me="true">
+                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" focus-me="true" ng-pattern="regexCharacters">
 
-                        <input data-ng-switch-default type="text" id="givenName" ng-model="patient.givenName" non-blank
+                        <input data-ng-switch-default type="text" name="givenName" id="givenName" ng-model="patient.givenName" non-blank
                             pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
-                            title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}" focus-me="true"
-                            ng-change="checkDuplicatePatients()">
+                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" focus-me="true" ng-pattern="regexCharacters"
+                            ng-change="checkDuplicatePatients()" required
+                            ng-class="{'illegalValue' : submitted && this.myForm.givenName.$invalid || this.myForm.givenName.$error.pattern}">
+                        <p class="help-block" ng-show="this.myForm.givenName.$error.pattern">{{::'PATTERN_REGISTRATION_CHARACTERS_ONLY' | translate}}</p>
                     </span>
 
                     <span ng-show="::showMiddleName" data-ng-switch="::isAutoComplete('middleName')">
-                        <input data-ng-switch-when="true" type="text" id="middleName"
+                        <input data-ng-switch-when="true" type="text" name="middleName" id="middleName"
                             ng-model="$parent.patient.middleName" pattern-validate my-autocomplete
                             source="getAutoCompleteList" response-map="getDataResults" data-item-type="personName"
                             placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}"
-                            title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_MIDDLE_NAME' | translate}}">
+                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" ng-pattern="regexCharacters">
 
-                        <input data-ng-switch-default type="text" id="middleName" ng-model="patient.middleName"
+                        <input data-ng-switch-default type="text" name="middleName" id="middleName" ng-model="patient.middleName"
                             pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}"
-                            title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_MIDDLE_NAME' | translate}}">
+                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" ng-pattern="regexCharacters"
+                            ng-class="{'illegalValue' : this.myForm.middleName.$error.pattern}">
+                        <p class="help-block" ng-show="this.myForm.middleName.$error.pattern">{{::'PATTERN_REGISTRATION_CHARACTERS_ONLY' | translate}}</p>
                     </span>
 
                     <span ng-show="::showLastName" data-ng-switch="::isAutoComplete('familyName')">
-                        <input data-ng-switch-when="true" type="text" id="familyName"
+                        <input data-ng-switch-when="true" type="text" id="familyName" name="familyName"
                             ng-model="$parent.patient.familyName" pattern-validate my-autocomplete
                             source="getAutoCompleteList" response-map="getDataResults" data-item-type="personName"
                             placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_LAST_NAME' | translate}}"
-                            title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_LAST_NAME' | translate}}"
-                            ng-required="::isLastNameMandatory" ng-change="checkDuplicatePatients()">
+                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}"
+                            ng-required="::isLastNameMandatory" ng-change="checkDuplicatePatients()" ng-pattern="regexCharacters"
+                            ng-class="{'illegalValue' : submitted && this.myForm.familyName.$invalid || this.myForm.familyName.$error.pattern}">
 
-                        <input data-ng-switch-default type="text" id="familyName" ng-model="patient.familyName"
+                        <input data-ng-switch-default type="text" name="familyName" id="familyName" ng-model="patient.familyName"
                             pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_LAST_NAME' | translate}}"
-                            title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_LAST_NAME' | translate}}"
-                            ng-required="::isLastNameMandatory">
+                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}"
+                            ng-required="::isLastNameMandatory" ng-pattern="regexCharacters"
+                            ng-class="{'illegalValue' : submitted && this.myForm.familyName.$invalid || this.myForm.familyName.$error.pattern}">
+                        <p class="help-block" ng-show="this.myForm.familyName.$error.pattern">{{::'PATTERN_REGISTRATION_CHARACTERS_ONLY' | translate}}</p>
                     </span>
 
                     <span>
@@ -82,12 +89,12 @@
                             <article class="form-field" ng-repeat="attribute in ::attributeRow"
                                 ng-if="attribute.name == 'NICK_NAME'" ng-class="::{'right-form-field' : $index%2 != 0}">
                                 <attribute-types target-model="patient" attribute="::attribute"
-                                    field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
+                                    field-validation="::fieldValidation" is-auto-complete="isAutoComplete" title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}"
                                     get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
                                     is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                             </article>
                         </section>
-                        <span>
+                    </span>
 
                             <!--<span class="input-label-inline caste-lastname" ng-show="showCasteSameAsLastName()">
                         <input type="checkbox" id="casteSameAsLastNameCheck" ng-model="patient.sameAsLastName"
@@ -118,11 +125,10 @@
                 </div>
 
                 <div class="field-value">
-                    <select id="gender" ng-model="patient.gender" required="required"
-                        title="{{ 'REGISTRATION_LABEL_SELECT_GENDER'|translate }}"
+                    <select id="gender" name="gender" ng-model="patient.gender" required="required" ng-class="{'illegalValue' : submitted && this.myForm.gender.$invalid}"
                         ng-options="genderMap[genderCode] | translate for genderCode in genderCodes track by genderCode"
                         ng-change="handleUpdate('gender');checkDuplicatePatients()">
-                        <option value=""></option>
+                        <option value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
                     </select>
                     <!--<div class="selectGender">
                         <ul>
@@ -161,14 +167,14 @@
                 <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if="attribute.name == 'MOTHER_NAME'"
                          ng-class="::{'right-form-field' : $index%2 != 0}">
                     <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
-                                     get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
-                </article>
+                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList" title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}"
+                                     ng-pattern="regexCharacters" get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
+               </article>
 
                 <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if="attribute.name == 'FATHER_NAME'"
                          ng-class="::{'right-form-field' : $index%2 != 0}">
                     <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
+                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList" title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}"
                                      get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                 </article>
 
@@ -186,7 +192,6 @@
                 </article>
             </section>
 
-
             <section>
                 <!--NEW PATIENT-->
                 <div ng-show="patient.uuid==undefined && patient.NATIONALITY.value!= undefined">
@@ -201,13 +206,9 @@
                         <div class="form-field">
 
                             <div class="left ng-scope">
-                                <!--<select id="nationalAttribute" ng-model="nationalAttribute"
-                                    ng-Options="nationalAttribute for nationalAttribute in nationalityDocs"
-                                    ng-hide="nationalityDocs==0" ng-Click="nationalityAttribute()"></select>-->
-                                    
                                     <select id="nationalAttribute" ng-model="nationalAttribute" ng-hide="nationalityDocs==0"
                                     ng-Click="nationalityAttribute(nationalAttribute)">
-                                    <!--<option value="">{{::'REGISTRATION_DOC_OPTION_LABEL' | translate}}</option>-->
+                                    <option value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
                                     <option ng-show="nationalityDocs.includes('REGISTRATION_OPTION_NONE') && nationalityDocs.includes('BI') &&
                                                      nationalityDocs.includes('CARTAO_DE_ELEITOR') && nationalityDocs.includes('CEDULA_DE_NASCIMENTO') &&
                                                      nationalityDocs.includes('NUIT') && nationalityDocs.includes('NUIC') || nationalityDocs.includes('DIRE')"
@@ -243,14 +244,9 @@
                         </div>
                         <div class="form-field">
                             <div class="left ng-scope">
-                                <!--<select id="attributeChoice" ng-model="attributeChoice"
-                                    ng-Options="attributeChoice for attributeChoice in existDocs"
-                                    ng-hide="existDocs.length==0"
-                                    ng-Click="nationalityEditAttribute(attributeChoice)"></select>-->
-
                                     <select id="attributeChoice" ng-model="attributeChoice" ng-hide="existDocs.length==0"
                                     ng-Click="nationalityEditAttribute(attributeChoice)">
-                                    <!--<option value="">{{::'REGISTRATION_DOC_OPTION_LABEL' | translate}}</option>-->
+                                    <option value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
                                     <option ng-show="existDocs.includes('REGISTRATION_OPTION_NONE') && existDocs.includes('BI') &&
                                                      existDocs.includes('CARTAO_DE_ELEITOR') && existDocs.includes('CEDULA_DE_NASCIMENTO') &&
                                                      existDocs.includes('NUIT') && existDocs.includes('NUIC') || existDocs.includes('DIRE')" value="REGISTRATION_OPTION_NONE">{{::'REGISTRATION_OPTION_NONE' | translate}}</option>
@@ -324,18 +320,6 @@
                 </div>
 
                </section>
-
-                <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if = "attribute.name == 'MOTHER_NAME'" ng-class="::{'right-form-field' : $index%2 != 0}">
-                    <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
-                                     get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
-                </article>
-
-                <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if = "attribute.name == 'FATHER_NAME'" ng-class="::{'right-form-field' : $index%2 != 0}">
-                    <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                                     is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
-                                     get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
-                </article>
         </section>
 
       <legend class="registraion_legend">
@@ -379,7 +363,6 @@
                 field-validation="::fieldValidation"
                 strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel"
                 ng-if="::!addressHierarchyConfigs.showAddressFieldsTopDown"></section>
-
             <section top-down-address-fields data-address-levels="::addressLevels" data-address="patient.address"
                 field-validation="::fieldValidation" ng-if="::addressHierarchyConfigs.showAddressFieldsTopDown"
                 strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel"></section>
@@ -527,7 +510,7 @@
                             get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
                             is-read-only="isReadOnly" handle-update="handleUpdate" ng-if="attribute.name !== 'PATIENT_STATUS' && attribute.name !== 'TRANSFERRED_OUT_HF_NAME'"></attribute-types>
                     </article>
-                    <div class="testlocation"><b>{{'TRANSFERED_OUT_FROM' | translate}}</b></div>
+                    <!--<div class="testlocation"><b>{{'TRANSFERED_OUT_FROM' | translate}}</b></div>-->
                     <section transference-health-facility-address-fields data-address-levels="::addressLevels" data-address="patient.address"
                              field-validation="::fieldValidation" ng-if="::addressHierarchyConfigs.showAddressFieldsTopDown"
                              strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel"></section>
