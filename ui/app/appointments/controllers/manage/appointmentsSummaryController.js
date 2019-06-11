@@ -49,6 +49,10 @@ angular.module('bahmni.appointments')
                 return moment(date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD');
             };
 
+            $scope.addDayToDate = function (initialDate) {
+                return Bahmni.Common.Util.DateUtil.addDays(initialDate, 1);
+            };
+
             var setDatesInfo = function () {
                 $scope.weekDatesInfo = [];
                 for (var i = $scope.periodStartDate;
