@@ -48,7 +48,8 @@
                     </div>
                 </article>
 
-                <article class="fl" ng-repeat="attribute in programAttributeTypes" ng-if="isIncluded(attribute)">
+                <article class="fl" ng-repeat="attribute in programAttributeTypes" ng-if="isIncluded(attribute) && attribute.name != 'Date' && attribute.name != 'ID_Number' && 
+                attribute.name != 'Doctor' && attribute.name != 'Stage' && attribute.name != 'Co-morbidites'">
                     <attribute-types target-model="patientProgramAttributes" attribute="attribute"
                                      is-form="true"></attribute-types>
                 </article>
