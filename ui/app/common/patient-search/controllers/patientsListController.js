@@ -8,6 +8,7 @@ angular.module('bahmni.common.patientSearch')
             var searchTypes = appService.getAppDescriptor().getExtensions("org.bahmni.patient.search", "config").map(mapExtensionToSearchType);
             $scope.search = new Bahmni.Common.PatientSearch.Search(_.without(searchTypes, undefined));
             $scope.search.markPatientEntry();
+            $scope.personSearchResultsConfig = ['NICK_NAME', 'PRIMARY_CONTACT_NUMBER_1', 'PATIENT_STATUS'];
             $scope.$watch('search.searchType', function (currentSearchType) {
                 _.isEmpty(currentSearchType) || fetchPatients(currentSearchType);
             });
@@ -22,8 +23,17 @@ angular.module('bahmni.common.patientSearch')
             });
         };
 
+        var mapCustomAttributesSearchResults = function (data) {
+            if ($scope.personSearchResultsConfig) {
+                _.map(data.pageOfResults, function (result) {
+                    result.customAttribute = result.customAttribute && JSON.parse(result.customAttribute);
+                });
+            }
+        };
+
         $scope.searchPatients = function () {
             return spinner.forPromise(patientService.search($scope.search.searchParameter)).then(function (response) {
+                mapCustomAttributesSearchResults(response.data);
                 $scope.search.updateSearchResults(response.data.pageOfResults);
                 if ($scope.search.hasSingleActivePatient()) {
                     $scope.forwardPatient($scope.search.activePatients[0]);

@@ -10,7 +10,7 @@
 
 
         <button type="submit" ng-show="startDate!=undefined && endDate!=undefined"
-            ng-click="getAppointmentsSummaryPeriod(startDate,endDate)" ng-disabled="endDate==startDate"> {{'APPOINTMENT_SUMMARY_BUTTON_LABEL' | translate}}</button>
+            ng-click="getAppointmentsSummaryPeriod(startDate,addDayToDate(endDate))" ng-disabled="endDate==startDate"> {{'APPOINTMENT_SUMMARY_BUTTON_LABEL' | translate}}</button>
        
         <div ng-show="weekDatesInfo==''" style="color:red">{{'APPOINTMENT_SUMMARY_END_ALERT' | translate}}</div>
     </div>
