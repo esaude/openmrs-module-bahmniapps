@@ -148,5 +148,10 @@
     "TRANSFERED_OUT_FROM": "Proveniência",
     "REGISTRATION_LABEL_VISIT_TYPE":"Tipo de Visita:",
     "REGISTRATION_PATIENT_DETAILS":"Detalhes do Paciente",
-    "PATIENT_OCCUPATION":"Profissão/Ocupação"
+    "PATIENT_OCCUPATION":"Profissão/Ocupação",
+    "REGISTRATION_TRANSFER_OUT_INFO_KEY": "Transferido Para",
+    "REGISTRATION_TRANSFER_OUT_HF_NAME_INFO":"Unidade Sanitária de Destino",
+    "Is_Transferred_Out":"Data de Transferência",
+    "Transfer_Date":"Data de Transferência",
+    "Observations":"Observações"
 }
