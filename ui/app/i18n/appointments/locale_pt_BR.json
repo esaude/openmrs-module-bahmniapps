@@ -64,7 +64,7 @@
   "APPOINTMENT_SERVICE_TYPE": "Tipo de consulta",
   "APPOINTMENT_SERVICE": "Serviço",
   "APPOINTMENT_SHOW_SELECTED_KEY": "Mostrar seleccionado",
-  "APPOINTMENT_SLOT": "Vaga",
+  "APPOINTMENT_SLOT": "Bloco",
   "APPOINTMENT_START_TIME_KEY": "Hora de início",
   "APPOINTMENT_STATUS_CHANGE_CONFIRM_MESSAGE": "Tem certeza de que deseja marcar a consulta como {{toStatus}}?",
   "APPOINTMENT_STATUS_CHANGE_SUCCESS_MESSAGE": "Alterou com sucesso o status da consulta para {{toStatus}}",
@@ -140,6 +140,7 @@
   "RESET_KEY": "Restabelecer",
   "SATURDAY": "Sab",
   "SAVE_CONFIRMATION_DIALOG_CONFLICT_KEY": "Este paciente já tem uma marcação para esta hora. Pretende continuar a editar o horário?",
+  "SAVE_CONFIRMATION_DIALOG_CONFLICT_KEY2": "Este paciente já tem uma marcação com este serviço para este dia. Por favor mude o horario ou o serviço.",
   "SAVE_CONFIRMATION_OPTION_CONFLICT_CANCEL_KEY": "Voltar para editar",
   "SAVE_CONFIRMATION_OPTION_CONFLICT_SAVE_KEY": "Avançar e gravar",
   "SEARCH_KEY": "Pesquisar ...",
@@ -159,7 +160,7 @@
   "YES_KEY": "Sim",
   "HEADER_LABEL_LOGOUT_KEY": "Sair",
   "CHANGE_PASSWORD": "Alterar Senha",
-  "APPOINTMENT_SELECT_BLOCK_KEY":"Selecione o bloco",
+  "APPOINTMENT_SELECT_BLOCK_KEY":"Bloco",
   "APP_BLOCK_1":"Bloco 1",
   "APP_BLOCK_2":"Bloco 2",
   "APP_BLOCK_3":"Bloco 3",
@@ -173,5 +174,7 @@
   "APPOINTMENT_SUMMARY_START_LABEL": "Inicio:",
   "APPOINTMENT_SUMMARY_END_LABEL": "Fim:",
   "APPOINTMENT_SUMMARY_END_ALERT": "A Data de Fim deve ser maior que a de Inicio.",
-  "APPOINTMENT_CREATE_SAVE_ADD_NEW": "Salvar e adicionar nova visita"
+  "APPOINTMENT_CREATE_SAVE_ADD_NEW": "Salvar e adicionar nova visita",
+  "APPOINTMENT_DATE_WARNING": "A data da consulta não pode ser inferior à data de hoje",
+  "APPOINTMENT_INVALID_DATE": "Data de consulta inválida"
 }

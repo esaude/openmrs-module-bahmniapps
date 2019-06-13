@@ -7,15 +7,14 @@
         }
     </style>
     <div>
-        <p> {{'SAVE_CONFIRMATION_DIALOG_CONFLICT_KEY' | translate}}</p>
+        <p ng-if="!allow"> {{'SAVE_CONFIRMATION_DIALOG_CONFLICT_KEY' | translate}}</p>
+        <p ng-if="allow"> {{'SAVE_CONFIRMATION_DIALOG_CONFLICT_KEY2' | translate}}</p>
     </div>
     <div class="dialog-button-group">
-        <button id="modal-revise-button2" class="secondary-button" ng-click="continueWithSaving()">
+        <button ng-hide="allow" id="modal-revise-button2" class="secondary-button" ng-click="continueWithSaving()">
             {{'SAVE_CONFIRMATION_OPTION_CONFLICT_SAVE_KEY' | translate}}</button>
         <button id="modal-revise-button3" class="secondary-button" ng-click="cancelTransition()">
             {{'SAVE_CONFIRMATION_OPTION_CONFLICT_CANCEL_KEY' | translate}}</button>
     </div>
     <span class="ngdialog-end"></span>
 </div>
-
-

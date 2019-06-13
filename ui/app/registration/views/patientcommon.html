@@ -188,7 +188,6 @@
 
 
             <section>
-
                 <!--NEW PATIENT-->
                 <div ng-show="patient.uuid==undefined && patient.NATIONALITY.value!= undefined">
 
@@ -209,14 +208,17 @@
                                     <select id="nationalAttribute" ng-model="nationalAttribute" ng-hide="nationalityDocs==0"
                                     ng-Click="nationalityAttribute(nationalAttribute)">
                                     <!--<option value="">{{::'REGISTRATION_DOC_OPTION_LABEL' | translate}}</option>-->
-                                    <option ng-show="nationalityDocs.includes('BI')" value="BI">BI</option>
-                                    <option ng-show="nationalityDocs.includes('CARTAO_DE_ELEITOR')" value="CARTAO_DE_ELEITOR">Cartao de Eleitor</option>
-                                    <option ng-show="nationalityDocs.includes('CEDULA_DE_NASCIMENTO')" value="CEDULA_DE_NASCIMENTO">Cedula de Nascimento</option>
-                                    <option ng-show="nationalityDocs.includes('DIRE')" value="DIRE">DIRE</option>
-                                    <option ng-show="nationalityDocs.includes('NUIT')" value="NUIT">NUIT</option>
-                                    <option ng-show="nationalityDocs.includes('NUIC')" value="NUIC">NUIC</option>
-                                    <option ng-show="nationalityDocs.includes('PASSAPORTE_MOCAMBICANO')" value="PASSAPORTE_MOCAMBICANO">{{::'REGISTRATION_LABEL_PASSPORT_MOZ' | translate}}</option>
-                                    <option ng-show="nationalityDocs.includes('PASSAPORTE_ESTRANGEIRO')" value="PASSAPORTE_ESTRANGEIRO">{{::'REGISTRATION_LABEL_PASSPORT_FOR' | translate}}</option>
+                                    <option ng-show="nationalityDocs.includes('REGISTRATION_OPTION_NONE') && nationalityDocs.includes('BI') &&
+                                                     nationalityDocs.includes('CARTAO_DE_ELEITOR') && nationalityDocs.includes('CEDULA_DE_NASCIMENTO') &&
+                                                     nationalityDocs.includes('NUIT') && nationalityDocs.includes('NUIC') || nationalityDocs.includes('DIRE')"
+                                                     value="REGISTRATION_OPTION_NONE">{{::'REGISTRATION_OPTION_NONE' | translate}}</option>
+                                    <option ng-show="nationalityDocs.includes('BI') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="BI">BI</option>
+                                    <option ng-show="nationalityDocs.includes('CARTAO_DE_ELEITOR') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="CARTAO_DE_ELEITOR">Cartao de Eleitor</option>
+                                    <option ng-show="nationalityDocs.includes('CEDULA_DE_NASCIMENTO') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="CEDULA_DE_NASCIMENTO">Cedula de Nascimento</option>
+                                    <option ng-show="nationalityDocs.includes('DIRE') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="DIRE">DIRE</option>
+                                    <option ng-show="nationalityDocs.includes('NUIT') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="NUIT">NUIT</option>
+                                    <option ng-show="nationalityDocs.includes('NUIC') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="NUIC">NUIC</option>
+                                    <option ng-show="nationalityDocs.includes('PASSAPORTE_ESTRANGEIRO') && nationalityDocs.includes('REGISTRATION_OPTION_NONE')" value="PASSAPORTE_ESTRANGEIRO">{{::'REGISTRATION_LABEL_PASSPORT_FOR' | translate}}</option>
                                 </select>
 
                                 <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
@@ -249,19 +251,21 @@
                                     <select id="attributeChoice" ng-model="attributeChoice" ng-hide="existDocs.length==0"
                                     ng-Click="nationalityEditAttribute(attributeChoice)">
                                     <!--<option value="">{{::'REGISTRATION_DOC_OPTION_LABEL' | translate}}</option>-->
-                                    <option ng-show="existDocs.includes('BI')" value="BI">BI</option>
-                                    <option ng-show="existDocs.includes('CARTAO_DE_ELEITOR')" value="CARTAO_DE_ELEITOR">Cartao de Eleitor</option>
-                                    <option ng-show="existDocs.includes('CEDULA_DE_NASCIMENTO')" value="CEDULA_DE_NASCIMENTO">Cedula de Nascimento</option>
-                                    <option ng-show="existDocs.includes('DIRE')" value="DIRE">DIRE</option>
-                                    <option ng-show="existDocs.includes('NUIT')" value="NUIT">NUIT</option>
-                                    <option ng-show="existDocs.includes('NUIC')" value="NUIC">NUIC</option>
-                                    <option ng-show="existDocs.includes('PASSAPORTE_MOCAMBICANO')" value="PASSAPORTE_MOCAMBICANO">{{::'REGISTRATION_LABEL_PASSPORT_MOZ' | translate}}</option>
-                                    <option ng-show="existDocs.includes('PASSAPORTE_ESTRANGEIRO')" value="PASSAPORTE_ESTRANGEIRO">{{::'REGISTRATION_LABEL_PASSPORT_FOR' | translate}}</option>
+                                    <option ng-show="existDocs.includes('REGISTRATION_OPTION_NONE') && existDocs.includes('BI') &&
+                                                     existDocs.includes('CARTAO_DE_ELEITOR') && existDocs.includes('CEDULA_DE_NASCIMENTO') &&
+                                                     existDocs.includes('NUIT') && existDocs.includes('NUIC') || existDocs.includes('DIRE')" value="REGISTRATION_OPTION_NONE">{{::'REGISTRATION_OPTION_NONE' | translate}}</option>
+                                    <option ng-show="existDocs.includes('BI') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="BI">BI</option>
+                                    <option ng-show="existDocs.includes('CARTAO_DE_ELEITOR') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="CARTAO_DE_ELEITOR">Cartao de Eleitor</option>
+                                    <option ng-show="existDocs.includes('CEDULA_DE_NASCIMENTO') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="CEDULA_DE_NASCIMENTO">Cedula de Nascimento</option>
+                                    <option ng-show="existDocs.includes('DIRE') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="DIRE">DIRE</option>
+                                    <option ng-show="existDocs.includes('NUIT') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="NUIT">NUIT</option>
+                                    <option ng-show="existDocs.includes('NUIC') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="NUIC">NUIC</option>
+                                    <option ng-show="existDocs.includes('PASSAPORTE_ESTRANGEIRO') && existDocs.includes('REGISTRATION_OPTION_NONE')" value="PASSAPORTE_ESTRANGEIRO">{{::'REGISTRATION_LABEL_PASSPORT_FOR' | translate}}</option>
                                 </select>
 
                                 <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
                                     ng-hide="existDocs.length==0" style="margin-left: 30px; height:27px"
-                                    ng-click="addEditDocRow()">
+                                    ng-click="addEditDocRow(attributeChoice)">
                                     <i class="fa-plus fa fa-green small"></i>
                                 </button>
                             </div>
@@ -278,9 +282,8 @@
                 <div ng-if="patient.uuid == undefined">
 
                     <section ng-repeat="documentRow in patientDocuments" class="form-field ng-scope">
-
                         <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                            ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'BI'"
+                            ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="::attribute.name==patient.attribute"
                             ng-show="::attribute.name==patient.attribute">
                             <attribute-types target-model="patient" attribute="::attribute"
                                 field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
@@ -290,135 +293,7 @@
                             <div class="left ng-scope">
                                 <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
                                     style="margin-left: 30px; height:27px" ng-hide="patientDocuments.length==0"
-                                    ng-click="removeDocumentRow('BI')">
-                                    <i class="fa-remove fa fa-red small"></i>
-                                </button>
-                            </div>
-
-                        </article>
-
-                        <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                            ng-class="::{'right-form-field' : $index%2 != 0}"
-                            ng-if="attribute.name == 'CARTAO_DE_ELEITOR'" ng-show="::attribute.name==patient.attribute">
-                            <attribute-types target-model="patient" attribute="::attribute"
-                                field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                                get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                                is-read-only="isReadOnly" handle-update="handleUpdate">
-                            </attribute-types>
-                            <div class="left ng-scope">
-                                <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                    style="margin-left: 30px; height:27px" ng-hide="patientDocuments.length==0"
-                                    ng-click="removeDocumentRow('CARTAO_DE_ELEITOR')">
-                                    <i class="fa-remove fa fa-red small"></i>
-                                </button>
-                            </div>
-                        </article>
-
-                        <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                            ng-class="::{'right-form-field' : $index%2 != 0}"
-                            ng-if="attribute.name == 'CEDULA_DE_NASCIMENTO'"
-                            ng-show="::attribute.name==patient.attribute">
-                            <attribute-types target-model="patient" attribute="::attribute"
-                                field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                                get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                                is-read-only="isReadOnly" handle-update="handleUpdate">
-                            </attribute-types>
-                            <div class="left ng-scope">
-                                <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                    style="margin-left: 30px; height:27px" ng-hide="patientDocuments.length==0"
-                                    ng-click="removeDocumentRow('CEDULA_DE_NASCIMENTO')">
-                                    <i class="fa-remove fa fa-red small"></i>
-                                </button>
-                            </div>
-                        </article>
-
-                        <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                            ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'DIRE'"
-                            ng-show="::attribute.name==patient.attribute">
-                            <attribute-types target-model="patient" attribute="::attribute"
-                                field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                                get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                                is-read-only="isReadOnly" handle-update="handleUpdate">
-                            </attribute-types>
-                            <div class="left ng-scope">
-                                <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                    style="margin-left: 30px; height:27px" ng-hide="patientDocuments.length==0"
-                                    ng-click="removeDocumentRow('DIRE')">
-                                    <i class="fa-remove fa fa-red small"></i>
-                                </button>
-                            </div>
-                        </article>
-
-
-                        <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                            ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'NUIT'"
-                            ng-show="::attribute.name==patient.attribute">
-                            <attribute-types target-model="patient" attribute="::attribute"
-                                field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                                get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                                is-read-only="isReadOnly" handle-update="handleUpdate">
-                            </attribute-types>
-                            <div class="left ng-scope">
-                                <div class="left ng-scope">
-                                    <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope"
-                                        tabindex="-1" style="margin-left: 30px; height:27px"
-                                        ng-hide="patientDocuments.length==0" ng-click="removeDocumentRow('NUIT')">
-                                        <i class="fa-remove fa fa-red small"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                            ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'NUIC'"
-                            ng-show="::attribute.name==patient.attribute">
-                            <attribute-types target-model="patient" attribute="::attribute"
-                                field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                                get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                                is-read-only="isReadOnly" handle-update="handleUpdate">
-                            </attribute-types>
-                            <div class="left ng-scope">
-                                <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                    style="margin-left: 30px; height:27px" ng-hide="patientDocuments.length==0"
-                                    ng-click="removeDocumentRow('NUIC')">
-                                    <i class="fa-remove fa fa-red small"></i>
-                                </button>
-                            </div>
-                        </article>
-
-
-
-                        <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                            ng-class="::{'right-form-field' : $index%2 != 0}"
-                            ng-if="attribute.name == 'PASSAPORTE_MOCAMBICANO'"
-                            ng-show="::attribute.name==patient.attribute">
-                            <attribute-types target-model="patient" attribute="::attribute"
-                                field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                                get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                                is-read-only="isReadOnly" handle-update="handleUpdate">
-                            </attribute-types>
-                            <div class="left ng-scope">
-                                <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                    style="margin-left: 30px; height:27px" ng-hide="patientDocuments.length==0"
-                                    ng-click="removeDocumentRow('PASSAPORTE_MOCAMBICANO')">
-                                    <i class="fa-remove fa fa-red small"></i>
-                                </button>
-                            </div>
-                        </article>
-
-                        <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                            ng-class="::{'right-form-field' : $index%2 != 0}"
-                            ng-if="attribute.name == 'PASSAPORTE_ESTRANGEIRO'"
-                            ng-show="::attribute.name==patient.attribute">
-                            <attribute-types target-model="patient" attribute="::attribute"
-                                field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                                get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                                is-read-only="isReadOnly" handle-update="handleUpdate">
-                            </attribute-types>
-                            <div class="left ng-scope">
-                                <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                    style="margin-left: 30px; height:27px" ng-hide="patientDocuments.length==0"
-                                    ng-click="removeDocumentRow('PASSAPORTE_ESTRANGEIRO')">
+                                    ng-click="removeDocumentRow(attribute.name)">
                                     <i class="fa-remove fa fa-red small"></i>
                                 </button>
                             </div>
@@ -430,150 +305,25 @@
                 <!--EXISTING PATIENT-->
                 <div ng-if="patient.uuid != undefined" ng-show="patient.NATIONALITY.value!= undefined"
                     class="form-field ng-scope">
-
-
-
                     <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                        ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'BI'"
-                        ng-show="attribute.name == 'BI' && editPatientDocuments.indexOf('BI')!=-1 || patient.BI.length>0">
-                        <attribute-types target-model="patient" attribute="::attribute"
-                            get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                            is-read-only="isReadOnly" handle-update="handleUpdate">
-                        </attribute-types>
-                        <div class="left ng-scope">
-                            <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                style="margin-left: 30px; height:27px" ng-click="removeEditDocRow('BI')">
-                                <!---->
-                                <i class="fa-remove fa fa-red small"></i>
-                            </button>
-                        </div>
+                    ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="patient.attribute=attribute.name && editPatientDocuments.includes(attribute.name)==true"
+                    ng-show="editPatientDocuments.includes(attribute.name)==true || patient.attribute.length>0">
+                    <attribute-types target-model="patient" attribute="::attribute"
+                        get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
+                        is-read-only="isReadOnly" handle-update="handleUpdate">
+                    </attribute-types>
+                    <div class="left ng-scope">
+                        <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
+                            style="margin-left: 30px; height:27px" ng-click="removeEditDocRow(attribute.name)">
+                            <!---->
+                            <i class="fa-remove fa fa-red small"></i>
+                        </button>
+                    </div>
 
-                    </article>
-
-                    <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                        ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'CARTAO_DE_ELEITOR'"
-                        ng-show="attribute.name == 'CARTAO_DE_ELEITOR' && editPatientDocuments.indexOf('CARTAO_DE_ELEITOR')!=-1 || patient.CARTAO_DE_ELEITOR.length>0">
-                        <attribute-types target-model="patient" attribute="::attribute"
-                            field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                            get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                            is-read-only="isReadOnly" handle-update="handleUpdate">
-                        </attribute-types>
-                        <div class="left ng-scope">
-                            <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                style="margin-left: 30px; height:27px" ng-click="removeEditDocRow('CARTAO_DE_ELEITOR')">
-                                <i class="fa-remove fa fa-red small"></i>
-                            </button>
-                        </div>
-                    </article>
-
-                    <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                        ng-class="::{'right-form-field' : $index%2 != 0}"
-                        ng-if="attribute.name == 'CEDULA_DE_NASCIMENTO'"
-                        ng-show="attribute.name == 'CEDULA_DE_NASCIMENTO' && editPatientDocuments.indexOf('CEDULA_DE_NASCIMENTO')!=-1 || patient.CEDULA_DE_NASCIMENTO.length>0">
-                        <attribute-types target-model="patient" attribute="::attribute"
-                            field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                            get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                            is-read-only="isReadOnly" handle-update="handleUpdate">
-                        </attribute-types>
-                        <div class="left ng-scope">
-                            <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                style="margin-left: 30px; height:27px"
-                                ng-click="removeEditDocRow('CEDULA_DE_NASCIMENTO')">
-                                <i class="fa-remove fa fa-red small"></i>
-                            </button>
-                        </div>
-                    </article>
-
-                    <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                        ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'DIRE'"
-                        ng-show="attribute.name == 'DIRE' && editPatientDocuments.indexOf('DIRE')!=-1 || patient.DIRE.length>0">
-                        <attribute-types target-model="patient" attribute="::attribute"
-                            field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                            get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                            is-read-only="isReadOnly" handle-update="handleUpdate">
-                        </attribute-types>
-                        <div class="left ng-scope">
-                            <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                style="margin-left: 30px; height:27px" ng-click="removeEditDocRow('DIRE')">
-                                <i class="fa-remove fa fa-red small"></i>
-                            </button>
-                        </div>
-                    </article>
-
-
-                    <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                        ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'NUIT'"
-                        ng-show="attribute.name == 'NUIT' && editPatientDocuments.indexOf('NUIT')!=-1 || patient.NUIT.length>0">
-                        <attribute-types target-model="patient" attribute="::attribute"
-                            field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                            get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                            is-read-only="isReadOnly" handle-update="handleUpdate">
-                        </attribute-types>
-                        <div class="left ng-scope">
-                            <div class="left ng-scope">
-                                <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                    style="margin-left: 30px; height:27px" ng-click="removeEditDocRow('NUIT')">
-                                    <i class="fa-remove fa fa-red small"></i>
-                                </button>
-                            </div>
-                    </article>
-
-                    <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                        ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'NUIC'"
-                        ng-show="attribute.name == 'NUIC' && editPatientDocuments.indexOf('NUIC')!=-1 || patient.NUIC.length>0">
-                        <attribute-types target-model="patient" attribute="::attribute"
-                            field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                            get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                            is-read-only="isReadOnly" handle-update="handleUpdate">
-                        </attribute-types>
-                        <div class="left ng-scope">
-                            <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                style="margin-left: 30px; height:27px" ng-click="removeEditDocRow('NUIC')">
-                                <i class="fa-remove fa fa-red small"></i>
-                            </button>
-                        </div>
-                    </article>
-
-
-                    <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                        ng-class="::{'right-form-field' : $index%2 != 0}"
-                        ng-if="attribute.name == 'PASSAPORTE_MOCAMBICANO'"
-                        ng-show="attribute.name == 'PASSAPORTE_MOCAMBICANO' && editPatientDocuments.indexOf('PASSAPORTE_MOCAMBICANO')!=-1 || patient.PASSAPORTE_MOCAMBICANO.length>0">
-                        <attribute-types target-model="patient" attribute="::attribute"
-                            field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                            get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                            is-read-only="isReadOnly" handle-update="handleUpdate">
-                        </attribute-types>
-                        <div class="left ng-scope">
-                            <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                style="margin-left: 30px; height:27px"
-                                ng-click="removeEditDocRow('PASSAPORTE_MOCAMBICANO')">
-                                <i class="fa-remove fa fa-red small"></i>
-                            </button>
-                        </div>
-                    </article>
-
-                    <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                        ng-class="::{'right-form-field' : $index%2 != 0}"
-                        ng-if="attribute.name == 'PASSAPORTE_ESTRANGEIRO'"
-                        ng-show="attribute.name == 'PASSAPORTE_ESTRANGEIRO' && editPatientDocuments.indexOf('PASSAPORTE_ESTRANGEIRO')!=-1 || patient.PASSAPORTE_ESTRANGEIRO.length>0">
-                        <attribute-types target-model="patient" attribute="::attribute"
-                            field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                            get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                            is-read-only="isReadOnly" handle-update="handleUpdate">
-                        </attribute-types>
-                        <div class="left ng-scope">
-                            <button type="button" class="comment-toggle fr ng-scope ng-isolate-scope" tabindex="-1"
-                                style="margin-left: 30px; height:27px"
-                                ng-click="removeEditDocRow('PASSAPORTE_ESTRANGEIRO')">
-                                <i class="fa-remove fa fa-red small"></i>
-                            </button>
-                        </div>
-                    </article>
+                </article>
                 </div>
 
-
-            </section>
+               </section>
 
                 <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if = "attribute.name == 'MOTHER_NAME'" ng-class="::{'right-form-field' : $index%2 != 0}">
                     <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
@@ -588,8 +338,7 @@
                 </article>
         </section>
 
-
-            <legend class="registraion_legend">
+      <legend class="registraion_legend">
                 <span class="mylegend"> {{ ::'REGISTRATION_PROFESSIONAL_INFORMATION' | translate}}</span>
             </legend>
 
@@ -731,25 +480,6 @@
                 </section>
             </section>
 
-            <legend class="registraion_legend" ng-if="patientConfiguration.customAttributeRows().length > 0">
-                <span class="mylegend">{{ ::'REGISTRATION_LABEL_OTHER_INFO' | translate}}</span>
-            </legend>
-
-        <!--<section class="form-field-inline clearfix"-->
-            <!--ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">-->
-            <!--<article class="form-field" ng-repeat="attribute in ::attributeRow"-->
-                <!--ng-class="::{'right-form-field' : $index%2 != 0}"-->
-                <!--ng-if="attribute.name != 'NICK_NAME' && attribute.name != 'TYPE_OF_REGISTRATION' && attribute.name != 'education' && attribute.name != 'MARITAL_STATUS' && attribute.name != 'NATIONALITY'-->
-                    <!--&& attribute.name != 'BI' && attribute.name != 'NUIC' && attribute.name != 'NUIT' && attribute.name != 'DIRE' && attribute.name != 'Cedula_de_Nascimento'-->
-                    <!--&& attribute.name != 'Cartao_de_Eleitor' && attribute.name != 'Cedula_de_Nascimento' && attribute.name != 'Passaporte_Mocambicano' && attribute.name != 'Passaporte_Estrangeiro'-->
-                    <!--&& attribute.name != 'TRANSFERENCE_HF_NAME'  && attribute.name != 'TRANSFERENCE_HF_DISTRICT' && attribute.name != 'TRANSFERENCE_HF_PROVINCE' && attribute.name != 'US_REG_DATE'-->
-                    <!--&& attribute.name != 'TRANSFERED_OUT_HF_NAME' && attribute.name != 'Transferred out HF name'">-->
-                    <!--<attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"-->
-                        <!--is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"-->
-                        <!--get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate">-->
-                    <!--</attribute-types>-->
-                <!--</article>-->
-            <!--</section>-->
     </div>
 
     <div ng-repeat="section in ::patientConfiguration.getOrderedPatientAttributesSections()"
@@ -778,7 +508,6 @@
                             get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
                             is-read-only="isReadOnly" handle-update="handleUpdate" ng-if="attribute.name !== 'PATIENT_STATUS' && attribute.name !== 'TRANSFERRED_OUT_HF_NAME'"></attribute-types>
                     </article>
-                    <div class="testlocation"><b>{{'TRANSFERED_OUT_FROM' | translate}}</b></div>
                     <section transference-health-facility-address-fields data-address-levels="::addressLevels" data-address="patient.address"
                              field-validation="::fieldValidation" ng-if="::addressHierarchyConfigs.showAddressFieldsTopDown"
                              strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel"></section>

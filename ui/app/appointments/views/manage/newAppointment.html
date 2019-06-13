@@ -73,8 +73,10 @@
                     <label for="date">
                         {{'APPOINTMENT_DATE' | translate}}<sup class="asterick">*</sup>
                     </label>
-                    <input  id="date" type="date" ng-min="isEditMode() && !isEditAllowed()" min="{{today}}" required
+                    <input  id="date" type="date" ng-min="isEditMode() && !isEditAllowed()" required
                             ng-model="appointment.date"
+                            ng-change="validateDate()"
+                            title="{{'APPOINTMENT_DATE_WARNING' | translate}}"
                             placeholder="Pick appointment date"
                             ng-disabled="isEditMode() && !isEditAllowed()"/>
                     <span class="slots-remaining"></span>
@@ -88,11 +90,10 @@
                         {{'APPOINTMENT_SELECT_BLOCK_KEY' | translate}}<sup class="asterick">*</sup>
                     </label>
                     <select id="appointmentBlock" ng-change="setBlockTimes()" ng-model="selectedAppointmentBlock"
-                            ng-options="appointmentBlock.name | translate for appointmentBlock in appointmentBlocks">
-                        <option value=""></option>
+                            ng-options="appointmentBlock.name | translate for appointmentBlock in appointmentBlocks track by appointmentBlock.name">
                     </select>
                 </p>
-                <p class="walk-in-app">
+                <p class="ng-hide walk-in-app">
                     <input type="checkbox" ng-model="appointment.appointmentKind" ng-true-value="'WalkIn'"
                            ng-false-value="'Scheduled'" ng-disabled="isEditMode() && !isEditAllowed()">
                     <span class="walk-in-text">{{'APPOINTMENT_CREATE_WALK_IN' | translate}}</span>
