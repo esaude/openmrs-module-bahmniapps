@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-            <div class="form-field program-outcome-container" ng-show="patientProgram.editing">
+            <!--<div class="form-field program-outcome-container" ng-show="patientProgram.editing">
                 <div class="field-attribute">
                     <label>{{::'PROGRAM_MANAGEMENT_LABEL_PROGRAM_OUTCOME' | translate}} : </label>
                 </div>
@@ -63,7 +63,7 @@
                             ng-options="outcomeSelected.display for outcomeSelected in ::patientProgram.program.outcomesConcept.setMembers">
                         <option value="">{{::'PROGRAM_MANAGEMENT_LABEL_CHOOSE_OUTCOME' | translate}}</option>
                     </select>
-                </div>
+                </div>-->
             </div>
         </div>
     </form>
@@ -103,7 +103,7 @@
                                dateEnrolled: patientProgram.fromDate,
                                dateCompleted: patientProgram.toDate})">
         <span class="proggram-dashboard-text">
-            <span class="patient-name">{{::patientProgram.display}} Dashboard</span>
+            <span class="patient-name">{{::'PROGRAM_MANAGEMENT_DASHBOARD_LABEL' | translate}}</span>
         </span>
     </a>
 </div>
