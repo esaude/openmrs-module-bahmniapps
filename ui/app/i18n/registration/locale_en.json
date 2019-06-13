@@ -178,5 +178,10 @@
   "TRANSFERED_OUT_FROM": "Provenance",
   "REGISTRATION_LABEL_VISIT_TYPE":"Visit Type:",
   "REGISTRATION_OPTION_NONE": "None",
-  "REGISTRATION_OPTION_NONE_TEXT": "Document"
+  "REGISTRATION_OPTION_NONE_TEXT": "Document",
+  "REGISTRATION_TRANSFER_OUT_INFO_KEY": "Patient Transfer Out",
+  "REGISTRATION_TRANSFER_OUT_HF_NAME_INFO":"Destination Health Facility",
+  "Is_Transferred_Out":"Is Transferred Out",
+  "Transfer_Date":"Transfer Date",
+  "Observations":"Observations"
 }
