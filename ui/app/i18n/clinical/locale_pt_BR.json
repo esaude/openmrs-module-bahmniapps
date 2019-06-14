@@ -363,5 +363,9 @@
 "ORDER_TYPE": "Exames",
 "BIRTHDATE_ESTIMATED": "Estimado",
 "CLINICAL_ORDER_URGENT_TITLE": "Urgente",
-  "SPECIAL_OPD": "OPD Especial"
+"SPECIAL_OPD": "OPD Especial",
+"ENCOUNTER_APSS_FIRST": "APSS Primeiro",
+"ENCOUNTER_APSS_FOLLOWUP": "Acompanhamento do APSS",
+"ENCOUNTER_CLINICAL_FIRST": "Clínico Primeiro",
+"ENCOUNTER_CLINICAL_FOLLOWUP": "Acompanhamento do Clínico"
  }
