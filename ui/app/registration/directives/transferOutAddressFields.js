@@ -21,12 +21,10 @@ angular.module('bahmni.registration')
 
         $scope.transferOutName = "";
         $scope.transferOutProvince = "";
-        $scope.transferOutDistrict = "";        
-
+        $scope.transferOutDistrict = "";
         $scope.$on('HFEvent', function (event, data) {
             $scope.isRequired = data;
-        });       
-
+        });
         var addressLevelsCloneInDescendingOrder = $scope.addressLevels.slice(0).reverse();
         var addressLevelUIOrderBasedOnConfig = $scope.addressLevels;
         $scope.addressLevelsChunks = Bahmni.Common.Util.ArrayUtil.chunk(addressLevelUIOrderBasedOnConfig, 2);
