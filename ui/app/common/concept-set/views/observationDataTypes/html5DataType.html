@@ -1,13 +1,29 @@
 <input id="weight_observation" ng-if="::(observation.isNumeric() && !observation.isStepperControl()) && observation.concept.name === 'WEIGHT'"
        obs-constraints obs="::observation"
-       ng-model="observation.value" ng-change="::observation.validateWeight()"
+       ng-model="observation.value" ng-change="::observation.validateWeight();updateNutritionalValue()"
        ng-disabled="observation.disabled"
        ng-class="{'is-abnormal': observation.abnormalObs.value, 'illegalValue': !observation.isValid(atLeastOneValueIsSet,conceptSetRequired), 'computed-field': observation.isComputedAndEditable()}"
        type="number"
        title="{{::'REGISTRATION_LABEL_ENTER_VALID_WEIGHT'|translate}}"
        focus-me="::observation.isFocused" tabindex="1"/>
 
-<input id="{{::observation.uniqueId}}" ng-if="::(observation.isNumeric() && !observation.isStepperControl() && observation.concept.name !== 'WEIGHT')"
+<input id="weight_observation" ng-if="::(observation.isNumeric() && !observation.isStepperControl()) && observation.concept.name === 'HEIGHT'"
+       obs-constraints obs="::observation"
+       ng-model="observation.value" ng-change = "updateNutritionalValue()"
+       ng-disabled="observation.disabled"
+       ng-class="{'is-abnormal': observation.abnormalObs.value, 'illegalValue': !observation.isValid(atLeastOneValueIsSet,conceptSetRequired), 'computed-field': observation.isComputedAndEditable()}"
+       type="number"
+       focus-me="::observation.isFocused" tabindex="1"/>
+
+<input id="weight_observation" ng-if="::(observation.isNumeric() && !observation.isStepperControl()) && observation.concept.name === 'Brachial_perimeter_new'"
+       obs-constraints obs="::observation"
+       ng-model="observation.value" ng-change = "updateNutritionalValue()"
+       ng-disabled="observation.disabled"
+       ng-class="{'is-abnormal': observation.abnormalObs.value, 'illegalValue': !observation.isValid(atLeastOneValueIsSet,conceptSetRequired), 'computed-field': observation.isComputedAndEditable()}"
+       type="number"
+       focus-me="::observation.isFocused" tabindex="1"/>
+
+<input id="{{::observation.uniqueId}}" ng-if="::(observation.isNumeric() && !observation.isStepperControl() && observation.concept.name !== 'WEIGHT' && observation.concept.name !== 'HEIGHT' && observation.concept.name !== 'Brachial_perimeter_new')"
        obs-constraints obs="::observation"
        ng-model="observation.value" ng-change="handleUpdate()"
        ng-disabled="observation.disabled"
