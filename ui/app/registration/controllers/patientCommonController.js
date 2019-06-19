@@ -22,6 +22,7 @@ angular.module('bahmni.registration')
             var isHref = false;
             $rootScope.duplicatePatients;
             $rootScope.duplicatePatientCount = 0;
+            $scope.isAddressRequired = "false";
             $rootScope.personSearchResultsConfig = ["NICK_NAME", "PRIMARY_CONTACT_NUMBER_1", "PATIENT_STATUS", "US_REG_DATE"];
             $rootScope.searchActions = appService.getAppDescriptor().getExtensions("org.bahmni.registration.patient.search.result.action");
             $scope.checkDuplicatePatients = function () {
@@ -211,6 +212,10 @@ angular.module('bahmni.registration')
                 if (ruleFunction) {
                     executeRule(ruleFunction);
                 }
+            };
+
+            $scope.updateLocationRequired = function (value) {
+                $scope.$broadcast('HFEvent', value);
             };
 
             var executeShowOrHideRules = function () {
