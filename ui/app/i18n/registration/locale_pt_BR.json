@@ -155,7 +155,7 @@
     "BMI": "IMC",
     "REGISTRATION_TRANSFER_OUT_INFO_KEY": "Transferido Para",
     "REGISTRATION_TRANSFER_OUT_HF_NAME_INFO":"Unidade Sanitária de Destino",
-    "Is_Transferred_Out":"Data de Transferência",
+    "Is_Transferred_Out":"Transferir Para",
     "Transfer_Date":"Data de Transferência",
     "Observations":"Observações"
 
