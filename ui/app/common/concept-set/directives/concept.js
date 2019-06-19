@@ -6,11 +6,13 @@ angular.module('bahmni.common.conceptSet')
             var height, weight, brachialPerimeter, bmi, data, key, isValidHeight;
             var link = function (scope) {
                 var hideAbnormalbuttonConfig = scope.observation && scope.observation.conceptUIConfig && scope.observation.conceptUIConfig['hideAbnormalButton'];
-
+                var currentUrl = window.location.href;
+                if (scope.observation !== null && scope.observation !== undefined && currentUrl.includes("registration")) {
+                    scope.observation.value = "";
+                }
                 scope.now = moment().format("YYYY-MM-DD hh:mm:ss");
                 scope.showTitle = scope.showTitle === undefined ? true : scope.showTitle;
                 scope.hideAbnormalButton = hideAbnormalbuttonConfig == undefined ? scope.hideAbnormalButton : hideAbnormalbuttonConfig;
-
                 scope.cloneNew = function (observation, parentObservation) {
                     observation.showAddMoreButton = function () {
                         return false;
