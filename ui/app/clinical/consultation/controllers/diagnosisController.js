@@ -242,7 +242,11 @@ angular.module('bahmni.clinical')
                 _.map($scope.consultation.stages.answers, function (answer) {
                     _.map(answer.setMembers, function (member) {
                         if (condition.concept.uuid === member.uuid) {
-                            $scope.consultation.whoStage.value = mapAnswer(answer);
+                            if(!$scope.consultation.whoStage.value || !$scope.consultation.whoStage.value.name ) {
+                                $scope.consultation.whoStage.value = mapAnswer(answer);
+                            }else if (answer.name.name > $scope.consultation.whoStage.value.name) {
+                                $scope.consultation.whoStage.value = mapAnswer(answer);
+                            }
                         }
                     });
                 });
