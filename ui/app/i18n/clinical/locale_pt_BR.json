@@ -186,18 +186,18 @@
 "MEDICATION_DOSE_UNIT_PLACEHOLDER": "Escolher unidade",
 "MEDICATION_DOSING_INSTRUCTIONS_PLACEHOLDER": "Escolher instrução",
 "MEDICATION_DRUG_NAME_PLACEHOLDER": "Seleccionar medicamento",
-"MEDICATION_DRUG_NAME_TITLE": "Nome do medicamento",
+"MEDICATION_DRUG_NAME_TITLE": "Medicamento",
 "MEDICATION_DRUG_NAME":"Nome do medicamento",
 "MEDICATION_DUE_TO":"Motivo",
 "MEDICATION_FREQUENCY_UNIT_PLACEHOLDER": "Escolher frequência",
 "MEDICATION_LABEL_ADDITIONAL_INSTRUCTIONS": "Instruções Adicionais",
 "MEDICATION_LABEL_AS_NEEDED": "Como necessário",
-"MEDICATION_LABEL_DOSE": "Dose",
+"MEDICATION_LABEL_DOSE": "Dosagem",
 "MEDICATION_LABEL_DOSING_INSTRUCTIONS": "Instruções",
 "MEDICATION_LABEL_DURATION": "Duração",
 "MEDICATION_LABEL_FREQUENCY": "Frequência",
 "MEDICATION_LABEL_ROUTE": "Via",
-"MEDICATION_LABEL_START_DATE": "Data de ínicio da medicação",
+"MEDICATION_LABEL_START_DATE": "Data início da medicação",
 "MEDICATION_LABEL_TOTAL_QUANTITY": "Quantidade total",
 "MEDICATION_LABEL_UNITS": "Unidades",
 "MEDICATION_NEW_PRESCRIPTION": "Nova prescrição",
@@ -370,5 +370,6 @@
 "ENCOUNTER_APSS_FIRST": "APSS Primeiro",
 "ENCOUNTER_APSS_FOLLOWUP": "Acompanhamento do APSS",
 "ENCOUNTER_CLINICAL_FIRST": "Clínico Primeiro",
-"ENCOUNTER_CLINICAL_FOLLOWUP": "Acompanhamento do Clínico"
- }
+"ENCOUNTER_CLINICAL_FOLLOWUP": "Acompanhamento do Clínico",
+"NO_VITALS_MESSAGE": "Nenhum dado registado para este paciente"
+}
