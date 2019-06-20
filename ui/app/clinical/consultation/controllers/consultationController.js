@@ -324,6 +324,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 var tempConsultation = angular.copy($scope.consultation);
                 tempConsultation.observations = observationFilter.filter(tempConsultation.observations);
                 tempConsultation.consultationNote = observationFilter.filter([tempConsultation.consultationNote])[0];
+                tempConsultation.whoStage = observationFilter.filter([tempConsultation.whoStage])[0];
                 tempConsultation.labOrderNote = observationFilter.filter([tempConsultation.labOrderNote])[0];
 
                 addFormObservations(tempConsultation);
@@ -437,6 +438,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
             };
 
             $scope.save = function (toStateConfig) {
+                console.log("This is the save method", toStateConfig);
                 if (!isFormValid()) {
                     $scope.$parent.$parent.$broadcast("event:errorsOnForm");
                     return $q.when({});
@@ -451,7 +453,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                             var messageParams = {encounterUuid: saveResponse.data.encounterUuid, encounterType: saveResponse.data.encounterType};
                             auditLogService.log($scope.patient.uuid, "EDIT_ENCOUNTER", messageParams, "MODULE_LABEL_CLINICAL_KEY");
                             var consultationMapper = new Bahmni.ConsultationMapper(configurations.dosageFrequencyConfig(), configurations.dosageInstructionConfig(),
-                                configurations.consultationNoteConcept(), configurations.labOrderNotesConcept(), $scope.followUpConditionConcept);
+                                configurations.consultationNoteConcept(), configurations.whoStageConcept(), configurations.labOrderNotesConcept(), $scope.followUpConditionConcept);
                             var consultation = consultationMapper.map(saveResponse.data);
                             consultation.lastvisited = $scope.lastvisited;
                             return consultation;

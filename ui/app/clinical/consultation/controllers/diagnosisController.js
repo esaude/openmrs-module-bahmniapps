@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .controller('DiagnosisController', ['$scope', '$rootScope', 'diagnosisService', 'messagingService', 'contextChangeHandler', 'spinner', 'appService', '$translate', 'retrospectiveEntryService',
-        function ($scope, $rootScope, diagnosisService, messagingService, contextChangeHandler, spinner, appService, $translate, retrospectiveEntryService) {
+    .controller('DiagnosisController', ['$scope', '$rootScope', 'diagnosisService', 'configurations', 'messagingService', 'contextChangeHandler', 'spinner', 'appService', '$translate', 'retrospectiveEntryService',
+        function ($scope, $rootScope, diagnosisService, configurations, messagingService, contextChangeHandler, spinner, appService, $translate, retrospectiveEntryService) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             $scope.todayWithoutTime = DateUtil.getDateWithoutTime(DateUtil.today());
             $scope.toggles = {
                 expandInactive: false
             };
+            $scope.consultation.whoStage = $scope.consultation.whoStage || null;
+            $scope.consultation.stages = configurations.whoStageConcept() || null;
             $scope.consultation.condition = $scope.consultation.condition || new Bahmni.Common.Domain.Condition({});
             $scope.conditionsStatuses = {
                 'CONDITION_LIST_ACTIVE': 'ACTIVE',
@@ -223,6 +225,7 @@ angular.module('bahmni.clinical')
                     condition.concept = {};
                 }
                 condition.voided = false;
+                calculateStage(condition);
                 updateOrAddCondition(new Bahmni.Common.Domain.Condition(condition));
             };
             $scope.markAs = function (condition, status) {
@@ -233,6 +236,23 @@ angular.module('bahmni.clinical')
             var clearCondition = function () {
                 $scope.consultation.condition = new Bahmni.Common.Domain.Condition();
                 $scope.consultation.condition.showNotes = false;
+            };
+
+            var calculateStage = function (condition) {
+                _.map($scope.consultation.stages.answers, function (answer) {
+                    _.map(answer.setMembers, function (member) {
+                        if (condition.concept.uuid === member.uuid) {
+                            $scope.consultation.whoStage.value = mapAnswer(answer);
+                        }
+                    });
+                });
+            };
+
+            var mapAnswer = function (answer) {
+                return {
+                    name: answer.name.name,
+                    uuid: answer.uuid
+                };
             };
 
             $scope.addDiagnosisToConditions = function (diagnosis) {

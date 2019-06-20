@@ -102,6 +102,9 @@ Bahmni.Clinical.EncounterTransactionMapper = function () {
             if (consultation.labOrderNote) {
                 encounterData.observations.push(consultation.labOrderNote);
             }
+            if (consultation.whoStage) {
+                encounterData.observations.push(consultation.whoStage);
+            }
             if (!_.isEmpty(consultation.drugOrdersWithUpdatedOrderAttributes)) {
                 var orderAttributes = _.values(consultation.drugOrdersWithUpdatedOrderAttributes).map(function (drugOrder) {
                     return drugOrder.getOrderAttributesAsObs();
