@@ -301,6 +301,7 @@
 "PROGRAM_MANAGEMENT_STOP_DATE_KEY": "Data final",
 "PROGRAM_MANAGEMENT_TO_KEY": "para",
 "PROGRAM_MANAGEMENT_DASHBOARD_LABEL": "Painel de Acompanhamento",
+"PROGRAM_DATE_ALERT":"Por favor insira uma data valida",
 "RECENT_PATIENTS_LABEL": "Pacientes recentes",
 "REMOVE_CONFIRMATION_KEY": "Tem certeza que pretende remover?",
 "REMOVE_DRUG_ORDER_KEY": "Você tem certeza que quer remover o medicamento", 

@@ -7,7 +7,7 @@
                 {{'PROGRAM_MANAGEMENT_SELECT_PROGRAM_KEY' | translate}}
             </a>
 
-            <form class="select-program-option form-field clearfix" single-submit="enrollPatient()"
+            <form name="serviceForm" class="select-program-option form-field clearfix" single-submit="enrollPatient()" novalidate
                   ng-show="!allPrograms.showProgramSection">
 
                 <article class="fl">
@@ -45,7 +45,6 @@
                     </div>
                     <div class="field-value">
                         <input type="date" max="{{today}}" ng-model="programEnrollmentDate" ng-required="true">
-                    </div>
                 </article>
 
                 <article class="fl" ng-repeat="attribute in programAttributeTypes" ng-if="isIncluded(attribute) && attribute.name != 'Date' && attribute.name != 'ID_Number' && 
