@@ -19,6 +19,16 @@ angular.module('bahmni.common.domain')
                         encounter.providers.push({"uuid": $rootScope.currentProvider.uuid});
                     }
                 }
+
+                var observations = encounter.observations[0].groupMembers[0].groupMembers;
+                var auxiliarObs = [];
+                for (var i = 0; i < observations.length; i++) {
+                    if (observations[i].value !== undefined && observations[i].value !== null) {
+                        auxiliarObs[i] = observations[i];
+                    }
+                }
+                encounter.observations[0].groupMembers[0].groupMembers = auxiliarObs;
+
                 return encounter;
             };
 

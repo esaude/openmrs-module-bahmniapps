@@ -11,10 +11,10 @@ angular.module('bahmni.common.conceptSet')
                     scope.observation.value = "";
                 }
                 if (scope.observation !== null && scope.observation !== undefined && currentUrl.includes("clinical")) {
-                    if (scope.observation.concept.name === "WEIGHT" && (scope.observation.value === null ||  scope.observation.value === undefined)) {
+                    if (scope.observation.concept.name === "WEIGHT" && (scope.observation.value === null || scope.observation.value === undefined)) {
                         scope.observation.value = scope.patient.weight;
                     }
-                    if (scope.observation.concept.name === "HEIGHT" && (scope.observation.value === null ||  scope.observation.value === undefined)) {
+                    if (scope.observation.concept.name === "HEIGHT" && (scope.observation.value === null || scope.observation.value === undefined)) {
                         scope.observation.value = scope.patient.height;
                     }
                 }
