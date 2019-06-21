@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .controller('DiagnosisController', ['$scope', '$rootScope', 'diagnosisService', 'configurations', 'messagingService', 'contextChangeHandler', 'spinner', 'appService', '$translate', 'retrospectiveEntryService',
-        function ($scope, $rootScope, diagnosisService, configurations, messagingService, contextChangeHandler, spinner, appService, $translate, retrospectiveEntryService) {
+    .controller('DiagnosisController', ['$scope', '$rootScope', 'diagnosisService', 'configurations', 'messagingService', 'contextChangeHandler', 'spinner', 'appService', '$translate', 'retrospectiveEntryService', '$http',
+        function ($scope, $rootScope, diagnosisService, configurations, messagingService, contextChangeHandler, spinner, appService, $translate, retrospectiveEntryService, $http) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             $scope.todayWithoutTime = DateUtil.getDateWithoutTime(DateUtil.today());
             $scope.toggles = {
@@ -242,9 +242,9 @@ angular.module('bahmni.clinical')
                 _.map($scope.consultation.stages.answers, function (answer) {
                     _.map(answer.setMembers, function (member) {
                         if (condition.concept.uuid === member.uuid) {
-                            if(!$scope.consultation.whoStage.value || !$scope.consultation.whoStage.value.name ) {
+                            if (!$scope.consultation.whoStage.value || !$scope.consultation.whoStage.value.name) {
                                 $scope.consultation.whoStage.value = mapAnswer(answer);
-                            }else if (answer.name.name > $scope.consultation.whoStage.value.name) {
+                            } else if (answer.name.name > $scope.consultation.whoStage.value.name) {
                                 $scope.consultation.whoStage.value = mapAnswer(answer);
                             }
                         }
