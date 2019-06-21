@@ -56,6 +56,7 @@
     "PROGRAM_DISPLAY_CONTROL_FACILITY_OF_ENROLLMENT_KEY" : "Facility of Enrollment",
     "PROGRAM_MANAGEMENT_DASHBOARD_LABEL": "Patient Dashboard",
     "PROGRAM_DATE_ALERT":"Please insert a valid date",
+    "PROGRAM_STATE_ALERT":"Please select a valid state",
 
     "TREATMENTS_SUMMARY_PRESCRIPTION_KEY": "Prescriptions",
     "INVESTIGATION_CHART_KEY": "Investigation Chart",
