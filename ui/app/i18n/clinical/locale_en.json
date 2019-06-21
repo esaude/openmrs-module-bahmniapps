@@ -78,6 +78,9 @@
     "EMPTY_TEMPLATE_MESSAGE": "Click on 'Add New Obs Form' button to add new forms here",
     "SCROLL_LEFT": "Scroll to Left",
     "SCROLL_RIGHT": "Scroll to Right",
+    "OBS_RANGE_ERROR_LABEL": "The value you entered (red field) is outside the range of allowable values for that record. Please check the value.",
+    "OBS_NUMBER_ERROR_LABEL": "Please enter Integer value, decimal value is not allowed",
+    "OBS_NUMBER_LABEL": "Please enter Numeric values.",
 
 
     "VISIT_TITLE_PATIENT_INFORMATION":"PatientInformation",
