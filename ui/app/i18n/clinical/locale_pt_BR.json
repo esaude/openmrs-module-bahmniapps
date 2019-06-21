@@ -371,5 +371,14 @@
 "ENCOUNTER_APSS_FOLLOWUP": "Acompanhamento do APSS",
 "ENCOUNTER_CLINICAL_FIRST": "Clínico Primeiro",
 "ENCOUNTER_CLINICAL_FOLLOWUP": "Acompanhamento do Clínico",
-"NO_VITALS_MESSAGE": "Nenhum dado registado para este paciente"
+"NO_VITALS_MESSAGE": "Nenhum dado registado para este paciente",
+"MEDICATION_DISPENSED_ALL":"Todos",
+"VERY SEVERELY UNDERWEIGHT": "Desnutrição Aguda grave",
+"SEVERELY UNDERWEIGHT": "Desnutrição Aguda moderada",
+"UNDERWEIGHT": "Desnutrição",
+"NORMAL": "Normal",
+"OVERWEIGHT": "Sobrepeso",
+"OBESE": "Obesidade",
+"SEVERELY OBESE": "Obesidade Aguda",
+"VERY SEVERELY OBESE": "Obesidade Aguda Grave"
 }
