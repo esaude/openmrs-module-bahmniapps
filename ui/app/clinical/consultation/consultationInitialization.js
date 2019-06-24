@@ -13,7 +13,7 @@ angular.module('bahmni.clinical').factory('consultationInitialization',
                 };
 
                 var consultationMapper = new Bahmni.ConsultationMapper(configurations.dosageFrequencyConfig(), configurations.dosageInstructionConfig(),
-                    configurations.consultationNoteConcept(), configurations.labOrderNotesConcept(), followUpConditionConcept);
+                    configurations.consultationNoteConcept(), configurations.whoStageConcept(), configurations.labOrderNotesConcept(), followUpConditionConcept);
 
                 var dateUtil = Bahmni.Common.Util.DateUtil;
 

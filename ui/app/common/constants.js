@@ -126,6 +126,7 @@ Bahmni.Common = Bahmni.Common || {};
         diseaseSummaryPivotUrl: BAHMNI_CORE + "/diseaseSummaryData",
         allTestsAndPanelsConceptName: 'All_Tests_and_Panels',
         dosageFrequencyConceptName: 'Dosage Frequency',
+        whoStageConceptName: 'HTC, WHO Staging',
         dosageInstructionConceptName: 'Dosage Instructions',
         stoppedOrderReasonConceptName: 'Stopped Order Reason',
         consultationNoteConceptName: 'Consultation Note',
