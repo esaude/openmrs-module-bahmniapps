@@ -20,15 +20,40 @@ angular.module('bahmni.common.domain')
                     }
                 }
 
-                var observations = encounter.observations[0].groupMembers[0].groupMembers;
-                var auxiliarObs = [];
-                for (var i = 0; i < observations.length; i++) {
-                    if (observations[i].value !== undefined && observations[i].value !== null) {
-                        auxiliarObs[i] = observations[i];
-                    }
-                }
-                encounter.observations[0].groupMembers[0].groupMembers = auxiliarObs;
+                if (encounter.observations[0] !== null && encounter.observations[0] !== undefined) {
+                    var observations = encounter.observations[0].groupMembers[0].groupMembers;
+                    var containsWeight = false;
+                    var containsHeight = false;
 
+                    for (var h = 0; h < observations.length; h++) {
+                        if (observations[h].concept.name === "HEIGHT") {
+                            containsWeight = true;
+                        }
+                        if (observations[h].concept.name === "HEIGHT") {
+                            containsHeight = true;
+                        }
+                    }
+
+                    var containsBoth = containsHeight && containsHeight;
+
+                    var missingValue = false;
+                    for (var i = 0; i < observations.length; i++) {
+                        if (observations[i].value === undefined || observations[i].value === null) {
+                            if (observations[i].concept.name === "HEIGHT" || observations[i].concept.name === "WEIGHT") {
+                                missingValue = true;
+                            }
+                        }
+                    }
+                    if (missingValue === true || !containsBoth) {
+                        for (var j = 0; j < observations.length; j++) {
+                            if (observations[j].concept.name === "HEIGHT" || observations[j].concept.name === "WEIGHT") {
+                                observations.splice(j, 1);
+                                j--;
+                            }
+                        }
+                    }
+                    encounter.observations[0].groupMembers[0].groupMembers = observations;
+                }
                 return encounter;
             };
 
