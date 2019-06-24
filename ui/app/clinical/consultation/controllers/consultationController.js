@@ -4,11 +4,11 @@ angular.module('bahmni.clinical').controller('ConsultationController',
     ['$scope', '$rootScope', '$state', '$location', '$translate', 'clinicalAppConfigService', 'diagnosisService', 'urlHelper', 'contextChangeHandler',
         'spinner', 'encounterService', 'messagingService', 'sessionService', 'retrospectiveEntryService', 'patientContext', '$q',
         'patientVisitHistoryService', '$stateParams', '$window', 'visitHistory', 'clinicalDashboardConfig', 'appService',
-        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService',
+        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService',
         function ($scope, $rootScope, $state, $location, $translate, clinicalAppConfigService, diagnosisService, urlHelper, contextChangeHandler,
                   spinner, encounterService, messagingService, sessionService, retrospectiveEntryService, patientContext, $q,
                   patientVisitHistoryService, $stateParams, $window, visitHistory, clinicalDashboardConfig, appService,
-                  ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService) {
+                  ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var getPreviousActiveCondition = Bahmni.Common.Domain.Conditions.getPreviousActiveCondition;
             $scope.togglePrintList = false;
@@ -206,7 +206,6 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     $rootScope.hasVisitedConsultation = false;
                 }
             });
-
             $scope.$on("$destroy", function () {
                 cleanUpListenerStateChangeSuccess();
                 cleanUpListenerErrorsOnForm();
@@ -345,6 +344,15 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     });
             };
 
+            var saveAllergies = function () {
+                return allergiesService.save($scope.consultation.allergies, $scope.patient.uuid)
+                    .then(function () {
+                        return allergiesService.getAllergies($scope.patient.uuid);
+                    }).then(function (savedAllergies) {
+                        return savedAllergies;
+                    });
+            };
+
             var storeTemplatePreference = function (selectedObsTemplate) {
                 var templates = [];
                 _.each(selectedObsTemplate, function (template) {
@@ -463,7 +471,13 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                                                                   messagingService.showMessage('info', "{{'CLINICAL_SAVE_SUCCESS_MESSAGE_KEY' | translate}}");
                                                               }, function () {
                                                                   consultationWithDiagnosis.conditions = $scope.consultation.conditions;
-                                                              }).then(function () {
+                                                              }).then(saveAllergies().then(function (savedAllergies) {
+                                                                  consultationWithDiagnosis.allergies = savedAllergies;
+                                                                  messagingService.showMessage('info', "{{'CLINICAL_SAVE_SUCCESS_MESSAGE_KEY' | translate}}");
+                                                              }, function () {
+                                                                  consultationWithDiagnosis.conditions = $scope.consultation.conditions;
+                                                                  consultationWithDiagnosis.allergies = $scope.consultation.allergies;
+                                                              })).then(function () {
                                                                   copyConsultationToScope(consultationWithDiagnosis);
                                                                   if ($scope.targetUrl) {
                                                                       return $window.open($scope.targetUrl, "_self");
