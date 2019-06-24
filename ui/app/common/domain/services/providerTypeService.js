@@ -7,11 +7,11 @@ angular.module('bahmni.common.domain')
                 if (current.uuid == currentProvider.uuid) {
                     return _.map(current.attributes, function (obj) {
                         if (obj.attributeType.display == 'APSS') {
-                            if (obj.value == true) {
+                            if (obj.value === true) {
                                 return obj.attributeType.display;
                             }
                         } else if (obj.attributeType.display == 'Clinical') {
-                            if (obj.value == true) {
+                            if (obj.value === true) {
                                 return obj.attributeType.display;
                             }
                         }
