@@ -8,6 +8,10 @@
 
 body{
   font-size: 14px;
+  
+  input#Observations {
+    width:20.5em;
+  }
   @media (max-width : 768px){
     font-size: 15px;
   }

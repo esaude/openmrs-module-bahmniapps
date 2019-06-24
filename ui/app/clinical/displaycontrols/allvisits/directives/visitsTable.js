@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .directive('visitsTable', ['patientVisitHistoryService', 'conceptSetService', 'spinner', '$state', '$q',
-        function (patientVisitHistoryService, conceptSetService, spinner, $state, $q) {
+    .directive('visitsTable', ['patientVisitHistoryService', 'conceptSetService', 'spinner', '$state', '$q', 'encounterService', 'providerService',
+        function (patientVisitHistoryService, conceptSetService, spinner, $state, $q, encounterService, providerService) {
             var controller = function ($scope) {
                 var emitNoDataPresentEvent = function () {
                     $scope.$emit("no-data-present-event");
@@ -76,9 +76,74 @@ angular.module('bahmni.clinical')
                     return patientVisitHistoryService.getVisitHistory($scope.patientUuid);
                 };
 
+                var getAllProviders = function () {
+                    var params = {v: "custom:(display,person,uuid,retired,attributes:(attributeType:(display),value,voided))"};
+                    return providerService.list(params).then(function (response) {
+                        return _.filter(response.data.results);
+                    });
+                };
+
                 var init = function () {
-                    return $q.all([getVisits()]).then(function (results) {
+                    return $q.all([getVisits(), getAllProviders()]).then(function (results) {
                         $scope.visits = results[0].visits;
+                        var consultationEncounters = [];
+                        var APSSProviderUuids = [];
+                        var clinicalProviderUuids = [];
+                        var allProviders = results[1];
+                        var APSSEncounters = [];
+                        var clinicalEncounters = [];
+
+                        _.map(allProviders, function (current) {
+                            if (current.attributes.length > 0) {
+                                _.map(current.attributes, function (obj) {
+                                    if (obj.attributeType.display == 'Is APSS') {
+                                        if (obj.value) {
+                                            APSSProviderUuids.push(current.uuid);
+                                        }
+                                    } else if (obj.attributeType.display == 'Clinical') {
+                                        if (obj.value) {
+                                            clinicalProviderUuids.push(current.uuid);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+
+                        _.map($scope.visits, function (current) {
+                            _.map(current.encounters, function (obj) {
+                                if (obj.encounterType.display === 'Consultation') {
+                                    consultationEncounters.push(obj);
+                                }
+                            });
+                        });
+
+                        for (var i = 0; i < consultationEncounters.length; i++) {
+                            if (_.includes(APSSProviderUuids, consultationEncounters[i].encounterProviders[0].uuid)) {
+                                APSSEncounters.push(consultationEncounters[i]);
+                            }
+                            else if (_.includes(clinicalProviderUuids, consultationEncounters[i].encounterProviders[0].uuid)) {
+                                clinicalEncounters.push(consultationEncounters[i]);
+                            }
+                        }
+
+                        for (var i = 0; i < APSSEncounters.length; i++) {
+                            if (i == APSSEncounters.length - 1) {
+                                APSSEncounters[i].actualEncounterType = "ENCOUNTER_APSS_FIRST";
+                            }
+                            else {
+                                APSSEncounters[i].actualEncounterType = "ENCOUNTER_APSS_FOLLOWUP";
+                            }
+                        }
+
+                        for (var i = 0; i < clinicalEncounters.length; i++) {
+                            if (i == clinicalEncounters.length - 1) {
+                                clinicalEncounters[i].actualEncounterType = "ENCOUNTER_CLINICAL_FIRST";
+                            }
+                            else {
+                                clinicalEncounters[i].actualEncounterType = "ENCOUNTER_CLINICAL_FOLLOWUP";
+                            }
+                        }
+
                         $scope.visits = _.map($scope.visits, function (current) {
                             if (current.stopDatetime) {
                                 if (current.encounters.length > 1) {
