@@ -142,7 +142,7 @@ angular.module('bahmni.registration')
                         $scope.setSubmitSource('startVisit');
                     };
 
-                    var addressHierarchEmptyFieldsValidations = function () {
+                    var addressHierarchEmptyFieldsValidation = function () {
                         $rootScope.countryValue = angular.element("#country")[0].value;
                         $rootScope.stateProvinceValue = angular.element("#stateProvince")[0].value;
                         $rootScope.cityVillageValue = angular.element("#cityVillage")[0].value;
@@ -150,20 +150,32 @@ angular.module('bahmni.registration')
                         if ($rootScope.countryValue === undefined || $rootScope.countryValue === "") {
                             angular.element("#country").css("border", "1px solid red");
                             angular.element("#country").css("background", "#ffcdcd");
+                            angular.element("#country").css("outline", "0");
+                            $rootScope.canSave = false;
+                        } else {
+                            $rootScope.canSave = true;
                         }
                         if ($rootScope.stateProvinceValue === undefined || $rootScope.stateProvinceValue === "") {
                             angular.element("#stateProvince").css("border", "1px solid red");
                             angular.element("#stateProvince").css("background", "#ffcdcd");
+                            angular.element("#stateProvince").css("outline", "0");
+                            $rootScope.canSave = false;
+                        } else {
+                            $rootScope.canSave = true;
                         }
                         if ($rootScope.cityVillageValue === undefined || $rootScope.cityVillageValue === "") {
                             angular.element("#cityVillage").css("border", "1px solid red");
                             angular.element("#cityVillage").css("background", "#ffcdcd");
+                            angular.element("#cityVillage").css("outline", "0");
+                            $rootScope.canSave = false;
+                        } else {
+                            $rootScope.canSave = true;
                         }
                     };
 
                     $scope.setSubmitSource = function (source) {
                         $scope.submitted = true;
-                        addressHierarchEmptyFieldsValidations();
+                        addressHierarchEmptyFieldsValidation();
                         $scope.actions.submitSource = source;
                     };
 

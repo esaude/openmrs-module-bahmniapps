@@ -192,5 +192,6 @@
   "PATTERN_REGISTRATION_CHARACTERS_ONLY": "Characters only",
   "INVALID_AGE_YEAR": "Invalid years",
   "INVALID_AGE_MONTH": "Invalid months",
-  "INVALID_AGE_DAY": "Invalid days"
+  "INVALID_AGE_DAY": "Invalid days",
+  "REGISTRATION_REQUIRED_FIELD": "Fill the field"
 }

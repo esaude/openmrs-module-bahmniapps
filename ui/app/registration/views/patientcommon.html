@@ -47,8 +47,8 @@
                         <input data-ng-switch-default type="text" name="givenName" id="givenName" ng-model="patient.givenName" non-blank
                             pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
                             title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" focus-me="true" ng-pattern="regexCharacters"
-                            ng-change="checkDuplicatePatients()" required
-                            ng-class="{'illegalValue' : submitted && this.myForm.givenName.$invalid || this.myForm.givenName.$error.pattern}">
+                            ng-change="checkDuplicatePatients();checkValidationForm()" required
+                            ng-class="{'illegalValue' : submitted && this.myForm.givenName.$invalid || this.myForm.givenName.$error.pattern || (this.myForm.givenName.$error.required && !this.myForm.givenName.$pristine)}">
                         <p class="help-block" ng-show="this.myForm.givenName.$error.pattern">{{::'PATTERN_REGISTRATION_CHARACTERS_ONLY' | translate}}</p>
                     </span>
 
@@ -56,13 +56,13 @@
                         <input data-ng-switch-when="true" type="text" name="middleName" id="middleName"
                             ng-model="$parent.patient.middleName" pattern-validate my-autocomplete
                             source="getAutoCompleteList" response-map="getDataResults" data-item-type="personName"
-                            placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}"
-                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" ng-pattern="regexCharacters">
+                            placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}" required
+                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" ng-pattern="regexCharacters" ng-change="checkValidationForm()">
 
                         <input data-ng-switch-default type="text" name="middleName" id="middleName" ng-model="patient.middleName"
                             pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}"
-                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" ng-pattern="regexCharacters"
-                            ng-class="{'illegalValue' : this.myForm.middleName.$error.pattern}">
+                            title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" ng-pattern="regexCharacters" required
+                            ng-class="{'illegalValue' : submitted && this.myForm.middleName.$invalid || this.myForm.middleName.$error.pattern || (this.myForm.middleName.$error.required && !this.myForm.middleName.$pristine)}" ng-change="checkValidationForm()">
                         <p class="help-block" ng-show="this.myForm.middleName.$error.pattern">{{::'PATTERN_REGISTRATION_CHARACTERS_ONLY' | translate}}</p>
                     </span>
 
@@ -72,14 +72,14 @@
                             source="getAutoCompleteList" response-map="getDataResults" data-item-type="personName"
                             placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_LAST_NAME' | translate}}"
                             title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}"
-                            ng-required="::isLastNameMandatory" ng-change="checkDuplicatePatients()" ng-pattern="regexCharacters"
-                            ng-class="{'illegalValue' : submitted && this.myForm.familyName.$invalid || this.myForm.familyName.$error.pattern}">
+                            ng-required="::isLastNameMandatory" ng-change="checkDuplicatePatients();checkValidationForm()" ng-pattern="regexCharacters"
+                            ng-class="{'illegalValue' : submitted && this.myForm.familyName.$invalid || this.myForm.familyName.$error.pattern || (this.myForm.familyName.$error.required && !this.myForm.familyName.$pristine)}">
 
                         <input data-ng-switch-default type="text" name="familyName" id="familyName" ng-model="patient.familyName"
                             pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_LAST_NAME' | translate}}"
                             title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}"
-                            ng-required="::isLastNameMandatory" ng-pattern="regexCharacters"
-                            ng-class="{'illegalValue' : submitted && this.myForm.familyName.$invalid || this.myForm.familyName.$error.pattern}">
+                            ng-required="::isLastNameMandatory" ng-pattern="regexCharacters" ng-change="checkValidationForm()"
+                            ng-class="{'illegalValue' : submitted && this.myForm.familyName.$invalid || this.myForm.familyName.$error.pattern || (this.myForm.familyName.$error.required && !this.myForm.familyName.$pristine)}">
                         <p class="help-block" ng-show="this.myForm.familyName.$error.pattern">{{::'PATTERN_REGISTRATION_CHARACTERS_ONLY' | translate}}</p>
                     </span>
 
@@ -125,10 +125,10 @@
                 </div>
 
                 <div class="field-value">
-                    <select id="gender" name="gender" ng-model="patient.gender" required="required" ng-class="{'illegalValue' : submitted && this.myForm.gender.$invalid}"
+                    <select id="gender" name="gender" ng-model="patient.gender" required="required" ng-class="{'illegalValue' : submitted && this.myForm.gender.$invalid || this.myForm.gender.$invalid && !this.myForm.gender.$pristine}"
                         ng-options="genderMap[genderCode] | translate for genderCode in genderCodes track by genderCode"
-                        ng-change="handleUpdate('gender');checkDuplicatePatients()">
-                        <option value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
+                        ng-change="handleUpdate('gender');checkDuplicatePatients();checkValidationForm()">
+                        <option disabled value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
                     </select>
                     <!--<div class="selectGender">
                         <ul>
@@ -466,22 +466,6 @@
             <legend class="registraion_legend" ng-if="patientConfiguration.customAttributeRows().length > 0">
                 <span class="mylegend">{{ ::'REGISTRATION_LABEL_OTHER_INFO' | translate}}</span>
             </legend>
-
-        <!--<section class="form-field-inline clearfix"-->
-            <!--ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">-->
-            <!--<article class="form-field" ng-repeat="attribute in ::attributeRow"-->
-                <!--ng-class="::{'right-form-field' : $index%2 != 0}"-->
-                <!--ng-if="attribute.name != 'NICK_NAME' && attribute.name != 'TYPE_OF_REGISTRATION' && attribute.name != 'education' && attribute.name != 'MARITAL_STATUS' && attribute.name != 'NATIONALITY'-->
-                    <!--&& attribute.name != 'BI' && attribute.name != 'NUIC' && attribute.name != 'NUIT' && attribute.name != 'DIRE' && attribute.name != 'Cedula_de_Nascimento'-->
-                    <!--&& attribute.name != 'Cartao_de_Eleitor' && attribute.name != 'Cedula_de_Nascimento' && attribute.name != 'Passaporte_Mocambicano' && attribute.name != 'Passaporte_Estrangeiro'-->
-                    <!--&& attribute.name != 'TRANSFERENCE_HF_NAME'  && attribute.name != 'TRANSFERENCE_HF_DISTRICT' && attribute.name != 'TRANSFERENCE_HF_PROVINCE' && attribute.name != 'US_REG_DATE'-->
-                    <!--&& attribute.name != 'TRANSFERED_OUT_HF_NAME' && attribute.name != 'Transferred out HF name'">-->
-                    <!--<attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"-->
-                        <!--is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"-->
-                        <!--get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate">-->
-                    <!--</attribute-types>-->
-                <!--</article>-->
-            <!--</section>-->
     </div>
 
     <div ng-repeat="section in ::patientConfiguration.getOrderedPatientAttributesSections()"
@@ -510,7 +494,6 @@
                             get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
                             is-read-only="isReadOnly" handle-update="handleUpdate" ng-if="attribute.name !== 'PATIENT_STATUS' && attribute.name !== 'TRANSFERRED_OUT_HF_NAME'"></attribute-types>
                     </article>
-                    <!--<div class="testlocation"><b>{{'TRANSFERED_OUT_FROM' | translate}}</b></div>-->
                     <section transference-health-facility-address-fields data-address-levels="::addressLevels" data-address="patient.address"
                              field-validation="::fieldValidation" ng-if="::addressHierarchyConfigs.showAddressFieldsTopDown"
                              strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel"></section>
@@ -577,10 +560,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 
     <div class="box-container" ng-if="::(relationshipTypes.length > 0)">
         <legend class="additional-attribute" ng-show="::relationshipTypes" toggle="patient.hasRelationships">

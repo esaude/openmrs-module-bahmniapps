@@ -44,6 +44,50 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                 }
             }
 
+            $scope.onDateChange = function (attribute) {
+
+                if (attribute.name === "US_REG_DATE"){
+                    var selectedDate = dateUtil.getDateWithoutTime($scope.targetModel[attribute.name]);
+                    if (selectedDate <= $scope.today) {
+                        angular.element("#US_REG_DATE").css("border", "1px solid #DDD");
+                        angular.element("#US_REG_DATE").css("background", "#fff");
+                        angular.element("#US_REG_DATE").css("outline", "0");
+                        $rootScope.canSave = true;
+                    } else {
+                        angular.element("#US_REG_DATE").css("border", "1px solid red");
+                        angular.element("#US_REG_DATE").css("background", "#ffcdcd");
+                        angular.element("#US_REG_DATE").css("outline", "0");
+                        $rootScope.canSave = false;
+                    }
+                }
+            };
+
+            $scope.validationDirectiveTypeOfRegistration = function (attribute) {
+                if (attribute.name === "TYPE_OF_REGISTRATION") {
+                    if ($scope.targetModel.TYPE_OF_REGISTRATION.value != undefined) {
+                        $rootScope.typeOfRegistrationSelected = $scope.targetModel.TYPE_OF_REGISTRATION.value;
+                        $rootScope.canSave = true;
+                    }
+                    else {
+                        $rootScope.typeOfRegistrationSelected = $scope.targetModel.TYPE_OF_REGISTRATION.value;
+                        $rootScope.canSave = false;
+                    }
+                }
+            };
+
+            $scope.validationDirectivePatientStatus = function (attribute) {
+                if (attribute.name === "PATIENT_STATUS") {
+                    if ($scope.targetModel.PATIENT_STATUS.value != undefined) {
+                        $rootScope.patientStatus = $scope.targetModel.PATIENT_STATUS.value;
+                        $rootScope.canSave = true;
+                    }
+                    else {
+                        $rootScope.patientStatus = $scope.targetModel.PATIENT_STATUS.value;
+                        $rootScope.canSave = false;
+                    }
+                }
+            };
+
             $scope.appendConceptNameToModel = function (attribute) {
                 $timeout(function () {
                     if (attribute.name === "TYPE_OF_REGISTRATION") {
@@ -57,20 +101,6 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                     return answer.conceptId === attributeValueConceptType.conceptUuid;
                 });
                 attributeValueConceptType.value = concept && concept.fullySpecifiedName;
-                if (attribute.name === "TYPE_OF_REGISTRATION" || attribute.name === "PATIENT_STATUS") {
-                    if (attributeValueConceptType.value === undefined) {
-                        $rootScope.canSave = false;
-                    }
-                    else {
-                        $rootScope.canSave = true;
-                    }
-                }
-                if (attributeValueConceptType.value === 'NEW_PATIENT' || attributeValueConceptType.value === 'TRANSFERRED_PATIENT' || attributeValueConceptType.value === undefined) {
-                    $rootScope.typeOfRegistrationSelected = attributeValueConceptType.value;
-                }
-                if (attributeValueConceptType.value === 'Pre TARV' || attributeValueConceptType.value === 'TARV' || attributeValueConceptType.value === undefined) {
-                    $rootScope.patientStatus = attributeValueConceptType.value;
-                }
             };
 
             $scope.suggest = function (string) {
@@ -100,6 +130,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                 $scope.borderColor = "1px solid #d1d1d1";
                 $scope.backgroundColor = "#fff";
             };
+
 
             $scope.validateField = function (isMouse) {
                 if ($scope.targetModel[$scope.attribute.name] !== undefined && $scope.targetModel[$scope.attribute.name].value !== "" && $scope.targetModel[$scope.attribute.name] !== null) {
