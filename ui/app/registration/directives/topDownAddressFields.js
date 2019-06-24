@@ -55,14 +55,36 @@ angular.module('bahmni.registration')
                     if (!parent) {
                         return;
                     }
+                    if (parentField == "country") {
+                        angular.element("#" + parentField).css("border", "1px solid #DDD");
+                        angular.element("#" + parentField).css("background", "#fff");
+                        angular.element("#" + parentField).css("outline", "0");
+
+                        angular.element("#stateProvince").css("border", "1px solid #DDD");
+                        angular.element("#stateProvince").css("background", "#fff");
+                        angular.element("#stateProvince").css("outline", "0");
+                    }
+                    if (parentField == "stateProvince") {
+                        angular.element("#"+parentField).css("border", "1px solid #DDD");
+                        angular.element("#"+parentField).css("background", "#fff");
+                        angular.element("#"+parentField).css("outline", "0");
+
+                        angular.element("#cityVillage").css("border", "1px solid #DDD");
+                        angular.element("#cityVillage").css("background", "#fff");
+                        angular.element("#cityVillage").css("outline", "0");
+                        $rootScope.canSave = true;
+                    }
+                    if (parentField == "cityVillage") {
+                        angular.element("#"+parentField).css("border", "1px solid #DDD");
+                        angular.element("#"+parentField).css("background", "#fff");
+                        angular.element("#"+parentField).css("outline", "0");
+                    }
                     $scope.address[parentField] = parent.name;
                     $scope.selectedValue[parentField] = parent.name;
                     parent = parent.parent;
                 });
             };
         };
-
-        // console.log($rootScope.submitted);
 
         $scope.findParentField = function (fieldName) {
             var found = _.find($scope.addressLevels, {addressField: fieldName});
@@ -112,7 +134,23 @@ angular.module('bahmni.registration')
 
         $scope.getAddressDataResults = addressHierarchyService.getAddressDataResults;
 
+        var addressHierarchEmptyFieldsValidations = function (fieldName) {
+            if (fieldName === "country" || fieldName === "stateProvince" || fieldName === "cityVillage") {
+                $rootScope.fieldValue = angular.element("#"+fieldName)[0].value;
+
+                if ($rootScope.fieldValue === undefined || $rootScope.fieldValue === "") {
+                    angular.element("#"+fieldName).css("border", "1px solid red");
+                    angular.element("#"+fieldName).css("background", "#ffcdcd");
+                    angular.element("#"+fieldName).css("outline", "0");
+                    $rootScope.canSave = false;
+                } else {
+                    $scope.addressFieldSelected(fieldName);
+                }
+            }
+        };
+
         $scope.clearFields = function (fieldName) {
+            addressHierarchEmptyFieldsValidations(fieldName);
             var childFields = addressLevelsNamesInDescendingOrder.slice(0, addressLevelsNamesInDescendingOrder.indexOf(fieldName));
             childFields.forEach(function (childField) {
                 if ($scope.selectedValue[childField] !== null) {
@@ -121,12 +159,6 @@ angular.module('bahmni.registration')
                     selectedAddressUuids[childField] = null;
                     selectedUserGeneratedIds[childField] = null;
                 }
-                angular.element("#country").css("border", "1px solid #DDD");
-                angular.element("#country").css("background", "#fff");
-                angular.element("#stateProvince").css("border", "1px solid #DDD");
-                angular.element("#stateProvince").css("background", "#fff");
-                angular.element("#cityVillage").css("border", "1px solid #DDD");
-                angular.element("#cityVillage").css("background", "#fff");
             });
 
             if (_.isEmpty($scope.address[fieldName])) {

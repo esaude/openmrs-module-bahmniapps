@@ -89,7 +89,7 @@
         <select id="{{::attribute.name}}" ng-model="targetModel[attribute.name].conceptUuid"
                 ng-options="a.conceptId as a.description | translate for a in ::attribute.answers"
                 ng-disabled="::isReadOnly(attribute.name)" ng-required="{{::attribute.required}}" ng-change="appendConceptNameToModel(attribute); handleUpdate(attribute.name)">
-            <option value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
+            <option disabled value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
         </select>
     </div>
 
@@ -97,8 +97,8 @@
     <div class="left" data-ng-switch-when="org.openmrs.Concept" ng-if="attribute.name === 'PATIENT_STATUS'">
         <select id="{{::attribute.name}}" ng-model="targetModel[attribute.name].conceptUuid"
                 ng-options="a.conceptId as a.description | translate for a in ::attribute.answers"
-                ng-disabled="targetModel.TYPE_OF_REGISTRATION.value === 'NEW_PATIENT'" ng-required="{{::attribute.required}}" ng-change="appendConceptNameToModel(attribute); handleUpdate(attribute.name)">
-            <option value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
+                ng-disabled="targetModel.TYPE_OF_REGISTRATION.value === 'NEW_PATIENT'" ng-required="{{::attribute.required}}" ng-change="appendConceptNameToModel(attribute);validationDirectivePatientStatus(attribute);handleUpdate(attribute.name)">
+            <option disabled value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
         </select>
     </div>
 
@@ -106,15 +106,15 @@
         <select id="{{::attribute.name}}" ng-model="targetModel[attribute.name].conceptUuid"
                 ng-options="a.conceptId as a.description | translate for a in ::attribute.answers"
                 ng-required="{{::attribute.required}}" ng-change="appendConceptNameToModel(attribute); handleUpdate(attribute.name);handleLocationChange()">
-            <option value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
+            <option disabled value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
         </select>
     </div>
 
-    <div class="left" data-ng-switch-when="org.openmrs.Concept" ng-if="attribute.name == 'TYPE_OF_REGISTRATION'">
+    <div class="left" data-ng-switch-when="org.openmrs.Concept" ng-if="attribute.name === 'TYPE_OF_REGISTRATION'">
         <select id="{{::attribute.name}}" ng-model="targetModel[attribute.name].conceptUuid" ng-disabled="attribute.enabled"
                 ng-options="a.conceptId as a.description | translate for a in ::attribute.answers"
-                ng-required="{{::attribute.required}}" ng-change="appendConceptNameToModel(attribute); handleUpdate(attribute.name)">
-            <option value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
+                ng-required="{{::attribute.required}}" ng-change="appendConceptNameToModel(attribute);validationDirectiveTypeOfRegistration(attribute);handleUpdate(attribute.name)">
+            <option disabled value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
         </select>
     </div>
         
@@ -122,7 +122,7 @@
         <select id="{{::attribute.name}}" ng-model="targetModel[attribute.name].conceptUuid"
                 ng-options="a.conceptId as a.description | translate for a in ::attribute.answers"
                 ng-required="{{::attribute.required}}" ng-change="appendConceptNameToModel(attribute); handleUpdate(attribute.name);handleSectorChange()">
-            <option value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
+            <option disabled value="">{{::'REGISTRATION_CHOOSE_AN_OPTION' | translate}}</option>
         </select>
     </div>
 
@@ -165,7 +165,7 @@
                class="secondary-identifier-check"/>
     </div>
     <div class="left" data-ng-switch-when="org.openmrs.util.AttributableDate">
-        <input id="{{::attribute.name}}" type="date" ng-model="targetModel[attribute.name]"
+        <input id="{{::attribute.name}}" type="date" ng-model="targetModel[attribute.name]" ng-change="onDateChange(attribute)"
                ng-disabled="::isReadOnly(attribute.name)" max = "{{::today}}" ng-required="{{::attribute.required}}" ng-blur="::handleUpdate(attribute.name)"/>
     </div>
     <div class="left" data-ng-switch-when="org.openmrs.customdatatype.datatype.RegexValidatedTextDatatype">

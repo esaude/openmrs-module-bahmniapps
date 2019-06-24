@@ -16,13 +16,51 @@ angular.module('bahmni.registration')
             $scope.isHealthFacilityShown = false;
             $scope.NID = {};
             $scope.currentYear = new Date().getFullYear();
-            $rootScope.typeOfRegistrationSelected = "";
             $rootScope.patientStatus = 'Pre TARV';
             $rootScope.regexDigits = '\\d+';
             $rootScope.regexCharacters = '^[a-záàãâéèêẽíìóòõôúùçA-ZÁÀÃÂÉÈÊẼÍÌÓÒÔÕÚÙÇ ]+$';
 
             var getPersonAttributeTypes = function () {
                 return $rootScope.patientConfiguration.attributeTypes;
+            };
+
+            $scope.checkValidationForm = function () {
+                if (this.myForm.givenName.$invalid || this.myForm.familyName.$invalid || this.myForm.middleName.$invalid ||
+                    this.myForm.gender.$invalid || this.myForm.ageYear.$invalid || this.myForm.ageDays.$invalid ||
+                    this.myForm.ageMonths.$invalid || this.myForm.birthdate.$invalid) {
+                    $rootScope.canSave = false;
+                } else {
+                    $rootScope.canSave = true;
+                }
+            };
+
+            $scope.checkValidationNIDHealthFacilityCode = function () {
+                if (this.myForm.healthFacilityCode.$invalid) {
+                    $rootScope.canSave = false;
+                } else {
+                    $rootScope.canSave = true;
+                }
+            };
+
+            $scope.checkValidationNIDYear = function () {
+                if (this.myForm.year.$invalid && !this.myForm.year.$pristine) {
+                    $rootScope.canSave = false;
+                } else {
+                    $rootScope.canSave = true;
+                }
+            };
+
+            $scope.checkEmptyFields = function () {
+                $scope.countryValue = angular.element("#registrationNumber");
+                console.log($scope.countryValue);
+            };
+
+            $scope.checkValidationNIDSequentialCode = function () {
+                if (this.myForm.registartionNumber.$invalid) {
+                    $rootScope.canSave = false;
+                } else {
+                    $rootScope.canSave = true;
+                }
             };
 
             $scope.buildFinalNID = function () {
@@ -155,15 +193,6 @@ angular.module('bahmni.registration')
                     return deferred.resolve({});
                 });
                 return deferred.promise;
-            };
-
-            $scope.validateOnChange = function (attribute) {
-                window.alert(attribute);
-                // if (this.myForm.$invalid){
-                //     $rootScope.canSave = false;
-                // } else {
-                //     $rootScope.canSave = true;
-                // }
             };
 
             $scope.create = function () {

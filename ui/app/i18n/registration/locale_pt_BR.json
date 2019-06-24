@@ -164,5 +164,6 @@
     "PATTERN_REGISTRATION_CHARACTERS_ONLY": "Caracteres apenas",
     "INVALID_AGE_YEAR": "Anos inválidos",
     "INVALID_AGE_MONTH": "Meses inválidos",
-    "INVALID_AGE_DAY": "Dias inválidos"
+    "INVALID_AGE_DAY": "Dias inválidos",
+    "REGISTRATION_REQUIRED_FIELD": "Preencha o campo"
 }
