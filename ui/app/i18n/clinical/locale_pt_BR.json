@@ -382,5 +382,27 @@
   "SEVERELY OBESE": "Obesidade Aguda",
   "VERY SEVERELY OBESE": "Obesidade Aguda Grave",
   "ENCOUNTERS": "Consultas",
-  "VISITS": "Visitas"
+  "VISITS": "Visitas",
+  "ALLERGIES_LIST_ACTIVE_SINCE": " Alergias do formulário",
+  "ALLERGIES_LIST_ACTIVE": "Activo",
+  "ALLERGIES_LIST_ADD": "Adicionar",
+  "ALLERGIES_LIST_ALREADY_EXISTS_AS_ACTIVE": " Alergias já existe como activa",
+  "ALLERGIES_LIST_ALREADY_EXISTS": " Alergias já existe com o estado '{{status}}' na lista de condições ({{lastActive}})",
+  "ALLERGIES_LIST_CONDITION": " Alergias",
+  "ALLERGIES_LIST_ALLERGIES_ACTIVE": " Alergias Activas",
+  "ALLERGIES_LIST_ALLERGIES_HISTORY_OF": "Historico de  Alergias",
+  "ALLERGIES_LIST_ALLERGIES_INACTIVE": " Alergias Inactivas ",
+  "ALLERGIES_LIST_CREATED_BY": "por",
+  "ALLERGIES_LIST_DATE": "Data",
+  "ALLERGIES_LIST_DISPLAY_CONTROL_TITLE": " Alergias",
+  "ALLERGIES_LIST_FOLLOW_UP": "Seguimento",
+  "ALLERGIES_LIST_HISTORY_OF": "Histórico de",
+  "ALLERGIES_LIST_INACTIVE": "Inactivo",
+  "ALLERGIES_LIST_NO_ALLERGIES": " Alergias não disponiveis ",
+  "ALLERGIES_LIST_NO_RETRO_MODE": "<strong> Alergias não podem </strong> ser actualizadas no modo retrospectivo",
+  "ALLERGIES_LIST_NOTES": "Notas",
+  "ALLERGIES_LIST_SET_AS_HISTORY_OF": "Histórico de",
+  "ALLERGIES_LIST_SET_AS_INACTIVE": "Inactivo",
+  "ALLERGIES_LIST_STATUS": "Estado"
+
 }
