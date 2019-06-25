@@ -10,6 +10,14 @@ angular.module('bahmni.common.conceptSet')
                 if (scope.observation !== null && scope.observation !== undefined && currentUrl.includes("registration")) {
                     scope.observation.value = "";
                 }
+                if (scope.observation !== null && scope.observation !== undefined && currentUrl.includes("clinical")) {
+                    if (scope.observation.concept.name === "WEIGHT" && (scope.observation.value === null || scope.observation.value === undefined)) {
+                        scope.observation.value = scope.patient.weight;
+                    }
+                    if (scope.observation.concept.name === "HEIGHT" && (scope.observation.value === null || scope.observation.value === undefined)) {
+                        scope.observation.value = scope.patient.height;
+                    }
+                }
                 scope.now = moment().format("YYYY-MM-DD hh:mm:ss");
                 scope.showTitle = scope.showTitle === undefined ? true : scope.showTitle;
                 scope.hideAbnormalButton = hideAbnormalbuttonConfig == undefined ? scope.hideAbnormalButton : hideAbnormalbuttonConfig;

@@ -403,6 +403,7 @@
   "ALLERGIES_LIST_NOTES": "Notas",
   "ALLERGIES_LIST_SET_AS_HISTORY_OF": "Histórico de",
   "ALLERGIES_LIST_SET_AS_INACTIVE": "Inactivo",
-  "ALLERGIES_LIST_STATUS": "Estado"
-
+  "ALLERGIES_LIST_STATUS": "Estado",
+  "BMI STATUS": "Estado Nutricional",
+  "BMI": "IMC"
 }
