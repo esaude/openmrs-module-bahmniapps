@@ -55,6 +55,8 @@
     "PROGRAM_DISPLAY_CONTROL_TREATMENT_STOP_DATE_KEY" : "Treatment Stop Date",
     "PROGRAM_DISPLAY_CONTROL_FACILITY_OF_ENROLLMENT_KEY" : "Facility of Enrollment",
     "PROGRAM_MANAGEMENT_DASHBOARD_LABEL": "Patient Dashboard",
+    "PROGRAM_DATE_ALERT":"Please insert a valid date",
+    "PROGRAM_STATE_ALERT":"Please select a valid state",
 
     "TREATMENTS_SUMMARY_PRESCRIPTION_KEY": "Prescriptions",
     "INVESTIGATION_CHART_KEY": "Investigation Chart",
@@ -76,6 +78,9 @@
     "EMPTY_TEMPLATE_MESSAGE": "Click on 'Add New Obs Form' button to add new forms here",
     "SCROLL_LEFT": "Scroll to Left",
     "SCROLL_RIGHT": "Scroll to Right",
+    "OBS_RANGE_ERROR_LABEL": "The value you entered (red field) is outside the range of allowable values for that record. Please check the value.",
+    "OBS_NUMBER_ERROR_LABEL": "Please enter Integer value, decimal value is not allowed",
+    "OBS_NUMBER_LABEL": "Please enter Numeric values.",
 
 
     "VISIT_TITLE_PATIENT_INFORMATION":"PatientInformation",
@@ -199,13 +204,36 @@
     "POP_UP_CLOSE_DIALOG_MESSAGE_KEY":"You might lose unsaved data. Are you sure you want to leave this page?",
     "MESSAGE_DIALOG_OPTION_COPY" : "Copy Error",
     "MESSAGE_DIALOG_OPTION_OKAY": "OK",
+    
+    
+    "ALLERGIES_LIST_DISPLAY_CONTROL_TITLE": "Allergies",
+    "ALLERGIES_LIST_ACTIVE":"Active",
+    "ALLERGIES_LIST_INACTIVE":"Inactive",
+    "ALLERGIES_LIST_HISTORY_OF":"History Of",
+    "ALLERGIES_LIST_ADD": "Add",
+    "ALLERGIES_LIST_CONDITION": "Allergies",
+    "ALLERGIES_LIST_STATUS": "Status",
+    "ALLERGIES_LIST_DATE": "Date",
+    "ALLERGIES_LIST_NOTES": "Notes",
+    "ALLERGIES_LIST_ALLERGIES_ACTIVE": "Active Allergies",
+    "ALLERGIES_LIST_ALLERGIES_HISTORY_OF": "History of Allergies",
+    "ALLERGIES_LIST_ALLERGIES_INACTIVE": "Inactive Allergies",
+    "ALLERGIES_LIST_SET_AS_INACTIVE": "Inactive",
+    "ALLERGIES_LIST_SET_AS_HISTORY_OF": "History of",
+    "ALLERGIES_LIST_ALREADY_EXISTS":"Allergies already exists with status '{{status}}' in Allergies list({{lastActive}})",
+    "ALLERGIES_LIST_ALREADY_EXISTS_AS_ACTIVE": "Already exists as active allergies",
+    "ALLERGIES_LIST_CREATED_BY": "by",
+    "ALLERGIES_LIST_FOLLOW_UP": "Follow up",
+    "ALLERGIES_LIST_ACTIVE_SINCE": "Allergies from",
+    "ALLERGIES_LIST_NO_ALLERGIES": "No Allergies available",
+    "ALLERGIES_LIST_NO_RETRO_MODE":"<strong>Allergies cannot</strong> be edited in retrospective mode",
 
     "OBS_BOOLEAN_YES_KEY":"Yes",
     "OBS_BOOLEAN_NO_KEY":"No",
     "CLINICAL_DUPLICATE_DIAGNOSIS_ERROR_MESSAGE" : "Please correct the duplicate diagnosis entered.",
     "CLINICAL_TEMPLATE_ADDED_SUCCESS_KEY": "{{label}} added successfully",
     "CLINICAL_TEMPLATE_REMOVED_SUCCESS_KEY": "{{label}} removed successfully",
-
+ 
     "CLINICAL_DIAGNOSIS_ORDER_PRIMARY":"PRIMARY",
     "CLINICAL_DIAGNOSIS_ORDER_SECONDARY":"SECONDARY",
     "CLINICAL_DIAGNOSIS_CERTAINTY_CONFIRMED":"CONFIRMED",
@@ -362,5 +390,7 @@
     "ENCOUNTER_APSS_FOLLOWUP": "APSS Follow Up",
     "ENCOUNTER_CLINICAL_FIRST": "Clinical First",
     "ENCOUNTER_CLINICAL_FOLLOWUP": "Clinical Follow Up",
-    "MEDICATION_DISPENSED_ALL":"All"
+    "MEDICATION_DISPENSED_ALL":"All",
+    "ENCOUNTERS": "Encounters",
+    "VISITS": "Visits"
 }

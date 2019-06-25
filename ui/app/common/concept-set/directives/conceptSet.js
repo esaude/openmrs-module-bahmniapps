@@ -342,23 +342,23 @@ angular.module('bahmni.common.conceptSet')
                     var errorMessage;
                     if (childNode.possibleAnswers && !childNode.possibleAnswers.length) {
                         if (typeof childNode.isValueInAbsoluteRange == 'function' && !childNode.isValueInAbsoluteRange()) {
-                            errorMessage = "The value you entered (red field) is outside the range of allowable values for that record. Please check the value.";
+                            errorMessage = "OBS_RANGE_ERROR_LABEL";
                             return {message: errorMessage, status: true};
                         }
 
                         if (childNode.isNumeric()) {
                             if (!childNode.isValidNumeric()) {
-                                errorMessage = "Please enter Integer value, decimal value is not allowed";
+                                errorMessage = "OBS_NUMBER_ERROR_LABEL";
                                 return {message: errorMessage, status: true};
                             }
                             if (parentNode) {
                                 if (!childNode.isValidNumericValue() || !parentNode.isValidNumericValue()) {
-                                    errorMessage = "Please enter Numeric values";
+                                    errorMessage = "OBS_NUMBER_LABEL";
                                     return {message: errorMessage, status: true};
                                 }
                             } else {
                                 if (!childNode.isValidNumericValue()) {
-                                    errorMessage = "Please enter Numeric values";
+                                    errorMessage = "OBS_NUMBER_LABEL";
                                     return {message: errorMessage, status: true};
                                 }
                             }

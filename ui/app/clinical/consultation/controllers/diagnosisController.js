@@ -1,23 +1,52 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .controller('DiagnosisController', ['$scope', '$rootScope', 'diagnosisService', 'messagingService', 'contextChangeHandler', 'spinner', 'appService', '$translate', 'retrospectiveEntryService',
-        function ($scope, $rootScope, diagnosisService, messagingService, contextChangeHandler, spinner, appService, $translate, retrospectiveEntryService) {
+    .controller('DiagnosisController', ['$scope', '$rootScope', 'diagnosisService', 'configurations', 'messagingService', 'contextChangeHandler', 'spinner', 'appService', '$translate', 'retrospectiveEntryService', '$http',
+        function ($scope, $rootScope, diagnosisService, configurations, messagingService, contextChangeHandler, spinner, appService, $translate, retrospectiveEntryService, $http) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             $scope.todayWithoutTime = DateUtil.getDateWithoutTime(DateUtil.today());
             $scope.toggles = {
                 expandInactive: false
             };
+            $scope.consultation.whoStage = $scope.consultation.whoStage || null;
+            var fetchLastObs = $http.get(Bahmni.Common.Constants.openmrsObsUrl, {
+                method: "GET",
+                params: {
+                    patient: $scope.patient.uuid,
+                    numberOfVisits: 1,
+                    limit: 1, v: 'custom:(uuid,display,concept:(uuid,display),value:(uuid,display))',
+                    conceptNames: Bahmni.Common.Constants.whoStageConceptName
+                },
+                withCredentials: true
+            });
+            fetchLastObs = fetchLastObs.then(function (response) {
+                $scope.consultation.currentStage = response;
+                if (response.data.results.length > 0) {
+                    mapWhoStageObs(response.data.results[0]);
+                }
+            });
+
+            $scope.consultation.stages = configurations.whoStageConcept() || null;
             $scope.consultation.condition = $scope.consultation.condition || new Bahmni.Common.Domain.Condition({});
+            $scope.consultation.allergy = $scope.consultation.allergy || new Bahmni.Common.Domain.Allergy({});
             $scope.conditionsStatuses = {
                 'CONDITION_LIST_ACTIVE': 'ACTIVE',
                 'CONDITION_LIST_INACTIVE': 'INACTIVE',
                 'CONDITION_LIST_HISTORY_OF': 'HISTORY_OF'
             };
+            $scope.allergiesStatuses = {
+                'ALLERGIES_LIST_ACTIVE': 'ACTIVE',
+                'ALLERGIES_LIST_INACTIVE': 'INACTIVE'
+            };
             $scope.consultation.followUpConditions = $scope.consultation.followUpConditions || [];
+            $scope.consultation.followUpAllergies = $scope.consultation.followUpAllergies || [];
 
             _.forEach($scope.consultation.conditions, function (condition) {
                 condition.isFollowUp = _.some($scope.consultation.followUpConditions, {value: condition.uuid});
+            });
+
+            _.forEach($scope.consultation.allergies, function (allergy) {
+                allergy.isFollowUp = _.some($scope.consultation.followUpAllergies, {value: allergy.uuid});
             });
 
             $scope.placeholder = "Add Diagnosis";
@@ -34,6 +63,10 @@ angular.module('bahmni.clinical')
 
             $scope.getDiagnosis = function (params) {
                 return diagnosisService.getAllFor(params.term).then(mapConcept);
+            };
+
+            $scope.getAllergyDiagnosis = function (params) {
+                return diagnosisService.getAllForAllergy(params.term).then(mapConcept);
             };
 
             var _canAdd = function (diagnosis) {
@@ -118,10 +151,11 @@ angular.module('bahmni.clinical')
                 var invalidPastDiagnoses = $scope.consultation.pastDiagnoses.filter(function (diagnosis) {
                     return !$scope.isValid(diagnosis);
                 });
+                var isValidAllergyForm = ($scope.consultation.allergy.isEmpty() || $scope.consultation.allergy.isValid());
                 var isValidConditionForm = ($scope.consultation.condition.isEmpty() || $scope.consultation.condition.isValid());
                 return {
                     allow: invalidnewlyAddedDiagnoses.length === 0 && invalidPastDiagnoses.length === 0
-                    && invalidSavedDiagnosesFromCurrentEncounter.length === 0 && isValidConditionForm,
+                    && invalidSavedDiagnosesFromCurrentEncounter.length === 0 && isValidConditionForm && isValidAllergyForm,
                     errorMessage: $scope.errorMessage
                 };
             };
@@ -158,6 +192,13 @@ angular.module('bahmni.clinical')
                 };
             };
 
+            $scope.getAddAllergyMethod = function () {
+                return function (item) {
+                    $scope.consultation.allergy.concept.uuid = item.lookup.uuid;
+                    item.value = $scope.consultation.allergy.concept.name = item.lookup.name;
+                };
+            };
+
             var findExistingCondition = function (newCondition) {
                 return _.find($scope.consultation.conditions, function (condition) {
                     if (newCondition.conditionNonCoded) {
@@ -167,12 +208,30 @@ angular.module('bahmni.clinical')
                 });
             };
 
+            var findExistingAllergy = function (newAllergy) {
+                return _.find($scope.consultation.allergies, function (allergy) {
+                    if (newAllergy.allergyNonCoded) {
+                        return allergy.allergyNonCoded == newAllergy.allergyNonCoded;
+                    }
+                    return allergy.concept.uuid == newAllergy.concept.uuid;
+                });
+            };
+
             $scope.filterConditions = function (status) {
                 return _.filter($scope.consultation.conditions, {status: status});
             };
 
+            $scope.filterAllergies = function (status) {
+                return _.filter($scope.consultation.allergies, {status: status});
+            };
+
             var expandInactiveOnNewInactive = function (condition) {
                 if (condition.status == 'INACTIVE') {
+                    $scope.toggles.expandInactive = true;
+                }
+            };
+            var expandAllergyInactiveOnNewInactive = function (allergy) {
+                if (allergy.status == 'INACTIVE') {
                     $scope.toggles.expandInactive = true;
                 }
             };
@@ -216,6 +275,46 @@ angular.module('bahmni.clinical')
                 expandInactiveOnNewInactive(condition);
                 clearCondition();
             };
+
+            var updateOrAddAllergy = function (allergy) {
+                var existingAllergy = findExistingAllergy(allergy);
+                if (!existingAllergy) {
+                    $scope.consultation.allergies.push(allergy);
+                    expandAllergyInactiveOnNewInactive(allergy);
+                    clearAllergy();
+                    return;
+                }
+                if (!existingAllergy.uuid) {
+                    _.pull($scope.consultation.allergies, existingAllergy);
+                    $scope.consultation.allergies.push(allergy);
+                    expandAllergyInactiveOnNewInactive(allergy);
+                    clearAllergy();
+                    return;
+                }
+                if (existingAllergy.isActive()) {
+                    messagingService.showMessage('error', 'ALLERGIES_LIST_ALREADY_EXISTS_AS_ACTIVE');
+                    return;
+                }
+                if (existingAllergy.activeSince && allergy.onSetDate) {
+                    if (!DateUtil.isBeforeDate(existingAllergy.activeSince - 1, allergy.onSetDate)) {
+                        messagingService.showMessage('error', $translate.instant('ALLERGIES_LIST_ALREADY_EXISTS', {
+                            lastActive: DateUtil.formatDateWithoutTime(existingAllergy.activeSince),
+                            status: existingAllergy.status
+                        }));
+                        return;
+                    }
+                }
+                if (existingAllergy.status != allergy.status) {
+                    existingAllergy.onSetDate = allergy.onSetDate || DateUtil.today();
+                    existingAllergy.status = allergy.status;
+                }
+                existingAllergy.additionalDetail = allergy.additionalDetail;
+                if (existingAllergy.isActive()) {
+                    existingAllergy.activeSince = existingAllergy.endDate;
+                }
+                expandAllergyInactiveOnNewInactive(allergy);
+                addAllergy();
+            };
             $scope.addCondition = function (condition_) {
                 var condition = _.cloneDeep(condition_);
                 if (condition_.isNonCoded) {
@@ -223,23 +322,77 @@ angular.module('bahmni.clinical')
                     condition.concept = {};
                 }
                 condition.voided = false;
+                calculateStage(condition);
                 updateOrAddCondition(new Bahmni.Common.Domain.Condition(condition));
             };
+
+            $scope.addAllergy = function (allergy_) {
+                var allergy = _.cloneDeep(allergy_);
+                if (allergy_.isNonCoded) {
+                    allergy.allergyNonCoded = allergy.concept.name;
+                    allergy.concept = {};
+                }
+                allergy.voided = false;
+                updateOrAddAllergy(new Bahmni.Common.Domain.Allergy(allergy));
+            };
+
             $scope.markAs = function (condition, status) {
                 condition.status = status;
                 condition.onSetDate = DateUtil.today();
                 expandInactiveOnNewInactive(condition);
             };
+            $scope.allergymarkAs = function (allergy, status) {
+                allergy.status = status;
+                allergy.onSetDate = DateUtil.today();
+                expandInactiveOnNewInactive(allergy);
+            };
             var clearCondition = function () {
                 $scope.consultation.condition = new Bahmni.Common.Domain.Condition();
                 $scope.consultation.condition.showNotes = false;
             };
+            var clearAllergy = function () {
+                $scope.consultation.allergy = new Bahmni.Common.Domain.Allergy();
+                $scope.consultation.allergy.showNotes = false;
+            };
+            var calculateStage = function (condition) {
+                _.map($scope.consultation.stages.answers, function (answer) {
+                    _.map(answer.setMembers, function (member) {
+                        if (condition.concept.uuid === member.uuid) {
+                            if (!$scope.consultation.whoStage.value || !$scope.consultation.whoStage.value.name) {
+                                $scope.consultation.whoStage.value = mapAnswer(answer);
+                            } else if (answer.name.name > $scope.consultation.whoStage.value.name) {
+                                $scope.consultation.whoStage.value = mapAnswer(answer);
+                            }
+                        }
+                    });
+                });
+            };
 
+            var mapWhoStageObs = function (response) {
+                $scope.consultation.whoStage.concept = response.concept;
+                $scope.consultation.whoStage.concept.name = response.concept.display;
+                $scope.consultation.whoStage.value = {
+                    name: response.value.display,
+                    uuid: response.value.uuid
+                };
+            };
+            var mapAnswer = function (answer) {
+                return {
+                    name: answer.name.name,
+                    uuid: answer.uuid
+                };
+            };
             $scope.addDiagnosisToConditions = function (diagnosis) {
                 updateOrAddCondition(Bahmni.Common.Domain.Condition.createFromDiagnosis(diagnosis));
             };
             $scope.cannotBeACondition = function (diagnosis) {
                 return diagnosis.certainty != 'CONFIRMED' || alreadyHasActiveCondition(diagnosis);
+            };
+            $scope.addDiagnosisToAllergies = function (diagnosis) {
+                updateOrAddAllergy(Bahmni.Common.Domain.Allergy.createFromDiagnosis(diagnosis));
+            };
+            $scope.cannotBeAAllergy = function (diagnosis) {
+                return diagnosis.certainty != 'CONFIRMED' || alreadyHasActiveAllergy(diagnosis);
             };
 
             $scope.addConditionAsFollowUp = function (condition) {
@@ -254,9 +407,26 @@ angular.module('bahmni.clinical')
                 $scope.consultation.followUpConditions.push(followUpCondition);
             };
 
+            $scope.addAllergyAsFollowUp = function (allergy) {
+                allergy.isFollowUp = true;
+                var followUpAllergy = {
+                    concept: {
+                        uuid: $scope.followUpAllergyConcept.uuid
+                    },
+                    value: allergy.uuid,
+                    voided: false
+                };
+                $scope.consultation.followUpAllergies.push(followUpAllergy);
+            };
+
             var alreadyHasActiveCondition = function (diagnosis) {
                 var existingCondition = findExistingCondition(Bahmni.Common.Domain.Condition.createFromDiagnosis(diagnosis));
                 return existingCondition && existingCondition.isActive();
+            };
+
+            var alreadyHasActiveAllergy = function (diagnosis) {
+                var existingAllergy = findExistingAllergy(Bahmni.Common.Domain.Allergy.createFromDiagnosis(diagnosis));
+                return existingAllergy && existingAllergy.isActive();
             };
 
             $scope.cleanOutDiagnosisList = function (allDiagnoses) {
