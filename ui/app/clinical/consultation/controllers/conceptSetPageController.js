@@ -3,10 +3,10 @@
 angular.module('bahmni.clinical')
     .controller('ConceptSetPageController', ['$scope', '$rootScope', '$stateParams', 'conceptSetService',
         'clinicalAppConfigService', 'messagingService', 'configurations', '$state', 'spinner',
-        'contextChangeHandler', '$q', '$translate', 'formService',
+        'contextChangeHandler', '$q', '$translate', 'formService', 'appService', 'providerService', 'providerTypeService',
         function ($scope, $rootScope, $stateParams, conceptSetService,
                   clinicalAppConfigService, messagingService, configurations, $state, spinner,
-                  contextChangeHandler, $q, $translate, formService) {
+                  contextChangeHandler, $q, $translate, formService, appService, providerService, providerTypeService) {
             $scope.consultation.selectedObsTemplate = $scope.consultation.selectedObsTemplate || [];
             $scope.allTemplates = $scope.allTemplates || [];
             $scope.scrollingEnabled = false;
@@ -14,6 +14,9 @@ angular.module('bahmni.clinical')
             var configs = clinicalAppConfigService.getAllConceptsConfig();
             var visitType = configurations.encounterConfig().getVisitTypeByUuid($scope.consultation.visitTypeUuid);
             $scope.context = {visitType: visitType, patient: $scope.patient};
+            var clinicalProviderForms = appService.getAppDescriptor().getConfigValue('clinicalProviderForms');
+            var APSSProviderForms = appService.getAppDescriptor().getConfigValue('APSSProviderForms');
+            var finalFormsToDisplay;
             var numberOfLevels = 2;
             var fields = ['uuid', 'name:(name,display)', 'names:(uuid,conceptNameType,name)'];
             var customRepresentation = Bahmni.ConceptSet.CustomRepresentationBuilder.build(fields, 'setMembers', numberOfLevels);
@@ -21,12 +24,13 @@ angular.module('bahmni.clinical')
 
             var init = function () {
                 if (!($scope.allTemplates !== undefined && $scope.allTemplates.length > 0)) {
-                    spinner.forPromise(conceptSetService.getConcept({
+                    spinner.forPromise($q.all([conceptSetService.getConcept({
                         name: "All Observation Templates",
                         v: "custom:" + customRepresentation
-                    }).then(function (response) {
-                        var allTemplates = response.data.results[0].setMembers;
-                        createConceptSections(allTemplates);
+                    }), providerTypeService.getAllProviders()]).then(function (response) {
+                        var allTemplates = response[0].data.results[0].setMembers;
+                        var allProviders = response[1];
+                        createConceptSections(allTemplates, allProviders);
                         if ($state.params.programUuid) {
                             showOnlyTemplatesFilledInProgram();
                         }
@@ -150,7 +154,22 @@ angular.module('bahmni.clinical')
                 }));
             };
 
-            var createConceptSections = function (allTemplates) {
+            var createConceptSections = function (allTemplates, allProviders) {
+                var currentProvider = $rootScope.currentProvider;
+                var providerType = providerTypeService.getProviderType(allProviders, currentProvider)[0][0];
+
+                if (providerType == "APSS") {
+                    finalFormsToDisplay = APSSProviderForms;
+                } else if (providerType == "Clinical") {
+                    finalFormsToDisplay = clinicalProviderForms;
+                }
+
+                allTemplates = _.filter(_.map(allTemplates, function (template) {
+                    if (_.includes(finalFormsToDisplay, template.name.name)) {
+                        return template;
+                    }
+                }));
+
                 _.map(allTemplates, function (template) {
                     var conceptSetExtension = _.find(extensions, function (extension) {
                         return extension.extensionParams.conceptName === template.name.name;
