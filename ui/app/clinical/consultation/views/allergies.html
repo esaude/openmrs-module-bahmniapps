@@ -1,0 +1,100 @@
+<div ng-class="{'disable-allergies-in-retro-mode':isRetrospectiveMode()}">
+    <div class="infoMsgRetrospectiveModeEnabled" ng-if="isRetrospectiveMode()">
+        <i class="fa fa-info-circle"></i>
+        <span ng-bind-html="'ALLERGIES_LIST_NO_RETRO_MODE' | translate"></span>
+    </div>
+
+    <div class="table new-diagnosis primary-section-grid">
+        <div class="row table-header">
+            <div class="col col1"><span>{{'ALLERGIES_LIST_CONDITION'|translate}}</span></div>
+            <div class="col col2"><span>{{'ALLERGIES_LIST_STATUS'|translate}}</span></div>
+          
+            <div class="col col3"><span>{{'CLINICAL_ACTION'|translate}}</span></div>
+        </div>
+        <div class="row">
+            <div class="col col1">
+                <input ng-model="consultation.allergy.concept.name" type="text" name="name" id="name"
+                       bahmni-autocomplete source="getAllergyDiagnosis"
+                       on-select="getAddAllergyMethod()"
+                       ng-change="consultation.allergy.clearConcept()"
+                       ng-class="{illegalValue: !(consultation.allergy.concept.name || consultation.allergy.isEmpty())}">
+                <button type="button" ng-model="consultation.allergy.isNonCoded"
+                        class="small-btn accept-btn" id="accept-button"
+                        ng-click="consultation.allergy.toggleNonCoded()"
+                        ng-class="{
+                                                illegalValue: !consultation.allergy.isValidConcept(),
+                                                active: consultation.allergy.isNonCoded
+                                            }"
+                        ng-disabled="consultation.allergy.concept.uuid">
+                    <span>{{'ACCEPT'|translate}} {{consultation.allergy.isNonCoded}}</span>
+                </button>
+            </div>
+            <div class="col col2">
+                <buttons-radio class="btn-group" model='consultation.allergy.status'
+                               options='allergiesStatuses'
+                               ng-class="{'illegalValue': !(consultation.allergy.status || consultation.allergy.isEmpty())}"/>
+            </div>
+            
+            <div class="col col3">
+                <button ng-click="addAllergy(consultation.allergy)"
+                        ng-disabled="!consultation.allergy.isValid()" class="btn--add">
+                    <i class="fa fa-plus"></i>
+                    <span>{{'ALLERGIES_LIST_ADD'|translate}}</span>
+                </button>
+            </div>
+            <div class="" ng-show="consultation.allergy.showNotes">
+                                <textarea class="comment-section" maxlength="255"
+                                          ng-model="consultation.allergy.additionalDetail">
+                          </textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <div ng-if="consultation.allergies.length > 0" class="">
+        <div class="table new-diagnosis primary-section-grid">
+            <h2 class="section-title">
+                <span class="allergy-header">{{'ALLERGIES_LIST_ALLERGIES_ACTIVE'|translate}}</span>
+                <span>{{'ALLERGIES_LIST_NOTES'|translate}}</span>
+            </h2>
+            <div class="row" ng-if="filterAllergies('ACTIVE').length == 0">
+                <div class="col col1">
+                    <div class="diagnosis-name">
+                        {{'ALLERGIES_LIST_NO_ALLERGIES' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div ng-repeat="allergy in filterAllergies('ACTIVE')" class="table-body">
+                <ng-include src="'consultation/views/allergiesRow.html'"/>
+            </div>
+        </div>
+        <div class="table new-diagnosis section-grid">
+            <div class="row table-header" toggle="toggles.expandInactive">
+                <div class="col col1">
+                <span>
+                    <i class="fa fa-caret-down" ng-show="toggles.expandInactive"></i>
+                    <i class="fa fa-caret-right" ng-hide="toggles.expandInactive"></i>
+                    {{'ALLERGIES_LIST_ALLERGIES_INACTIVE'|translate}}
+                </span>
+                </div>
+                <div class="col col2 notes-subscriber">
+                    <span class="subscriber-name"></span>
+                    <span>{{'ALLERGIES_LIST_NOTES'|translate}}</span>
+                </div>
+            </div>
+            <div ng-show="toggles.expandInactive">
+                <div class="row" ng-if="filterAllergies('INACTIVE').length == 0">
+                    <div class="col col1">
+                        <div class="diagnosis-name">
+                            {{'ALLERGIES_LIST_NO_ALLERGIES' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div ng-repeat="allergy in filterAllergies('INACTIVE')" class="table-body">
+                    <ng-include src="'consultation/views/allergiesRow.html'"/>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+</div>

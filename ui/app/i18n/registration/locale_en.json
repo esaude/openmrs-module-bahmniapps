@@ -194,5 +194,10 @@
   "INVALID_AGE_MONTH": "Invalid months",
   "INVALID_AGE_DAY": "Invalid days",
   "REGISTRATION_REQUIRED_FIELD": "Please. Fill the fields correctly",
-  "REGISTRATION_DUPLICATE_ENTRY_ERROR": "The NID already in use by another patient"
+  "REGISTRATION_DUPLICATE_ENTRY_ERROR": "The NID already in use by another patient",
+  "REGISTRATION_TRANSFER_OUT_INFO_KEY": "Patient Transfer Out",
+  "REGISTRATION_TRANSFER_OUT_HF_NAME_INFO":"Destination Health Facility",
+  "Is_Transferred_Out":"Is Transferred Out",
+  "Transfer_Date":"Transfer Date",
+  "Observations":"Observations"
 }

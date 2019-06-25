@@ -6,11 +6,10 @@
         {{::params.translationKey|translate}}
     </h2>
 
-    <div>
+    <div ng-repeat="visit in ::visits">
         <p class="placeholder-text" ng-if="!hasVisits()">{{::noVisitsMessage}}</p>
         <table class="visits dashboard-table" id="visitDisplayTable" ng-if="::hasVisits()">
             <tbody>
-            <tr id="eachVisit" ng-repeat="visit in ::visits | limitTo: params.maximumNoOfVisits">
                 <td class="name" width="30%">
                     <a class="visit" ng-click="openVisit(visit)">
                         <span>{{::visit.startDatetime | bahmniDate}}</span>
@@ -19,8 +18,10 @@
                            title="Current Visit"></i>
                     </a>
                 </td>
-                <td class="value" id="visitStatus">{{::visit.visitStatus | translate}}</td>
-                <td class="value" id="visitType">{{::visit.getVisitType() | translate}}</td> 
+                <td class="value" id="visitStatus" style="font-weight: bold;">{{::visit.visitStatus | translate}}</td>
+            <tr id="eachVisit" ng-repeat="encounter in visit.encounters" ng-if="encounter.actualEncounterType" >
+                <td></td>
+                <td class="value" id="encounterType">{{::encounter.actualEncounterType | translate}}</td> 
             </tr>
             </tbody>
         </table>

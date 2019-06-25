@@ -166,5 +166,12 @@
     "INVALID_AGE_MONTH": "Meses inválidos",
     "INVALID_AGE_DAY": "Dias inválidos",
     "REGISTRATION_REQUIRED_FIELD": "Por favor. Preencha correctamente os campos.",
-    "REGISTRATION_DUPLICATE_ENTRY_ERROR": "O NID introduzido está sendo usando por um outro paciente."
+    "REGISTRATION_DUPLICATE_ENTRY_ERROR": "O NID introduzido está sendo usando por um outro paciente.",
+    "BMI STATUS": "Estado Nutricional",
+    "BMI": "IMC",
+    "REGISTRATION_TRANSFER_OUT_INFO_KEY": "Transferido Para",
+    "REGISTRATION_TRANSFER_OUT_HF_NAME_INFO":"Unidade Sanitária de Destino",
+    "Is_Transferred_Out":"Transferir Para",
+    "Transfer_Date":"Data de Transferência",
+    "Observations":"Observações"
 }

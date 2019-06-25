@@ -9,6 +9,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             isAutoComplete: '&',
             handleLocationChange: '&',
             handleSectorChange: '&',
+            updateLocationRequired: '&',
             getAutoCompleteList: '&',
             getDataResults: '&',
             handleUpdate: '&',
@@ -28,6 +29,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             $scope.handleUpdate = $scope.handleUpdate() || function () { return false; };
             $scope.handleLocationChange = $scope.handleLocationChange() || function () { return false; };
             $scope.handleSectorChange = $scope.handleSectorChange() || function () { return false; };
+            $scope.updateLocationRequired = $scope.updateLocationRequired() || function () { return false; };
             $scope.suggestions = $scope.attribute.answers;
 
             $scope.showTag = false;

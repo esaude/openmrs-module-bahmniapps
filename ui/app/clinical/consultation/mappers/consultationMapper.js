@@ -1,6 +1,6 @@
 'use strict';
 
-Bahmni.ConsultationMapper = function (dosageFrequencies, dosageInstructions, consultationNoteConcept, labOrderNoteConcept, followUpConditionConcept) {
+Bahmni.ConsultationMapper = function (dosageFrequencies, dosageInstructions, consultationNoteConcept, whoStageConcept, labOrderNoteConcept, followUpConditionConcept) {
     var filterPreviousOrderOfRevisedOrders = function (orders) {
         return _.filter(orders, function (drugOrder) {
             return !_.some(orders, function (otherDrugOrder) {
@@ -11,7 +11,7 @@ Bahmni.ConsultationMapper = function (dosageFrequencies, dosageInstructions, con
 
     this.map = function (encounterTransaction) {
         var encounterUuid = encounterTransaction.encounterUuid;
-        var specialObservationConceptUuids = [consultationNoteConcept.uuid, labOrderNoteConcept.uuid];
+        var specialObservationConceptUuids = [consultationNoteConcept.uuid, whoStageConcept.uuid, labOrderNoteConcept.uuid];
         var investigations = encounterTransaction.orders.filter(function (order) {
             return !order.voided;
         });
@@ -24,6 +24,8 @@ Bahmni.ConsultationMapper = function (dosageFrequencies, dosageInstructions, con
             return Bahmni.Clinical.DrugOrderViewModel.createFromContract(drugOrder);
         });
         var consultationNote = mapSpecialObservation(encounterTransaction.observations, consultationNoteConcept);
+
+        var whoStage = mapSpecialObservation(encounterTransaction.observations, whoStageConcept);
 
         var labOrderNote = mapSpecialObservation(encounterTransaction.observations, labOrderNoteConcept);
 
@@ -60,6 +62,7 @@ Bahmni.ConsultationMapper = function (dosageFrequencies, dosageInstructions, con
             newlyAddedSpecimens: [],
             labResults: labResults,
             consultationNote: consultationNote || emptyObservation(consultationNoteConcept),
+            whoStage: whoStage || emptyObservation(whoStageConcept),
             labOrderNote: labOrderNote || emptyObservation(labOrderNoteConcept),
             observations: observations,
             disposition: encounterTransaction.disposition,

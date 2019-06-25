@@ -1,5 +1,6 @@
-<div class="form-field" ng-repeat="attributeType in programAttributeTypes" ng-show="!patientProgram.editing" ng-if="isIncluded(attributeType)">
-    <div class="field-attribute">
+<div class="form-field" ng-repeat="attributeType in programAttributeTypes" ng-show="!patientProgram.editing" ng-if="isIncluded(attributeType)  && attributeType.name != 'Date' && attributeType.name != 'ID_Number' && 
+attributeType.name != 'Doctor' && attributeType.name != 'Stage' && attributeType.name != 'Co-morbidites'">
+<div class="field-attribute">
         <label>{{attributeType.description}} : </label>
     </div>
     <div class="field-value">
@@ -9,7 +10,8 @@
     </div>
 </div>
 <div  ng-show="patientProgram.editing" class="programEditing">
-    <article class="form-field" ng-repeat="attributeType in programAttributeTypes" ng-if="isIncluded(attributeType)">
+    <article class="form-field" ng-repeat="attributeType in programAttributeTypes" ng-if="isIncluded(attributeType) && attributeType.name != 'Date' && attributeType.name != 'ID_Number' && 
+    attributeType.name != 'Doctor' && attributeType.name != 'Stage' && attributeType.name != 'Co-morbidites'">
         <attribute-types target-model="patientProgram.patientProgramAttributes" attribute="attributeType"></attribute-types>
     </article>
 </div>
