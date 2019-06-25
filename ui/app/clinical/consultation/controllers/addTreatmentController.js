@@ -41,7 +41,7 @@ angular.module('bahmni.clinical')
             }
             if (treatmentConfig.isAutoCompleteForAllConcepts()) {
                 $scope.getDrugs = function (request) {
-                    if(request.term.includes("+")){
+                    if (request.term.includes("+")) {
                         return drugService.searchDecoded(request.term);
                     } else {
                         return drugService.search(request.term);
