@@ -50,11 +50,6 @@ angular.module('bahmni.registration')
                 }
             };
 
-            $scope.checkEmptyFields = function () {
-                $scope.countryValue = angular.element("#registrationNumber");
-                console.log($scope.countryValue);
-            };
-
             $scope.checkValidationNIDSequentialCode = function () {
                 if (this.myForm.registartionNumber.$invalid) {
                     $rootScope.canSave = false;

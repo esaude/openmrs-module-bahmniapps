@@ -165,5 +165,6 @@
     "INVALID_AGE_YEAR": "Anos inválidos",
     "INVALID_AGE_MONTH": "Meses inválidos",
     "INVALID_AGE_DAY": "Dias inválidos",
-    "REGISTRATION_REQUIRED_FIELD": "Preencha o campo"
+    "REGISTRATION_REQUIRED_FIELD": "Por favor. Preencha correctamente os campos.",
+    "REGISTRATION_DUPLICATE_ENTRY_ERROR": "O NID introduzido está sendo usando por um outro paciente."
 }

@@ -48,8 +48,13 @@ angular.module('httpErrorInterceptor', [])
                 } else if (response.status === 405) {
                     showError(unexpectedError);
                 } else if (response.status === 400) {
-                    var errorMessage = data.error && data.error.message ? data.error.message : (data.localizedMessage || "Could not connect to the server. Please check your connection and try again");
+                    if (response.data.error.message.includes('Identifier')) {
+                        var errorMessage = "REGISTRATION_DUPLICATE_ENTRY_ERROR";
+                        showError(errorMessage);
+                    }
+                    var errorMessage = "REGISTRATION_REQUIRED_FIELD";
                     showError(errorMessage);
+                    // var errorMessage = data.error && data.error.message ? data.error.message : (data.localizedMessage || "Could not connect to the server. Please check your connection and try again");
                 } else if (response.status === 403) {
                     var errorMessage = data.error && data.error.message ? data.error.message : unexpectedError;
                     if (shouldRedirectToLogin(response)) {
