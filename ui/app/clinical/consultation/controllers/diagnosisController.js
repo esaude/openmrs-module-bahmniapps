@@ -1,13 +1,32 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .controller('DiagnosisController', ['$scope', '$rootScope', 'diagnosisService', 'messagingService', 'contextChangeHandler', 'spinner', 'appService', '$translate', 'retrospectiveEntryService',
-        function ($scope, $rootScope, diagnosisService, messagingService, contextChangeHandler, spinner, appService, $translate, retrospectiveEntryService) {
+    .controller('DiagnosisController', ['$scope', '$rootScope', 'diagnosisService', 'configurations', 'messagingService', 'contextChangeHandler', 'spinner', 'appService', '$translate', 'retrospectiveEntryService', '$http',
+        function ($scope, $rootScope, diagnosisService, configurations, messagingService, contextChangeHandler, spinner, appService, $translate, retrospectiveEntryService, $http) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             $scope.todayWithoutTime = DateUtil.getDateWithoutTime(DateUtil.today());
             $scope.toggles = {
                 expandInactive: false
             };
+            $scope.consultation.whoStage = $scope.consultation.whoStage || null;
+            var fetchLastObs = $http.get(Bahmni.Common.Constants.openmrsObsUrl, {
+                method: "GET",
+                params: {
+                    patient: $scope.patient.uuid,
+                    numberOfVisits: 1,
+                    limit: 1, v: 'custom:(uuid,display,concept:(uuid,display),value:(uuid,display))',
+                    conceptNames: Bahmni.Common.Constants.whoStageConceptName
+                },
+                withCredentials: true
+            });
+            fetchLastObs = fetchLastObs.then(function (response) {
+                $scope.consultation.currentStage = response;
+                if (response.data.results.length > 0) {
+                    mapWhoStageObs(response.data.results[0]);
+                }
+            });
+
+            $scope.consultation.stages = configurations.whoStageConcept() || null;
             $scope.consultation.condition = $scope.consultation.condition || new Bahmni.Common.Domain.Condition({});
             $scope.consultation.allergy = $scope.consultation.allergy || new Bahmni.Common.Domain.Allergy({});
             $scope.conditionsStatuses = {
@@ -303,6 +322,7 @@ angular.module('bahmni.clinical')
                     condition.concept = {};
                 }
                 condition.voided = false;
+                calculateStage(condition);
                 updateOrAddCondition(new Bahmni.Common.Domain.Condition(condition));
             };
 
@@ -333,6 +353,35 @@ angular.module('bahmni.clinical')
             var clearAllergy = function () {
                 $scope.consultation.allergy = new Bahmni.Common.Domain.Allergy();
                 $scope.consultation.allergy.showNotes = false;
+            };
+          
+            var calculateStage = function (condition) {
+                _.map($scope.consultation.stages.answers, function (answer) {
+                    _.map(answer.setMembers, function (member) {
+                        if (condition.concept.uuid === member.uuid) {
+                            if (!$scope.consultation.whoStage.value || !$scope.consultation.whoStage.value.name) {
+                                $scope.consultation.whoStage.value = mapAnswer(answer);
+                            } else if (answer.name.name > $scope.consultation.whoStage.value.name) {
+                                $scope.consultation.whoStage.value = mapAnswer(answer);
+                            }
+                        }
+                    });
+                });
+            };
+
+            var mapWhoStageObs = function (response) {
+                $scope.consultation.whoStage.concept = response.concept;
+                $scope.consultation.whoStage.concept.name = response.concept.display;
+                $scope.consultation.whoStage.value = {
+                    name: response.value.display,
+                    uuid: response.value.uuid
+                };
+            };
+            var mapAnswer = function (answer) {
+                return {
+                    name: answer.name.name,
+                    uuid: answer.uuid
+                };
             };
             $scope.addDiagnosisToConditions = function (diagnosis) {
                 updateOrAddCondition(Bahmni.Common.Domain.Condition.createFromDiagnosis(diagnosis));
