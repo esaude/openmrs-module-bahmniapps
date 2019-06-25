@@ -20,7 +20,7 @@ angular.module('bahmni.common.services')
 
         var searchDecoded = function (drugname) {
             var url = [];
-            url.push(Bahmni.Common.Constants.drugUrl,"?q=",drugname,"+&s=ordered&v=custom:(uuid,strength,name,dosageForm,concept:(uuid,name,names:(name)))");
+            url.push(Bahmni.Common.Constants.drugUrl, "?q=", drugname, "+&s=ordered&v=custom:(uuid,strength,name,dosageForm,concept:(uuid,name,names:(name)))");
             url = url.join("");
             return $http.get(url).then(function (response) {
                 return response.data.results;
