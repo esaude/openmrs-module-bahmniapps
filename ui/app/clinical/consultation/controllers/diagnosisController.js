@@ -354,7 +354,6 @@ angular.module('bahmni.clinical')
                 $scope.consultation.allergy = new Bahmni.Common.Domain.Allergy();
                 $scope.consultation.allergy.showNotes = false;
             };
-          
             var calculateStage = function (condition) {
                 _.map($scope.consultation.stages.answers, function (answer) {
                     _.map(answer.setMembers, function (member) {
