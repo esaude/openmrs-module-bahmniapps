@@ -390,5 +390,7 @@
     "ENCOUNTER_APSS_FOLLOWUP": "APSS Follow Up",
     "ENCOUNTER_CLINICAL_FIRST": "Clinical First",
     "ENCOUNTER_CLINICAL_FOLLOWUP": "Clinical Follow Up",
-    "MEDICATION_DISPENSED_ALL":"All"
+    "MEDICATION_DISPENSED_ALL":"All",
+    "ENCOUNTERS": "Encounters",
+    "VISITS": "Visits"
 }
