@@ -21,7 +21,7 @@ angular.module('bahmni.common.conceptSet')
                     newObs.scrollToElement = true;
                     var index = parentObservation.groupMembers.indexOf(observation);
                     parentObservation.groupMembers.splice(index + 1, 0, newObs);
-                    messagingService.showMessage("info", "A new " + observation.label + " section has been added");
+                    messagingService.showMessage("info", "Uma nova secção " + observation.label + " foi adicionada");
                     scope.$root.$broadcast("event:addMore", newObs);
                 };
 
