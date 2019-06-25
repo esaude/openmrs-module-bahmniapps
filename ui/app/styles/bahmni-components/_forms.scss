@@ -516,6 +516,11 @@ buttons-radio.illegalValue { border: 0 !important; background: none !important;}
     outline: 0 !important;
   }
 }
+.legalValue {
+    border: 1px solid rgb(221, 221, 221);
+    background: rgb(255, 255, 255);
+    outline: 0px;
+}
 
 input[type="time"]{
   padding: 1px 10px;

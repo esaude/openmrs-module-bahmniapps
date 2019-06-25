@@ -45,8 +45,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             }
 
             $scope.onDateChange = function (attribute) {
-
-                if (attribute.name === "US_REG_DATE"){
+                if (attribute.name === "US_REG_DATE") {
                     var selectedDate = dateUtil.getDateWithoutTime($scope.targetModel[attribute.name]);
                     if (selectedDate <= $scope.today) {
                         angular.element("#US_REG_DATE").css("border", "1px solid #DDD");
@@ -130,7 +129,6 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                 $scope.borderColor = "1px solid #d1d1d1";
                 $scope.backgroundColor = "#fff";
             };
-
 
             $scope.validateField = function (isMouse) {
                 if ($scope.targetModel[$scope.attribute.name] !== undefined && $scope.targetModel[$scope.attribute.name].value !== "" && $scope.targetModel[$scope.attribute.name] !== null) {

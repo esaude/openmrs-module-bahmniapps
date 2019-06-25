@@ -67,7 +67,6 @@ angular.module('bahmni.appointments')
 
             $scope.save = function () {
                 $scope.patientIdValue = angular.element("#patientID")[0].value;
-                $scope.specialityValue = angular.element("#speciality")[0].value;
                 $scope.serviceValue = angular.element("#service")[0].value;
                 $scope.dateValue = angular.element("#date")[0].value;
                 $scope.appointmentBlockValue = angular.element("#appointmentBlock")[0].value;
@@ -134,7 +133,6 @@ angular.module('bahmni.appointments')
 
             $scope.saveContinue = function () {
                 $scope.patientIdValue = angular.element("#patientID")[0].value;
-                $scope.specialityValue = angular.element("#speciality")[0].value;
                 $scope.serviceValue = angular.element("#service")[0].value;
                 $scope.dateValue = angular.element("#date")[0].value;
                 $scope.appointmentBlockValue = angular.element("#appointmentBlock")[0].value;

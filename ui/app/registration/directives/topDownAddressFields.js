@@ -56,28 +56,16 @@ angular.module('bahmni.registration')
                         return;
                     }
                     if (parentField == "country") {
-                        angular.element("#" + parentField).css("border", "1px solid #DDD");
-                        angular.element("#" + parentField).css("background", "#fff");
-                        angular.element("#" + parentField).css("outline", "0");
-
-                        angular.element("#stateProvince").css("border", "1px solid #DDD");
-                        angular.element("#stateProvince").css("background", "#fff");
-                        angular.element("#stateProvince").css("outline", "0");
+                        angular.element("#" + parentField).addClass("legalValue");
+                        angular.element("#stateProvince").addClass("legalValue");
                     }
                     if (parentField == "stateProvince") {
-                        angular.element("#"+parentField).css("border", "1px solid #DDD");
-                        angular.element("#"+parentField).css("background", "#fff");
-                        angular.element("#"+parentField).css("outline", "0");
-
-                        angular.element("#cityVillage").css("border", "1px solid #DDD");
-                        angular.element("#cityVillage").css("background", "#fff");
-                        angular.element("#cityVillage").css("outline", "0");
+                        angular.element("#" + parentField).addClass("legalValue");
+                        angular.element("#cityVillage").addClass("legalValue");
                         $rootScope.canSave = true;
                     }
                     if (parentField == "cityVillage") {
-                        angular.element("#"+parentField).css("border", "1px solid #DDD");
-                        angular.element("#"+parentField).css("background", "#fff");
-                        angular.element("#"+parentField).css("outline", "0");
+                        angular.element("#" + parentField).addClass("legalValue");
                     }
                     $scope.address[parentField] = parent.name;
                     $scope.selectedValue[parentField] = parent.name;
@@ -136,12 +124,12 @@ angular.module('bahmni.registration')
 
         var addressHierarchEmptyFieldsValidations = function (fieldName) {
             if (fieldName === "country" || fieldName === "stateProvince" || fieldName === "cityVillage") {
-                $rootScope.fieldValue = angular.element("#"+fieldName)[0].value;
+                $rootScope.fieldValue = angular.element("#" + fieldName)[0].value;
 
                 if ($rootScope.fieldValue === undefined || $rootScope.fieldValue === "") {
-                    angular.element("#"+fieldName).css("border", "1px solid red");
-                    angular.element("#"+fieldName).css("background", "#ffcdcd");
-                    angular.element("#"+fieldName).css("outline", "0");
+                    angular.element("#" + fieldName).css("border", "1px solid red");
+                    angular.element("#" + fieldName).css("background", "#ffcdcd");
+                    angular.element("#" + fieldName).css("outline", "0");
                     $rootScope.canSave = false;
                 } else {
                     $scope.addressFieldSelected(fieldName);

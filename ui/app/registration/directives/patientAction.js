@@ -148,25 +148,19 @@ angular.module('bahmni.registration')
                         $rootScope.cityVillageValue = angular.element("#cityVillage")[0].value;
 
                         if ($rootScope.countryValue === undefined || $rootScope.countryValue === "") {
-                            angular.element("#country").css("border", "1px solid red");
-                            angular.element("#country").css("background", "#ffcdcd");
-                            angular.element("#country").css("outline", "0");
+                            angular.element("#country").addClass("illegalValue");
                             $rootScope.canSave = false;
                         } else {
                             $rootScope.canSave = true;
                         }
                         if ($rootScope.stateProvinceValue === undefined || $rootScope.stateProvinceValue === "") {
-                            angular.element("#stateProvince").css("border", "1px solid red");
-                            angular.element("#stateProvince").css("background", "#ffcdcd");
-                            angular.element("#stateProvince").css("outline", "0");
+                            angular.element("#stateProvince").addClass("illegalValue");
                             $rootScope.canSave = false;
                         } else {
                             $rootScope.canSave = true;
                         }
                         if ($rootScope.cityVillageValue === undefined || $rootScope.cityVillageValue === "") {
-                            angular.element("#cityVillage").css("border", "1px solid red");
-                            angular.element("#cityVillage").css("background", "#ffcdcd");
-                            angular.element("#cityVillage").css("outline", "0");
+                            angular.element("#cityVillage").addClass("illegalValue");
                             $rootScope.canSave = false;
                         } else {
                             $rootScope.canSave = true;
