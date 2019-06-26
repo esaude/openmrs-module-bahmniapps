@@ -156,7 +156,7 @@ angular.module('bahmni.clinical')
 
             var createConceptSections = function (allTemplates, allProviders) {
                 var currentProvider = $rootScope.currentProvider;
-                var providerType = providerTypeService.getProviderType(allProviders, currentProvider)[0][0];
+                var providerType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
 
                 if (providerType == "APSS") {
                     finalFormsToDisplay = APSSProviderForms;
