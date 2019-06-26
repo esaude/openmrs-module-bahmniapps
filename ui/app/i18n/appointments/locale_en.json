@@ -158,6 +158,7 @@
   "DELETE_LABEL": "Delete",
   "EDIT_LABEL": "Edit",
   "APPOINTMENT_SELECT_BLOCK_KEY":"Block",
+  "APPOINTMENT_SELECT_AN_BLOCK": "Select block",
   "APP_BLOCK_1":"Block 1",
   "APP_BLOCK_2":"Block 2",
   "APP_BLOCK_3":"Block 3",

@@ -7,34 +7,34 @@
         <div class="input-prepend">
             <span class="add-on">{{ ::'REGISTRATION_LABEL_YEARS' | translate}}</span>
             <input  type="number" id="ageYears" name="ageYear" max="120" ng-model="patient.age.years" min="0"
-                   ng-required="::!dobMandatory" title="{{ ::'REGISTRATION_LABEL_NUMERIC_YEARS' | translate}}"
-                   ng-change="patient.calculateBirthDate();checkDuplicatePatients()" ng-blur="handleUpdate('age')"
-                   ng-disabled="isAgeDisabled"
-                   >
+                    ng-required="::!dobMandatory" title="{{ ::'REGISTRATION_LABEL_NUMERIC_YEARS' | translate}}"
+                    ng-change="patient.calculateBirthDate();checkDuplicatePatients();checkValidationForm()" ng-blur="handleUpdate('age')"
+                    ng-disabled="isAgeDisabled" ng-class="{ 'illegalValue': submitted && this.myForms.myForm.ageYear.$invalid || this.myForms.myForm.ageYear.$invalid && !this.myForms.myForm.ageYear.$pristine}"
+            >
         </div>
         <div class="input-prepend">
             <span class="add-on">{{ ::'REGISTRATION_LABEL_MONTHS' | translate}}</span>
             <input type="number" id="ageMonths" name="ageMonths" max="12" ng-model="patient.age.months" min="0"
                    title="{{ ::'REGISTRATION_LABEL_NUMERIC_MONTHS' | translate}}"
-                   ng-change="patient.calculateBirthDate();checkDuplicatePatients()"
-                   ng-disabled="isAgeDisabled"
-                   >
+                   ng-change="patient.calculateBirthDate();checkDuplicatePatients();checkValidationForm()"
+                   ng-disabled="isAgeDisabled" required ng-class="{ 'illegalValue': submitted && this.myForms.myForm.ageMonths.$invalid || this.myForms.myForm.ageMonths.$invalid && !this.myForms.myForm.ageMonths.$pristine}"
+            >
         </div>
         <div class="input-prepend">
             <span class="add-on">{{ ::'REGISTRATION_LABEL_DAYS' | translate}}</span>
             <input type="number" id="ageDays" name="ageDays" max="31" ng-model="patient.age.days" min="0"
                    title="{{ ::'REGISTRATION_LABEL_NUMERIC_DAYS' | translate}}"
-                   ng-change="patient.calculateBirthDate();checkDuplicatePatients()"
-                   ng-disabled="isAgeDisabled"
-                   >
+                   ng-change="patient.calculateBirthDate();checkDuplicatePatients();checkValidationForm()"
+                   ng-disabled="isAgeDisabled" required ng-class="{ 'illegalValue': submitted && this.myForms.myForm.ageDays.$invalid || this.myForms.myForm.ageDays.$invalid && !this.myForms.myForm.ageDays.$pristine}"
+            >
         </div>
 
     </div>
 
     <div class="input-prepend estimate_box">
-            <input type="checkbox" ng-model="patient.birthdateEstimated" ng-blur="handleUpdate('birthdateEstimated')"
-                   class="estimate-check" ng-disabled="isBirthDateEstimatedDisabled" ng-change="updateDOB()">
-            <span class="estimate-label" for="birthdate">{{ ::'REGISTRATION_LABEL_ESTIMATE' | translate}}</span>
-        </div>
+        <input type="checkbox" ng-model="patient.birthdateEstimated" ng-blur="handleUpdate('birthdateEstimated')"
+               class="estimate-check" ng-disabled="isBirthDateEstimatedDisabled" ng-change="updateDOB()">
+        <span class="estimate-label" for="birthdate">{{ ::'REGISTRATION_LABEL_ESTIMATE' | translate}}</span>
+    </div>
 
 </article>

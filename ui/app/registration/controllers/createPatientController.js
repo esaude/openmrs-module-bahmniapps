@@ -16,7 +16,10 @@ angular.module('bahmni.registration')
             $scope.isHealthFacilityShown = false;
             $scope.NID = {};
             $scope.currentYear = new Date().getFullYear();
-            $rootScope.typeOfRegistrationSelected = "";
+            $rootScope.patientStatus = 'Pre TARV';
+            $rootScope.regexDigits = '\\d+';
+            $rootScope.regexCharacters = '^[a-záàãâéèêẽíìóòõôúùçA-ZÁÀÃÂÉÈÊẼÍÌÓÒÔÕÚÙÇ ]+$';
+            $scope.myForms = {};
 
             var getPersonAttributeTypes = function () {
                 return $rootScope.patientConfiguration.attributeTypes;
@@ -153,22 +156,36 @@ angular.module('bahmni.registration')
                 });
                 return deferred.promise;
             };
+            var validFields = function () {
+                if ($scope.myForms.myForm.givenName.$invalid || $scope.myForms.myForm.familyName.$invalid ||
+                    $scope.myForms.myForm.gender.$invalid || $scope.myForms.myForm.ageYear.$invalid || $scope.myForms.myForm.ageDays.$invalid ||
+                    $scope.myForms.myForm.ageMonths.$invalid || $scope.myForms.myForm.birthdate.$invalid) {
+                    return false;
+                }
+                return true;
+            };
 
             $scope.create = function () {
-                addNewRelationships();
-                var errorMessages = Bahmni.Common.Util.ValidationUtil.validate($scope.patient, $scope.patientConfiguration.attributeTypes);
-                if (errorMessages.length > 0) {
-                    errorMessages.forEach(function (errorMessage) {
-                        messagingService.showMessage('error', errorMessage);
-                    });
-                    return $q.when({});
+                if (!validFields()) {
+                    messagingService.showMessage("error", "REGISTRATION_REQUIRED_INVALID_FIELD");
                 }
-                return spinner.forPromise(createPromise()).then(function (response) {
-                    if (errorMessage) {
-                        messagingService.showMessage("error", errorMessage);
-                        errorMessage = undefined;
+                else {
+                    addNewRelationships();
+                    var errorMessages = Bahmni.Common.Util.ValidationUtil.validate($scope.patient, $scope.patientConfiguration.attributeTypes);
+                    if (errorMessages.length > 0) {
+                        errorMessages.forEach(function (errorMessage) {
+                            messagingService.showMessage('error', errorMessage);
+                        });
+                        return $q.when({});
                     }
-                });
+                    return spinner.forPromise(createPromise()).then(function (response) {
+                        if (errorMessage) {
+                            messagingService.showMessage("error", errorMessage);
+                            errorMessage = undefined;
+                        }
+                    });
+                }
+
             };
 
             $scope.afterSave = function () {

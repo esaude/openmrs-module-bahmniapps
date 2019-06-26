@@ -1,3 +1,4 @@
+
 <article class="form-field" ng-class="::{'left-form-field': $index % 2 != 0 }"
          ng-repeat="addressLevel in ::addressLevels"
          ng-if="addressLevel.name === 'HF_NAME' || addressLevel.name === 'HF_DISTRICT' || addressLevel.name === 'HF_PROVINCE'" addressLevel="2">
@@ -19,6 +20,7 @@
                strict-select="true"
                initial-value="selectedValue[addressLevel.addressField]"
                is-invalid="addressFieldInvalid"
+               ng-class="{'illegalValue': addressFieldInvalid}"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
                required/>
     </div>
@@ -39,6 +41,7 @@
                strict-select="true"
                initial-value="selectedValue[addressLevel.addressField]"
                is-invalid="addressFieldInvalid"
+               ng-class="{'illegalValue': addressFieldInvalid}"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
                required/>
     </div>
@@ -58,6 +61,7 @@
                strict-select="true"
                initial-value="selectedValue[addressLevel.addressField]"
                is-invalid="addressFieldInvalid"
+               ng-class="{'illegalValue': addressFieldInvalid}"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
                required/>
     </div>
