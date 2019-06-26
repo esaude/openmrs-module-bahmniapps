@@ -405,5 +405,10 @@
   "ALLERGIES_LIST_SET_AS_INACTIVE": "Inactivo",
   "ALLERGIES_LIST_STATUS": "Estado",
   "BMI STATUS": "Estado Nutricional",
-  "BMI": "IMC"
+  "BMI": "IMC",
+  "OBS_RANGE_ERROR_LABEL": "O valor introduzido (marcado a vermelho) esta fora do intervalo de parametros aceites. Por favor verifique o valor.",
+  "OBS_NUMBER_ERROR_LABEL": "Por favor, introduza um número inteiro. Números decimais não são permitidos.",
+  "OBS_NUMBER_LABEL": "Por favor, introduza valores númericos.",
+  "PROGRAM_DATE_ALERT":"Por favor insira uma data valida",
+  "PROGRAM_STATE_ALERT":"Por favor escolha um estado valido"
 }
