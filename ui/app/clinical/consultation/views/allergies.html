@@ -8,8 +8,8 @@
         <div class="row table-header">
             <div class="col col1"><span>{{'ALLERGIES_LIST_CONDITION'|translate}}</span></div>
             <div class="col col2"><span>{{'ALLERGIES_LIST_STATUS'|translate}}</span></div>
-          
-            <div class="col col3"><span>{{'CLINICAL_ACTION'|translate}}</span></div>
+            <div class="col col3"><span>         </span></div>
+            <div class="col col4"><span>{{'CLINICAL_ACTION'|translate}}</span></div>
         </div>
         <div class="row">
             <div class="col col1">
@@ -34,8 +34,20 @@
                                options='allergiesStatuses'
                                ng-class="{'illegalValue': !(consultation.allergy.status || consultation.allergy.isEmpty())}"/>
             </div>
-            
+
             <div class="col col3">
+               
+                <button type="button" toggle="consultation.allergy.showNotes" class="comment-toggle fr"
+                        ng-class="{'has-notes': consultation.allergy.additionalDetail}">
+                    <i class="fa fa-file-o" ng-hide="consultation.allergy.additionalDetail">
+                        <i class="fa fa-plus-circle" ng-hide="consultation.allergy.showNotes"></i>
+                        <i class="fa fa-minus-circle" ng-show="consultation.allergy.showNotes"></i>
+                    </i>
+                    <i class="fa fa-file-text-o" ng-show="consultation.allergy.additionalDetail"></i>
+                </button>
+            </div>
+            
+            <div class="col col4">
                 <button ng-click="addAllergy(consultation.allergy)"
                         ng-disabled="!consultation.allergy.isValid()" class="btn--add">
                     <i class="fa fa-plus"></i>
