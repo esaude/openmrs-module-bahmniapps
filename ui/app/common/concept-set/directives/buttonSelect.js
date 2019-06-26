@@ -19,6 +19,10 @@ angular.module('bahmni.common.conceptSet')
                     return $scope.observation.hasValueOf(answer);
                 };
 
+                if ($scope.observation.concept.name == 'Nutritional_States_new') {
+                    $scope.observation.disabled = true;
+                }
+
                 $scope.select = function (answer) {
                     $scope.observation.toggleSelection(answer);
                     if ($scope.$parent.observation && typeof $scope.$parent.observation.onValueChanged == 'function') {
