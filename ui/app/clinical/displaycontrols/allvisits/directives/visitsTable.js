@@ -96,7 +96,7 @@ angular.module('bahmni.clinical')
                         _.map(allProviders, function (current) {
                             if (current.attributes.length > 0) {
                                 _.map(current.attributes, function (obj) {
-                                    if (obj.attributeType.display == 'Is APSS') {
+                                    if (obj.attributeType.display == 'APSS') {
                                         if (obj.value) {
                                             APSSProviderUuids.push(current.uuid);
                                         }
