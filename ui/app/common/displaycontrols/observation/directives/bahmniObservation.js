@@ -1,33 +1,19 @@
 'use strict';
 
 angular.module('bahmni.common.displaycontrol.observation')
-    .directive('bahmniObservation', ['observationsService', 'appService', '$q', 'spinner', '$rootScope', 'formHierarchyService', '$translate', 'providerService', 'providerTypeService',
-        function (observationsService, appService, $q, spinner, $rootScope, formHierarchyService, $translate, providerService, providerTypeService) {
+    .directive('bahmniObservation', ['observationsService', 'appService', '$q', 'spinner', '$rootScope', 'formHierarchyService', '$translate',
+        function (observationsService, appService, $q, spinner, $rootScope, formHierarchyService, $translate) {
             var controller = function ($scope) {
-                var clinicalProviderForms = appService.getAppDescriptor().getConfigValue('clinicalProviderForms');
-                var APSSProviderForms = appService.getAppDescriptor().getConfigValue('APSSProviderForms');
-                var allProviders, finalFormsToDisplay;
                 $scope.print = $rootScope.isBeingPrinted || false;
 
                 $scope.showGroupDateTime = $scope.config.showGroupDateTime !== false;
 
-                var mapObservation = function (observations, config, providers) {
+                var mapObservation = function (observations) {
                     var conceptsConfig = appService.getAppDescriptor().getConfigValue("conceptSetUI") || {};
                     observations = new Bahmni.Common.Obs.ObservationMapper().map(observations, conceptsConfig);
-                    allProviders = providers;
-                    var currentProvider = $rootScope.currentProvider;
-                    var providerType = providerTypeService.getProviderType(allProviders, currentProvider)[0][0];
-
-                    if (providerType == "APSS") {
-                        finalFormsToDisplay = APSSProviderForms;
-                    } else if (providerType == "Clinical") {
-                        finalFormsToDisplay = clinicalProviderForms;
-                    }
 
                     observations = _.filter(_.map(observations, function (currentObs) {
-                        if (_.includes(finalFormsToDisplay, currentObs.concept.name)) {
-                            return currentObs;
-                        }
+                        return currentObs;
                     }));
 
                     if ($scope.config.conceptNames) {
@@ -73,7 +59,7 @@ angular.module('bahmni.common.displaycontrol.observation')
                     } else {
                         if ($scope.config.observationUuid) {
                             $scope.initialization = observationsService.getByUuid($scope.config.observationUuid).then(function (response) {
-                                mapObservation([response.data], $scope.config);
+                                mapObservation(response.data, $scope.config);
                             });
                         } else if ($scope.config.encounterUuid) {
                             var fetchForEncounter = observationsService.fetchForEncounter($scope.config.encounterUuid, $scope.config.conceptNames);
@@ -87,8 +73,8 @@ angular.module('bahmni.common.displaycontrol.observation')
                         } else {
                             $scope.initialization = $q.all([observationsService.fetch($scope.patient.uuid, $scope.config.conceptNames,
                                 $scope.config.scope, $scope.config.numberOfVisits, $scope.visitUuid,
-                                $scope.config.obsIgnoreList, null), providerTypeService.getAllProviders()]).then(function (response) {
-                                    mapObservation(response[0].data, $scope.config, response[1]);
+                                $scope.config.obsIgnoreList, null)]).then(function (response) {
+                                    mapObservation(response[0].data, $scope.config);
                                 });
                         }
                     }
