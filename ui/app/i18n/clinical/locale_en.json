@@ -57,13 +57,11 @@
     "PROGRAM_MANAGEMENT_DASHBOARD_LABEL": "Patient Dashboard",
     "PROGRAM_DATE_ALERT":"Please insert a valid date",
     "PROGRAM_STATE_ALERT":"Please select a valid state",
-
     "TREATMENTS_SUMMARY_PRESCRIPTION_KEY": "Prescriptions",
     "INVESTIGATION_CHART_KEY": "Investigation Chart",
     "ALL_VISITS_KEY": "All Visits",
     "ALL_DIAGNOSES_KEY": "All Diagnoses",
     "ALL_KEY": "All",
-
     "SEARCH_NAME_PLACEHOLDER_KEY": "Search Name/{{ primaryIdentifier }}  ...",
     "SEARCH_KEY": "Search",
     "CLINICAL_YEARS_TRANSLATION_KEY": "Years",
@@ -81,8 +79,6 @@
     "OBS_RANGE_ERROR_LABEL": "The value you entered (red field) is outside the range of allowable values for that record. Please check the value.",
     "OBS_NUMBER_ERROR_LABEL": "Please enter Integer value, decimal value is not allowed",
     "OBS_NUMBER_LABEL": "Please enter Numeric values.",
-
-
     "VISIT_TITLE_PATIENT_INFORMATION":"PatientInformation",
     "VISIT_TITLE_DIAGNOSIS_KEY": "Diagnoses",
     "VISIT_TITLE_DISPOSITIONS_KEY": "Dispositions",
