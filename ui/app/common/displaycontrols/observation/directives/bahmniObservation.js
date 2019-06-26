@@ -25,12 +25,7 @@ angular.module('bahmni.common.displaycontrol.observation')
                     }
 
                     observations = _.filter(_.map(observations, function (currentObs) {
-                        if (_.includes(finalFormsToDisplay, currentObs.concept.name)) {
                             return currentObs;
-                        }
-                        else {
-                            return currentObs;
-                        }
                     }));
 
                     if ($scope.config.conceptNames) {
