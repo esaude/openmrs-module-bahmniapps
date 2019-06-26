@@ -41,7 +41,11 @@ angular.module('bahmni.clinical')
             }
             if (treatmentConfig.isAutoCompleteForAllConcepts()) {
                 $scope.getDrugs = function (request) {
-                    return drugService.search(request.term);
+                    if(request.term.includes("+")){
+                        return drugService.searchDecoded(request.term);
+                    } else {
+                        return drugService.search(request.term);
+                    }
                 };
             }
             if (treatmentConfig.isAutoCompleteForGivenConceptSet()) {

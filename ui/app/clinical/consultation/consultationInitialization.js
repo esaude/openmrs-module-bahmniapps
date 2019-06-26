@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('bahmni.clinical').factory('consultationInitialization',
-    ['$q', 'diagnosisService', '$rootScope', 'encounterService', 'sessionService', 'configurations', '$bahmniCookieStore', 'retrospectiveEntryService', 'conditionsService',
-        function ($q, diagnosisService, $rootScope, encounterService, sessionService, configurations, $bahmniCookieStore, retrospectiveEntryService, conditionsService) {
-            return function (patientUuid, encounterUuid, programUuid, enrollment, followUpConditionConcept) {
+    ['$q', 'diagnosisService', '$rootScope', 'encounterService', 'sessionService', 'configurations', '$bahmniCookieStore', 'retrospectiveEntryService', 'conditionsService', 'allergiesService',
+        function ($q, diagnosisService, $rootScope, encounterService, sessionService, configurations, $bahmniCookieStore, retrospectiveEntryService, conditionsService, allergiesService) {
+            return function (patientUuid, encounterUuid, programUuid, enrollment, followUpConditionConcept, followUpAllergyConcept) {
                 if (encounterUuid === 'active') {
                     encounterUuid = undefined;
                 }
@@ -13,7 +13,9 @@ angular.module('bahmni.clinical').factory('consultationInitialization',
                 };
 
                 var consultationMapper = new Bahmni.ConsultationMapper(configurations.dosageFrequencyConfig(), configurations.dosageInstructionConfig(),
-                    configurations.consultationNoteConcept(), configurations.labOrderNotesConcept(), followUpConditionConcept);
+
+                    configurations.consultationNoteConcept(), configurations.labOrderNotesConcept(), followUpConditionConcept, followUpAllergyConcept);
+                    configurations.consultationNoteConcept(), configurations.whoStageConcept(), configurations.labOrderNotesConcept(), followUpConditionConcept);
 
                 var dateUtil = Bahmni.Common.Util.DateUtil;
 
@@ -71,6 +73,11 @@ angular.module('bahmni.clinical').factory('consultationInitialization',
                 }).then(function (consultation) {
                     return conditionsService.getConditions(patientUuid).then(function (conditions) {
                         consultation.conditions = conditions;
+                        return consultation;
+                    });
+                }).then(function (consultation) {
+                    return allergiesService.getAllergies(patientUuid).then(function (allergies) {
+                        consultation.allergies = allergies;
                         return consultation;
                     });
                 });

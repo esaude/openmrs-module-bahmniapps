@@ -2,6 +2,7 @@
     <fieldset>
         <div class="diagnosis" focus-on-input-errors>
             <div id="selectedNodesArea">
+                <div class="ng-hide">
                 <div class="table new-diagnosis primary-section-grid">
                     <div class="row table-header">
                         <div class="col col1"><span>{{ ::'CLINICAL_DIAGNOSIS' | translate }}</span></div>
@@ -104,7 +105,7 @@
                         </div>
                     </div>
                 </div>
-
+                </div>
                 <ng-include ng-if="!hideConditions" src="'consultation/views/conditions.html'"/>
             </div>
         </div>

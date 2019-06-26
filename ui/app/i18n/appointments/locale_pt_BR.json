@@ -64,7 +64,7 @@
   "APPOINTMENT_SERVICE_TYPE": "Tipo de consulta",
   "APPOINTMENT_SERVICE": "Serviço",
   "APPOINTMENT_SHOW_SELECTED_KEY": "Mostrar seleccionado",
-  "APPOINTMENT_SLOT": "Vaga",
+  "APPOINTMENT_SLOT": "Bloco",
   "APPOINTMENT_START_TIME_KEY": "Hora de início",
   "APPOINTMENT_STATUS_CHANGE_CONFIRM_MESSAGE": "Tem certeza de que deseja marcar a consulta como {{toStatus}}?",
   "APPOINTMENT_STATUS_CHANGE_SUCCESS_MESSAGE": "Alterou com sucesso o status da consulta para {{toStatus}}",
@@ -175,5 +175,7 @@
   "APPOINTMENT_SUMMARY_START_LABEL": "Inicio:",
   "APPOINTMENT_SUMMARY_END_LABEL": "Fim:",
   "APPOINTMENT_SUMMARY_END_ALERT": "A Data de Fim deve ser maior que a de Inicio.",
-  "APPOINTMENT_CREATE_SAVE_ADD_NEW": "Salvar e adicionar nova visita"
+  "APPOINTMENT_CREATE_SAVE_ADD_NEW": "Salvar e adicionar nova visita",
+  "APPOINTMENT_DATE_WARNING": "A data da consulta não pode ser inferior à data de hoje",
+  "APPOINTMENT_INVALID_DATE": "Data de consulta inválida"
 }

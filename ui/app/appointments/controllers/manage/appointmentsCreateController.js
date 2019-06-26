@@ -103,6 +103,8 @@ angular.module('bahmni.appointments')
                 } else if (!moment($scope.appointment.startTime, 'hh:mm a')
                     .isBefore(moment($scope.appointment.endTime, 'hh:mm a'), 'minutes')) {
                     message = 'TIME_SEQUENCE_ERROR_MESSAGE';
+                } else if ($scope.invalidChosenDate) {
+                    message = 'APPOINTMENT_INVALID_DATE';
                 }
                 if (message) {
                     messagingService.showMessage('error', message);
@@ -168,6 +170,8 @@ angular.module('bahmni.appointments')
                 } else if (!moment($scope.appointment.startTime, 'hh:mm a')
                     .isBefore(moment($scope.appointment.endTime, 'hh:mm a'), 'minutes')) {
                     message = 'TIME_SEQUENCE_ERROR_MESSAGE';
+                } else if ($scope.invalidChosenDate) {
+                    message = 'APPOINTMENT_INVALID_DATE';
                 }
                 if (message) {
                     messagingService.showMessage('error', message);
@@ -656,6 +660,22 @@ angular.module('bahmni.appointments')
                 $startTimeID.bind('focusout', function () {
                     $scope.onSelectStartTime();
                 });
+            };
+
+            $scope.validateDate = function () {
+                var chosenDate = Bahmni.Common.Util.DateUtil.getDateWithoutTime($scope.appointment.date);
+
+                var today = new Date($scope.today);
+                var selectedDate = new Date(chosenDate);
+                if ((chosenDate != null && selectedDate.getTime() < today.getTime()) || selectedDate.getUTCFullYear() === 1970) {
+                    $scope.invalidChosenDate = true;
+                    angular.element("#date").css("border", "2px solid #ff3434");
+                    angular.element("#date").css("background", "#ffcdcd");
+                } else {
+                    $scope.invalidChosenDate = false;
+                    angular.element("#date").css("border", "1px solid #d1d1d1");
+                    angular.element("#date").css("background", "#fff");
+                }
             };
 
             $scope.isEditMode = function () {
