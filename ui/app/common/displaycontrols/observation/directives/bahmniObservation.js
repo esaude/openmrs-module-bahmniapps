@@ -28,6 +28,9 @@ angular.module('bahmni.common.displaycontrol.observation')
                         if (_.includes(finalFormsToDisplay, currentObs.concept.name)) {
                             return currentObs;
                         }
+                        else {
+                            return currentObs;
+                        }
                     }));
 
                     if ($scope.config.conceptNames) {
@@ -73,7 +76,7 @@ angular.module('bahmni.common.displaycontrol.observation')
                     } else {
                         if ($scope.config.observationUuid) {
                             $scope.initialization = observationsService.getByUuid($scope.config.observationUuid).then(function (response) {
-                                mapObservation([response.data], $scope.config);
+                                mapObservation(response.data, $scope.config);
                             });
                         } else if ($scope.config.encounterUuid) {
                             var fetchForEncounter = observationsService.fetchForEncounter($scope.config.encounterUuid, $scope.config.conceptNames);
