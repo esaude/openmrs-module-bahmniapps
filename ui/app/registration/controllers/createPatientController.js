@@ -16,10 +16,47 @@ angular.module('bahmni.registration')
             $scope.isHealthFacilityShown = false;
             $scope.NID = {};
             $scope.currentYear = new Date().getFullYear();
-            $rootScope.typeOfRegistrationSelected = "";
+            $rootScope.patientStatus = 'Pre TARV';
+            $rootScope.regexDigits = '\\d+';
+            $rootScope.regexCharacters = '^[a-záàãâéèêẽíìóòõôúùçA-ZÁÀÃÂÉÈÊẼÍÌÓÒÔÕÚÙÇ ]+$';
+            $scope.myForms = {};
 
             var getPersonAttributeTypes = function () {
                 return $rootScope.patientConfiguration.attributeTypes;
+            };
+
+            $scope.checkValidationForm = function () {
+                if ($scope.myForms.myForm.givenName.$invalid || $scope.myForms.myForm.familyName.$invalid || $scope.myForms.myForm.middleName.$invalid ||
+                    $scope.myForms.myForm.gender.$invalid || $scope.myForms.myForm.ageYear.$invalid || $scope.myForms.myForm.ageDays.$invalid ||
+                    $scope.myForms.myForm.ageMonths.$invalid || $scope.myForms.myForm.birthdate.$invalid) {
+                    $rootScope.canSave = false;
+                } else {
+                    $rootScope.canSave = true;
+                }
+            };
+
+            $scope.checkValidationNIDHealthFacilityCode = function () {
+                if ($scope.myForms.myForm.healthFacilityCode.$invalid) {
+                    $rootScope.canSave = false;
+                } else {
+                    $rootScope.canSave = true;
+                }
+            };
+
+            $scope.checkValidationNIDYear = function () {
+                if ($scope.myForms.myForm.year.$invalid && !$scope.myForms.myForm.year.$pristine) {
+                    $rootScope.canSave = false;
+                } else {
+                    $rootScope.canSave = true;
+                }
+            };
+
+            $scope.checkValidationNIDSequentialCode = function () {
+                if ($scope.myForms.myForm.registartionNumber.$invalid) {
+                    $rootScope.canSave = false;
+                } else {
+                    $rootScope.canSave = true;
+                }
             };
 
             $scope.buildFinalNID = function () {
