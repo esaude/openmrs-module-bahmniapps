@@ -18,7 +18,7 @@ Bahmni.Clinical.DrugSearchResult = (function () {
     var getMatcher = function (searchString) {
         return function (value) {
             // return value.search(new RegExp(searchString, "i")) !== -1
-            if(searchString !== undefined ){
+            if (searchString !== undefined) {
                 searchString = searchString.toLowerCase();
             }
             return _.includes(value.toLowerCase(), searchString);
