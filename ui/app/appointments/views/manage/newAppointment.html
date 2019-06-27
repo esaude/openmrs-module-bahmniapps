@@ -8,7 +8,7 @@
 
         <h2 ng-hide="isEditMode()">{{ ::'ADD_NEW_APPOINTMENT' | translate}}</h2>
         <h2 ng-show="isEditMode()">{{ ::'EDIT_APPOINTMENT_KEY' | translate}}</h2>
-        <form id="create-appointment-form" name="createAppointmentForm">
+        <form id="create-appointment-form" name="createAppointmentForm" novalidate>
 
             <section id="addNewAppointment">
                 <p>
@@ -23,7 +23,8 @@
                            response-map="responseMap"
                            on-select="onSelectPatient"
                            strict-select="true"
-                           ng-class="{'illegalValue': isInvalid}"
+                           is-invalid="invalidField"
+                           ng-class="{'illegalValue': invalidField}"
                            placeholder="{{'PLACEHOLDER_APPOINTMENT_CREATE_SEARCH_PATIENT' | translate }}"
                            non-blank
                            ng-disabled="isEditMode()"
@@ -48,7 +49,7 @@
                     <label for="service">
                         {{'APPOINTMENT_SERVICE' | translate}}<sup class="asterick">*</sup>
                     </label>
-                    <select id="service" ng-model="appointment.service"
+                    <select id="service" ng-model="appointment.service" ng-change="onServiceChange()"
                             ng-options="service.name for service in appointmentCreateConfig.services | filter: {speciality:{uuid:appointment.speciality.uuid}}:true"
                             ng-disabled="isEditMode() && (!isEditAllowed() || !enableEditService)"
                             required>
@@ -73,10 +74,8 @@
                     <label for="date">
                         {{'APPOINTMENT_DATE' | translate}}<sup class="asterick">*</sup>
                     </label>
-                    <input  id="date" type="date" ng-min="isEditMode() && !isEditAllowed()" required
-                            ng-model="appointment.date"
-                            ng-change="validateDate()"
-                            title="{{'APPOINTMENT_DATE_WARNING' | translate}}"
+                    <input  id="date" type="date" name="date" ng-min="isEditMode() && !isEditAllowed()" min="{{today}}" required
+                            ng-model="appointment.date" ng-change="onDateChange()"
                             placeholder="Pick appointment date"
                             ng-disabled="isEditMode() && !isEditAllowed()"/>
                     <span class="slots-remaining"></span>
@@ -91,6 +90,7 @@
                     </label>
                     <select id="appointmentBlock" ng-change="setBlockTimes()" ng-model="selectedAppointmentBlock"
                             ng-options="appointmentBlock.name | translate for appointmentBlock in appointmentBlocks track by appointmentBlock.name">
+                        <option disabled value="">{{ ::'APPOINTMENT_SELECT_AN_BLOCK' | translate}}
                     </select>
                 </p>
                 <p class="ng-hide walk-in-app">
@@ -107,13 +107,12 @@
                 </p>
             </section>
             <a class="create-appointment-action-btn" ui-sref="^">{{::'APPOINTMENT_CREATE_CANCEL' | translate }}</a>
-            <button type="submit" ng-click="save()"  class="service-save-btn create-appointment-action-btn">{{::'APPOINTMENT_CREATE_SAVE' |
-                translate }}
-            </button>
-            <button type="submit" ng-click="saveContinue();" class="service-save-btn create-appointment-action-btn">{{::'APPOINTMENT_CREATE_SAVE_ADD_NEW' |
-                    translate }}
-                </button>
+
+            <button type="submit" ng-click="save()" disabled ng-if="!canSave" class="service-save-btn create-appointment-action-btn">{{::'APPOINTMENT_CREATE_SAVE' | translate }}</button>
+            <button type="submit" ng-click="save()" ng-if="canSave" class="service-save-btn create-appointment-action-btn">{{::'APPOINTMENT_CREATE_SAVE' | translate }}</button>
+            <button type="submit" ng-click="saveContinue();" disabled ng-if="!canSave" class="service-save-btn create-appointment-action-btn">{{::'APPOINTMENT_CREATE_SAVE_ADD_NEW' | translate }}</button>
+            <button type="submit" ng-click="saveContinue();" ng-if="canSave" class="service-save-btn create-appointment-action-btn">{{::'APPOINTMENT_CREATE_SAVE_ADD_NEW' | translate }}</button>
         </form>
-        
+
     </div>
 </div>
