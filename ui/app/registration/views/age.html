@@ -17,7 +17,7 @@
             <input type="number" id="ageMonths" name="ageMonths" max="12" ng-model="patient.age.months" min="0"
                    title="{{ ::'REGISTRATION_LABEL_NUMERIC_MONTHS' | translate}}"
                    ng-change="patient.calculateBirthDate();checkDuplicatePatients();checkValidationForm()"
-                   ng-disabled="isAgeDisabled" required ng-class="{ 'illegalValue': submitted && this.myForms.myForm.ageMonths.$invalid || this.myForms.myForm.ageMonths.$invalid && !this.myForms.myForm.ageMonths.$pristine}"
+                   ng-disabled="isAgeDisabled" required
             >
         </div>
         <div class="input-prepend">
@@ -25,7 +25,7 @@
             <input type="number" id="ageDays" name="ageDays" max="31" ng-model="patient.age.days" min="0"
                    title="{{ ::'REGISTRATION_LABEL_NUMERIC_DAYS' | translate}}"
                    ng-change="patient.calculateBirthDate();checkDuplicatePatients();checkValidationForm()"
-                   ng-disabled="isAgeDisabled" required ng-class="{ 'illegalValue': submitted && this.myForms.myForm.ageDays.$invalid || this.myForms.myForm.ageDays.$invalid && !this.myForms.myForm.ageDays.$pristine}"
+                   ng-disabled="isAgeDisabled" required
             >
         </div>
 
