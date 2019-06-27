@@ -2,7 +2,7 @@
 
 var constructDrugNameDisplay = function (drug) {
     if (!_.isEmpty(drug)) {
-        return drug.name + " (" + drug.form + ")";
+        return drug.form !== null ? drug.name + " (" + drug.form + ")" : drug.name;
     }
 };
 
