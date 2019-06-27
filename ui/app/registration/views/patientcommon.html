@@ -57,12 +57,12 @@
                         <input data-ng-switch-when="true" type="text" name="middleName" id="middleName"
                                ng-model="$parent.patient.middleName" pattern-validate my-autocomplete
                                source="getAutoCompleteList" response-map="getDataResults" data-item-type="personName"
-                               placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}" required field-validation="::fieldValidation"
+                               placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}" field-validation="::fieldValidation"
                                title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" ng-pattern="regexCharacters">
 
                         <input data-ng-switch-default type="text" name="middleName" id="middleName" ng-model="patient.middleName"
                                pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}" field-validation="::fieldValidation"
-                               title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" ng-pattern="regexCharacters" required>
+                               title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" ng-pattern="regexCharacters">
                         <p class="help-block" ng-show="this.myForms.myForm.middleName.$error.pattern">{{::'PATTERN_REGISTRATION_CHARACTERS_ONLY' | translate}}</p>
                     </span>
 
