@@ -142,9 +142,9 @@ angular.module('bahmni.registration')
                     };
 
                     var checkEmptyFields = function () {
-                        $scope.healthFacilityCodeValue = angular.element("#healthFacilityCode")[0].value;
-                        $scope.nidYearValue = angular.element("#nidYear")[0].value;
-                        $scope.sequencialCodeValue = angular.element("#sequentialCode")[0].value;
+                        $scope.countryValue = angular.element("#country")[0].value;
+                        $scope.stateProvinceValue = angular.element("#stateProvince")[0].value;
+                        $scope.cityVillageValue = angular.element("#cityVillage")[0].value;
 
                         if ($scope.countryValue === undefined || $scope.countryValue === "") {
                             angular.element("#country").addClass("illegalValue");
