@@ -410,5 +410,14 @@
   "OBS_NUMBER_ERROR_LABEL": "Por favor, introduza um número inteiro. Números decimais não são permitidos.",
   "OBS_NUMBER_LABEL": "Por favor, introduza valores númericos.",
   "PROGRAM_DATE_ALERT":"Por favor insira uma data valida",
-  "PROGRAM_STATE_ALERT":"Por favor escolha um estado valido"
+  "PROGRAM_STATE_ALERT":"Por favor escolha um estado valido",
+  "Clinical_Observation_form": "Observação Clinica",
+  "Group_Priority_Population_obs_form": "População Prioritária",
+  "Group IV-Anamneses": "Anamneses",
+  "Group V-Screening / Prophylaxis": "Rastreios / Profilaxias",
+  "Group_VIII_Conduct_obs_form": "Conduta",
+  "Reference_Form": "Referência",
+  "CONFIDENT_FORM": "Family Situation",
+  "DI_Death Information Form": "Fechar Processo",
+  "Apss_obs_form": "APSS"
 }

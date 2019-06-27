@@ -388,5 +388,14 @@
     "ENCOUNTER_CLINICAL_FOLLOWUP": "Clinical Follow Up",
     "MEDICATION_DISPENSED_ALL":"All",
     "ENCOUNTERS": "Encounters",
-    "VISITS": "Visits"
+    "VISITS": "Visits",
+    "Clinical_Observation_form": "Clinical Observation",
+    "Group_Priority_Population_obs_form": "Group II-Priority Population",
+    "Group IV-Anamneses": "Anamneses",
+    "Group V-Screening / Prophylaxis": "Screening / Prophylaxis",
+    "Group_VIII_Conduct_obs_form": "Group VIII-Conduct",
+    "Reference_Form": "Reference",
+    "CONFIDENT_FORM": "Family Situation",
+    "DI_Death Information Form": "Death Information Form",
+    "Apss_obs_form": "APSS"
 }
