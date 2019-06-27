@@ -202,7 +202,9 @@ angular.module('bahmni.appointments')
 
             $scope.onSelectPatient = function (data) {
                 if (data) {
-                    angular.element("#patientID").addClass("legalValue");
+                    angular.element("#patientID").css("border", "1px solid #DDD");
+                    angular.element("#patientID").css("background", "#fff");
+                    angular.element("#patientID").css("outline", "0");
                     $scope.canSave = true;
                 }
                 $scope.appointment.patient = data;

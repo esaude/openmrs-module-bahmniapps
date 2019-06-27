@@ -158,8 +158,7 @@ angular.module('bahmni.registration')
             };
             var validFields = function () {
                 if ($scope.myForms.myForm.givenName.$invalid || $scope.myForms.myForm.familyName.$invalid ||
-                    $scope.myForms.myForm.gender.$invalid || $scope.myForms.myForm.ageYear.$invalid || $scope.myForms.myForm.ageDays.$invalid ||
-                    $scope.myForms.myForm.ageMonths.$invalid || $scope.myForms.myForm.birthdate.$invalid) {
+                    $scope.myForms.myForm.gender.$invalid || $scope.myForms.myForm.ageYear.$invalid || $scope.myForms.myForm.birthdate.$invalid) {
                     return false;
                 }
                 return true;
@@ -185,7 +184,6 @@ angular.module('bahmni.registration')
                         }
                     });
                 }
-
             };
 
             $scope.afterSave = function () {
