@@ -62,7 +62,6 @@ angular.module('bahmni.registration')
                     if (parentField == "stateProvince") {
                         angular.element("#" + parentField).addClass("legalValue");
                         angular.element("#cityVillage").addClass("legalValue");
-                        $rootScope.canSave = true;
                     }
                     if (parentField == "cityVillage") {
                         angular.element("#" + parentField).addClass("legalValue");
@@ -130,7 +129,6 @@ angular.module('bahmni.registration')
                     angular.element("#" + fieldName).css("border", "1px solid red");
                     angular.element("#" + fieldName).css("background", "#ffcdcd");
                     angular.element("#" + fieldName).css("outline", "0");
-                    $rootScope.canSave = false;
                 } else {
                     $scope.addressFieldSelected(fieldName);
                 }

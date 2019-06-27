@@ -25,6 +25,19 @@ angular.module('bahmni.registration')
                 return $rootScope.patientConfiguration.attributeTypes;
             };
 
+            $scope.onBirthDateChange = function () {
+                $scope.dateValue = angular.element("#birthdate")[0].value;
+                if ($scope.dateValue <= $scope.today) {
+                    angular.element("#birthdate").css("border", "1px solid #DDD");
+                    angular.element("#birthdate").css("background", "#fff");
+                    angular.element("#birthdate").css("outline", "0");
+                } else {
+                    angular.element("#birthdate").css("border", "1px solid red");
+                    angular.element("#birthdate").css("background", "#ffcdcd");
+                    angular.element("#birthdate").css("outline", "0");
+                }
+            };
+
             $scope.buildFinalNID = function () {
                 $scope.patient.primaryIdentifier.registrationNumber = $scope.NID.healthFacilityCode + '/' + $scope.NID.serviceCode + '/' + $scope.NID.year + '/' + $scope.NID.sequentialCode;
             };
