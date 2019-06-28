@@ -9,6 +9,7 @@
             <input type="text"
                    id="{{::addressLevel.addressField}}"
                    pattern-validate
+                   name="{{::addressLevel.addressField}}"
                    field-validation="::fieldValidation"
                    non-blank="::addressLevel.required"
                    ng-model="address[addressLevel.addressField]"

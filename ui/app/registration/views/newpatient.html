@@ -61,22 +61,21 @@
                         <div class="input-prepend" ng-if="typeOfRegistrationSelected == 'TRANSFERRED_PATIENT'">
                             <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
                             <input type="text" name="healthFacilityCode" id="healthFacilityCode" ng-model="NID.healthFacilityCode"
-                                   pattern-validate onfocus="this.value=''" focus-me="true"
+                                   pattern-validate onfocus="this.value=''" focus-me="true" placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_HEALTHFACILITY_CODE' | translate}}"
                                    focus-on="patient.primaryIdentifier.hasOldIdentifier" title="{{ ::'REGISTRATION_NUMBERS_OLY' | translate}}"
                                    ng-blur="buildFinalNID()" minlength="8" ng-pattern="regexDigits" maxlength="8" size=8 required
                                    ng-class="{'illegalValue' : submitted && this.myForms.myForm.healthFacilityCode.$invalid || this.myForms.myForm.healthFacilityCode.$invalid && !this.myForms.myForm.healthFacilityCode.$pristine || this.myForms.myForm.healthFacilityCode.$error.pattern}" >
                             <p class="help-block" ng-show="this.myForms.myForm.healthFacilityCode.$error.minlength && !this.myForms.myForm.healthFacilityCode.$error.pattern">{{::'MINLENGTH_HEALTH_FACILITY_CODE' | translate}}</p>
-                            <p class="help-block" ng-show="this.myForms.myForm.healthFacilityCode.$error.pattern">{{::'PATTERN_REGISTRATION_NUMBERS_ONLY' | translate}}</p>
                         </div>
 
                         <div class="input-prepend" ng-if="typeOfRegistrationSelected == undefined">
                             <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
-                            <input id="healthFacilityCode" type="text" size="8" ng-disabled="true">
+                            <input type="text" required ng-value="NID.healthFacilityCode = ''" name="healthFacilityCode" id="healthFacilityCode" ng-model="NID.healthFacilityCode" size="8" ng-disabled="true">
                         </div>
-
+                        {{NID.healthFacilityCode}}
                         <div class="input-prepend" ng-if="typeOfRegistrationSelected == 'NEW_PATIENT'">
                             <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
-                            <input type="text" id="healthFacilityCode" ng-model="NID.healthFacilityCode"
+                            <input name="healthFacilityCode" type="text" id="healthFacilityCode" ng-model="NID.healthFacilityCode"
                                    pattern-validate ng-value="NID.healthFacilityCode = healthFacility.code" ng-disabled="true"
                                    focus-on="patient.primaryIdentifier.hasOldIdentifier"
                                    ng-blur="buildFinalNID()" minlength="8" maxlength="8" size=8 required>
@@ -93,7 +92,7 @@
                             <span class="add-on">{{ ::'REGISTRATION_NID_YEAR' | translate}}</span>
                             <input type="number" id="nidYear" name="nidYear" ng-model="NID.year" pattern-validate title="{{::'REGISTRATION_NUMBERS_OLY' | translate}}"
                                    focus-on="patient.primaryIdentifier.hasOldIdentifier" ng-blur="buildFinalNID()" min="1900" size="4"
-                                   max="{{currentYear}}" minlength="1" maxlength="4" required
+                                   max="{{currentYear}}" minlength="1" maxlength="4" required placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_YEAR' | translate}}"
                                    ng-class="{'illegalValue' : submitted && this.myForms.myForm.nidYear.$invalid || this.myForms.myForm.nidYear.$invalid && !this.myForms.myForm.nidYear.$pristine}">
                         </div>
 
@@ -101,10 +100,9 @@
                             <span class="add-on">{{ ::'REGISTRATION_SEQUENTIAL_CODE' | translate}}</span>
                             <input type="text" name="sequentialCode" id="sequentialCode" ng-model="NID.sequentialCode" pattern-validate
                                    focus-on="patient.primaryIdentifier.hasOldIdentifier" ng-blur="buildFinalNID()" title="{{ ::'REGISTRATION_NUMBERS_OLY' | translate}}"
-                                   minlength="5" ng-pattern="regexDigits" maxlength="5" size="5" required
+                                   minlength="5" ng-pattern="regexDigits" maxlength="5" size="8" required placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_SEQUENCIAL_CODE' | translate}}"
                                    ng-class="{'illegalValue' : submitted && this.myForms.myForm.sequentialCode.$invalid || !this.myForms.myForm.sequentialCode.$pristine && this.myForms.myForm.sequentialCode.$invalid || this.myForms.myForm.sequentialCode.$error.pattern || this.myForms.myForm.sequentialCode.$error.minlength}">
                             <p class="help-block" ng-show="this.myForms.myForm.sequentialCode.$error.minlength && !this.myForms.myForm.sequentialCode.$error.pattern">{{::'MINLENGTH_REGISTRATION_SEQUENTIAL_CODE' | translate}}</p>
-                            <p class="help-block" ng-show="this.myForms.myForm.sequentialCode.$error.pattern">{{::'PATTERN_REGISTRATION_NUMBERS_ONLY' | translate}}</p>
                         </div>
 
                     </article>

@@ -53,12 +53,11 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                         angular.element("#US_REG_DATE").css("border", "1px solid #DDD");
                         angular.element("#US_REG_DATE").css("background", "#fff");
                         angular.element("#US_REG_DATE").css("outline", "0");
-                        $rootScope.canSave = true;
                     } else {
                         angular.element("#US_REG_DATE").css("border", "1px solid red");
                         angular.element("#US_REG_DATE").css("background", "#ffcdcd");
                         angular.element("#US_REG_DATE").css("outline", "0");
-                        $rootScope.canSave = false;
+                        messagingService.showMessage('error', "US_REG_DATE_MESSAGE");
                     }
                 }
             };
@@ -67,11 +66,9 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                 if (attribute.name === "TYPE_OF_REGISTRATION") {
                     if ($scope.targetModel.TYPE_OF_REGISTRATION.value != undefined) {
                         $rootScope.typeOfRegistrationSelected = $scope.targetModel.TYPE_OF_REGISTRATION.value;
-                        $rootScope.canSave = true;
                     }
                     else {
                         $rootScope.typeOfRegistrationSelected = $scope.targetModel.TYPE_OF_REGISTRATION.value;
-                        $rootScope.canSave = false;
                     }
                 }
             };
@@ -80,11 +77,9 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                 if (attribute.name === "PATIENT_STATUS") {
                     if ($scope.targetModel.PATIENT_STATUS.value != undefined) {
                         $rootScope.patientStatus = $scope.targetModel.PATIENT_STATUS.value;
-                        $rootScope.canSave = true;
                     }
                     else {
                         $rootScope.patientStatus = $scope.targetModel.PATIENT_STATUS.value;
-                        $rootScope.canSave = false;
                     }
                 }
             };
