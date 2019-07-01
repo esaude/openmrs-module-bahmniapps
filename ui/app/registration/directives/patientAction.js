@@ -158,9 +158,10 @@ angular.module('bahmni.registration')
                     };
 
                     var validFields = function () {
-                      if ($scope.myForms.myForm.country.$invalid || $scope.myForms.myForm.stateProvince.$invalid || $scope.myForms.myForm.cityVillage.$invalid) {
-                          return false;
-                      }  return true;
+                        if ($scope.myForms.myForm.country.$invalid || $scope.myForms.myForm.stateProvince.$invalid || $scope.myForms.myForm.cityVillage.$invalid) {
+                            return false;
+                        }
+                        return true;
                     };
 
                     $scope.setSubmitSource = function (source) {
