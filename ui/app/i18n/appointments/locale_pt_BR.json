@@ -96,7 +96,7 @@
   "EDIT_LABEL": "Editar",
   "FILTER_KEY": "Filtrar",
   "FRIDAY": "6f",
-  "INVALID_SERVICE_FORM_ERROR_MESSAGE": "Por favor, corrija os valores nos campos para prosseguir",
+  "INVALID_SERVICE_FORM_ERROR_MESSAGE": "Preencha os campos correctamente.",
   "INVALID_TIME_ERROR_MESSAGE": "Horário de ínicio/fim inválido. O formato esperado é hh:mm am/pm.",
   "INVITED_PROVIDERS": "Convidados",
   "LIST_VIEW": "Ver em lista",

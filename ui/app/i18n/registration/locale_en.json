@@ -200,7 +200,7 @@
   "Is_Transferred_Out":"Is Transferred Out",
   "Transfer_Date":"Transfer Date",
   "Observations":"Observations",
-  "REGISTRATION_REQUIRED_INVALID_FIELD": "Fill the required fields.",
+  "REGISTRATION_REQUIRED_INVALID_FIELD": "Fill the fields correctly.",
   "REGISTRATION_PLACEHOLDER_FOR_NID_SEQUENCIAL_CODE" : "Eg: 12345",
   "REGISTRATION_PLACEHOLDER_FOR_NID_YEAR" : "YYYY",
   "REGISTRATION_PLACEHOLDER_FOR_NID_HEALTHFACILITY_CODE" : "Eg: 12345678",

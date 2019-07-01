@@ -174,7 +174,7 @@
     "Is_Transferred_Out":"Transferir Para",
     "Transfer_Date":"Data de Transferência",
     "Observations":"Observações",
-    "REGISTRATION_REQUIRED_INVALID_FIELD": "Preencha os campos obrigatórios.",
+    "REGISTRATION_REQUIRED_INVALID_FIELD": "Preencha os campos correctamente.",
     "REGISTRATION_PLACEHOLDER_FOR_NID_SEQUENCIAL_CODE" : "Ex: 12345",
     "REGISTRATION_PLACEHOLDER_FOR_NID_YEAR" : "YYYY",
     "REGISTRATION_PLACEHOLDER_FOR_NID_HEALTHFACILITY_CODE" : "Ex: 12345678",

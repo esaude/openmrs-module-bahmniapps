@@ -35,7 +35,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             $scope.showTag = false;
             $scope.borderColor = "1px solid #d1d1d1";
             $rootScope.canSave = true;
-            $scope.regexNumbers = '[^0-9+ ]';
+            $scope.regexNumbers = '\\d+';
             $scope.regexCharacters = '[^a-záàãâéèêẽíìóòõôúùçA-ZÁÀÃÂÉÈÊẼÍÌÓÒÔÕÚÙÇ ]';
 
             if ($scope.attribute.name === "PATIENT_STATUS") {
