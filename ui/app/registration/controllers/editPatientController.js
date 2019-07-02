@@ -9,6 +9,7 @@ angular.module('bahmni.registration')
             var uuid = $stateParams.patientUuid;
             $scope.patient = {};
             $scope.actions = {};
+            $scope.myForms = {};
             $scope.addressHierarchyConfigs = appService.getAppDescriptor().getConfigValue("addressHierarchy");
             $scope.disablePhotoCapture = appService.getAppDescriptor().getConfigValue("disablePhotoCapture");
             $scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
