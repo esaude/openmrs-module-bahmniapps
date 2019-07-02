@@ -35,6 +35,7 @@ angular.module('bahmni.registration')
                     angular.element("#birthdate").css("border", "1px solid red");
                     angular.element("#birthdate").css("background", "#ffcdcd");
                     angular.element("#birthdate").css("outline", "0");
+                    messagingService.showMessage('error', "US_REG_DATE_MESSAGE");
                 }
             };
 
@@ -170,15 +171,16 @@ angular.module('bahmni.registration')
                 return deferred.promise;
             };
             var validFields = function () {
-                if ($scope.myForms.myForm.givenName.$invalid || $scope.myForms.myForm.familyName.$invalid ||
-                    $scope.myForms.myForm.gender.$invalid || $scope.myForms.myForm.ageYear.$invalid || $scope.myForms.myForm.birthdate.$invalid) {
+                if ($scope.myForms.myForm.healthFacilityCode.$invalid || $scope.myForms.myForm.nidYear.$invalid || $scope.myForms.myForm.sequentialCode.$invalid || $scope.myForms.myForm.givenName.$invalid
+                    || $scope.myForms.myForm.familyName.$invalid || $scope.myForms.myForm.gender.$invalid || $scope.myForms.myForm.ageYear.$invalid
+                    || $scope.myForms.myForm.birthdate.$invalid) {
                     return false;
                 }
                 return true;
             };
 
             $scope.create = function () {
-                if (!validFields()) {
+                if (!validFields() || !$rootScope.isValidFields) {
                     messagingService.showMessage("error", "REGISTRATION_REQUIRED_INVALID_FIELD");
                 }
                 else {
