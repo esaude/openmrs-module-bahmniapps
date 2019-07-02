@@ -13,8 +13,8 @@ angular.module('bahmni.clinical')
                 method: "GET",
                 params: {
                     patient: $scope.patient.uuid,
-                    numberOfVisits: 1,
-                    limit: 1, v: 'custom:(uuid,display,concept:(uuid,display),value:(uuid,display))',
+                    limit: 1,
+                    v: 'custom:(uuid,display,concept:(uuid,display),value:(uuid,display))',
                     conceptNames: Bahmni.Common.Constants.whoStageConceptName
                 },
                 withCredentials: true
