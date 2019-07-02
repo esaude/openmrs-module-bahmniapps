@@ -9,20 +9,17 @@ angular.module('bahmni.clinical')
                 expandInactive: false
             };
             $scope.consultation.whoStage = $scope.consultation.whoStage || null;
-            var fetchLastObs = $http.get(Bahmni.Common.Constants.openmrsObsUrl, {
-                method: "GET",
-                params: {
-                    patient: $scope.patient.uuid,
-                    limit: 1,
-                    v: 'custom:(uuid,display,concept:(uuid,display),value:(uuid,display))',
-                    conceptNames: Bahmni.Common.Constants.whoStageConceptName
-                },
-                withCredentials: true
+            var fetchLastObs =  $http.get(Bahmni.Common.Constants.observationsUrl, {
+                    params: {
+                        concept: Bahmni.Common.Constants.whoStageConceptName,
+                        patientUuid: $scope.patient.uuid
+                    },
+                    withCredentials: true
             });
             fetchLastObs = fetchLastObs.then(function (response) {
                 $scope.consultation.currentStage = response;
-                if (response.data.results.length > 0) {
-                    mapWhoStageObs(response.data.results[0]);
+                if (response.data.length > 0) {
+                    mapWhoStageObs(response.data[0]);
                 }
             });
 
@@ -370,9 +367,9 @@ angular.module('bahmni.clinical')
 
             var mapWhoStageObs = function (response) {
                 $scope.consultation.whoStage.concept = response.concept;
-                $scope.consultation.whoStage.concept.name = response.concept.display;
+                $scope.consultation.whoStage.concept.name = Bahmni.Common.Constants.whoStageConceptName;
                 $scope.consultation.whoStage.value = {
-                    name: response.value.display,
+                    name: response.value.name,
                     uuid: response.value.uuid
                 };
             };
