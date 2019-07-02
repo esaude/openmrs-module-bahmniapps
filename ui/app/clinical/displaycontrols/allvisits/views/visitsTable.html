@@ -19,9 +19,9 @@
                     </a>
                 </td>
                 <td class="value" id="visitStatus" style="font-weight: bold;">{{::visit.visitStatus | translate}}</td>
-            <tr id="eachVisit" ng-repeat="encounter in visit.encounters" ng-if="encounter.actualEncounterType" >
+            <tr id="eachVisit" ng-repeat="encounter in visit.encounters" >
                 <td></td>
-                <td class="value" id="encounterType">{{::encounter.actualEncounterType | translate}}</td> 
+                <td class="value" id="encounterType">{{::visit.visitType.display | translate}}</td>
             </tr>
             </tbody>
         </table>
