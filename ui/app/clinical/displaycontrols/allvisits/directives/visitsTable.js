@@ -144,8 +144,7 @@ angular.module('bahmni.clinical')
                             }
                         }
 
-                        console.log($scope.visits);
-                        $scope.visits=removeDuplicates($scope.visits);
+                        $scope.visits = removeDuplicates($scope.visits);
 
                         $scope.visits = _.map($scope.visits, function (current) {
                             if (current.stopDatetime) {
@@ -186,12 +185,11 @@ angular.module('bahmni.clinical')
                 var copyOfVisits = visits;
                 var cleanVisits = [];
                 var counter = 0;
-                console.log(copyOfVisits);
-                for (var i = 0; i < visits.length; i++){
+                for (var i = 0; i < visits.length; i++) {
                     var isDirty = false;
-                    for (var j=0; j < copyOfVisits.length; j++){
-                        if (copyOfVisits[j].uuid === visits[i].uuid){
-                            if (visits[i].encounters < 1){
+                    for (var j = 0; j < copyOfVisits.length; j++) {
+                        if (copyOfVisits[j].uuid === visits[i].uuid) {
+                            if (visits[i].encounters < 1) {
                                 isDirty = true;
                             }
                         }
