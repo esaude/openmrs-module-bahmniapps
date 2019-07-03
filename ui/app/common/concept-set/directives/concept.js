@@ -221,6 +221,8 @@ angular.module('bahmni.common.conceptSet')
 
                 scope.updateNutritionalValue = async function () {
                     if (scope.conceptSetName == 'Clinical_Observation_form') {
+                        weight = scope.patient.weight;
+                        height = scope.patient.height;
                         if (scope.observation.concept.name == 'WEIGHT') {
                             weight = scope.observation.value;
                         }
