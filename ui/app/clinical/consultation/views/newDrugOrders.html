@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="start-date fr">
-                <span>from {{newTreatment.effectiveStartDate | bahmniDate}}</span>
+                <span>{{ ::'MEDICATIONN_FROM' | translate }} {{newTreatment.effectiveStartDate | bahmniDate}}</span>
             </div>
             <div ng-show="newTreatment.showAdditionalInstructions" class="notes inline-notes">
                 {{newTreatment.additionalInstructions}}
