@@ -144,6 +144,9 @@ angular.module('bahmni.clinical')
                             }
                         }
 
+                        console.log($scope.visits);
+                        $scope.visits=removeDuplicates($scope.visits);
+
                         $scope.visits = _.map($scope.visits, function (current) {
                             if (current.stopDatetime) {
                                 if (current.encounters.length >= 1) {
@@ -177,6 +180,29 @@ angular.module('bahmni.clinical')
             };
             var link = function ($scope, element) {
                 spinner.forPromise($scope.initialization, element);
+            };
+
+            var removeDuplicates = function (visits) {
+                var copyOfVisits = visits;
+                var cleanVisits = [];
+                var counter = 0;
+                console.log(copyOfVisits);
+                for (var i = 0; i < visits.length; i++){
+                    var isDirty = false;
+                    for (var j=0; j < copyOfVisits.length; j++){
+                        if (copyOfVisits[j].uuid === visits[i].uuid){
+                            if (visits[i].encounters < 1){
+                                isDirty = true;
+                            }
+                        }
+                    }
+                    if (isDirty === false) {
+                        cleanVisits[counter] = visits[i];
+                        counter++;
+                    }
+                }
+
+                return cleanVisits;
             };
             return {
                 restrict: 'E',
