@@ -27,6 +27,10 @@ angular.module('bahmni.common.conceptSet')
                     if (scope.observation.concept.name === "HEIGHT" && (scope.observation.value === null || scope.observation.value === undefined)) {
                         scope.observation.value = scope.patient.height;
                     }
+
+                    if (scope.observation.concept.name === "BMI") {
+                        scope.observation.disabled = true;
+                    }
                 }
 
                 scope.$watch('rootObservation', function (newValue, oldValue) {
@@ -63,6 +67,22 @@ angular.module('bahmni.common.conceptSet')
                                 });
                             }
                         });
+
+
+                        _.map(scope.rootObservation.groupMembers, function (currentObj) {
+                            if (currentObj.concept.name == 'Anthropometric') {
+                                _.map(currentObj.groupMembers, function (obj) {
+                                    if (obj.concept.name == 'BMI' && bmi !== undefined) {
+                                        _.defer(function () {
+                                            scope.$apply(function () {
+                                                obj.value = parseFloat(bmi.toFixed(2));
+                                            });
+                                        });
+                                    }
+                                });
+                            }
+                        });
+
                     }
                 });
 
@@ -198,12 +218,26 @@ angular.module('bahmni.common.conceptSet')
                                     }
                                 }));
                             }
+
+                            if (currentObj.concept.name == 'BMI') {
+                                return _.filter(_.map(currentObj.possibleAnswers, function (curObj) {
+                                    if (curObj.name.name == key) {
+                                        return curObj;
+                                    }
+                                }));
+                            }
                         }));
 
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
                             if (currentObj.concept.name == 'Nutritional_States_new') {
                                 scope.$apply(function () {
                                     currentObj.value = data[0][0];
+                                });
+                            }
+
+                            if (currentObj.concept.name == 'BMI') {
+                                scope.$apply(function () {
+                                    currentObj.value = parseFloat(bmi.toFixed(2));
                                 });
                             }
                         });
@@ -215,20 +249,30 @@ angular.module('bahmni.common.conceptSet')
                                     currentObj.value = undefined;
                                 });
                             }
+
+                            if (currentObj.concept.name == 'BMI') {
+                                scope.$apply(function () {
+                                    currentObj.value = '';
+                                });
+                            }
                         });
                     }
                 };
 
                 scope.updateNutritionalValue = async function () {
                     if (scope.conceptSetName == 'Clinical_Observation_form') {
+                        if(scope.patient.weight !== undefined && scope.patient.weight !== undefined){
                         weight = scope.patient.weight;
                         height = scope.patient.height;
+                        }
                         if (scope.observation.concept.name == 'WEIGHT') {
                             weight = scope.observation.value;
+                            scope.patient.weight = undefined
                         }
 
                         if (scope.observation.concept.name == 'HEIGHT') {
                             height = scope.observation.value;
+                            scope.patient.weight = undefined
                         }
 
                         if (scope.observation.concept.name == 'Brachial_perimeter_new') {
@@ -260,6 +304,12 @@ angular.module('bahmni.common.conceptSet')
 
                         if (ageToMonths >= 6 && ageToMonths <= 59) {
                             eligibleForBP = true;
+                        }
+
+                        if ((!height || !weight)) {
+                            getAnswerObject(key, null);
+                            bmi = 0;
+                            return;
                         }
 
                         if (!height && !weight && !brachialPerimeter) {
