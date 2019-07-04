@@ -9,12 +9,12 @@ angular.module('bahmni.clinical')
                 expandInactive: false
             };
             $scope.consultation.whoStage = $scope.consultation.whoStage || null;
-            var fetchLastObs =  $http.get(Bahmni.Common.Constants.observationsUrl, {
-                    params: {
-                        concept: Bahmni.Common.Constants.whoStageConceptName,
-                        patientUuid: $scope.patient.uuid
-                    },
-                    withCredentials: true
+            var fetchLastObs = $http.get(Bahmni.Common.Constants.observationsUrl, {
+                params: {
+                    concept: Bahmni.Common.Constants.whoStageConceptName,
+                    patientUuid: $scope.patient.uuid
+                },
+                withCredentials: true
             });
             fetchLastObs = fetchLastObs.then(function (response) {
                 $scope.consultation.currentStage = response;
