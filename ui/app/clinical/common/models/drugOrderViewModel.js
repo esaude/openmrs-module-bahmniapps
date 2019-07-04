@@ -388,7 +388,11 @@ Bahmni.Clinical.DrugOrderViewModel = function (config, proto, encounterDate) {
     };
 
     this.setQuantityEnteredManually = function () {
-        self.quantityEnteredManually = true;
+        if (this.isDurationRequired) {
+            self.quantityEnteredManually = false;
+        } else {
+            self.quantityEnteredManually = true;
+        }
     };
 
     this.setQuantityUnitEnteredManually = function () {
