@@ -131,7 +131,6 @@ angular.module('bahmni.common.conceptSet')
                 });
                 scope.handleUpdate = function () {
                     var currentEnteredDate;
-                    var currentValue;
                     var date = "";
                     if (scope.observation.concept.name == 'Last Menstruation Date') {
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
@@ -151,7 +150,7 @@ angular.module('bahmni.common.conceptSet')
                                 currentEnteredDate = currentObj.value;
                             }
                             if (currentObj.concept.name == 'Probable delivery date') {
-                                if (scope.observation.value === true) {
+                                if (scope.observation.value) {
                                     currentEnteredDate = moment(currentEnteredDate).add(9, 'M');
                                     currentEnteredDate = moment(currentEnteredDate).add(7, 'days');
                                     currentEnteredDate = moment(currentEnteredDate).format('YYYY-MM-DD');
