@@ -17,6 +17,8 @@ angular.module('bahmni.common.conceptSet')
                 var ageToMonths = (patientAgeYears * 12) + patientAgeMonths;
                 var hideAbnormalbuttonConfig = scope.observation && scope.observation.conceptUIConfig && scope.observation.conceptUIConfig['hideAbnormalButton'];
                 var currentUrl = window.location.href;
+                weight = scope.patient.weight;
+                height = scope.patient.height;
                 if (scope.observation !== null && scope.observation !== undefined && currentUrl.includes("registration")) {
                     scope.observation.value = "";
                 }
@@ -30,7 +32,7 @@ angular.module('bahmni.common.conceptSet')
                 }
 
                 scope.$watch('rootObservation', function (newValue, oldValue) {
-                    if (oldValue != newValue) {
+                    if ((oldValue != newValue) && !scope.observation.value) {
                         if (scope.patient.weight && scope.patient.height) {
                             bmi = (scope.patient.weight / (scope.patient.height * scope.patient.height)) * 10000;
                         }
@@ -221,8 +223,6 @@ angular.module('bahmni.common.conceptSet')
 
                 scope.updateNutritionalValue = async function () {
                     if (scope.conceptSetName == 'Clinical_Observation_form') {
-                        weight = scope.patient.weight;
-                        height = scope.patient.height;
                         if (scope.observation.concept.name == 'WEIGHT') {
                             weight = scope.observation.value;
                         }
@@ -286,6 +286,7 @@ angular.module('bahmni.common.conceptSet')
                         }
                         else if (bmi) {
                             key = bmiCalculationService.getNutritionalStatusKey(patientAgeYears, bmi, gender, height, weight);
+                            console.log(key);
                             getAnswerObject(key, bmi);
                         }
                     }
