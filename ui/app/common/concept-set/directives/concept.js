@@ -70,7 +70,6 @@ angular.module('bahmni.common.conceptSet')
                             }
                         });
 
-
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
                             if (currentObj.concept.name == 'Anthropometric') {
                                 _.map(currentObj.groupMembers, function (obj) {
@@ -84,7 +83,6 @@ angular.module('bahmni.common.conceptSet')
                                 });
                             }
                         });
-
                     }
                 });
 
@@ -265,12 +263,12 @@ angular.module('bahmni.common.conceptSet')
                     if (scope.conceptSetName == 'Clinical_Observation_form') {
                         if (scope.observation.concept.name == 'WEIGHT') {
                             weight = scope.observation.value;
-                            scope.patient.weight = undefined
+                            scope.patient.weight = undefined;
                         }
 
                         if (scope.observation.concept.name == 'HEIGHT') {
                             height = scope.observation.value;
-                            scope.patient.weight = undefined
+                            scope.patient.weight = undefined;
                         }
 
                         if (scope.observation.concept.name == 'Brachial_perimeter_new') {
