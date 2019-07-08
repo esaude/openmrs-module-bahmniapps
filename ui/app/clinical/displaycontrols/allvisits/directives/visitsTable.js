@@ -144,7 +144,7 @@ angular.module('bahmni.clinical')
                             }
                         }
 
-                        $scope.visits = removeDuplicates($scope.visits);
+                       // $scope.visits = removeDuplicates($scope.visits);
 
                         $scope.visits = _.map($scope.visits, function (current) {
                             if (current.stopDatetime) {
