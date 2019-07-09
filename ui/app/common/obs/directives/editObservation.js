@@ -36,11 +36,13 @@ angular.module('bahmni.common.obs')
                         } else {
                             $scope.editableObservations = $scope.encounter.observations;
                         }
+
+                        // Define patient object
+                        // Need the UUID up front so the execution of the process can continue
+                        // fetch the gender (or whatever other patient data is needed) later
+                        $scope.patient = {uuid: $scope.encounter.patientUuid};
                         patientService.getPatient($scope.encounter.patientUuid).then(function (response) {
-                            $scope.patient = {
-                                uuid: response.data.person.uuid,
-                                gender: response.data.person.gender
-                            };
+                            $scope.patient.gender = response.data.person.gender;
                             return;
                         });
                     });
