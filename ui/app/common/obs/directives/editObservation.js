@@ -36,7 +36,7 @@ angular.module('bahmni.common.obs')
                         } else {
                             $scope.editableObservations = $scope.encounter.observations;
                         }
-                        $scope.patient = patientService.getPatient(scope.patient.uuid).then(function (response) {
+                        $scope.patient = patientService.getPatient($scope.encounter.patientUuid).then(function (response) {
                             return {
                                 uuid: response.data.person.uuid,
                                 gender: response.data.person.gender
