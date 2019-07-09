@@ -41,7 +41,7 @@ angular.module('bahmni.common.obs')
                                 uuid: response.data.person.uuid,
                                 gender: response.data.person.gender
                             };
-                            return
+                            return;
                         }); 
                     });
                 };
