@@ -36,12 +36,13 @@ angular.module('bahmni.common.obs')
                         } else {
                             $scope.editableObservations = $scope.encounter.observations;
                         }
-                        $scope.patient = patientService.getPatient($scope.encounter.patientUuid).then(function (response) {
-                            return {
+                        patientService.getPatient($scope.encounter.patientUuid).then(function (response) {
+                            $scope.patient = {
                                 uuid: response.data.person.uuid,
                                 gender: response.data.person.gender
                             };
-                        });
+                            return
+                        }); 
                     });
                 };
 
