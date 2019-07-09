@@ -14,7 +14,6 @@ angular.module('bahmni.home')
                     allProviders = results[0];
                     var currentProvider = $rootScope.currentProvider;
                     $rootScope.providerType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
-                console.log( $rootScope.providerType);
                 });
             };
 
