@@ -393,7 +393,8 @@
 
             <span ng-if="::(observation.canAddMore && observation.canAddMore())" class="add-more" ng-if="observation.getControlType() != 'video'">
                 <button id="{{observation.assignAddMoreButtonID()}}" type="button" class="add-more-btn btn-small" ng-click="$event.stopPropagation(cloneNew(observation, rootObservation))">
-                    <i class="fa fa-plus"></i> {{::'ADD_SECTION_KEY' | translate}}
+                    <span ng-if="::observation.getObservationConceptName()!=='CONFIDENT_FAMILY_SITUATION'"><i class="fa fa-plus"></i> {{::'ADD_SECTION_KEY' | translate}}</span>
+                    <span ng-if="::observation.getObservationConceptName()==='CONFIDENT_FAMILY_SITUATION'"><i class="fa fa-plus"></i> {{::'ADD_FAMILY_MEMBER' | translate}}</span>
                 </button>
             </span>
             </legend>
