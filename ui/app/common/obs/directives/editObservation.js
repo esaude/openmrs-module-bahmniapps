@@ -4,7 +4,7 @@ angular.module('bahmni.common.obs')
     .directive('editObservation', ['$q', 'spinner', '$state', '$rootScope', 'ngDialog', 'messagingService',
         'encounterService', 'configurations', 'contextChangeHandler', 'auditLogService', 'patientService',
         function ($q, spinner, $state, $rootScope, ngDialog, messagingService, encounterService, configurations,
-                  contextChangeHandler, auditLogService, patientService) {
+            contextChangeHandler, auditLogService, patientService) {
             var controller = function ($scope) {
                 var ObservationUtil = Bahmni.Common.Obs.ObservationUtil;
                 var findEditableObs = function (observations) {
@@ -36,17 +36,11 @@ angular.module('bahmni.common.obs')
                         } else {
                             $scope.editableObservations = $scope.encounter.observations;
                         }
-                        scope.findGender = patientService.getPatient($scope.encounter.patientUuid).then(function (response) {
+                        return patientService.getPatient($scope.encounter.patientUuid).then(function (response) {
                             var person = response.data.person;
-                            if (person.gender == "F") {
-                                $scope.patient.gender = "F";
-                            }
-                            else {
-                                $scope.patient.gender = "M";
-                            }
-                            return;
+                            $scope.patient.gender = person.gender;
+                            $scope.patient = { uuid: $scope.encounter.patientUuid, gender: $scope.patient.gender };
                         });
-                        $scope.patient = {uuid: $scope.encounter.patientUuid, gender: $scope.patient.gender};
                     });
                 };
 
@@ -105,7 +99,7 @@ angular.module('bahmni.common.obs')
                         };
                         auditLogService.log($scope.patient.uuid, "EDIT_ENCOUNTER", messageParams, "MODULE_LABEL_CLINICAL_KEY");
                         $rootScope.hasVisitedConsultation = false;
-                        $state.go($state.current, {}, {reload: true});
+                        $state.go($state.current, {}, { reload: true });
                         ngDialog.close();
                         messagingService.showMessage('info', "{{'CLINICAL_SAVE_SUCCESS_MESSAGE_KEY' | translate}}");
                     });
@@ -122,7 +116,7 @@ angular.module('bahmni.common.obs')
                             return Bahmni.Clinical.Order.discontinue(order);
                         }
                         return {
-                            uuid: order.uuid, concept: {name: order.concept.name, uuid: order.concept.uuid},
+                            uuid: order.uuid, concept: { name: order.concept.name, uuid: order.concept.uuid },
                             commentToFulfiller: order.commentToFulfiller
                         };
                     });
