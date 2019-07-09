@@ -2,9 +2,9 @@
 
 angular.module('bahmni.common.obs')
     .directive('editObservation', ['$q', 'spinner', '$state', '$rootScope', 'ngDialog', 'messagingService',
-        'encounterService', 'configurations', 'contextChangeHandler', 'auditLogService',
+        'encounterService', 'configurations', 'contextChangeHandler', 'auditLogService', 'patientService',
         function ($q, spinner, $state, $rootScope, ngDialog, messagingService, encounterService, configurations,
-                  contextChangeHandler, auditLogService) {
+                  contextChangeHandler, auditLogService, patientService) {
             var controller = function ($scope) {
                 var ObservationUtil = Bahmni.Common.Obs.ObservationUtil;
                 var findEditableObs = function (observations) {
@@ -36,7 +36,17 @@ angular.module('bahmni.common.obs')
                         } else {
                             $scope.editableObservations = $scope.encounter.observations;
                         }
-                        $scope.patient = {uuid: $scope.encounter.patientUuid};
+                        scope.findGender = patientService.getPatient($scope.encounter.patientUuid).then(function (response) {
+                            var person = response.data.person;
+                            if (person.gender == "F") {
+                                $scope.patient.gender = "F";
+                            }
+                            else {
+                                $scope.patient.gender = "M";
+                            }
+                            return;
+                        });
+                        $scope.patient = {uuid: $scope.encounter.patientUuid, gender: $scope.patient.gender};
                     });
                 };
 

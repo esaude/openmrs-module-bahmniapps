@@ -218,7 +218,7 @@ angular.module('bahmni.common.conceptSet')
                                     var conditionFn = Bahmni.ConceptSet.FormConditions.rules && Bahmni.ConceptSet.FormConditions.rules[subConditionConceptName];
                                     if (conditionFn != null) {
                                         _.each(flattenedObs, function (obs) {
-                                            if (obs.concept.name !== subConditionConceptName) {
+                                            if (obs.concept.name != subConditionConceptName) {
                                                 runFormConditionForObs(false, formName, conditionFn, subConditionConceptName, flattenedObs);
                                             }
                                         });
@@ -228,7 +228,7 @@ angular.module('bahmni.common.conceptSet')
                                     var conditionFn = Bahmni.ConceptSet.FormConditions.rules && Bahmni.ConceptSet.FormConditions.rules[subConditionConceptName];
                                     if (conditionFn != null) {
                                         _.each(flattenedObs, function (obs) {
-                                            if (obs.concept.name !== subConditionConceptName) {
+                                            if (obs.concept.name != subConditionConceptName) {
                                                 runFormConditionForObs(true, formName, conditionFn, subConditionConceptName, flattenedObs);
                                             }
                                         });
