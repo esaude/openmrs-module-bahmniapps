@@ -7,6 +7,7 @@ Bahmni.ConceptSet.Observation = function (observation, savedObs, conceptUIConfig
     this.conceptUIConfig = conceptUIConfig[this.concept.name] || [];
     this.uniqueId = _.uniqueId('observation_');
     this.erroneousValue = null;
+    
 
     if (savedObs) {
         this.uuid = savedObs.uuid;

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.common.conceptSet')
-    .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService',
-        function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService) {
+    .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService','$rootScope',
+        function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService, $rootScope) {
             var height, weight, brachialPerimeter, bmi, data, key, isValidHeight;
             var link = function (scope) {
                 var patientUuid = scope.patient.uuid;
@@ -29,13 +29,16 @@ angular.module('bahmni.common.conceptSet')
                     }
                 }
 
+                var dateUtil = Bahmni.Common.Util.DateUtil;
+                scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
+                scope.nutritionalStateDisplay = $rootScope.nutritionalStatusObject;
+                scope.nutritionalState = $rootScope.nutritionalStatus;
                 scope.$watch('rootObservation', function (newValue, oldValue) {
                     if (oldValue != newValue) {
                         if (scope.patient.weight && scope.patient.height) {
                             bmi = (scope.patient.weight / (scope.patient.height * scope.patient.height)) * 10000;
                         }
-                        key = bmiCalculationService.getNutritionalStatusKey(patientAgeYears, bmi, gender, scope.patient.height, scope.patient.weight);
-
+                        key = bmiCalculationService.getNutritionalStatusKey(patientAgeYears, bmi, gender, scope.patient.height, scope.patient.weight) || scope.nutritionalState;
                         data = _.filter(_.map(scope.rootObservation.groupMembers, function (currentObj) {
                             if (currentObj.concept.name == 'Anthropometric') {
                                 return _.filter(_.map(currentObj.groupMembers, function (obj) {
@@ -48,6 +51,18 @@ angular.module('bahmni.common.conceptSet')
                                     }
                                 }));
                             }
+                            
+                            // else if (currentObj.concept.name == 'Nutrition_Prophylaxis') {
+                            //     return _.filter(_.map(currentObj.groupMembers, function (obj) {
+                            //         if (obj.concept.name == 'Nutritional_States_new') {
+                            //             return _.filter(_.map(obj.possibleAnswers, function (curObj) {
+                            //                 if (curObj.name.name == key) {
+                            //                     return curObj;
+                            //                 }
+                            //             }));
+                            //         }
+                            //     }));
+                            // }
                         }));
 
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
@@ -62,6 +77,18 @@ angular.module('bahmni.common.conceptSet')
                                     }
                                 });
                             }
+
+                           // else if (currentObj.concept.name == 'Nutrition_Prophylaxis') {
+                           //      _.map(currentObj.groupMembers, function (obj) {
+                           //          if (obj.concept.name == 'Nutritional_States_new') {
+                           //              _.defer(function () {
+                           //                  scope.$apply(function () {
+                           //                      obj.value = data[0][0][0];
+                           //                  });
+                           //              });
+                           //          }
+                           //      });
+                           //  }
                         });
                     }
                 });
@@ -164,6 +191,48 @@ angular.module('bahmni.common.conceptSet')
                         });
                     }
                     scope.$root.$broadcast("event:observationUpdated-" + scope.conceptSetName, scope.observation.concept.name, scope.rootObservation);
+                };
+
+                scope.updateProphilaxisState = function (value) {
+                    if (value) {
+                        if (value == scope.today) {
+                            getAnswerObjectForProphilaxisState('Inicio_Prophylaxis',value);
+                        }
+                    }
+                    else {
+                        getAnswerObjectForProphilaxisState('',value);
+                    }
+                };
+
+                var getAnswerObjectForProphilaxisState = function (key, value) {
+                    if (value) {
+                        data = _.filter(_.map(scope.rootObservation.groupMembers, function (currentObj) {
+                            if (currentObj.concept.name == 'State_Prophylaxis') {
+                                return _.filter(_.map(currentObj.possibleAnswers, function (curObj) {
+                                    if (curObj.name.name == key) {
+                                        return curObj;
+                                    }
+                                }));
+                            }
+                        }));
+
+                        _.map(scope.rootObservation.groupMembers, function (currentObj) {
+                            if (currentObj.concept.name == 'State_Prophylaxis') {
+                                //scope.$apply(function () {
+                                    currentObj.value = data[0][0];
+                                //});
+                            }
+                        });
+                    }
+                    else {
+                        _.map(scope.rootObservation.groupMembers, function (currentObj) {
+                            if (currentObj.concept.name == 'State_Prophylaxis') {
+                                //scope.$apply(function () {
+                                    currentObj.value = undefined;
+                                //});
+                            }
+                        });
+                    }
                 };
 
                 var getPregnancyStatus = function (patientUuid) {
@@ -320,6 +389,7 @@ angular.module('bahmni.common.conceptSet')
                     conceptSetRequired: "=",
                     rootObservation: "=",
                     patient: "=",
+                    nutritionalStateDisplay: "&",
                     collapseInnerSections: "=",
                     rootConcept: "&",
                     hideAbnormalButton: "="
