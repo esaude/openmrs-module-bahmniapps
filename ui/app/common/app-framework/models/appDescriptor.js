@@ -109,9 +109,7 @@ Bahmni.Common.AppFramework.AppDescriptor = function (context, inheritContext, re
 
     var getExtensions = function (extPointId, type, extensions) {
         var currentUser = retrieveUserCallback();
-        console.log(currentUser);
         var currentExtensions = _.values(extensions);
-        console.log(currentExtensions);
         if (currentUser && currentExtensions) {
             var extnType = type || 'all';
             var userPrivileges = currentUser.privileges.map(function (priv) {

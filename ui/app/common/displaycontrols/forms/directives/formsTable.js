@@ -45,7 +45,6 @@ angular.module('bahmni.common.displaycontrol.forms')
                         allProviders = results[2];
                         var currentProvider = $rootScope.currentProvider;
                         var providerType = providerTypeService.getProviderType(allProviders, currentProvider)[0][0];
-                        console.log("providerType..."+providerType)
                         if (providerType == "APSS") {
                             finalFormsToDisplay = APSSProviderForms;
                         } else if (providerType == "Clinical") {

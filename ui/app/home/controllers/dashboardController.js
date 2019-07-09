@@ -1,27 +1,24 @@
 'use strict';
 
 angular.module('bahmni.home')
-    .controller('DashboardController', [ '$scope', '$state', 'appService', 'locationService', 'spinner', '$bahmniCookieStore', '$window', '$q',  '$rootScope', 'providerService', 'providerTypeService',
-        function ( $scope, $state, appService, locationService, spinner, $bahmniCookieStore, $window, $q, $rootScope, providerService, providerTypeService) {
+    .controller('DashboardController', ['$scope', '$state', 'appService', 'locationService', 'spinner', '$bahmniCookieStore', '$window', '$q', '$rootScope', 'providerService', 'providerTypeService',
+        function ($scope, $state, appService, locationService, spinner, $bahmniCookieStore, $window, $q, $rootScope, providerService, providerTypeService) {
             $scope.appExtensions = appService.getAppDescriptor().getExtensions($state.current.data.extensionPointId, "link") || [];
             $scope.selectedLocationUuid = {};
             var allProviders;
-           
-            var init = function () {
-                console.log( $rootScope.currentProvider);
+
+            var initProvider = function () {
                 $scope.noFormFoundMessage = "No Form found for this patient";
                 $scope.isFormFound = false;
                 return $q.all([providerTypeService.getAllProviders()]).then(function (results) {
-                    console.log("results"+results);
                     allProviders = results[0];
-                    console.log("allProviders...."+allProviders);
                     var currentProvider = $rootScope.currentProvider;
-                    var providerType = providerTypeService.getProviderType(allProviders, currentProvider);
-                    console.log(providerType);
+                    $rootScope.providerType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
+                console.log( $rootScope.providerType);
                 });
             };
 
-            init();
+            initProvider();
 
             var isOnline = function () {
                 return $window.navigator.onLine;
@@ -59,7 +56,7 @@ angular.module('bahmni.home')
                 $bahmniCookieStore.put(Bahmni.Common.Constants.locationCookieName, {
                     name: selectedLocation.display,
                     uuid: selectedLocation.uuid
-                }, {path: '/', expires: 7});
+                }, { path: '/', expires: 7 });
                 $window.location.reload();
             };
 
