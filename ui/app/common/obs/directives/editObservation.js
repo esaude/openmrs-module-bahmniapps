@@ -42,7 +42,7 @@ angular.module('bahmni.common.obs')
                                 gender: response.data.person.gender
                             };
                             return;
-                        }); 
+                        });
                     });
                 };
 
