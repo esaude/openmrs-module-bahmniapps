@@ -183,7 +183,7 @@
                         </article>
                         <article class="form-field ">
                             <div class="field-attribute">
-                                <label class=" unit-text">{{ ::treatmentConfig.translate('units', 'MEDICATION_LABEL_UNITS') }} </label>
+                                <label class=" unit-text">{{ ::treatmentConfig.translate('units', 'MEDICATION_LABEL_UNITS') }} <span class="asterick">*</span></label>
                             </div>
                             <div class="field-value">
                                 <select  ng-if="!treatmentConfig.isHiddenField('durationUnits')" id="duration-unit"
