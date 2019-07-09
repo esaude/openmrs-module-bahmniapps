@@ -9,6 +9,7 @@ angular.module('bahmni.common.conceptSet')
                 var dataSource = " ";
                 var eligibleForBP = false;
                 var gender = scope.patient.gender;
+                console.log(gender);
                 var patientAgeYears = scope.patient.age;
                 var patientAgeDays = scope.patient.ageDays;
                 var patientAgeMonths = scope.patient.ageMonths;
