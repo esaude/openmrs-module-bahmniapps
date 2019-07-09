@@ -1,13 +1,17 @@
 'use strict';
 
 angular.module('bahmni.common.conceptSet')
-    .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService',
-        function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService) {
+    .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService', 'patientService',
+        function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService, patientService) {
             var height, weight, brachialPerimeter, bmi, data, key, isValidHeight;
             var link = function (scope) {
                 var patientUuid = scope.patient.uuid;
                 var dataSource = " ";
                 var eligibleForBP = false;
+                scope.patient.gender = patientService.getPatient(scope.patient.uuid).then(function (response) {
+                    console.log(response.data.person.gender);
+                    return response.data.person.gender;
+                });
                 var gender = scope.patient.gender;
                 var patientAgeYears = scope.patient.age;
                 var patientAgeDays = scope.patient.ageDays;
