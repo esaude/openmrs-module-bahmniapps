@@ -8,9 +8,16 @@ angular.module('bahmni.common.conceptSet')
                 var patientUuid = scope.patient.uuid;
                 var dataSource = " ";
                 var eligibleForBP = false;
-                scope.patient.gender = patientService.getPatient(scope.patient.uuid).then(function (response) {
-                    console.log(response.data.person.gender);
-                    return response.data.person.gender;
+                scope.findGender = patientService.getPatient(scope.patient.uuid).then(function (response) {
+                    var person = response.data.person;
+                    if (person.gender == "F") {
+                        scope.patient.gender = "F";
+                    }
+
+                    else {
+                        scope.patient.gender = "M";
+                    }
+                    return;
                 });
                 var gender = scope.patient.gender;
                 var patientAgeYears = scope.patient.age;
