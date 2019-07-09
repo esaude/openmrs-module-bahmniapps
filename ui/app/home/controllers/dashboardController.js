@@ -1,10 +1,23 @@
 'use strict';
 
 angular.module('bahmni.home')
-    .controller('DashboardController', ['$scope', '$state', 'appService', 'locationService', 'spinner', '$bahmniCookieStore', '$window', '$q',
-        function ($scope, $state, appService, locationService, spinner, $bahmniCookieStore, $window, $q) {
+    .controller('DashboardController', ['$scope', '$state', 'appService', 'locationService', 'spinner', '$bahmniCookieStore', '$window', '$q', '$rootScope', 'providerService', 'providerTypeService',
+        function ($scope, $state, appService, locationService, spinner, $bahmniCookieStore, $window, $q, $rootScope, providerService, providerTypeService) {
             $scope.appExtensions = appService.getAppDescriptor().getExtensions($state.current.data.extensionPointId, "link") || [];
             $scope.selectedLocationUuid = {};
+            var allProviders;
+
+            var initProvider = function () {
+                $scope.noFormFoundMessage = "No Form found for this patient";
+                $scope.isFormFound = false;
+                return $q.all([providerTypeService.getAllProviders()]).then(function (results) {
+                    allProviders = results[0];
+                    var currentProvider = $rootScope.currentProvider;
+                    $rootScope.providerType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
+                });
+            };
+
+            initProvider();
 
             var isOnline = function () {
                 return $window.navigator.onLine;
@@ -42,7 +55,7 @@ angular.module('bahmni.home')
                 $bahmniCookieStore.put(Bahmni.Common.Constants.locationCookieName, {
                     name: selectedLocation.display,
                     uuid: selectedLocation.uuid
-                }, {path: '/', expires: 7});
+                }, { path: '/', expires: 7 });
                 $window.location.reload();
             };
 
