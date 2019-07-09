@@ -32,16 +32,10 @@
        focus-me="::observation.isFocused" tabindex="1"/>
 
 <input id="{{::observation.uniqueId}}" obs-constraints obs="::observation"
-       ng-if="!observation.isNumeric() && !observation._isDateTimeDataType() && !observation.conceptUIConfig.displayMonthAndYear && observation.concept.name !='Start Date_Prophylaxis'" ng-disabled="observation.disabled"
+       ng-if="!observation.isNumeric() && !observation._isDateTimeDataType() && !observation.conceptUIConfig.displayMonthAndYear" ng-disabled="observation.disabled"
        ng-model="observation.value" ng-change="handleUpdate()"
        ng-class="{'is-abnormal': observation.abnormalObs.value, 'illegalValue': !observation.isValid(atLeastOneValueIsSet,conceptSetRequired), 'computed-field': observation.isComputedAndEditable()}"
        focus-me="::observation.isFocused" tabindex="1"/>
-
-<input id="{{::observation.uniqueId}}" obs-constraints obs="::observation"
-       ng-if="!observation.isNumeric() && !observation._isDateTimeDataType() && !observation.conceptUIConfig.displayMonthAndYear && observation.concept.name=='Start Date_Prophylaxis'" ng-disabled="observation.disabled"
-       ng-model="observation.value" ng-change="handleUpdate();updateProphilaxisState(observation.value)"
-       ng-class="{'is-abnormal': observation.abnormalObs.value, 'illegalValue': !observation.isValid(atLeastOneValueIsSet,conceptSetRequired), 'computed-field': observation.isComputedAndEditable()}"
-       focus-me="::observation.isFocused" tabindex="1" max = "{{::today}}" ng-init="observation.value = today;updateProphilaxisState(observation.value)" />
 
 <stepper id="{{::observation.uniqueId}}"
          ng-model="observation.value" ng-blur="handleUpdate()" obs="observation"
