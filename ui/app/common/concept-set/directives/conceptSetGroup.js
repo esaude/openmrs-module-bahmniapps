@@ -3,7 +3,7 @@
 angular.module('bahmni.common.conceptSet')
     .controller('ConceptSetGroupController', ['$scope', 'contextChangeHandler', 'spinner', 'messagingService',
         'conceptSetService', '$rootScope', 'sessionService', 'encounterService', 'treatmentConfig',
-        'retrospectiveEntryService', 'userService', 'conceptSetUiConfigService', '$timeout', 'clinicalAppConfigService', '$stateParams', '$translate','$http',
+        'retrospectiveEntryService', 'userService', 'conceptSetUiConfigService', '$timeout', 'clinicalAppConfigService', '$stateParams', '$translate', '$http',
         function ($scope, contextChangeHandler, spinner, messagingService, conceptSetService, $rootScope, sessionService,
                   encounterService, treatmentConfig, retrospectiveEntryService, userService,
                   conceptSetUiConfigService, $timeout, clinicalAppConfigService, $stateParams, $translate, $http) {
@@ -172,22 +172,21 @@ angular.module('bahmni.common.conceptSet')
             };
 
             var getNutritionalStatus = function (patientUuid) {
-                    return $http.get(Bahmni.Common.Constants.observationsUrl, {
-                        params: {
-                            concept: "Nutritional_States_new",
-                            numberOfVisits: 1,
-                            patientUuid: patientUuid
-                        },
-                        withCredentials: true
-                    });
-                };
+                return $http.get(Bahmni.Common.Constants.observationsUrl, {
+                    params: {
+                        concept: "Nutritional_States_new",
+                        numberOfVisits: 1,
+                        patientUuid: patientUuid
+                    },
+                    withCredentials: true
+                });
+            };
 
             getNutritionalStatus($scope.patient.uuid).then(function (response) {
-                if(response.data.length > 0) {
+                if (response.data.length > 0) {
                     $rootScope.nutritionalStatusObject = response.data[0].value.shortName;
                     $rootScope.nutritionalStatus = response.data[0].value.name;
                 }
-                
             });
 
             $scope.focusOnErrors = function () {
