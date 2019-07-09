@@ -44,7 +44,7 @@ angular.module('bahmni.common.displaycontrol.forms')
                         $scope.observationTemplates = results[0].data.results[0].setMembers;
                         allProviders = results[2];
                         var currentProvider = $rootScope.currentProvider;
-                        var providerType = providerTypeService.getProviderType(allProviders, currentProvider)[0][0];
+                        var providerType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
 
                         if (providerType == "APSS") {
                             finalFormsToDisplay = APSSProviderForms;
