@@ -150,10 +150,10 @@ angular.module('bahmni.common.conceptSet')
                     }
                 };
 
-                var setObservationState = function (obsArray, disable, error, hide) {
+                var setObservationState = function (obsArray, disable, error, hide, hideForm) {
                     if (!_.isEmpty(obsArray)) {
                         _.each(obsArray, function (obs) {
-                            obs.disabled = disable || hide;
+                            obs.disabled = disable || hide || hideForm;
                             obs.error = error;
                             obs.hide = hide;
                             if (hide || obs.disabled) {
@@ -162,14 +162,14 @@ angular.module('bahmni.common.conceptSet')
                             if (obs.groupMembers) {
                                 _.each(obs.groupMembers, function (groupMember) {
                                     // TODO : Hack to fix issue with formconditions on multiselect - Swathi
-                                    groupMember && setObservationState([groupMember], disable, error, hide);
+                                    groupMember && setObservationState([groupMember], disable, error, hide, hideForm);
                                 });
                             }
                         });
                     }
                 };
 
-                var processConditions = function (flattenedObs, fields, disable, error, hide) {
+                var processConditions = function (flattenedObs, fields, disable, error, hide, hideForm) {
                     _.each(fields, function (field) {
                         var matchingObsArray = [];
                         var clonedObsInSameGroup;
@@ -183,7 +183,7 @@ angular.module('bahmni.common.conceptSet')
                         });
 
                         if (!_.isEmpty(matchingObsArray)) {
-                            setObservationState(matchingObsArray, disable, error, hide);
+                            setObservationState(matchingObsArray, disable, error, hide, hideForm);
                         } else {
                             messagingService.showMessage("error", "No element found with name : " + field);
                         }
@@ -202,14 +202,32 @@ angular.module('bahmni.common.conceptSet')
                             if (!_.isUndefined(conditions)) {
                                 if (conditions.error && !_.isEmpty(conditions.error)) {
                                     messagingService.showMessage('error', conditions.error);
-                                    processConditions(flattenedObs, [conceptName], false, true, false);
+                                    processConditions(flattenedObs, [conceptName], false, true, false, false);
                                 } else {
-                                    enableCase && processConditions(flattenedObs, [conceptName], false, false, false);
+                                    enableCase && processConditions(flattenedObs, [conceptName], false, false, false, false);
                                 }
+                                processConditions(flattenedObs, conditions.hideForm, false, undefined, false, true);
+                                processConditions(flattenedObs, conditions.showForm, false, undefined, false, false);
                                 processConditions(flattenedObs, conditions.disable, true);
                                 processConditions(flattenedObs, conditions.enable, false);
                                 processConditions(flattenedObs, conditions.show, false, undefined, false);
                                 processConditions(flattenedObs, conditions.hide, false, undefined, true);
+                                _.each(conditions.showForm, function (subConditionConceptName) {
+                                    var conditionFn = Bahmni.ConceptSet.FormConditions.rules && Bahmni.ConceptSet.FormConditions.rules[subConditionConceptName];
+                                    if (conditionFn && subConditionConceptName != conditionFn.name) {
+                                        runFormConditionForObs(true, formName, conditionFn, subConditionConceptName, flattenedObs);
+                                    }
+                                });
+                                _.each(conditions.hideForm, function (subConditionConceptName) {
+                                    var conditionFn = Bahmni.ConceptSet.FormConditions.rules && Bahmni.ConceptSet.FormConditions.rules[subConditionConceptName];
+                                    if (conditionFn && subConditionConceptName != conditionFn.name) {
+                                        _.each(flattenedObs, function (obs) {
+                                            if (obs.concept.name == subConditionConceptName) {
+                                                runFormConditionForObs(false, formName, conditionFn, subConditionConceptName, flattenedObs);
+                                            }
+                                        });
+                                    }
+                                });
                                 _.each(conditions.enable, function (subConditionConceptName) {
                                     var conditionFn = Bahmni.ConceptSet.FormConditions.rules && Bahmni.ConceptSet.FormConditions.rules[subConditionConceptName];
                                     if (conditionFn != null) {
@@ -228,13 +246,13 @@ angular.module('bahmni.common.conceptSet')
                                 });
                                 _.each(conditions.show, function (subConditionConceptName) {
                                     var conditionFn = Bahmni.ConceptSet.FormConditions.rules && Bahmni.ConceptSet.FormConditions.rules[subConditionConceptName];
-                                    if (conditionFn && subConditionConceptName != conditionFn.name) {
+                                    if (conditionFn) {
                                         runFormConditionForObs(true, formName, conditionFn, subConditionConceptName, flattenedObs);
                                     }
                                 });
                                 _.each(conditions.hide, function (subConditionConceptName) {
                                     var conditionFn = Bahmni.ConceptSet.FormConditions.rules && Bahmni.ConceptSet.FormConditions.rules[subConditionConceptName];
-                                    if (conditionFn && subConditionConceptName != conditionFn.name) {
+                                    if (conditionFn) {
                                         _.each(flattenedObs, function (obs) {
                                             if (obs.concept.name == subConditionConceptName) {
                                                 runFormConditionForObs(false, formName, conditionFn, subConditionConceptName, flattenedObs);
