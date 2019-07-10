@@ -20,6 +20,7 @@
                strict-select="true"
                initial-value="selectedValue[addressLevel.addressField]"
                is-invalid="addressFieldInvalid"
+               ng-class="{'illegalValue': addressFieldInvalid}"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
                required/>
     </div>
@@ -41,6 +42,7 @@
                strict-select="true"
                initial-value="selectedValue[addressLevel.addressField]"
                is-invalid="addressFieldInvalid"
+               ng-class="{'illegalValue': addressFieldInvalid}"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
                required/>
     </div>
@@ -61,6 +63,7 @@
                strict-select="true"
                initial-value="selectedValue[addressLevel.addressField]"
                is-invalid="addressFieldInvalid"
+               ng-class="{'illegalValue': addressFieldInvalid}"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
                required/>
     </div>

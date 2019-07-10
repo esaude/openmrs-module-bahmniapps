@@ -35,6 +35,8 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             $scope.showTag = false;
             $scope.borderColor = "1px solid #d1d1d1";
             $rootScope.canSave = true;
+            $scope.regexNumbers = '[^0-9+ ]';
+            $scope.regexCharacters = '[^a-záàãâéèêẽíìóòõôúùçA-ZÁÀÃÂÉÈÊẼÍÌÓÒÔÕÚÙÇ ]';
 
             if ($scope.attribute.name === "PATIENT_STATUS") {
                 for (var i = 0; i < $scope.attribute.answers.length; i++) {
@@ -43,6 +45,44 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                     }
                 }
             }
+
+            $scope.onDateChange = function (attribute) {
+                if (attribute.name === "US_REG_DATE") {
+                    var selectedDate = dateUtil.getDateWithoutTime($scope.targetModel[attribute.name]);
+                    if (selectedDate <= $scope.today) {
+                        angular.element("#US_REG_DATE").css("border", "1px solid #DDD");
+                        angular.element("#US_REG_DATE").css("background", "#fff");
+                        angular.element("#US_REG_DATE").css("outline", "0");
+                    } else {
+                        angular.element("#US_REG_DATE").css("border", "1px solid red");
+                        angular.element("#US_REG_DATE").css("background", "#ffcdcd");
+                        angular.element("#US_REG_DATE").css("outline", "0");
+                        messagingService.showMessage('error', "US_REG_DATE_MESSAGE");
+                    }
+                }
+            };
+
+            $scope.validationDirectiveTypeOfRegistration = function (attribute) {
+                if (attribute.name === "TYPE_OF_REGISTRATION") {
+                    if ($scope.targetModel.TYPE_OF_REGISTRATION.value != undefined) {
+                        $rootScope.typeOfRegistrationSelected = $scope.targetModel.TYPE_OF_REGISTRATION.value;
+                    }
+                    else {
+                        $rootScope.typeOfRegistrationSelected = $scope.targetModel.TYPE_OF_REGISTRATION.value;
+                    }
+                }
+            };
+
+            $scope.validationDirectivePatientStatus = function (attribute) {
+                if (attribute.name === "PATIENT_STATUS") {
+                    if ($scope.targetModel.PATIENT_STATUS.value != undefined) {
+                        $rootScope.patientStatus = $scope.targetModel.PATIENT_STATUS.value;
+                    }
+                    else {
+                        $rootScope.patientStatus = $scope.targetModel.PATIENT_STATUS.value;
+                    }
+                }
+            };
 
             $scope.appendConceptNameToModel = function (attribute) {
                 $timeout(function () {
@@ -57,13 +97,11 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                     return answer.conceptId === attributeValueConceptType.conceptUuid;
                 });
                 attributeValueConceptType.value = concept && concept.fullySpecifiedName;
-                if (attributeValueConceptType.value === 'NEW_PATIENT' || attributeValueConceptType.value === 'TRANSFERRED_PATIENT' || attributeValueConceptType.value === undefined) {
-                    $rootScope.typeOfRegistrationSelected = attributeValueConceptType.value;
-                }
             };
 
             $scope.suggest = function (string) {
                 $scope.borderColor = "1px solid #d1d1d1";
+                $scope.backgroundColor = "#fff";
                 $scope.hideList = false;
                 $scope.showTag = true;
                 var output = [];
@@ -86,6 +124,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                 $scope.hideList = true;
                 $rootScope.canSave = true;
                 $scope.borderColor = "1px solid #d1d1d1";
+                $scope.backgroundColor = "#fff";
             };
 
             $scope.validateField = function (isMouse) {
@@ -99,6 +138,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                         }
                         if (alert) {
                             $scope.borderColor = "1px solid #ff5252";
+                            $scope.backgroundColor = "#ffcdcd";
                             if (!isMouse) {
                                 messagingService.showMessage("error", "INVALID_OCCUPATION");
                                 $scope.hideList = true;

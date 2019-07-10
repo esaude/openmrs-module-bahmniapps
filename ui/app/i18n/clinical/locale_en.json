@@ -91,6 +91,7 @@
     "VISIT_TITLE_OBSERVATIONS_KEY": "Observations",
     "ADD_MORE_KEY": "Add More",
     "ADD_SECTION_KEY": "Add Section",
+    "ADD_FAMILY_MEMBER": "Add Family Member",
     "ADD_FORM_KEY": "Add Form",
     "CLINICAL_SAVE_TRANSLATION_KEY":"<u>S</u>ave",
     "CLINICAL_SAVE_SUCCESS_MESSAGE_KEY": "Saved",
@@ -164,6 +165,7 @@
     "MEDICATION_STARTED_ON": "Started on",
     "MEDICATION_STOPPED_ON": "Stopped on",
     "MEDICATION_DUE_TO": "due to",
+    "MEDICATIONN_FROM": "from",
 
     "REMOVE_CONFIRMATION_KEY": "Are you sure you want to remove?",
     "CLEAR_CONFIRMATION_KEY": "Are you sure you want to clear?",
@@ -388,5 +390,14 @@
     "ENCOUNTER_CLINICAL_FOLLOWUP": "Clinical Follow Up",
     "MEDICATION_DISPENSED_ALL":"All",
     "ENCOUNTERS": "Encounters",
-    "VISITS": "Visits"
+    "VISITS": "Visits",
+    "Clinical_Observation_form": "Clinical Observation",
+    "Group_Priority_Population_obs_form": "Group II-Priority Population",
+    "Group IV-Anamneses": "Anamneses",
+    "Group V-Screening / Prophylaxis": "Screening / Prophylaxis",
+    "Group_VIII_Conduct_obs_form": "Group VIII-Conduct",
+    "Reference_Form": "Reference",
+    "CONFIDENT_FORM": "Family Situation",
+    "DI_Death Information Form": "Death Information Form",
+    "Apss_obs_form": "APSS"
 }

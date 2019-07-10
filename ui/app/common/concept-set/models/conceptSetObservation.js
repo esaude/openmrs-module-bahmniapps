@@ -484,5 +484,9 @@ Bahmni.ConceptSet.Observation.prototype = {
 
     assignAddMoreButtonID: function () {
         return this.concept.name.split(' ').join('_').toLowerCase() + '_addmore_' + this.uniqueId;
+    },
+
+    getObservationConceptName: function () {
+        return this.concept.name;
     }
 };

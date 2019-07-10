@@ -52,12 +52,11 @@ angular.module('bahmni.common.displaycontrol.forms')
                             finalFormsToDisplay = clinicalProviderForms;
                         }
                         var sortedFormDataByDate = sortedFormDataByLatestDate(results[1].data.results);
-
-                        sortedFormDataByDate = _.filter(_.map(sortedFormDataByDate, function (currentForm) {
+                        /* sortedFormDataByDate = _.filter(_.map(sortedFormDataByDate, function (currentForm) {
                             if (_.includes(finalFormsToDisplay, currentForm.concept.name.name)) {
                                 return currentForm;
                             }
-                        }));
+                        })); */
 
                         if ($scope.isOnDashboard) {
                             $scope.formData = filterFormData(sortedFormDataByDate);

@@ -12,10 +12,6 @@ angular.module('bahmni.common.displaycontrol.observation')
                     var conceptsConfig = appService.getAppDescriptor().getConfigValue("conceptSetUI") || {};
                     observations = new Bahmni.Common.Obs.ObservationMapper().map(observations, conceptsConfig);
 
-                    observations = _.filter(_.map(observations, function (currentObs) {
-                        return currentObs;
-                    }));
-
                     if ($scope.config.conceptNames) {
                         observations = _.filter(observations, function (observation) {
                             return _.some($scope.config.conceptNames, function (conceptName) {
@@ -59,7 +55,7 @@ angular.module('bahmni.common.displaycontrol.observation')
                     } else {
                         if ($scope.config.observationUuid) {
                             $scope.initialization = observationsService.getByUuid($scope.config.observationUuid).then(function (response) {
-                                mapObservation(response.data, $scope.config);
+                                mapObservation([response.data], $scope.config);
                             });
                         } else if ($scope.config.encounterUuid) {
                             var fetchForEncounter = observationsService.fetchForEncounter($scope.config.encounterUuid, $scope.config.conceptNames);
