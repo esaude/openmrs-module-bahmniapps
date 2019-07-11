@@ -48,7 +48,7 @@
   "CLINICAL_DUPLICATE_DIAGNOSIS_ERROR_MESSAGE": "Por favor corrija os diagnósticos duplicados introduzidos",
   "CLINICAL_ENTER_NOTES_PLACEHOLDER": "Introduza notas aqui",
   "CLINICAL_FORM_EDIT_ERROR_MESSAGE_KEY": "Formulário não encontrado",
-  "CLINICAL_FORM_ERRORS_MESSAGE_KEY": "Por favor, indique introduza dados nos campos obrigatórios ou corriga os dados nos campos destacados para continuar",
+  "CLINICAL_FORM_ERRORS_MESSAGE_KEY": "Por favor, introduza dados nos campos obrigatórios ou corriga os dados nos campos destacados para continuar",
   "CLINICAL_GO_TO_DASHBOARD_LABEL": "Ir para painel de Internamento",
   "CLINICAL_INITIAL": "Inicial",
   "CLINICAL_LIST_PATIENT_AGE": "Idade",
@@ -421,5 +421,11 @@
   "Reference_Form": "Referência",
   "CONFIDENT_FORM": "Situação da Familia",
   "DI_Death Information Form": "Fechar Processo",
-  "Apss_obs_form": "APSS"
+  "Apss_obs_form": "APSS",
+  "MEDICATION_ERROR_CAN_NOT_HAVE_MORE_THAN":"Não é possível ter mais de um pedido activo para o mesmo pedido e esquema de tratamento ao mesmo tempo",
+  "MEDICATION_ERROR_ONE_OR_MORE": "O (s) medicamento (s) que pretende prescrever já estão activos. Por favor, altere a data de início do medicamento em conflito ou retire da nova prescrição",
+  "MEDICATION_ERROR_CONFLICTING_WITH_DRUG_ORDER_YOU_CAN_REVISE": "está em conflito com o medicamento que pretende adicionar. Pode rever ou reabastecer.",
+  "MEDICATION_ERROR_CONFLICTING_WITH_DRUG_ORDER_YOU_CAN_STOP": "está em conflito com o medicamento que pretende adicionar. Pode terminar a prescrição activa ou criar uma nova",
+  "MEDICATION_REVISE":"Rever"
+
 }
