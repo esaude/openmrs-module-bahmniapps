@@ -97,11 +97,11 @@ angular.module('bahmni.clinical')
                             if (current.attributes.length > 0) {
                                 _.map(current.attributes, function (obj) {
                                     if (obj.attributeType.display == 'APSS') {
-                                        if (obj.value) {
+                                        if (obj.value === true && obj.voided === false) {
                                             APSSProviderUuids.push(current.uuid);
                                         }
                                     } else if (obj.attributeType.display == 'Clinical') {
-                                        if (obj.value) {
+                                        if (obj.value === true && obj.voided === false) {
                                             clinicalProviderUuids.push(current.uuid);
                                         }
                                     }
