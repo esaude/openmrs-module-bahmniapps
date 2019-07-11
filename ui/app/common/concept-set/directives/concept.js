@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.common.conceptSet')
-    .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService',
-        function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService) {
+    .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService', '$rootScope',
+        function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService, $rootScope) {
             var height, weight, brachialPerimeter, bmi, data, key, isValidHeight;
             var link = function (scope) {
                 var patientUuid = scope.patient.uuid;
@@ -35,13 +35,16 @@ angular.module('bahmni.common.conceptSet')
                     }
                 }
 
+                var dateUtil = Bahmni.Common.Util.DateUtil;
+                scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
+                scope.nutritionalStateDisplay = $rootScope.nutritionalStatusObject || "CLINICAL_NO_NUTRITIONAL_STATUS";
+                scope.nutritionalState = $rootScope.nutritionalStatus;
                 scope.$watch('rootObservation', function (newValue, oldValue) {
                     if ((oldValue != newValue) && !scope.observation.value) {
                         if (scope.patient.weight && scope.patient.height) {
                             bmi = (scope.patient.weight / (scope.patient.height * scope.patient.height)) * 10000;
                         }
-                        key = bmiCalculationService.getNutritionalStatusKey(patientAgeYears, bmi, gender, scope.patient.height, scope.patient.weight);
-
+                        key = bmiCalculationService.getNutritionalStatusKey(patientAgeYears, bmi, gender, scope.patient.height, scope.patient.weight) || scope.nutritionalState;
                         data = _.filter(_.map(scope.rootObservation.groupMembers, function (currentObj) {
                             if (currentObj.concept.name == 'Anthropometric') {
                                 return _.filter(_.map(currentObj.groupMembers, function (obj) {
@@ -365,6 +368,7 @@ angular.module('bahmni.common.conceptSet')
                     conceptSetRequired: "=",
                     rootObservation: "=",
                     patient: "=",
+                    nutritionalStateDisplay: "&",
                     collapseInnerSections: "=",
                     rootConcept: "&",
                     hideAbnormalButton: "="
