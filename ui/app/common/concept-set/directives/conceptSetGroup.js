@@ -3,10 +3,10 @@
 angular.module('bahmni.common.conceptSet')
     .controller('ConceptSetGroupController', ['$scope', 'contextChangeHandler', 'spinner', 'messagingService',
         'conceptSetService', '$rootScope', 'sessionService', 'encounterService', 'treatmentConfig',
-        'retrospectiveEntryService', 'userService', 'conceptSetUiConfigService', '$timeout', 'clinicalAppConfigService', '$stateParams', '$translate', '$http',
+        'retrospectiveEntryService', 'userService', 'conceptSetUiConfigService', '$timeout', 'clinicalAppConfigService', '$stateParams', '$translate',
         function ($scope, contextChangeHandler, spinner, messagingService, conceptSetService, $rootScope, sessionService,
                   encounterService, treatmentConfig, retrospectiveEntryService, userService,
-                  conceptSetUiConfigService, $timeout, clinicalAppConfigService, $stateParams, $translate, $http) {
+                  conceptSetUiConfigService, $timeout, clinicalAppConfigService, $stateParams, $translate) {
             var conceptSetUIConfig = conceptSetUiConfigService.getConfig();
             var init = function () {
                 $scope.validationHandler = new Bahmni.ConceptSet.ConceptSetGroupPanelViewValidationHandler($scope.allTemplates);
@@ -170,24 +170,6 @@ angular.module('bahmni.common.conceptSet')
                 $scope.consultation.lastvisited = selectedConceptSet.id || selectedConceptSet.formUuid;
                 $(window).scrollTop(0);
             };
-
-            var getNutritionalStatus = function (patientUuid) {
-                return $http.get(Bahmni.Common.Constants.observationsUrl, {
-                    params: {
-                        concept: "Nutritional_States_new",
-                        numberOfVisits: 1,
-                        patientUuid: patientUuid
-                    },
-                    withCredentials: true
-                });
-            };
-
-            getNutritionalStatus($scope.patient.uuid).then(function (response) {
-                if (response.data.length > 0) {
-                    $rootScope.nutritionalStatusObject = response.data[0].value.shortName;
-                    $rootScope.nutritionalStatus = response.data[0].value.name;
-                }
-            });
 
             $scope.focusOnErrors = function () {
                 var errorMessage = $scope.leftPanelConceptSet.errorMessage ? $scope.leftPanelConceptSet.errorMessage : "{{'CLINICAL_FORM_ERRORS_MESSAGE_KEY' | translate }}";
