@@ -192,10 +192,6 @@
                         <span class="details" ng-bind-html="getStringValue(observation.previous)"></span>
                     </div>
 
-                    <div ng-if="observation.concept.name =='Prophylaxis_Nutritional_Status'" style="position: absolute; top: 14%">
-                        <strong class="grid-row-element">{{nutritionalStateDisplay | translate}}</strong>
-                    </div>
-
                     <div ng-switch-when="html5InputDataType">
                         <div ng-include src="'../common/concept-set/views/observationDataTypes/html5DataType.html'"></div>
                     </div>
