@@ -217,14 +217,6 @@ angular.module('bahmni.common.conceptSet')
                                     }
                                 }));
                             }
-
-                            if (currentObj.concept.name == 'BMI') {
-                                return _.filter(_.map(currentObj.possibleAnswers, function (curObj) {
-                                    if (curObj.name.name == key) {
-                                        return curObj;
-                                    }
-                                }));
-                            }
                         }));
 
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
@@ -300,7 +292,6 @@ angular.module('bahmni.common.conceptSet')
                         if (ageToMonths >= 6 && ageToMonths <= 59) {
                             eligibleForBP = true;
                         }
-
                         if ((!height || !weight)) {
                             getAnswerObject(key, null);
                             bmi = 0;
