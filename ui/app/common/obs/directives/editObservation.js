@@ -2,7 +2,7 @@
 
 angular.module('bahmni.common.obs')
     .directive('editObservation', ['$q', 'spinner', '$state', '$rootScope', 'ngDialog', 'messagingService',
-        'encounterService', 'configurations', 'contextChangeHandler', 'auditLogService', 'patientService','$http',
+        'encounterService', 'configurations', 'contextChangeHandler', 'auditLogService', 'patientService', '$http',
         function ($q, spinner, $state, $rootScope, ngDialog, messagingService, encounterService, configurations,
                   contextChangeHandler, auditLogService, patientService, $http) {
             var controller = function ($scope) {
@@ -41,7 +41,9 @@ angular.module('bahmni.common.obs')
                         // Need the UUID up front so the execution of the process can continue
                         // fetch the gender (or whatever other patient data is needed) later
                         $scope.patient = {uuid: $scope.encounter.patientUuid};
-                       $q.all([patientService.getPatient($scope.encounter.patientUuid), getHeight($scope.patient.uuid), getWeight($scope.patient.uuid)]).then(function (response) {
+                        $q.all([patientService.getPatient($scope.encounter.patientUuid), getHeight($scope.patient.uuid), getWeight($scope.patient.uuid)]).then(function (response) {
+                            console.log(response);
+                            console.log($scope.patient);
                             $scope.patient.age = response[0].data.person.age;
                             $scope.patient.gender = response[0].data.person.gender;
                             $scope.patient.height = response[1].data[0].value;
