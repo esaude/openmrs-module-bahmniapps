@@ -219,6 +219,35 @@
                                     </select>
                                 </div>
                             </article>
+
+                            <article class="form-field fl">
+                                <div class="field-attribute">
+                                    <label class="fl unit-text"> Categoria <span class="asterick">*</span> </label>
+                                </div>
+                                <div class="field-value">
+                                    <select ng-if="!treatmentConfig.isHiddenField('quantityUnits')" id="total-quantity-unit"
+                                            class="fl" ng-model="treatment.quantityUnit" ng-change="treatment.setQuantityUnitEnteredManually()"
+                                            ng-options="item.name as item.name for item in treatmentConfig.getDoseUnits()"
+                                            ng-required="treatment.isDurationRequired">
+                                        <option value="">Escolha a Categoria</option>
+                                    </select>
+                                </div>
+                            </article>
+
+                            <article class="form-field fl">
+                                <div class="field-attribute">
+                                    <label class="fl unit-text"> Linha de Tratamento <span class="asterick">*</span> </label>
+                                </div>
+                                <div class="field-value">
+                                    <select ng-if="!treatmentConfig.isHiddenField('quantityUnits')" id="total-quantity-unit"
+                                            class="fl" ng-model="treatment.quantityUnit" ng-change="treatment.setQuantityUnitEnteredManually()"
+                                            ng-options="item.name as item.name for item in treatmentConfig.getDoseUnits()"
+                                            ng-required="treatment.isDurationRequired">
+                                        <option value="">Escolha a Linha de Tratamento</option>
+                                    </select>
+                                </div>
+                            </article>
+
                         </div>
                     </div>
     
