@@ -169,6 +169,8 @@
   "LOGOUT_TRANSLATION_KEY": "Sair",
   "MEDICATION_ADD_ACCESS_KEY": "a",
   "MEDICATION_ADD_BUTTON_LABEL": "<u>A</u>dicionar",
+  "MEDICATION_ADD_DRUG_CATEGORY": "Categoria",
+  "MEDICATION_ADD_DRUG_LINE": "Linha de Tratamento",
   "MEDICATION_ADD_DRUG_FORM_TITLE": "Prescrição de medicamentos",
   "MEDICATION_ADD_ORDERSET_FORM_TITLE": "Requisição de um conjunto de prescrições",
   "MEDICATION_ADDITIONAL_INFORMATION_LABEL": "Informações Adicionais",
