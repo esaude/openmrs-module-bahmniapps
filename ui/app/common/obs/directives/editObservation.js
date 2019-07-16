@@ -42,8 +42,6 @@ angular.module('bahmni.common.obs')
                         // fetch the gender (or whatever other patient data is needed) later
                         $scope.patient = {uuid: $scope.encounter.patientUuid};
                         $q.all([patientService.getPatient($scope.encounter.patientUuid), getHeight($scope.patient.uuid), getWeight($scope.patient.uuid)]).then(function (response) {
-                            console.log(response);
-                            console.log($scope.patient);
                             $scope.patient.age = response[0].data.person.age;
                             $scope.patient.gender = response[0].data.person.gender;
                             $scope.patient.height = response[1].data[0].value;
