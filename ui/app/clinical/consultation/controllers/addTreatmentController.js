@@ -10,48 +10,82 @@ angular.module('bahmni.clinical')
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var DrugOrderViewModel = Bahmni.Clinical.DrugOrderViewModel;
             var scrollTop = _.partial($window.scrollTo, 0, 0);
-            var medicationCat = function () {
-                var conceptSetName = "medication_category";
-                return conceptSetService.getConcept({
-                    name: conceptSetName,
-                    v: "custom:(uuid,setMembers:(uuid,name,shortName))"
-                }, true)
-                    .then(function (response) {
-                        console.log(response.data.results[0]);
-                        return response.data.results[0];
-                    });
-            };
-            medicationCat();
-
-            var treatmentArv = function () {
-                var conceptSetName = "treatment_line_arv";
-                return conceptSetService.getConcept({
-                    name: conceptSetName,
-                    v: "custom:(uuid,setMembers:(uuid,name,shortName))"
-                }, true)
-                    .then(function (response) {
-                        console.log(response.data.results[0]);
-                        return response.data.results[0];
-                    });
-            };
-            treatmentArv();
-
-            var treatmentTb = function () {
-                var conceptSetName = "treatment_line_tb";
-                return conceptSetService.getConcept({
-                    name: conceptSetName,
-                    v: "custom:(uuid,setMembers:(uuid,name,shortName))"
-                }, true)
-                    .then(function (response) {
-                        console.log(response.data.results[0]);
-                        return response.data.results[0];
-                    });
-            };
-            treatmentTb();
+            $scope.catAnswer = "";
+            $scope.lineAnswer = "";
+            $scope.catResult = [];
+            $scope.lineResult = [];
             $scope.showOrderSetDetails = true;
             $scope.addTreatment = true;
             $scope.canOrderSetBeAdded = true;
             $scope.isSearchDisabled = false;
+
+            $scope.catDropdown = function () {
+                var conceptSetName = "medication_category";
+                return conceptSetService.getConcept({
+                    name: conceptSetName,
+                    v: "custom:(answers:(names))"
+                }, true)
+                    .then(function (response) {
+                        var resp = response.data.results[0].answers;
+                        for (var i = 0; i <= resp.length; i++) {
+                            if (resp[i] == undefined) {
+                                return;
+                            }
+                            // var cat = resp[i].names[0].display;
+                            var cat = resp[i].names[0];
+                            $scope.catResult.push(cat);
+                        }
+                        return $scope.catResult;
+                    });
+            };
+            $scope.catDropdown();
+            console.log($scope.catAnswer);
+
+            /*  if ($scope.catAnswer == "ARV") {
+                $scope.lineARVDropdown();
+            }  else if ($scope.catAnswer == ) {
+
+            } */
+
+            $scope.lineARVDropdown = function () {
+                var conceptSetName = "treatment_line_arv";
+                return conceptSetService.getConcept({
+                    name: conceptSetName,
+                    v: "custom:(answers:(names))"
+                }, true)
+                    .then(function (response) {
+                        var resp = response.data.results[0].answers;
+                        for (var i = 0; i <= resp.length; i++) {
+                            if (resp[i] == undefined) {
+                                return;
+                            }
+                            var cat = resp[i].names[0].display;
+                            $scope.lineResult.push(cat);
+                        }
+                        return $scope.lineResult;
+                    });
+            };
+            $scope.lineARVDropdown();
+
+            $scope.lineTBDropdown = function () {
+                var conceptSetName = "treatment_line_tb";
+                return conceptSetService.getConcept({
+                    name: conceptSetName,
+                    v: "custom:(answers:(names))"
+                }, true)
+                    .then(function (response) {
+                        var resp = response.data.results[0].answers;
+                        for (var i = 0; i <= resp.length; i++) {
+                            if (resp[i] == undefined) {
+                                return;
+                            }
+                            var cat = resp[i].names[0].display;
+                            $scope.lineResult.push(cat);
+                        }
+                        return $scope.lineResult;
+                    });
+            };
+            $scope.lineTBDropdown();
 
             $scope.getFilteredOrderSets = function (searchTerm) {
                 if (searchTerm && searchTerm.length >= 3) {

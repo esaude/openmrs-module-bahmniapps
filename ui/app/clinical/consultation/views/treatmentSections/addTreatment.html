@@ -14,11 +14,12 @@
                                     <label class="fl unit-text"> {{::'MEDICATION_ADD_DRUG_CATEGORY' | translate}} <span class="asterick">*</span> </label>
                                 </div>
                                 <div class="field-value">
-                                    <select ng-if="!treatmentConfig.isHiddenField('quantityUnits')" id="total-quantity-unit"
-                                            class="fl" ng-model="treatment.quantityUnit" ng-change="treatment.setQuantityUnitEnteredManually()"
-                                            ng-options="item.name as item.name for item in treatmentConfig.getDoseUnits()"
-                                            ng-required="treatment.isDurationRequired">
-                                        <option value="">Escolha a Categoria</option>
+                                    <select id="cat-dropdown"
+                                            class="fl"
+                                            ng-model="catAnswer"
+                                            ng-options="item.display for item in catResult"
+                                            required>
+                                        <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
                                     </select>
                                 </div>
                             </article>
@@ -64,19 +65,20 @@
                                 <label class="fl unit-text"> {{::'MEDICATION_ADD_DRUG_LINE' | translate}} <span class="asterick">*</span> </label>
                             </div>
                             <div class="field-value">
-                                <select ng-if="!treatmentConfig.isHiddenField('quantityUnits')" id="total-quantity-unit"
-                                        class="fl" ng-model="treatment.quantityUnit" ng-change="treatment.setQuantityUnitEnteredManually()"
-                                        ng-options="item.name as item.name for item in treatmentConfig.getDoseUnits()"
-                                        ng-required="treatment.isDurationRequired">
-                                    <option value="">Escolha a Linha de Tratamento</option>
-                                </select>
+                                <select id="line-dropdown"
+                                class="fl"
+                                ng-model="lineAnswer"
+                                ng-options="item for item in lineResult"
+                                required>
+                            <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+                        </select>
                             </div>
-                        </article>
+                        </article><br>
 
                
 
                     <div class="unit-wrap clearfix">
-                        <button ng-if="!treatmentConfig.isHiddenField('dosingTypeToggle')" type="button" class="icon-button exchange-btn fl"
+                        <br><button ng-if="!treatmentConfig.isHiddenField('dosingTypeToggle')" type="button" class="icon-button exchange-btn fl"
                                 tabindex="-1" ng-click="treatment.toggleFrequency()">
                             <i class="fa fa-exchange"></i>
                         </button>
