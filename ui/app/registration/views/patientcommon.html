@@ -29,12 +29,10 @@
                         <input data-ng-switch-when="true" type="text" name="givenName" id="givenName" field-validation="::fieldValidation"
                                ng-model="$parent.patient.givenName" non-blank pattern-validate my-autocomplete
                                source="getAutoCompleteList" response-map="getDataResults" data-item-type="personName"
-                               placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
-                               title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}">
+                               placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}">
 
                         <input data-ng-switch-default type="text" name="givenName" field-validation="::fieldValidation" id="givenName" ng-model="patient.givenName" non-blank
-                               pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
-                               title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}">
+                               pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}">
                     </span>
 
                     <span data-ng-switch="::isAutoComplete('givenName')"
@@ -43,11 +41,11 @@
                                ng-model="$parent.patient.givenName" non-blank pattern-validate my-autocomplete
                                source="getAutoCompleteList" response-map="getDataResults" data-item-type="personName"
                                placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}" field-validation="::fieldValidation"
-                               title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" focus-me="true" ng-pattern="regexCharacters">
+                               focus-me="true" ng-pattern="regexCharacters">
 
                         <input data-ng-switch-default type="text" name="givenName" id="givenName" ng-model="patient.givenName" non-blank
                                pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
-                               title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" focus-me="true" ng-pattern="regexCharacters"
+                               focus-me="true" ng-pattern="regexCharacters"
                                ng-change="checkDuplicatePatients()" required field-validation="::fieldValidation"
                                ng-class="{'illegalValue' : submitted && this.myForms.myForm.givenName.$invalid || this.myForms.myForm.givenName.$error.pattern || (this.myForms.myForm.givenName.$error.required && !this.myForms.myForm.givenName.$pristine)}">
                         <p class="help-block" ng-show="this.myForms.myForm.givenName.$error.pattern">{{::'PATTERN_REGISTRATION_CHARACTERS_ONLY' | translate}}</p>
@@ -58,11 +56,11 @@
                                ng-model="$parent.patient.middleName" pattern-validate my-autocomplete
                                source="getAutoCompleteList" response-map="getDataResults" data-item-type="personName"
                                placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}" field-validation="::fieldValidation"
-                               title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" ng-pattern="regexCharacters">
+                               ng-pattern="regexCharacters">
 
                         <input data-ng-switch-default type="text" name="middleName" id="middleName" ng-model="patient.middleName"
                                pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}" field-validation="::fieldValidation"
-                               title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" ng-pattern="regexCharacters">
+                               ng-pattern="regexCharacters">
                         <p class="help-block" ng-show="this.myForms.myForm.middleName.$error.pattern">{{::'PATTERN_REGISTRATION_CHARACTERS_ONLY' | translate}}</p>
                     </span>
 
@@ -71,13 +69,13 @@
                                ng-model="$parent.patient.familyName" pattern-validate my-autocomplete
                                source="getAutoCompleteList" response-map="getDataResults" data-item-type="personName"
                                placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_LAST_NAME' | translate}}"
-                               title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" field-validation="::fieldValidation"
+                               field-validation="::fieldValidation"
                                ng-required="::isLastNameMandatory" ng-change="checkDuplicatePatients()" ng-pattern="regexCharacters"
                                ng-class="{'illegalValue' : submitted && this.myForms.myForm.familyName.$invalid || this.myForms.myForm.familyName.$error.pattern || (this.myForm.familyName.$error.required && !this.myForm.familyName.$pristine)}">
 
                         <input data-ng-switch-default type="text" name="familyName" id="familyName" ng-model="patient.familyName"
                                pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_LAST_NAME' | translate}}"
-                               title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}" field-validation="::fieldValidation"
+                               field-validation="::fieldValidation"
                                ng-required="::isLastNameMandatory" ng-pattern="regexCharacters"
                                ng-class="{'illegalValue' : submitted && this.myForms.myForm.familyName.$invalid || this.myForms.myForm.familyName.$error.pattern || (this.myForm.familyName.$error.required && !this.myForm.familyName.$pristine)}">
                         <p class="help-block" ng-show="this.myForms.myForm.familyName.$error.pattern">{{::'PATTERN_REGISTRATION_CHARACTERS_ONLY' | translate}}</p>
@@ -89,7 +87,7 @@
                             <article class="form-field" ng-repeat="attribute in ::attributeRow"
                                      ng-if="attribute.name == 'NICK_NAME'" ng-class="::{'right-form-field' : $index%2 != 0}">
                                 <attribute-types target-model="patient" attribute="::attribute"
-                                                 field-validation="::fieldValidation" is-auto-complete="isAutoComplete" title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}"
+                                                 field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
                                                  get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
                                                  is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                             </article>
@@ -167,14 +165,14 @@
             <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if="attribute.name == 'MOTHER_NAME'"
                      ng-class="::{'right-form-field' : $index%2 != 0}">
                 <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                                 is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList" title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}"
+                                 is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
                                  ng-pattern="regexCharacters" get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
             </article>
 
             <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if="attribute.name == 'FATHER_NAME'"
                      ng-class="::{'right-form-field' : $index%2 != 0}">
                 <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                                 is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList" title="{{::'REGISTRATION_CHARACTER_OLY' | translate}}"
+                                 is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
                                  get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
             </article>
 
