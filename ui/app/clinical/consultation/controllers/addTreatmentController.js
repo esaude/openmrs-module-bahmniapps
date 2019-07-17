@@ -18,14 +18,28 @@ angular.module('bahmni.clinical')
             $scope.addTreatment = true;
             $scope.canOrderSetBeAdded = true;
             $scope.isSearchDisabled = false;
+            var concept = "";
 
-            $scope.catDropdown = function () {
+            $scope.dropDownPromise = function (concept) {
+                var conceptName = concept;
+                return conceptSetService.getConcept({ name: conceptName, v: "custom:(answers:(names))" }, true).then(function (response) {
+                    var resp = response.data.results[0].answers;
+                    for (var i = 0; i <= resp.length; i++) {
+                        if (resp[i] == undefined) {
+                            return;
+                        }
+                        // var cat = resp[i].names[0].display;
+                        var cat = resp[i].names[0];
+                        $scope.dropDownResult.push(cat);
+                    }
+                    return $scope.dropDownResult;
+                });
+            };
+            $scope.dropDownPromise(concept);
+
+            /* $scope.catDropdown = function () {
                 var conceptSetName = "medication_category";
-                return conceptSetService.getConcept({
-                    name: conceptSetName,
-                    v: "custom:(answers:(names))"
-                }, true)
-                    .then(function (response) {
+                return conceptSetService.getConcept({name: conceptSetName,v: "custom:(answers:(names))"}, true).then(function (response) {
                         var resp = response.data.results[0].answers;
                         for (var i = 0; i <= resp.length; i++) {
                             if (resp[i] == undefined) {
@@ -39,15 +53,17 @@ angular.module('bahmni.clinical')
                     });
             };
             $scope.catDropdown();
-            console.log($scope.catAnswer);
+            console.log($scope.catAnswer);  */
 
             /*  if ($scope.catAnswer == "ARV") {
+                //limit drugs to ARV type
+                //choose line based on medicine type added
                 $scope.lineARVDropdown();
             }  else if ($scope.catAnswer == ) {
 
             } */
 
-            $scope.lineARVDropdown = function () {
+            /* $scope.lineARVDropdown = function () {
                 var conceptSetName = "treatment_line_arv";
                 return conceptSetService.getConcept({
                     name: conceptSetName,
@@ -65,7 +81,6 @@ angular.module('bahmni.clinical')
                         return $scope.lineResult;
                     });
             };
-            $scope.lineARVDropdown();
 
             $scope.lineTBDropdown = function () {
                 var conceptSetName = "treatment_line_tb";
@@ -84,8 +99,7 @@ angular.module('bahmni.clinical')
                         }
                         return $scope.lineResult;
                     });
-            };
-            $scope.lineTBDropdown();
+            };  */
 
             $scope.getFilteredOrderSets = function (searchTerm) {
                 if (searchTerm && searchTerm.length >= 3) {

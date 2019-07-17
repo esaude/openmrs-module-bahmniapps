@@ -16,8 +16,9 @@
                                 <div class="field-value">
                                     <select id="cat-dropdown"
                                             class="fl"
+                                            ng-click="dropDownPromise('medication_category')"
                                             ng-model="catAnswer"
-                                            ng-options="item.display for item in catResult"
+                                            ng-options="item.display for item in dropDownResult"
                                             required>
                                         <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
                                     </select>
@@ -68,7 +69,7 @@
                                 <select id="line-dropdown"
                                 class="fl"
                                 ng-model="lineAnswer"
-                                ng-options="item for item in lineResult"
+                                ng-options="item.display for item in lineResult"
                                 required>
                             <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
                         </select>
