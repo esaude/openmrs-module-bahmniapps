@@ -507,7 +507,10 @@ angular.module('bahmni.clinical').controller('ConsultationController',
 
             $scope.filterTabByProviderType = function (boardIndex) {
                 if (currentProviderType == "APSS") {
-                    if ($scope.availableBoards[boardIndex].translationKey == 'DIAGNOSIS_BOARD_LABEL_KEY' || $scope.availableBoards[boardIndex].translationKey == 'ORDERS_BOARD_LABEL_KEY') {
+                    if ($scope.availableBoards[boardIndex].translationKey == 'DIAGNOSIS_BOARD_LABEL_KEY'
+                        || $scope.availableBoards[boardIndex].translationKey == 'ORDERS_BOARD_LABEL_KEY'
+                        || $scope.availableBoards[boardIndex].translationKey == 'MEDICATIONS_BOARD_LABEL_KEY'
+                    ) {
                         return false;
                     }
                 }
