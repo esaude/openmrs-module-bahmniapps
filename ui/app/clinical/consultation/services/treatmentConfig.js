@@ -1,14 +1,28 @@
 'use strict';
 
 angular.module('bahmni.clinical').factory('treatmentConfig',
-    ['treatmentService', 'spinner', 'configurationService', 'appService', '$q', '$translate',
-        function (treatmentService, spinner, configurationService, appService, $q, $translate) {
+    ['treatmentService', 'spinner', 'configurationService', 'appService', 'localeService', '$q', '$translate',
+        function (treatmentService, spinner, configurationService, appService, localeService, $q, $translate) {
+            var defaultLocale = "en";
+            var getDefaultLocale = function () {
+                return localeService.defaultLocale().then(function (response) {
+                    defaultLocale = response.data;
+                    return response.data;
+                });
+            };
+
             var getConfigFromServer = function (baseTreatmentConfig) {
                 return treatmentService.getConfig().then(function (result) {
                     var config = angular.extend(baseTreatmentConfig, result.data);
-                    config.durationUnits = [
-                        {name: "Day(s)", factor: 1}
-                    ];
+                    if (defaultLocale === "pt") {
+                        config.durationUnits = [
+                            {name: "Dia (s)", factor: 1}
+                        ];
+                    } else {
+                        config.durationUnits = [
+                            {name: "Day(s)", factor: 1}
+                        ];
+                    }
                     config.frequencies = _(config.frequencies)
                         .reverse()
                         .sortBy({'name': 'Immediately'})
@@ -38,6 +52,7 @@ angular.module('bahmni.clinical').factory('treatmentConfig',
 
             return function (tabConfigName) {
                 var drugOrderOptions;
+                getDefaultLocale();
                 var baseTreatmentConfig = {
                     allowNonCodedDrugs: function () {
                         return drugOrderOptions.allowNonCodedDrugs;
