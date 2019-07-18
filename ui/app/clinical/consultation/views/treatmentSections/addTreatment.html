@@ -16,9 +16,9 @@
                                 class="asterick">*</span> </label>
                     </div>
                     <div class="field-value">
-                        <select ng-init="dropDownPromise('medication_category')" id="cat-dropdown" class="fl"
-                            ng-model="catAnswer" ng-change="selectCatFromDropdown(catAnswer)"
-                            ng-options="item.display for item in dropDownResult" required>
+                        <select ng-init="conceptPromise('medication_category')" id="cat-dropdown" class="fl"
+                            ng-model="catAnswer" ng-change="selectCatFromDropdown(catAnswer.display)"
+                            ng-options="item.display for item in conceptResult" required>
                             <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
                         </select>
                   <!--   <select ng-init="catDropdown()" id="cat-dropdown" class="fl"
@@ -71,8 +71,9 @@
                                 class="asterick">*</span> </label>
                     </div>
                     <div class="field-value">
-                         <select id="line-dropdown" class="fl" ng-model="lineAnswer"
-                            ng-options="item.display for item in lineResult" required>
+                            <select id="cat-dropdown" class="fl"
+                            ng-model="lineAnswer" ng-change="selectLineFromDropdown(lineAnswer)"
+                            ng-options="item.display for item in conceptPromise(treatmentLine)" required>
                             <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
                         </select>
                     <!--  <select id="line-dropdown" class="fl" ng-model="lineAnswer"

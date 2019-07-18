@@ -15,41 +15,67 @@ angular.module('bahmni.clinical')
 
             $scope.catAnswer = "";
             $scope.lineAnswer = "";
-            $scope.dropDownResult = [];
-            $scope.catArray = [];
+            $scope.treatmentLine = "";
 
             $scope.showOrderSetDetails = true;
             $scope.addTreatment = true;
             $scope.canOrderSetBeAdded = true;
             $scope.isSearchDisabled = false;
 
-            $scope.dropDownPromise = function (conceptName) {
+            $scope.conceptPromise = function (conceptName) {
+                $scope.conceptResult = [];
                 return conceptSetService.getConcept({ name: conceptName, v: "custom:(answers:(name,names))" }, true).then(function (response) {
                     var resp = response.data.results[0].answers;
                     for (var i = 0; i <= resp.length; i++) {
                         if (resp[i] == undefined) {
                             return;
                         }
-                        $scope.dropDownResult.push(resp[i].names[0]);
+                        $scope.conceptResult.push(resp[i].names[0]);
                     }
-                    return $scope.dropDownResult;
+                    console.log($scope.conceptResult);
+                    return $scope.conceptResult;
                 });
             };
 
-            $scope.selectCatFromDropdown = function () {
-                console.log($scope.catAnswer);
-                if ($scope.catAnswer == "ARV") {
+            //  choose category
+            $scope.selectCatFromDropdown = function (categ) {
+                console.log(categ); //use FSN
+                if (categ == "ARV") {
+                    // set line type options
+                    $scope.treatmentLine = "treatment_line_arv";
+
                     //  limit drugs to ARV type
+                    $scope.dropDownPromise("medication_cat_arv");
 
-                    //  choose line based on medicine type added
-                    $scope.lineAnswer = "treatment_line_arv";
-                } else if ($scope.catAnswer == "medication_cat_tb") {
+                } else if (categ == "Anti-Tuberculosis drugs") {
+                    // set line type options
+                    $scope.treatmentLine = "treatment_line_tb";
+
                     //  limit drugs to TB type
-
-                    //  choose line based on medicine type added
-                    $scope.lineAnswer = "treatment_line_tb";
+                    $scope.dropDownPromise("medication_cat_tb");
                 }
-                console.log($scope.lineAnswer);
+            };
+
+            // choose line after category
+            $scope.selectLineFromDropdown = function (line) {
+                console.log(line); //use FSN
+                if (line == "treatment_line_arv") {
+                    //  limit drugs to line type
+                    $scope.dropDownPromise("");
+
+                } else if (line == "treatment_line_tb") {
+                   //  limit drugs to line type
+                    $scope.dropDownPromise("");
+                }
+            };
+
+            // find line based on drug
+            $scope.selectLine = function (drug) {
+                //  get all different lines drugs into arrays
+
+                //  compare drug to the ones in those lines
+
+                //  chose line and update DOM
             };
 
             /* $scope.catDropdown = function () {
@@ -602,6 +628,7 @@ angular.module('bahmni.clinical')
                     selectedItem = item;
                     console.log(selectedItem);
                     $scope.onChange();
+                    //  run line function based on drug
                 };
                 $scope.onAccept = function () {
                     $scope.treatment.acceptedItem = $scope.treatment.drugNameDisplay;
