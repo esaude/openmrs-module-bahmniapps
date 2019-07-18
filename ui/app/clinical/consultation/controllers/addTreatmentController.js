@@ -10,32 +10,47 @@ angular.module('bahmni.clinical')
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var DrugOrderViewModel = Bahmni.Clinical.DrugOrderViewModel;
             var scrollTop = _.partial($window.scrollTo, 0, 0);
+            // $scope.catResult = [];
+            // $scope.lineResult = [];
+
             $scope.catAnswer = "";
             $scope.lineAnswer = "";
-            $scope.catResult = [];
-            $scope.lineResult = [];
+            $scope.dropDownResult = [];
+            $scope.catArray = [];
+
             $scope.showOrderSetDetails = true;
             $scope.addTreatment = true;
             $scope.canOrderSetBeAdded = true;
             $scope.isSearchDisabled = false;
-            var concept = "";
 
-            $scope.dropDownPromise = function (concept) {
-                var conceptName = concept;
-                return conceptSetService.getConcept({ name: conceptName, v: "custom:(answers:(names))" }, true).then(function (response) {
+            $scope.dropDownPromise = function (conceptName) {
+                return conceptSetService.getConcept({ name: conceptName, v: "custom:(answers:(name,names))" }, true).then(function (response) {
                     var resp = response.data.results[0].answers;
                     for (var i = 0; i <= resp.length; i++) {
                         if (resp[i] == undefined) {
                             return;
                         }
-                        // var cat = resp[i].names[0].display;
-                        var cat = resp[i].names[0];
-                        $scope.dropDownResult.push(cat);
+                        $scope.dropDownResult.push(resp[i].names[0]);
                     }
                     return $scope.dropDownResult;
                 });
             };
-            $scope.dropDownPromise(concept);
+
+            $scope.selectCatFromDropdown = function () {
+                console.log($scope.catAnswer);
+                if ($scope.catAnswer == "ARV") {
+                    //  limit drugs to ARV type
+
+                    //  choose line based on medicine type added
+                    $scope.lineAnswer = "treatment_line_arv";
+                } else if ($scope.catAnswer == "medication_cat_tb") {
+                    //  limit drugs to TB type
+
+                    //  choose line based on medicine type added
+                    $scope.lineAnswer = "treatment_line_tb";
+                }
+                console.log($scope.lineAnswer);
+            };
 
             /* $scope.catDropdown = function () {
                 var conceptSetName = "medication_category";
@@ -572,10 +587,12 @@ angular.module('bahmni.clinical')
             };
 
             $scope.getDataResults = function (drugs) {
+                console.log(drugs);
                 var searchString = $scope.treatment.drugNameDisplay;
                 var listOfDrugSynonyms = _.map(drugs, function (drug) {
                     return Bahmni.Clinical.DrugSearchResult.getAllMatchingSynonyms(drug, searchString);
                 });
+                console.log(_.flatten(listOfDrugSynonyms));
                 return _.flatten(listOfDrugSynonyms);
             };
 
@@ -583,10 +600,12 @@ angular.module('bahmni.clinical')
                 var selectedItem;
                 $scope.onSelect = function (item) {
                     selectedItem = item;
+                    console.log(selectedItem);
                     $scope.onChange();
                 };
                 $scope.onAccept = function () {
                     $scope.treatment.acceptedItem = $scope.treatment.drugNameDisplay;
+                    console.log($scope.treatment.acceptedItem);
                     $scope.onChange();
                 };
 
