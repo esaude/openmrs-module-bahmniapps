@@ -135,6 +135,7 @@ angular.module('authentication')
                 return deferrable.promise;
             }
             this.getHealthFacilityInfo();
+            this.getDefaultLocale();
             userService.getUser(currentUser).then(function (data) {
                 userService.getProviderForUser(data.results[0].uuid).then(function (providers) {
                     if (!_.isEmpty(providers.results) && hasAnyActiveProvider(providers.results)) {
@@ -183,6 +184,21 @@ angular.module('authentication')
                 cache: true
             }).success(function (data) {
                 $rootScope.healthFacility = data;
+            });
+        };
+
+        this.getDefaultLocale = function () {
+            return $http.get(Bahmni.Common.Constants.globalPropertyUrl, {
+                method: 'GET',
+                params: {
+                    property: 'default_locale'
+                },
+                headers: {
+                    'Accept': 'text/html'
+                },
+                cache: true
+            }).success(function (data) {
+                $rootScope.defaultLocale = data + "";
             });
         };
 

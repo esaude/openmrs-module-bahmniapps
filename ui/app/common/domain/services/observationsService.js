@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('bahmni.common.domain')
-    .service('observationsService', ['$http', function ($http) {
+    .service('observationsService', ['$http', '$rootScope', function ($http, $rootScope) {
         this.fetch = function (patientUuid, conceptNames, scope, numberOfVisits, visitUuid, obsIgnoreList, filterObsWithOrders, patientProgramUuid) {
             var params = {concept: conceptNames};
+            params.locale = $rootScope.defaultLocale;
             if (obsIgnoreList) {
                 params.obsIgnoreList = obsIgnoreList;
             }
