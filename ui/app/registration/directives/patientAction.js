@@ -107,79 +107,75 @@ angular.module('bahmni.registration')
                 };
                 getVisitHistory();
 
-                $timeout(function () {
-                    if (uuid == undefined) {
+                if (uuid == undefined) {
+                    $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                } else {
+                    var visitTableList = [];
+                    $scope.visitTable.forEach(function (item, index) {
+                        visitTableList.push($scope.visitTable[index].type);
+                    });
+
+                    if (visitTableList == undefined) {
                         $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                    } else if (visitTableList == "") {
+                        $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                    } else if (visitTableList.includes("FIRST_APSS_CONSULTATION", "FIRST_CLINICAL_CONSULTATION") === true) {
+                        $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[1]];
+                    } else if (visitTableList.includes("FIRST_APSS_CONSULTATION") === true) {
+                        $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[2]];
+                    } else if (visitTableList.includes("FIRST_CLINICAL_CONSULTATION") === true) {
+                        $scope.startVisits = [$scope.allVisits[1], $scope.allVisits[3]];
                     } else {
-                        var visitTableList = [];
-                        $scope.visitTable.forEach(function (item, index, array) {
-                            visitTableList.push($scope.visitTable[index].type);
-                        });
-
-                        if (visitTableList == undefined) {
-                            $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
-                        } else if (visitTableList == "") {
-                            $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
-                        } else if (visitTableList.includes("FIRST_APSS_CONSULTATION", "FIRST_CLINICAL_CONSULTATION") === true) {
-                            $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[1]];
-                        } else if (visitTableList.includes("FIRST_APSS_CONSULTATION") === true) {
-                            $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[2]];
-                        } else if (visitTableList.includes("FIRST_CLINICAL_CONSULTATION") === true) {
-                            $scope.startVisits = [$scope.allVisits[1], $scope.allVisits[3]];
-                        } else {
-                            $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
-                        }
+                        $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
                     }
-                }, 2000);
+                }
 
-                $timeout(function () {
-                    $scope.visitControl = new Bahmni.Common.VisitControl(
-                        $scope.startVisits, defaultVisitType, encounterService, $translate, visitService
-                    );
+                $scope.visitControl = new Bahmni.Common.VisitControl(
+                    $scope.startVisits, defaultVisitType, encounterService, $translate, visitService
+                );
 
-                    $scope.visitControl.onStartVisit = function () {
-                        $scope.setSubmitSource('startVisit');
-                    };
+                $scope.visitControl.onStartVisit = function () {
+                    $scope.setSubmitSource('startVisit');
+                };
 
-                    var checkEmptyFields = function () {
-                        $scope.countryValue = angular.element("#country")[0].value;
-                        $scope.stateProvinceValue = angular.element("#stateProvince")[0].value;
-                        $scope.cityVillageValue = angular.element("#cityVillage")[0].value;
+                var checkEmptyFields = function () {
+                    $scope.countryValue = angular.element("#country")[0].value;
+                    $scope.stateProvinceValue = angular.element("#stateProvince")[0].value;
+                    $scope.cityVillageValue = angular.element("#cityVillage")[0].value;
 
-                        if ($scope.countryValue === undefined || $scope.countryValue === "") {
-                            angular.element("#country").addClass("illegalValue");
-                        }
-                        if ($scope.stateProvinceValue === undefined || $scope.stateProvinceValue === "") {
-                            angular.element("#stateProvince").addClass("illegalValue");
-                        }
-                        if ($scope.cityVillageValue === undefined || $scope.cityVillageValue === "") {
-                            angular.element("#cityVillage").addClass("illegalValue");
-                        }
-                    };
+                    if ($scope.countryValue === undefined || $scope.countryValue === "") {
+                        angular.element("#country").addClass("illegalValue");
+                    }
+                    if ($scope.stateProvinceValue === undefined || $scope.stateProvinceValue === "") {
+                        angular.element("#stateProvince").addClass("illegalValue");
+                    }
+                    if ($scope.cityVillageValue === undefined || $scope.cityVillageValue === "") {
+                        angular.element("#cityVillage").addClass("illegalValue");
+                    }
+                };
 
-                    var validFields = function () {
-                        if ($scope.myForms.myForm.country.$invalid || $scope.myForms.myForm.stateProvince.$invalid || $scope.myForms.myForm.cityVillage.$invalid) {
-                            return false;
-                        }
-                        return true;
-                    };
+                var validFields = function () {
+                    if ($scope.myForms.myForm.country.$invalid || $scope.myForms.myForm.stateProvince.$invalid || $scope.myForms.myForm.cityVillage.$invalid) {
+                        return false;
+                    }
+                    return true;
+                };
 
-                    $scope.setSubmitSource = function (source) {
-                        if (!validFields()) {
-                            $rootScope.isValidFields = false;
-                        } else {
-                            $rootScope.isValidFields = true;
-                        }
-                        $scope.submitted = true;
-                        validFields();
-                        checkEmptyFields();
-                        $scope.actions.submitSource = source;
-                    };
+                $scope.setSubmitSource = function (source) {
+                    if (!validFields()) {
+                        $rootScope.isValidFields = false;
+                    } else {
+                        $rootScope.isValidFields = true;
+                    }
+                    $scope.submitted = true;
+                    validFields();
+                    checkEmptyFields();
+                    $scope.actions.submitSource = source;
+                };
 
-                    $scope.showStartVisitButton = function () {
-                        return showStartVisitButton;
-                    };
-                }, 3000);
+                $scope.showStartVisitButton = function () {
+                    return showStartVisitButton;
+                };
 
                 var goToForwardUrlPage = function (patientData) {
                     var forwardUrl = appService.getAppDescriptor().formatUrl($scope.activeVisitConfig.forwardUrl, {'patientUuid': patientData.patient.uuid});
