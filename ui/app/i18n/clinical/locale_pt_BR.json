@@ -427,6 +427,7 @@
   "MEDICATION_ERROR_CONFLICTING_WITH_DRUG_ORDER_YOU_CAN_REVISE": "está em conflito com o medicamento que pretende adicionar. Pode rever ou reabastecer.",
   "MEDICATION_ERROR_CONFLICTING_WITH_DRUG_ORDER_YOU_CAN_STOP": "está em conflito com o medicamento que pretende adicionar. Pode terminar a prescrição activa ou criar uma nova",
   "MEDICATION_REVISE":"Rever",
-  "CLINICAL_NO_NUTRITIONAL_STATUS": "Nenhum estado nutricional disponível"
+  "CLINICAL_NO_NUTRITIONAL_STATUS": "Nenhum estado nutricional disponível",
+  "VALUE_RANGE_MESSAGE":"Os valores introduzidos estão fora do intervalo"
 
 }
