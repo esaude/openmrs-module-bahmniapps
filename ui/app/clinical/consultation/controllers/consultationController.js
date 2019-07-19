@@ -5,12 +5,15 @@ angular.module('bahmni.clinical').controller('ConsultationController',
         'spinner', 'encounterService', 'messagingService', 'sessionService', 'retrospectiveEntryService', 'patientContext', '$q',
         'patientVisitHistoryService', '$stateParams', '$window', 'visitHistory', 'clinicalDashboardConfig', 'appService',
         'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService',
+        'providerTypeService',
         function ($scope, $rootScope, $state, $location, $translate, clinicalAppConfigService, diagnosisService, urlHelper, contextChangeHandler,
                   spinner, encounterService, messagingService, sessionService, retrospectiveEntryService, patientContext, $q,
                   patientVisitHistoryService, $stateParams, $window, visitHistory, clinicalDashboardConfig, appService,
-                  ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService) {
+                  ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService,
+                  providerTypeService) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var getPreviousActiveCondition = Bahmni.Common.Domain.Conditions.getPreviousActiveCondition;
+            var currentProviderType;
             $scope.togglePrintList = false;
             $scope.patient = patientContext.patient;
             $scope.showDashboardMenu = false;
@@ -152,6 +155,11 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 var adtNavigationConfig = appService.getAppDescriptor().getConfigValue('adtNavigationConfig');
                 Object.assign($scope.adtNavigationConfig, adtNavigationConfig);
                 setCurrentBoardBasedOnPath();
+                return $q.all([providerTypeService.getAllProviders()]).then(function (results) {
+                    var allProviders = results[0];
+                    var currentProvider = $rootScope.currentProvider;
+                    currentProviderType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
+                });
             };
 
             $scope.shouldDisplaySaveConfirmDialogForStateChange = function (toState, toParams, fromState, fromParams) {
@@ -495,6 +503,18 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                             messagingService.showMessage('error', message);
                         });
                 }));
+            };
+
+            $scope.filterTabByProviderType = function (boardIndex) {
+                if (currentProviderType == "APSS") {
+                    if ($scope.availableBoards[boardIndex].translationKey == 'DIAGNOSIS_BOARD_LABEL_KEY'
+                        || $scope.availableBoards[boardIndex].translationKey == 'ORDERS_BOARD_LABEL_KEY'
+                        || $scope.availableBoards[boardIndex].translationKey == 'MEDICATIONS_BOARD_LABEL_KEY'
+                    ) {
+                        return false;
+                    }
+                }
+                return true;
             };
 
             initialize();
