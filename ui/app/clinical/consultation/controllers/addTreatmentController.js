@@ -111,6 +111,7 @@ angular.module('bahmni.clinical')
                     console.log($scope.drugResult);
                 }
                 else if (drug) {
+                    console.log(drug);
                     //  get all different lines drugs into arrays
 
                     //  compare drug to the ones in those lines
@@ -609,7 +610,7 @@ angular.module('bahmni.clinical')
                     });
                 }
                 console.log(drugs);
-                if (drugs.lenght == 0) {
+                if (drugs.length == 0) {
                     alert("Medicamento nao disponivel nesta categoria");
                 }
                 var listOfDrugSynonyms = _.map(drugs, function (drug) {
