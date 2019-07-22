@@ -204,7 +204,7 @@
                                     <span class="asterick">*</span></label>
                             </div>
                             <div class="field-value">
-                                <select disabled id="variable-dose-unit" class=" freq-dose-units"
+                                <select id="variable-dose-unit" class=" freq-dose-units"
                                     ng-model="treatment.variableDosingType.doseUnits"
                                     ng-options="item.name as item.name for item in treatmentConfig.getDoseUnits()"
                                     required="required">
@@ -265,6 +265,7 @@
                             <select ng-if="!treatmentConfig.isHiddenField('durationUnits')" id="duration-unit"
                                 class=" duration-unit" ng-model="treatment.durationUnit"
                                 ng-options="item.name as item.name for item in treatmentConfig.getDurationUnits()"
+                                ng-disabled="treatmentConfig.getDurationUnits().length == 1"
                                 required></select>
                         </div>
                     </article>

@@ -70,29 +70,33 @@ angular.module('bahmni.clinical')
             //  choose category
             $scope.selectCatFromDropdown = function () {
                 console.log($scope.catAnswer); //  to do: use FSN
-                if ($scope.catAnswer.display == "ARV") {
-                    // set line type options
-                    $scope.treatmentLine = "treatment_line_arv";
-                    console.log($scope.treatmentLine);
-                    $scope.displayLineDropdown();
+                if ($scope.catAnswer) {
+                    if ($scope.catAnswer.display == "ARV") {
+                        // set line type options
+                        $scope.treatmentLine = "treatment_line_arv";
+                        console.log($scope.treatmentLine);
+                        $scope.displayLineDropdown();
 
-                    //  limit drugs to ARV type
-                    $scope.drugOptions = $scope.drugAnswers("medication_cat_arv");
-                } else if ($scope.catAnswer.display == "Drogas Anti-TB") {
-                    // set line type options
-                    $scope.treatmentLine = "treatment_line_tb";
-                    console.log($scope.treatmentLine);
-                    $scope.displayLineDropdown();
+                        //  limit drugs to ARV type
+                        $scope.drugOptions = $scope.drugAnswers("medication_cat_arv");
+                    } else if ($scope.catAnswer.display == "Drogas Anti-TB") {
+                        // set line type options
+                        $scope.treatmentLine = "treatment_line_tb";
+                        console.log($scope.treatmentLine);
+                        $scope.displayLineDropdown();
 
-                    //  limit drugs to TB type
-                    $scope.drugOptions = $scope.drugAnswers("medication_cat_tb");
+                        //  limit drugs to TB type
+                        $scope.drugOptions = $scope.drugAnswers("medication_cat_tb");
+                    }
+                    else {
+                        $scope.treatmentLine = undefined;
+                        $scope.catAnswer = "";
+                        $scope.lineAnswer = "";
+                    }
+                    $scope.onChange();
+                    $scope.treatment.drugNameDisplay = "";
+                    $scope.getDataResults();
                 }
-                else {
-                    $scope.treatmentLine = undefined;
-                    $scope.catAnswer = "";
-                    $scope.lineAnswer = "";
-                }
-                $scope.getDataResults();
             };
 
             // choose line after category
@@ -107,24 +111,26 @@ angular.module('bahmni.clinical')
             };
 
             // find line based on lineAnswer or drug
-            $scope.selectLine = function (drug) {
-                console.log($scope.lineAnswer.display);
+            $scope.selectLine = function (chosenDrug) {
                 if ($scope.lineAnswer) {
-                    // limit drugs to line type
-                    $scope.drugAnswers($scope.lineAnswer.display);
-                    console.log($scope.drugResult);
+                    console.log($scope.lineAnswer.display);
+                    if ($scope.lineAnswer) {
+                        // limit drugs to line type
+                        $scope.drugAnswers($scope.lineAnswer.display);
+                        console.log($scope.drugResult);
 
-                    $scope.getDataResults();
-                }
-                else if (drug) {
-                    console.log(drug);
-                    //  get all different lines drugs into arrays
+                        $scope.getDataResults();
+                    }
+                    else if (chosenDrug) {
+                        console.log(chosenDrug);
+                        //  get all different lines drugs into arrays
 
-                    //  compare drug to the ones in those lines
+                        //  compare drug to the ones in those lines
 
-                    //  choose line and update DOM
+                        //  choose line and update DOM
 
-                    //  choose category and update DOM
+                        //  choose category and update DOM
+                    }
                 }
             };
 
@@ -600,21 +606,24 @@ angular.module('bahmni.clinical')
 
             $scope.getDataResults = function (drugs) {
                 var searchString = $scope.treatment.drugNameDisplay;
+                $scope.drugResultUuid = [];
+                $scope.drugResult.forEach(function (element) {
+                    $scope.drugResultUuid.push(element.uuid);
+                });
+                console.log($scope.drugResultUuid);
+                console.log(drugs);
                 //  filter drop down options to drug results based on category and line
-                if (drugs) {
+                if ($scope.catAnswer && drugs) {
                     for (var i = 0; i <= drugs.length; i++) {
-                        $scope.drugResult.forEach(function (element) {
-                            if (drugs[i] !== undefined && drugs[i].concept.uuid !== element.uuid) {
-                                drugs.splice(drugs.indexOf(drugs[i]), 1);
-                            }
-                        });
+                        if (drugs[i] !== undefined && !$scope.drugResultUuid.includes(drugs[i].concept.uuid)) {
+                            drugs.splice(drugs.indexOf(drugs[i]), 1);
+                        }
                     }
-                    return drugs;
                 }
                 console.log(drugs);
-                if ($scope.catAnswer) {
-                    if (drugs !== undefined && drugs.length == 0) {
-                        alert('MEDICATION_ADD_DRUG_UNAVALIABLE' | translate);
+                if ($scope.catAnswer && drugs) {
+                    if (drugs.length == 0) {
+                        messagingService.showMessage('error', 'MEDICATION_ADD_DRUG_UNAVALIABLE');
                     }
                 }
                 var listOfDrugSynonyms = _.map(drugs, function (drug) {
@@ -665,6 +674,8 @@ angular.module('bahmni.clinical')
             $scope.clearForm = function () {
                 $scope.treatment = newTreatment();
                 $scope.formInvalid = false;
+                $scope.catAnswer = "";
+                $scope.lineAnswer = "";
                 clearHighlights();
                 markVariable("startNewDrugEntry");
             };
