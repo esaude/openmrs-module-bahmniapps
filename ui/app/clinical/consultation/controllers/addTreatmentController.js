@@ -99,7 +99,6 @@ angular.module('bahmni.clinical')
                     //  bring line options
                     $scope.lineOptions = $scope.lineAnswers("treatment_line_tb");
                 }
-                $scope.getDataResults();
             };
 
             // find line based on lineAnswer or drug
@@ -109,6 +108,8 @@ angular.module('bahmni.clinical')
                     // limit drugs to line type
                     $scope.drugAnswers($scope.lineAnswer.display);
                     console.log($scope.drugResult);
+
+                    $scope.getDataResults();
                 }
                 else if (drug) {
                     console.log(drug);
