@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="bahmni.home">
     <head>
-        <title>Bahmni Home</title>
+        <title>{{'HOME_APP_TITLE' | translate}}</title>
 
         <meta charset="utf-8">
         <meta name="HandheldFriendly" content="true">
@@ -19,7 +19,7 @@
     </head>
     <body>
         <div class="reg-wrapper">
-            <div ng-app="bahmni.home">
+            <div >
                 <div ng-include src="'../common/ui-helper/messages.html'"></div>
                 <div ui-view id="view-content"></div>
             </div>

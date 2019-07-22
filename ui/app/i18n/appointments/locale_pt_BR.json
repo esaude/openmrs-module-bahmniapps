@@ -177,5 +177,6 @@
   "APPOINTMENT_SUMMARY_END_ALERT": "A Data de Fim deve ser maior que a de Inicio.",
   "APPOINTMENT_CREATE_SAVE_ADD_NEW": "Salvar e adicionar nova visita",
   "APPOINTMENT_DATE_WARNING": "A data da consulta não pode ser inferior à data de hoje",
-  "APPOINTMENT_INVALID_DATE": "Data de consulta inválida"
+  "APPOINTMENT_INVALID_DATE": "Data de consulta inválida",
+  "APPOINTMENTS_APP_TITLE": "Marcações"
 }

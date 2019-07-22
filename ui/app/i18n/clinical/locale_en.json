@@ -406,5 +406,7 @@
     "MEDICATION_ERROR_CONFLICTING_WITH_DRUG_ORDER_YOU_CAN_STOP": "is conflicting with drug order you are trying to add. You can stop the active drug order and create a new one.",
     "MEDICATION_REVISE":"Revise",
     "CLINICAL_NO_NUTRITIONAL_STATUS": "No Nutritional Status Available",
-    "VALUE_RANGE_MESSAGE":"The value is out of range"
+    "VALUE_RANGE_MESSAGE":"The value is out of range",
+    "CLINICAL_APP_TITLE":"OPD",
+    "SERVICES_APP_TITLE": "Services"
 }

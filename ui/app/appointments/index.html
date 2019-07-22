@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="bahmni.appointments">
     <head>
         <meta charset="utf-8">
-        <title>Appointment Scheduling</title>
+        <title>{{'APPOINTMENTS_APP_TITLE'|translate}}</title>
         <link rel="stylesheet" href="../lib/jquery/jquery-ui-1.10.4.custom.min.css">
         <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
         <link rel="stylesheet" href="../components/ngDialog/css/ngDialog.min.css"/>
@@ -19,7 +19,7 @@
         <!-- endbuild -->
     </head>
     <body>
-        <div ng-app="bahmni.appointments" class="bahmni-appointments">
+        <div class="bahmni-appointments">
             <div ui-view="additional-header"></div>
             <div ng-include src="'../common/ui-helper/messages.html'"></div>
             <div ui-view="mainContent"></div>

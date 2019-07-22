@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="consultation" >
     <head>
-        <title>OPD</title>
+        <title ng-bind-html="title || 'Clínico'"></title>
 
         <meta charset="utf-8">
         <meta name="HandheldFriendly" content="true">
@@ -22,7 +22,7 @@
         <!-- endbuild -->
 
     </head>
-    <body ng-app="consultation" >
+    <body>
         <div ng-controller="ClinicalController" ng-class="{'retro-mode':retrospectiveClass()}" id="ClinicalController">
             <div ng-include src="'../common/ui-helper/messages.html'"></div>
             <div class="opd-wrapper">
