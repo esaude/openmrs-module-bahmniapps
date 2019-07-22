@@ -131,6 +131,7 @@
     "MEDICATION_TAB_DOSE": "Dose",
     "MEDICATION_DEFAULT_DRUGS_TITLE": "Frequently Used",
     "MEDICATION_ADD_DRUG_CATEGORY": "Category",
+    "MEDICATION_ADD_DRUG_UNAVALIABLE": "No similar drug found on the category chosen",
     "MEDICATION_ADD_DRUG_LINE": "Treatment Line",
     "MEDICATION_DRUG_NAME_TITLE": "Drug Name",
     "MEDICATION_ADD_DRUG_FORM_TITLE": "Order Drug",

@@ -612,7 +612,7 @@ angular.module('bahmni.clinical')
                 }
                 console.log(drugs);
                 if (drugs.length == 0) {
-                    alert("Medicamento nao disponivel nesta categoria");
+                    alert("MEDICATION_ADD_DRUG_UNAVALIABLE");
                 }
                 var listOfDrugSynonyms = _.map(drugs, function (drug) {
                     return Bahmni.Clinical.DrugSearchResult.getAllMatchingSynonyms(drug, searchString);
