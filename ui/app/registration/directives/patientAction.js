@@ -22,6 +22,7 @@ angular.module('bahmni.registration')
                 var forwardUrls = forwardUrlsForVisitTypes || false;
                 $scope.visitTable = [];
                 $scope.allVisits = $rootScope.regEncounterConfiguration.getVisitTypesAsArray();
+                console.log($scope.allVisits);
                 var getForwardUrlEntryForVisitFromTheConfig = function () {
                     var matchedEntry = _.find(forwardUrls, function (entry) {
                         if (self.hasActiveVisit) {
@@ -108,26 +109,9 @@ angular.module('bahmni.registration')
                 getVisitHistory();
 
                 if (uuid == undefined) {
-                    $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                    $scope.startVisits = [$scope.allVisits[0]];
                 } else {
-                    var visitTableList = [];
-                    $scope.visitTable.forEach(function (item, index) {
-                        visitTableList.push($scope.visitTable[index].type);
-                    });
-
-                    if (visitTableList == undefined) {
-                        $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
-                    } else if (visitTableList == "") {
-                        $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
-                    } else if (visitTableList.includes("FIRST_APSS_CONSULTATION", "FIRST_CLINICAL_CONSULTATION") === true) {
-                        $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[1]];
-                    } else if (visitTableList.includes("FIRST_APSS_CONSULTATION") === true) {
-                        $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[2]];
-                    } else if (visitTableList.includes("FIRST_CLINICAL_CONSULTATION") === true) {
-                        $scope.startVisits = [$scope.allVisits[1], $scope.allVisits[3]];
-                    } else {
-                        $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
-                    }
+                    $scope.startVisits = [$scope.allVisits[0]];
                 }
 
                 $scope.visitControl = new Bahmni.Common.VisitControl(
