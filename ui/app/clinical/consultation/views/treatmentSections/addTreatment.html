@@ -71,8 +71,8 @@
                                 class="asterick">*</span> </label>
                     </div>
                     <div class="field-value">
-                            <select id="cat-dropdown" class="fl"
-                            ng-model="lineAnswer" ng-change="selectLine(lineAnswer)"
+                            <select id="line-dropdown" class="fl"
+                            ng-model="lineAnswer" ng-change="selectLine(lineAnswer)" ng-disabled="!treatmentLine"
                             ng-options="item.display for item in lineResult" required>
                             <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
                         </select>

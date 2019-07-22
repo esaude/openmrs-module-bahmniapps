@@ -87,6 +87,11 @@ angular.module('bahmni.clinical')
                     //  limit drugs to TB type
                     $scope.drugOptions = $scope.drugAnswers("medication_cat_tb");
                 }
+                else {
+                    $scope.treatmentLine = undefined;
+                    $scope.catAnswer = "";
+                    $scope.lineAnswer = "";
+                }
                 $scope.getDataResults();
             };
 
@@ -595,24 +600,22 @@ angular.module('bahmni.clinical')
 
             $scope.getDataResults = function (drugs) {
                 var searchString = $scope.treatment.drugNameDisplay;
-                console.log(searchString);
-                //  console.log(drugs);
-                //  console.log($scope.drugResult);
-                //  filter options to drug results from category
-                for (var i = 0; i <= drugs.length; i++) {
-                    $scope.drugResult.forEach(function (element) {
-                        if (drugs[i] == undefined) {
-                            return;
-                        }
-                        else if (drugs[i].concept.uuid != element.uuid) {
-                            drugs.splice(drugs.indexOf(drugs[i]), 1);
-                            return drugs;
-                        }
-                    });
+                //  filter drop down options to drug results based on category and line
+                if (drugs) {
+                    for (var i = 0; i <= drugs.length; i++) {
+                        $scope.drugResult.forEach(function (element) {
+                            if (drugs[i] !== undefined && drugs[i].concept.uuid !== element.uuid) {
+                                drugs.splice(drugs.indexOf(drugs[i]), 1);
+                            }
+                        });
+                    }
+                    return drugs;
                 }
                 console.log(drugs);
-                if (drugs.length == 0) {
-                    alert("MEDICATION_ADD_DRUG_UNAVALIABLE");
+                if ($scope.catAnswer) {
+                    if (drugs !== undefined && drugs.length == 0) {
+                        alert('MEDICATION_ADD_DRUG_UNAVALIABLE' | translate);
+                    }
                 }
                 var listOfDrugSynonyms = _.map(drugs, function (drug) {
                     return Bahmni.Clinical.DrugSearchResult.getAllMatchingSynonyms(drug, searchString);
