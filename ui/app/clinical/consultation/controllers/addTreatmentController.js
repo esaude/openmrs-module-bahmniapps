@@ -10,8 +10,6 @@ angular.module('bahmni.clinical')
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var DrugOrderViewModel = Bahmni.Clinical.DrugOrderViewModel;
             var scrollTop = _.partial($window.scrollTo, 0, 0);
-            // $scope.catResult = [];
-            // $scope.lineResult = [];
 
             $scope.catAnswer = "";
             $scope.lineAnswer = "";
@@ -22,125 +20,106 @@ angular.module('bahmni.clinical')
             $scope.canOrderSetBeAdded = true;
             $scope.isSearchDisabled = false;
 
-            $scope.conceptPromise = function (conceptName) {
-                $scope.conceptResult = [];
-                return conceptSetService.getConcept({ name: conceptName, v: "custom:(answers:(name,names))" }, true).then(function (response) {
+            $scope.catAnswers = function (conceptName) {
+                $scope.catResult = [];
+                return conceptSetService.getConcept({ name: conceptName, v: "custom:(answers:(uuid,name,names))" }, true).then(function (response) {
                     var resp = response.data.results[0].answers;
                     for (var i = 0; i <= resp.length; i++) {
                         if (resp[i] == undefined) {
-                            return;
+                            break;
                         }
-                        $scope.conceptResult.push(resp[i].names[0]);
+                        $scope.catResult.push(resp[i].names[0]);
                     }
-                    console.log($scope.conceptResult);
-                    return $scope.conceptResult;
+                    console.log($scope.catResult);
+                    return $scope.catResult;
                 });
             };
 
+            $scope.lineAnswers = function (conceptName) {
+                $scope.lineResult = [];
+                return conceptSetService.getConcept({ conceptNameType: "SHORT", name: conceptName, v: "custom:(answers:(uuid,name,names))" }, true).then(function (response) {
+                    var resp = response.data.results[0].answers;
+                    for (var i = 0; i <= resp.length; i++) {
+                        if (resp[i] == undefined) {
+                            break;
+                        }
+                        $scope.lineResult.push(resp[i].names[0]);
+                    }
+                    console.log($scope.lineResult);
+                    return $scope.lineResult;
+                });
+            };
+
+            $scope.drugAnswers = function (conceptName) {
+                $scope.drugResult = [];
+                return conceptSetService.getConcept({ name: conceptName, v: "custom:(answers:(uuid,name,names))" }, true).then(function (response) {
+                    console.log(response.data.results[0]);
+                    var resp = response.data.results[0].answers;
+                    for (var i = 0; i <= resp.length; i++) {
+                        if (resp[i] == undefined) {
+                            break;
+                        }
+                        $scope.drugResult.push(resp[i].names[0]);
+                    }
+                    console.log($scope.drugResult);
+                    return $scope.drugResult;
+                });
+            };
+            //  load category options: done
+
             //  choose category
-            $scope.selectCatFromDropdown = function (categ) {
-                console.log(categ); //use FSN
-                if (categ == "ARV") {
+            $scope.selectCatFromDropdown = function () {
+                console.log($scope.catAnswer); //  to do: use FSN
+                if ($scope.catAnswer.display == "ARV") {
                     // set line type options
                     $scope.treatmentLine = "treatment_line_arv";
+                    console.log($scope.treatmentLine);
+                    $scope.displayLineDropdown();
 
                     //  limit drugs to ARV type
-                    $scope.dropDownPromise("medication_cat_arv");
-
-                } else if (categ == "Anti-Tuberculosis drugs") {
+                    $scope.drugOptions = $scope.drugAnswers("medication_cat_arv");
+                } else if ($scope.catAnswer.display == "Drogas Anti-TB") {
                     // set line type options
                     $scope.treatmentLine = "treatment_line_tb";
+                    console.log($scope.treatmentLine);
+                    $scope.displayLineDropdown();
 
                     //  limit drugs to TB type
-                    $scope.dropDownPromise("medication_cat_tb");
+                    $scope.drugOptions = $scope.drugAnswers("medication_cat_tb");
                 }
+                $scope.getDataResults();
             };
 
             // choose line after category
-            $scope.selectLineFromDropdown = function (line) {
-                console.log(line); //use FSN
-                if (line == "treatment_line_arv") {
-                    //  limit drugs to line type
-                    $scope.dropDownPromise("");
+            $scope.displayLineDropdown = function () {
+                if ($scope.treatmentLine == "treatment_line_arv") {
+                    //  bring line options
+                    $scope.lineOptions = $scope.lineAnswers("treatment_line_arv");
+                } else if ($scope.treatmentLine == "treatment_line_tb") {
+                    //  bring line options
+                    $scope.lineOptions = $scope.lineAnswers("treatment_line_tb");
+                }
+                $scope.getDataResults();
+            };
 
-                } else if (line == "treatment_line_tb") {
-                   //  limit drugs to line type
-                    $scope.dropDownPromise("");
+            // find line based on lineAnswer or drug
+            $scope.selectLine = function (drug) {
+                console.log($scope.lineAnswer.display);
+                if ($scope.lineAnswer) {
+                    // limit drugs to line type
+                    $scope.drugAnswers($scope.lineAnswer.display);
+                    console.log($scope.drugResult);
+                }
+                else if (drug) {
+                    //  get all different lines drugs into arrays
+
+                    //  compare drug to the ones in those lines
+
+                    //  choose line and update DOM
+
+                    //  choose category and update DOM
                 }
             };
-
-            // find line based on drug
-            $scope.selectLine = function (drug) {
-                //  get all different lines drugs into arrays
-
-                //  compare drug to the ones in those lines
-
-                //  chose line and update DOM
-            };
-
-            /* $scope.catDropdown = function () {
-                var conceptSetName = "medication_category";
-                return conceptSetService.getConcept({name: conceptSetName,v: "custom:(answers:(names))"}, true).then(function (response) {
-                        var resp = response.data.results[0].answers;
-                        for (var i = 0; i <= resp.length; i++) {
-                            if (resp[i] == undefined) {
-                                return;
-                            }
-                            // var cat = resp[i].names[0].display;
-                            var cat = resp[i].names[0];
-                            $scope.catResult.push(cat);
-                        }
-                        return $scope.catResult;
-                    });
-            };
-            $scope.catDropdown();
-            console.log($scope.catAnswer);  */
-
-            /*  if ($scope.catAnswer == "ARV") {
-                //limit drugs to ARV type
-                //choose line based on medicine type added
-                $scope.lineARVDropdown();
-            }  else if ($scope.catAnswer == ) {
-
-            } */
-
-            /* $scope.lineARVDropdown = function () {
-                var conceptSetName = "treatment_line_arv";
-                return conceptSetService.getConcept({
-                    name: conceptSetName,
-                    v: "custom:(answers:(names))"
-                }, true)
-                    .then(function (response) {
-                        var resp = response.data.results[0].answers;
-                        for (var i = 0; i <= resp.length; i++) {
-                            if (resp[i] == undefined) {
-                                return;
-                            }
-                            var cat = resp[i].names[0].display;
-                            $scope.lineResult.push(cat);
-                        }
-                        return $scope.lineResult;
-                    });
-            };
-
-            $scope.lineTBDropdown = function () {
-                var conceptSetName = "treatment_line_tb";
-                return conceptSetService.getConcept({
-                    name: conceptSetName,
-                    v: "custom:(answers:(names))"
-                }, true)
-                    .then(function (response) {
-                        var resp = response.data.results[0].answers;
-                        for (var i = 0; i <= resp.length; i++) {
-                            if (resp[i] == undefined) {
-                                return;
-                            }
-                            var cat = resp[i].names[0].display;
-                            $scope.lineResult.push(cat);
-                        }
-                        return $scope.lineResult;
-                    });
-            };  */
 
             $scope.getFilteredOrderSets = function (searchTerm) {
                 if (searchTerm && searchTerm.length >= 3) {
@@ -613,8 +592,26 @@ angular.module('bahmni.clinical')
             };
 
             $scope.getDataResults = function (drugs) {
-                console.log(drugs);
                 var searchString = $scope.treatment.drugNameDisplay;
+                console.log(searchString);
+                //  console.log(drugs);
+                //  console.log($scope.drugResult);
+                //  filter options to drug results from category
+                for (var i = 0; i <= drugs.length; i++) {
+                    $scope.drugResult.forEach(function (element) {
+                        if (drugs[i] == undefined) {
+                            return;
+                        }
+                        else if (drugs[i].concept.uuid != element.uuid) {
+                            drugs.splice(drugs.indexOf(drugs[i]), 1);
+                            return drugs;
+                        }
+                    });
+                }
+                console.log(drugs);
+                if (drugs.lenght == 0) {
+                    alert("Medicamento nao disponivel nesta categoria");
+                }
                 var listOfDrugSynonyms = _.map(drugs, function (drug) {
                     return Bahmni.Clinical.DrugSearchResult.getAllMatchingSynonyms(drug, searchString);
                 });
@@ -629,6 +626,7 @@ angular.module('bahmni.clinical')
                     console.log(selectedItem);
                     $scope.onChange();
                     //  run line function based on drug
+                    $scope.selectLine(selectedItem);
                 };
                 $scope.onAccept = function () {
                     $scope.treatment.acceptedItem = $scope.treatment.drugNameDisplay;
@@ -795,6 +793,8 @@ angular.module('bahmni.clinical')
                 drugOrderViewModel.calculateQuantityAndUnit();
                 drugOrderViewModel.calculateEffectiveStopDate();
                 drugOrderViewModel.setUniformDoseFraction();
+                //  categoria
+                //  line
                 return drugOrderViewModel;
             };
 
