@@ -201,7 +201,7 @@
   "MEDICATION_LABEL_ROUTE": "Via",
   "MEDICATION_LABEL_START_DATE": "Data início da medicação",
   "MEDICATION_LABEL_TOTAL_QUANTITY": "Quantidade total",
-  "MEDICATION_LABEL_UNITS": "Unidades",
+  "MEDICATION_LABEL_UNITS": "Unidades/Forma Farmacêutica",
   "MEDICATION_NEW_PRESCRIPTION": "Nova prescrição",
   "MEDICATION_NEW_TREATMENTS": "Novo tratamento",
   "MEDICATION_NO_PRESCRIPTION_SAVED_PLACEHOLDER": "A prescrição ainda não foi gravada",
