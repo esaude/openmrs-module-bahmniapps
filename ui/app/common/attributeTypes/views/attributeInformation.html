@@ -51,7 +51,6 @@
                ng-keyup="suggest(targetModel[attribute.name])"
                ng-blur="validateField(false)"
                ng-mouseleave="validateField(true)"
-               title="{{::'REGISTRATION_OCCUPATION_CHOICE' | translate}}"
                ng-required="{{::attribute.required}}" ng-style="{'border': borderColor, 'background': backgroundColor}">
         <ul class="ui-front ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all" ng-if="showTag && filterOcuppation.length > 0" ng-hide="hideList"
             style="position:absolute; top:31px;  width:192px">

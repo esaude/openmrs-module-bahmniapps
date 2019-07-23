@@ -7,7 +7,7 @@
         <div class="input-prepend">
             <span class="add-on">{{ ::'REGISTRATION_LABEL_YEARS' | translate}}</span>
             <input  type="number" id="ageYears" name="ageYear" max="120" ng-model="patient.age.years" min="0"
-                    ng-required="::!dobMandatory" title="{{ ::'REGISTRATION_LABEL_NUMERIC_YEARS' | translate}}"
+                    ng-required="::!dobMandatory"
                     ng-change="patient.calculateBirthDate();checkDuplicatePatients();checkValidationForm()" ng-blur="handleUpdate('age')"
                     ng-disabled="isAgeDisabled" ng-class="{ 'illegalValue': submitted && this.myForms.myForm.ageYear.$invalid || this.myForms.myForm.ageYear.$invalid && !this.myForms.myForm.ageYear.$pristine}"
             >
@@ -15,7 +15,6 @@
         <div class="input-prepend">
             <span class="add-on">{{ ::'REGISTRATION_LABEL_MONTHS' | translate}}</span>
             <input type="number" id="ageMonths" name="ageMonths" max="12" ng-model="patient.age.months" min="0"
-                   title="{{ ::'REGISTRATION_LABEL_NUMERIC_MONTHS' | translate}}"
                    ng-change="patient.calculateBirthDate();checkDuplicatePatients();checkValidationForm()"
                    ng-disabled="isAgeDisabled" required
             >
@@ -23,7 +22,6 @@
         <div class="input-prepend">
             <span class="add-on">{{ ::'REGISTRATION_LABEL_DAYS' | translate}}</span>
             <input type="number" id="ageDays" name="ageDays" max="31" ng-model="patient.age.days" min="0"
-                   title="{{ ::'REGISTRATION_LABEL_NUMERIC_DAYS' | translate}}"
                    ng-change="patient.calculateBirthDate();checkDuplicatePatients();checkValidationForm()"
                    ng-disabled="isAgeDisabled" required
             >
