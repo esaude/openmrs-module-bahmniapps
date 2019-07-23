@@ -5,5 +5,5 @@
         '{' + onInvalidClass + ' : ' + '!isValid' + '}'
         }}"
         ng-model="selectedAnswer">
-    <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+    <option value="" ng-if="defaultConcept.name !== 'CONFIDENT_AGE_TYPE'">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
 </select>
