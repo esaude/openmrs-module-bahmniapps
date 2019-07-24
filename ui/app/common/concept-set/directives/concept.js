@@ -30,21 +30,21 @@ angular.module('bahmni.common.conceptSet')
                     if (scope.observation.concept.name === "SP_Treatment End Date") {
                         treatmentEndDate = scope.observation.value;
                     }
-                    if (scope.observation.concept.name === "SP_Treatment End Date") {
-                        treatmentEndDate = scope.observation.value;
-                    }
 
-                    if (treatmentStartDate === scope.today) {
+                    if (treatmentStartDate === scope.today && treatmentStartDate !== '') {
                         answer = prophylaxisKey[0];
-                        $rootScope.observationData.toggleSelection(answer);
+                        $rootScope.observationData.toggleSelectionTreatmentState(answer);
                     }
-                    if ((treatmentStartDate < scope.today) && (scope.today < treatmentEndDate) && (treatmentEndDate != undefined || treatmentEndDate != null)) {
+                    if ((treatmentStartDate < scope.today) && (scope.today < treatmentEndDate)) {
                         answer = prophylaxisKey[1];
-                        $rootScope.observationData.toggleSelection(answer);
+                        $rootScope.observationData.toggleSelectionTreatmentState(answer);
                     }
-                    if (scope.today >= treatmentEndDate && (treatmentStartDate != undefined || treatmentStartDate != null)) {
+                    if ((treatmentEndDate <= scope.today) && (treatmentEndDate >= treatmentStartDate) && (treatmentEndDate != '')) {
                         answer = prophylaxisKey[2];
-                        $rootScope.observationData.toggleSelection(answer);
+                        $rootScope.observationData.toggleSelectionTreatmentState(answer);
+                    }
+                    if (treatmentStartDate > treatmentEndDate)  {
+                        messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
                     }
                 };
 

@@ -404,5 +404,6 @@
     "MEDICATION_ERROR_ONE_OR_MORE": "One or more drugs you are trying to order are already active. Please change the start date of the conflicting drug or remove them from the new prescription.",
     "MEDICATION_ERROR_CONFLICTING_WITH_DRUG_ORDER_YOU_CAN_REVISE": "is conflicting with drug order you are trying to add. You can revise or refill instead.",
     "MEDICATION_ERROR_CONFLICTING_WITH_DRUG_ORDER_YOU_CAN_STOP": "is conflicting with drug order you are trying to add. You can stop the active drug order and create a new one.",
-    "MEDICATION_REVISE":"Revise"
+    "MEDICATION_REVISE":"Revise",
+    "INVALID_TREATMENT_END_DATE": "TREATMENT END DATE cannot be less than START DATE"
 }

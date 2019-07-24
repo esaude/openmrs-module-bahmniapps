@@ -361,9 +361,16 @@ Bahmni.ConceptSet.Observation.prototype = {
     },
 
     toggleSelection: function (answer) {
+        console.log(answer);
         if (this.value && this.value.uuid === answer.uuid) {
             this.value = null;
         } else {
+            this.value = answer;
+        }
+    },
+
+    toggleSelectionTreatmentState: function (answer) {
+        if (answer) {
             this.value = answer;
         }
     },
