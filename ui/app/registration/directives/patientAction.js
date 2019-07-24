@@ -22,7 +22,6 @@ angular.module('bahmni.registration')
                 var forwardUrls = forwardUrlsForVisitTypes || false;
                 $scope.visitTable = [];
                 $scope.allVisits = $rootScope.regEncounterConfiguration.getVisitTypesAsArray();
-                console.log($scope.allVisits);
                 var getForwardUrlEntryForVisitFromTheConfig = function () {
                     var matchedEntry = _.find(forwardUrls, function (entry) {
                         if (self.hasActiveVisit) {
