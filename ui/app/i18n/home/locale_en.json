@@ -58,5 +58,6 @@
     "NO_NAVIGATION_LINKS_AVAILABLE_MESSAGE": "No navigation links available.",
     "ACCEPT":"Accept",
     "SELECT_VALUE_FROM_AUTOCOMPLETE_DEFAULT_MESSAGE": "Please select a value from auto complete",
-    "POC_VERSION" : "1.3.0"
+    "POC_VERSION" : "2.0.0",
+    "HOME_APP_TITLE": "Home"
 }

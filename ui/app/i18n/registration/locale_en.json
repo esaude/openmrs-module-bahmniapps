@@ -159,6 +159,7 @@
   "FIRST_CLINICAL_CONSULTATION_A":"First Clinical Consultation",
   "FOLLOWUP_CLINICAL_CONSULTATION":"Clinical Consultation",
   "FOLLOWUP_CLINICAL_CONSULTATION_A":"Clinical - Follow Up Consultation",
+  "Patient_Start_Visit" :"Start Visit",
   "REGISTRATION_PERSONAL_INFORMATION":"Personal Details",
   "REGISTRATION_PROFESSIONAL_INFORMATION":"Professional Information",
   "FATHER_NAME": "Father Name",

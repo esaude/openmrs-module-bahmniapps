@@ -189,6 +189,7 @@
                                 <select  ng-if="!treatmentConfig.isHiddenField('durationUnits')" id="duration-unit"
                                          class=" duration-unit" ng-model="treatment.durationUnit"
                                          ng-options="item.name as item.name for item in treatmentConfig.getDurationUnits()"
+                                         ng-disabled="treatmentConfig.getDurationUnits().length == 1"
                                          required></select>
                             </div>
                         </article>
