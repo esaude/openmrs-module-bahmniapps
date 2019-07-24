@@ -198,11 +198,12 @@
                     <div ng-if="observation.concept.name =='Prophylaxis_Nutritional_Status'" style="position: absolute; top: 14%">
                         <strong class="grid-row-element">{{nutritionalStateDisplay | translate}}</strong>
                     </div>
+
                     <div ng-switch-when="html5InputDataType" ng-if="observation.concept.name !== 'CONFIDENT_AGE'">
                         <div ng-include src="'../common/concept-set/views/observationDataTypes/html5DataType.html'"></div>
                     </div>
 
-                    <div ng-switch-when="html5InputDataType" ng-if="observation.concept.name == 'CONFIDENT_AGE'">
+                    <div ng-switch-when="html5InputDataType" ng-if="observation.concept.name === 'CONFIDENT_AGE'" style="margin-bottom: -50px">
                         <div ng-include src="'../common/concept-set/views/observationDataTypes/html5DataType.html'"></div>
                     </div>
 
@@ -288,8 +289,8 @@
                         </concept-dropdown>
                     </div>
 
-                    <div ng-switch-when="dropdown" class="field-value info fa fa-info-sign" ng-if="observation.concept.name === 'CONFIDENT_AGE_TYPE'" style="position: relative">
-                        <concept-dropdown style="float: left; margin-top:-62px; margin-left:460px"
+                    <div ng-switch-when="dropdown" class="field-value info fa fa-info-sign" ng-if="observation.concept.name === 'CONFIDENT_AGE_TYPE'">
+                        <concept-dropdown style="float: left; margin-top:-50px; margin-left:460px"
                                 on-change="update"
                                 ng-disabled="observation.disabled"
                                 model="observation.value"
