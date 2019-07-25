@@ -49,7 +49,7 @@ angular.module('bahmni.common.conceptSet')
                         answer = prophylaxisKey[2];
                         $rootScope.observationData.toggleSelectionTreatmentState(answer);
                     }
-                    if (treatmentStartDate > treatmentEndDate)  {
+                    if (treatmentStartDate > treatmentEndDate) {
                         messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
                     }
                 };
