@@ -31,6 +31,10 @@ angular.module('bahmni.common.conceptSet')
                         treatmentEndDate = scope.observation.value;
                     }
 
+                    if (treatmentStartDate === '' || treatmentEndDate === '') {
+                        answer = null;
+                        $rootScope.observationData.toggleSelectionTreatmentState(answer);
+                    }
                     if (treatmentStartDate === scope.today && treatmentStartDate !== '') {
                         answer = prophylaxisKey[0];
                         $rootScope.observationData.toggleSelectionTreatmentState(answer);

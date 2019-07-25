@@ -31,7 +31,13 @@
        focus-me="::observation.isFocused" tabindex="1"/>
 
 <input id="{{::observation.uniqueId}}" obs-constraints obs="::observation" max = "{{::today}}"
-       ng-if="!observation.isNumeric() && !observation._isDateTimeDataType() && !observation.conceptUIConfig.displayMonthAndYear" ng-disabled="observation.disabled"
+       ng-if="!observation.isNumeric() && !observation._isDateTimeDataType() && !observation.conceptUIConfig.displayMonthAndYear && observation.uniqueId !== 'observation_40'" ng-disabled="observation.disabled"
+       ng-model="observation.value" ng-change="handleUpdate();onDateChange()"
+       ng-class="{'is-abnormal': observation.abnormalObs.value, 'illegalValue': !observation.isValid(atLeastOneValueIsSet,conceptSetRequired), 'computed-field': observation.isComputedAndEditable()}"
+       focus-me="::observation.isFocused" tabindex="1"/>
+
+<input id="{{::observation.uniqueId}}" obs-constraints obs="::observation"
+       ng-if="!observation.isNumeric() && !observation._isDateTimeDataType() && !observation.conceptUIConfig.displayMonthAndYear && observation.uniqueId === 'observation_40'" ng-disabled="observation.disabled"
        ng-model="observation.value" ng-change="handleUpdate();onDateChange()"
        ng-class="{'is-abnormal': observation.abnormalObs.value, 'illegalValue': !observation.isValid(atLeastOneValueIsSet,conceptSetRequired), 'computed-field': observation.isComputedAndEditable()}"
        focus-me="::observation.isFocused" tabindex="1"/>

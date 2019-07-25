@@ -370,8 +370,11 @@ Bahmni.ConceptSet.Observation.prototype = {
     },
 
     toggleSelectionTreatmentState: function (answer) {
+        console.log(answer);
         if (answer) {
             this.value = answer;
+        } else {
+            this.value = null;
         }
     },
 
