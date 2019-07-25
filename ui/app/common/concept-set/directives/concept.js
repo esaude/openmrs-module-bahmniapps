@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.common.conceptSet')
-    .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService', '$rootScope',
-        function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService, $rootScope) {
+    .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService', '$rootScope', '$translate',
+        function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService, $rootScope, $translate) {
             var height, weight, brachialPerimeter, bmi, data, key, isValidHeight, treatmentStartDate, treatmentEndDate, answer, prophylaxisKey;
 
             var link = function (scope) {
