@@ -4,6 +4,7 @@ angular.module('bahmni.common.conceptSet')
     .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService', '$rootScope',
         function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService, $rootScope) {
             var height, weight, brachialPerimeter, bmi, data, key, isValidHeight, treatmentStartDate, treatmentEndDate, answer, prophylaxisKey;
+
             var link = function (scope) {
                 var dateUtil = Bahmni.Common.Util.DateUtil;
                 var patientUuid = scope.patient.uuid;
@@ -15,6 +16,7 @@ angular.module('bahmni.common.conceptSet')
                 var patientAgeMonths = scope.patient.ageMonths;
                 var deliveryDateResponse;
                 var isPatientPregnant;
+                var valueRangeMessage = $translate.instant("VALUE_RANGE_MESSAGE");
                 var ageToMonths = (patientAgeYears * 12) + patientAgeMonths;
                 var hideAbnormalbuttonConfig = scope.observation && scope.observation.conceptUIConfig && scope.observation.conceptUIConfig['hideAbnormalButton'];
                 var currentUrl = window.location.href;
@@ -75,40 +77,13 @@ angular.module('bahmni.common.conceptSet')
                     }
                 }
 
+                scope.nutritionalStateDisplay = $rootScope.nutritionalStatusObject || "CLINICAL_NO_NUTRITIONAL_STATUS";
+                scope.nutritionalState = $rootScope.nutritionalStatus;
                 scope.$watch('rootObservation', function (newValue, oldValue) {
-                    if ((oldValue != newValue) && !scope.observation.value) {
+                    if (oldValue != newValue) {
                         if (scope.patient.weight && scope.patient.height) {
                             bmi = (scope.patient.weight / (scope.patient.height * scope.patient.height)) * 10000;
                         }
-                        key = bmiCalculationService.getNutritionalStatusKey(patientAgeYears, bmi, gender, scope.patient.height, scope.patient.weight);
-
-                        data = _.filter(_.map(scope.rootObservation.groupMembers, function (currentObj) {
-                            if (currentObj.concept.name == 'Anthropometric') {
-                                return _.filter(_.map(currentObj.groupMembers, function (obj) {
-                                    if (obj.concept.name == 'Nutritional_States_new') {
-                                        return _.filter(_.map(obj.possibleAnswers, function (curObj) {
-                                            if (curObj.name.name == key) {
-                                                return curObj;
-                                            }
-                                        }));
-                                    }
-                                }));
-                            }
-                        }));
-
-                        _.map(scope.rootObservation.groupMembers, function (currentObj) {
-                            if (currentObj.concept.name == 'Anthropometric') {
-                                _.map(currentObj.groupMembers, function (obj) {
-                                    if (obj.concept.name == 'Nutritional_States_new') {
-                                        _.defer(function () {
-                                            scope.$apply(function () {
-                                                obj.value = data[0][0][0];
-                                            });
-                                        });
-                                    }
-                                });
-                            }
-                        });
 
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
                             if (currentObj.concept.name == 'Anthropometric') {
@@ -123,6 +98,37 @@ angular.module('bahmni.common.conceptSet')
                                 });
                             }
                         });
+                        if (!scope.observation.value) {
+                            key = bmiCalculationService.getNutritionalStatusKey(patientAgeYears, bmi, gender, scope.patient.height, scope.patient.weight) || scope.nutritionalState;
+
+                            data = _.filter(_.map(scope.rootObservation.groupMembers, function (currentObj) {
+                                if (currentObj.concept.name == 'Anthropometric') {
+                                    return _.filter(_.map(currentObj.groupMembers, function (obj) {
+                                        if (obj.concept.name == 'Nutritional_States_new') {
+                                            return _.filter(_.map(obj.possibleAnswers, function (curObj) {
+                                                if (curObj.name.name == key) {
+                                                    return curObj;
+                                                }
+                                            }));
+                                        }
+                                    }));
+                                }
+                            }));
+
+                            _.map(scope.rootObservation.groupMembers, function (currentObj) {
+                                if (currentObj.concept.name == 'Anthropometric') {
+                                    _.map(currentObj.groupMembers, function (obj) {
+                                        if (obj.concept.name == 'Nutritional_States_new') {
+                                            _.defer(function () {
+                                                scope.$apply(function () {
+                                                    obj.value = data[0][0][0];
+                                                });
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
                     }
                 });
 
@@ -258,6 +264,12 @@ angular.module('bahmni.common.conceptSet')
                                 }));
                             }
                         }));
+
+                        if (data[0].length == 0) {
+                            messagingService.showMessage("error", valueRangeMessage);
+                        } else {
+                            messagingService.clearAll();
+                        }
 
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
                             if (currentObj.concept.name == 'Nutritional_States_new') {
@@ -396,6 +408,7 @@ angular.module('bahmni.common.conceptSet')
                     conceptSetRequired: "=",
                     rootObservation: "=",
                     patient: "=",
+                    nutritionalStateDisplay: "&",
                     collapseInnerSections: "=",
                     rootConcept: "&",
                     hideAbnormalButton: "="

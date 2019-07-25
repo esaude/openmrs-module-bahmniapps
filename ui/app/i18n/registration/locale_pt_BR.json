@@ -132,6 +132,7 @@
     "FIRST_CLINICAL_CONSULTATION_A":"Primeira Consulta Clínica",
     "FOLLOWUP_CLINICAL_CONSULTATION":"Consulta Clinica",
     "FOLLOWUP_CLINICAL_CONSULTATION_A":"Clinica - Consulta de Seguimento",
+    "Patient_Start_Visit" :"Iniciar Consulta",
     "REGISTRATION_PERSONAL_INFORMATION":"Detalhes pessoais",
     "REGISTRATION_PROFESSIONAL_INFORMATION":"Informação profissional",
     "FATHER_NAME": "Nome do Pai",
@@ -158,7 +159,7 @@
     "REGISTRATION_NUMBERS_OLY": "Introduza números positivos apenas",
     "REGISTRATION_CHARACTER_OLY": "Introduza caracteres apenas",
     "REGISTRATION_CHARACTER_AND_NUMBERS_OLY": "Introduza números e/ou caracteres apenas",
-    "REGISTRATION_OCCUPATION_CHOICE": "Começa a digitar uma ocupação/profissão",
+    "REGISTRATION_OCCUPATION_CHOICE": "Introduza uma ocupação/profissão",
     "REGISTRATION_CHOOSE_AN_OPTION": "Selecione uma opção",
     "PATTERN_REGISTRATION_NUMBERS_ONLY": "Números positivos apenas",
     "PATTERN_REGISTRATION_CHARACTERS_ONLY": "Introduza caracteres apenas",
@@ -176,7 +177,7 @@
     "Observations":"Observações",
     "REGISTRATION_REQUIRED_INVALID_FIELD": "Preencha os campos correctamente.",
     "REGISTRATION_PLACEHOLDER_FOR_NID_SEQUENCIAL_CODE" : "Ex: 12345",
-    "REGISTRATION_PLACEHOLDER_FOR_NID_YEAR" : "YYYY",
+    "REGISTRATION_PLACEHOLDER_FOR_NID_YEAR" : "AAAA",
     "REGISTRATION_PLACEHOLDER_FOR_NID_HEALTHFACILITY_CODE" : "Ex: 12345678",
     "US_REG_DATE_MESSAGE" : "Digite uma data válida."
 }

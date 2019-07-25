@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="admin">
     <head>
         <meta charset="utf-8">
-        <title>Bahmni Admin</title>
+        <title>{{'ADMIN_APP_TITLE'|translate}}</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0, minimal-ui" />
         <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="../styles/home.css"/>
         <!-- endbuild -->
     </head>
-    <body ng-app="admin" class="admin-app">
+    <body class="admin-app">
         <div ng-include src="'../common/ui-helper/header.html'"></div>
         <div ng-include src="'../common/ui-helper/messages.html'"></div>
         <div class="opd-wrapper">
