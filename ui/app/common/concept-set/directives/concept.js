@@ -3,8 +3,10 @@
 angular.module('bahmni.common.conceptSet')
     .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService', '$rootScope', '$translate',
         function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService, $rootScope, $translate) {
-            var height, weight, brachialPerimeter, bmi, data, key, isValidHeight;
+            var height, weight, brachialPerimeter, bmi, data, key, isValidHeight, treatmentStartDate, treatmentEndDate, answer, prophylaxisKey;
+
             var link = function (scope) {
+                var dateUtil = Bahmni.Common.Util.DateUtil;
                 var patientUuid = scope.patient.uuid;
                 var dataSource = " ";
                 var eligibleForBP = false;
@@ -18,8 +20,40 @@ angular.module('bahmni.common.conceptSet')
                 var ageToMonths = (patientAgeYears * 12) + patientAgeMonths;
                 var hideAbnormalbuttonConfig = scope.observation && scope.observation.conceptUIConfig && scope.observation.conceptUIConfig['hideAbnormalButton'];
                 var currentUrl = window.location.href;
+                scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
+                scope.currentDate = $filter("date")(dateUtil.now(), 'yyyy-MM-dd');
                 weight = scope.patient.weight;
                 height = scope.patient.height;
+
+                scope.onDateChange = function () {
+                    if (scope.observation.concept.name === "SP_Treatment Start Date") {
+                        treatmentStartDate = scope.observation.value;
+                    }
+                    if (scope.observation.concept.name === "SP_Treatment End Date") {
+                        treatmentEndDate = scope.observation.value;
+                    }
+
+                    if (treatmentStartDate === '' || treatmentEndDate === '') {
+                        answer = null;
+                        $rootScope.observationData.toggleSelectionTreatmentState(answer);
+                    }
+                    if (treatmentStartDate === scope.today && treatmentStartDate !== '') {
+                        answer = prophylaxisKey[0];
+                        $rootScope.observationData.toggleSelectionTreatmentState(answer);
+                    }
+                    if ((treatmentStartDate < scope.today) && (scope.today < treatmentEndDate)) {
+                        answer = prophylaxisKey[1];
+                        $rootScope.observationData.toggleSelectionTreatmentState(answer);
+                    }
+                    if ((treatmentEndDate <= scope.today) && (treatmentEndDate >= treatmentStartDate) && (treatmentEndDate != '')) {
+                        answer = prophylaxisKey[2];
+                        $rootScope.observationData.toggleSelectionTreatmentState(answer);
+                    }
+                    if (treatmentStartDate > treatmentEndDate) {
+                        messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
+                    }
+                };
+
                 if (scope.observation !== null && scope.observation !== undefined && currentUrl.includes("registration")) {
                     scope.observation.value = "";
                 }
@@ -33,6 +67,13 @@ angular.module('bahmni.common.conceptSet')
 
                     if (scope.observation.concept.name === "BMI") {
                         scope.observation.disabled = true;
+                    }
+
+                    if (scope.conceptSetName === 'Group V-Screening / Prophylaxis') {
+                        if (scope.observation.concept.name === 'SP_Treatment State') {
+                            $rootScope.observationData = scope.observation;
+                            prophylaxisKey = scope.observation.possibleAnswers;
+                        }
                     }
                 }
 

@@ -427,10 +427,10 @@
   "MEDICATION_ERROR_ONE_OR_MORE": "O (s) medicamento (s) que pretende prescrever já estão activos. Por favor, altere a data de início do medicamento em conflito ou retire da nova prescrição",
   "MEDICATION_ERROR_CONFLICTING_WITH_DRUG_ORDER_YOU_CAN_REVISE": "está em conflito com o medicamento que pretende adicionar. Pode rever ou reabastecer.",
   "MEDICATION_ERROR_CONFLICTING_WITH_DRUG_ORDER_YOU_CAN_STOP": "está em conflito com o medicamento que pretende adicionar. Pode terminar a prescrição activa ou criar uma nova",
+  "MEDICATION_REVISE":"Rever",
+  "INVALID_TREATMENT_END_DATE": "DATA DO FIM DO TRATAMENTO não pode ser menor que DATA DO INÍCIO",
   "CLINICAL_NO_NUTRITIONAL_STATUS": "Nenhum estado nutricional disponivel",
   "VALUE_RANGE_MESSAGE": "Os valores introduzidos estão fora do intervalo",
-  "MEDICATION_REVISE":"Rever",
   "CLINICAL_APP_TITLE":"Clínico",
   "SERVICES_APP_TITLE": "Serviços"
-
 }
