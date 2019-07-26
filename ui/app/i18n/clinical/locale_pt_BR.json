@@ -392,7 +392,7 @@
   "ALLERGIES_LIST_ALREADY_EXISTS_AS_ACTIVE": " Alergias já existe como activa",
   "ALLERGIES_LIST_ALREADY_EXISTS": " Alergias já existe com o estado '{{status}}' na lista de condições ({{lastActive}})",
   "ALLERGIES_LIST_CONDITION": " Alergias",
-  "ALLERGIES_LIST_ALLERGIES_ACTIVE": " Alergias Activas",
+  "ALLERGIES_LIST_ALLERGIES_ACTIVE": " Alergias a medicamentos",
   "ALLERGIES_LIST_ALLERGIES_HISTORY_OF": "Historico de  Alergias",
   "ALLERGIES_LIST_ALLERGIES_INACTIVE": " Alergias Inactivas ",
   "ALLERGIES_LIST_CREATED_BY": "por",

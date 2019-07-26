@@ -80,33 +80,6 @@
                 <ng-include src="'consultation/views/allergiesRow.html'"/>
             </div>
         </div>
-        <div class="table new-diagnosis section-grid">
-            <div class="row table-header" toggle="toggles.expandInactive">
-                <div class="col col1">
-                <span>
-                    <i class="fa fa-caret-down" ng-show="toggles.expandInactive"></i>
-                    <i class="fa fa-caret-right" ng-hide="toggles.expandInactive"></i>
-                    {{'ALLERGIES_LIST_ALLERGIES_INACTIVE'|translate}}
-                </span>
-                </div>
-                <div class="col col2 notes-subscriber">
-                    <span class="subscriber-name"></span>
-                    <span>{{'ALLERGIES_LIST_NOTES'|translate}}</span>
-                </div>
-            </div>
-            <div ng-show="toggles.expandInactive">
-                <div class="row" ng-if="filterAllergies('INACTIVE').length == 0">
-                    <div class="col col1">
-                        <div class="diagnosis-name">
-                            {{'ALLERGIES_LIST_NO_ALLERGIES' | translate}}
-                        </div>
-                    </div>
-                </div>
-                <div ng-repeat="allergy in filterAllergies('INACTIVE')" class="table-body">
-                    <ng-include src="'consultation/views/allergiesRow.html'"/>
-                </div>
-            </div>
-        </div>
     </div>
  
 </div>
