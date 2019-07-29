@@ -324,7 +324,8 @@ Bahmni.Clinical.DrugOrderViewModel = function (config, proto, encounterDate) {
         }
     };
 
-    this.calculateDurationUnit = function () {
+    this.calculateDurationUnit = function (durationUnits) {
+        durationUnits = durationUnits || "Day(s)";
         if (self.frequencyType === Bahmni.Clinical.Constants.dosingTypes.uniform && self.uniformDosingType.frequency != null) {
             var defaultDurationUnitMap = inputOptionsConfig.frequencyDefaultDurationUnitsMap || [];
 
@@ -333,7 +334,7 @@ Bahmni.Clinical.DrugOrderViewModel = function (config, proto, encounterDate) {
                 var maxFrequency = eval(range.maxFrequency); // eslint-disable-line no-eval
                 if ((!minFrequency || minFrequency < getFrequencyPerDay()) &&
                     (!maxFrequency || getFrequencyPerDay() <= maxFrequency)) {
-                    self.durationUnit = range.defaultDurationUnit;
+                    self.durationUnit = durationUnits.length > 0 && durationUnits[0].name ? durationUnits[0].name : range.defaultDurationUnit;
                 }
             });
         }
