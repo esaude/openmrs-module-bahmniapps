@@ -27,6 +27,10 @@ angular.module('bahmni.common.conceptSet')
                     $scope.observation.disabled = true;
                 }
 
+                if ($scope.observation.concept.name == 'State_Prophylaxis') {
+                    $scope.observation.disabled = true;
+                }
+
                 $scope.select = function (answer) {
                     $scope.observation.toggleSelection(answer);
                     if ($scope.$parent.observation && typeof $scope.$parent.observation.onValueChanged == 'function') {

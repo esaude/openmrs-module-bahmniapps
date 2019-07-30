@@ -361,7 +361,6 @@ Bahmni.ConceptSet.Observation.prototype = {
     },
 
     toggleSelection: function (answer) {
-        console.log(answer);
         if (this.value && this.value.uuid === answer.uuid) {
             this.value = null;
         } else {
@@ -369,8 +368,15 @@ Bahmni.ConceptSet.Observation.prototype = {
         }
     },
 
-    toggleSelectionTreatmentState: function (answer) {
-        console.log(answer);
+    toggleSelectionTBState: function (answer) {
+        if (answer) {
+            this.value = answer;
+        } else {
+            this.value = null;
+        }
+    },
+
+    toggleSelectionProphylaxisState: function (answer) {
         if (answer) {
             this.value = answer;
         } else {
