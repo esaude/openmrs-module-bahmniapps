@@ -62,6 +62,10 @@ angular.module('bahmni.clinical')
                 return diagnosisService.getAllFor(params.term).then(mapConcept);
             };
 
+            $scope.getConditions = function (params) {
+                return diagnosisService.getAllConditionsFor(params.term).then(mapConcept);
+            };
+
             $scope.getAllergyDiagnosis = function (params) {
                 return diagnosisService.getAllForAllergy(params.term).then(mapConcept);
             };
