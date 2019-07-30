@@ -409,6 +409,5 @@
     "CLINICAL_NO_NUTRITIONAL_STATUS": "No Nutritional Status Available",
     "VALUE_RANGE_MESSAGE":"The value is out of range",
     "CLINICAL_APP_TITLE":"OPD",
-    "SERVICES_APP_TITLE": "Services",
-    "DURATION_UNIT": "Day(s)"
+    "SERVICES_APP_TITLE": "Services"
 }

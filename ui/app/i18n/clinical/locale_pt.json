@@ -432,6 +432,5 @@
   "CLINICAL_NO_NUTRITIONAL_STATUS": "Nenhum estado nutricional disponivel",
   "VALUE_RANGE_MESSAGE": "Os valores introduzidos estão fora do intervalo",
   "CLINICAL_APP_TITLE":"Clínico",
-  "SERVICES_APP_TITLE": "Serviços",
-  "DURATION_UNIT" : "Dia (s)"
+  "SERVICES_APP_TITLE": "Serviços"
 }
