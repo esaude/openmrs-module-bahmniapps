@@ -16,9 +16,23 @@
                                 class="asterick">*</span> </label>
                     </div>
                     <div class="field-value">
-                        <select ng-init="catAnswers('medication_category')" id="cat-dropdown" class="fl"
-                            ng-model="catAnswer" ng-change="selectCatFromDropdown(catAnswer)" ng-click=""
-                            ng-options="item.display for item in catResult" required>
+                        <select ng-init="initConceptMapping()" id="cat-dropdown" class="fl"
+                            ng-model="selectedCategory" ng-change="selectCategoryFromDropdown()" ng-click=""
+                            ng-options="item.display for item in categories" required>
+                            <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+                        </select>
+                    </div>
+                </article>
+
+                <article class="form-field fl">
+                    <div class="field-attribute">
+                        <label class="fl unit-text"> {{::'MEDICATION_ADD_DRUG_LINE' | translate}} <span
+                                class="asterick">*</span> </label>
+                    </div>
+                    <div class="field-value">
+                        <select id="line-dropdown" class="fl"
+                                ng-model="selectedTreatmentLine" ng-disabled="disableTreatmentLine"
+                                ng-options="item.display for item in treatmentLines" required>
                             <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
                         </select>
                     </div>
@@ -40,9 +54,8 @@
                         <div ng-if="treatmentConfig.isAutoComplete()">
                             <input id="drug-name" type="text" bahmni-autocomplete focus-on="startNewDrugEntry"
                                 source="getDrugs" response-map="getDataResults" ng-required="!treatment.drugNameDisplay"
-                                ng-class="{
-                                active: treatment.isNonCodedDrug
-                           }" ng-change="onChange()" ng-model="treatment.drugNameDisplay" on-select="onSelect"
+                                ng-class="{active: treatment.isNonCodedDrug}"
+                                   ng-change="onChange()" ng-model="treatment.drugNameDisplay" on-select="onSelect"
                                 autofocus ng-disabled="treatment.previousOrderUuid"
                                 ng-readonly="treatment.isBeingEdited" />
 
@@ -56,20 +69,6 @@
                                 </button>
                             </span>
                         </div>
-                    </div>
-                </article>
-
-                <article class="form-field">
-                    <div class="field-attribute">
-                        <label class="fl unit-text"> {{::'MEDICATION_ADD_DRUG_LINE' | translate}} <span
-                                class="asterick">*</span> </label>
-                    </div>
-                    <div class="field-value">
-                        <select id="line-dropdown" class="fl"
-                                ng-model="lineAnswer" ng-change="selectLine(lineAnswer)" ng-disabled="!treatmentLine"
-                                ng-options="item.display for item in lineResult" required>
-                            <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
-                        </select>
                     </div>
                 </article>
 
@@ -339,7 +338,7 @@
                             ng-model="treatment.additionalInstructions" />
                         </div>
                     </article>
-    
+
                     <div class="operations fr clearfix">
                         <button class="add-drug-btn secondary-button fl" type="submit" accesskey="{{ ::treatmentConfig.translate('addAccessKey', 'MEDICATION_ADD_ACCESS_KEY') }}"
                                 ng-disabled="!treatment.drug.uuid && !treatment.concept.uuid && treatment.drugNameDisplay && !treatment.isNonCodedDrug">
@@ -351,7 +350,7 @@
                         </button>
                     </div>
                     <div class="drug-options-wrapper clearfix">
-    
+
                     </div>
                     <div class="drug-options-wrapper" ng-if="treatmentActionLinks.length > 0">
                         <button ng-repeat="extension in treatmentActionLinks" type="button" class="form-field secondary-button"
@@ -379,7 +378,7 @@
                                ng-model-options="{debounce:200}"
                                ng-change="getFilteredOrderSets(newOrderSet.searchQuery)()" ng-disabled="isSearchDisabled"/>
                     </div>
-    
+
                     <div class="field-attribute">
                         <label>{{'MEDICATION_LABEL_START_DATE'|translate}}</label>
                     </div>
