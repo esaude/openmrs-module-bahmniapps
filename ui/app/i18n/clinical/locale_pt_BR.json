@@ -369,6 +369,7 @@
   "CLINICAL_ORDER_URGENT_TITLE": "Urgente",
   "SPECIAL_OPD": "Consulta Retrospectiva",
   "Special OPD": "Consulta Retrospectiva",
+  "Patient_Start_Visit" :"Iniciar Consulta",
   "NO_VITALS_MESSAGE": "Nenhum dado registado para este paciente",
   "ENCOUNTER_APSS_FIRST": "APSS - Primeira Consulta",
   "ENCOUNTER_APSS_FOLLOWUP": "APSS - Consulta de Seguimento",
