@@ -15,7 +15,7 @@ angular.module('bahmni.clinical')
                     sex: '',
                     weight: '',
                     patientId: '',
-                    address : ''
+                    address: ''
                 },
                 tbComorbidity: '',
                 tarvNumber: '',
@@ -33,42 +33,33 @@ angular.module('bahmni.clinical')
             this.getReportModel = function (_patientUuid, _isTARVReport) {
                 patientUuid = _patientUuid;
                 isTARVReport = _isTARVReport;
-                
                 return new Promise(function (resolve, reject) {
-                   
-                        var p1 = populatePatientDemographics();
-                        var p2 = populatePatientWeightAndHeight();
-                      
-                        var p4 = populateLocationAndDrugOrders(0);
-                        var p5 = populateHospitalNameAndLogo();
-
-                        Promise.all([p1,p2,p4,p5]).then(function () {
-                            resolve(reportModel);
-                        }).catch(function (error) {
-                            reject(error);
-                        });
+                    var p1 = populatePatientDemographics();
+                    var p2 = populatePatientWeightAndHeight();
+                    var p4 = populateLocationAndDrugOrders(0);
+                    var p5 = populateHospitalNameAndLogo();
+                    Promise.all([p1, p2, p4, p5]).then(function () {
+                        resolve(reportModel);
                     }).catch(function (error) {
                         reject(error);
                     });
-              
+                }).catch(function (error) {
+                    reject(error);
+                });
             };
 
-           
             var drugConceptIsARV = function (drugConceptUuid) {
-               
                 return arvConceptUuids.includes(drugConceptUuid);
             };
 
             var populatePatientDemographics = function () {
-                        var add2 = "";
-                        var add3 = "";
-                        var cityVillage = "";
+                var add2 = "";
+                var add3 = "";
+                var cityVillage = "";
                 return new Promise(function (resolve, reject) {
                     patientService.getPatient(patientUuid).then(function (response) {
-                        
                         var patientMapper = new Bahmni.PatientMapper($rootScope.patientConfig, $rootScope, $translate);
                         var patient = patientMapper.map(response.data);
-                       
                         reportModel.patientInfo.firstName = patient.givenName;
                         reportModel.patientInfo.lastName = patient.familyName;
                         reportModel.patientInfo.sex = patient.gender;
@@ -90,18 +81,13 @@ angular.module('bahmni.clinical')
                     });
                 });
             };
-
-           
-
             var populatePatientWeightAndHeight = function () {
                 return new Promise(function (resolve, reject) {
                     var patientWeightConceptName = 'Weight';
                     var patientHeightConceptName = 'Height';
-                    observationsService.fetch(patientUuid, [patientWeightConceptName,patientHeightConceptName]).then(function (response) {
+                    observationsService.fetch(patientUuid, [patientWeightConceptName, patientHeightConceptName]).then(function (response) {
                         if (response.data && response.data.length > 0) {
-                         
                             reportModel.patientInfo.weight = response.data[0].value;
-                         
                         }
                         resolve();
                     }).catch(function (error) {
@@ -111,21 +97,17 @@ angular.module('bahmni.clinical')
             };
 
             var populateDrugOrders = function (visitUuid) {
-                    return new Promise(function (resolve, reject) {
+                return new Promise(function (resolve, reject) {
                     treatmentService.getPrescribedDrugOrders(patientUuid, true).then(function (response) {
                         var currentVisitOrders = response.filter(function (order) {
-                           
-                                
-                                return order.visit.uuid === visitUuid && !drugConceptIsARV(order.concept.uuid);
-                           
+                            return order.visit.uuid === visitUuid && !drugConceptIsARV(order.concept.uuid);
                         });
                         if (currentVisitOrders.length <= 0) {
                             count = count + 1;
-                            populateLocationAndDrugOrders(count)
+                            populateLocationAndDrugOrders(count);
                         }
                         reportModel.orders = [];
                         currentVisitOrders.forEach(function (order) {
-                           
                             var drug = order.drugNonCoded;
                             if (order.drug) {
                                 drug = order.drug.name;
@@ -145,13 +127,12 @@ angular.module('bahmni.clinical')
                                 duration: order.duration,
                                 route: order.dosingInstructions.route,
                                 durationUnit: order.durationUnits,
-                                quantity : order.dosingInstructions.quantity,
-                                provider : order.provider.name,
-                                strength : order.drug.strength,
+                                quantity: order.dosingInstructions.quantity,
+                                provider: order.provider.name,
+                                strength: order.drug.strength,
                                 startDate: moment(order.scheduledDate).format('DD/MM/YYYY'),
                                 instructions: instructions
                             };
-
                             reportModel.orders.push(newOrder);
                             reportModel.prescriber = order.provider.name;
                             reportModel.prescriptionDate = moment(order.dateActivated).format('DD/MM/YYYY');
@@ -167,10 +148,8 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     patientVisitHistoryService.getVisitHistory(patientUuid, null).then(function (response) {
                         if (response.visits && response.visits.length > 0) {
-                         
                             reportModel.location = response.visits[lastVisit].location.display;
                             populateDrugOrders(response.visits[lastVisit].uuid);
-                          
                         }
                         resolve();
                     }).catch(function (error) {
@@ -190,7 +169,4 @@ angular.module('bahmni.clinical')
                     });
                 });
             };
-
-            
-
         }]);

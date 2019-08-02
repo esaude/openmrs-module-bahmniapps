@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('bahmni.clinical')
     .directive('prescriptionReport', function () {
         var controller = function ($scope) {

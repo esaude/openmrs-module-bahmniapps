@@ -29,18 +29,18 @@ angular.module('bahmni.common.uiHelper')
         return {
             restrict: 'A',
             template: '<div class="split-button" bm-pop-over>' +
-                        '<button bm-pop-over-trigger class="toggle-buttonNew fa fa-caret-down" ng-show="::hasMultipleOptions()" ng-click="scrollToBottom()" ng-disabled="optionDisabled" type="button style="color:"black"></button>'  +
-                        '<ul class="options">' +
-                            '<li>' +
-                                '<button class="buttonClass" ng-click="optionClick()(primaryOption)" accesskey="{{::primaryOption.shortcutKey}}" ng-disabled="optionDisabled" ng-bind-html="::optionText()(primaryOption,\'primary\') | translate "></button>' +
-                            '</li>' +
-                            '<ul class="hidden-optionsNew">' +
-                            '<li bm-pop-over-target ng-repeat="option in ::secondaryOptions" class="secondaryOptionNew">' +
-                                '<button class="buttonClass" ng-click="optionClick()(option)" accesskey="{{::option.shortcutKey}}" ng-disabled="optionDisabled" ng-bind-html="::optionText()(option) | translate"></button>' +
-                            '</li>' +
-                            '</ul>' +
-                        '</ul>' +
-                      '</div>',
+                '<button bm-pop-over-trigger class="toggle-buttonNew fa fa-caret-down" ng-show="::hasMultipleOptions()" ng-click="scrollToBottom()" ng-disabled="optionDisabled" type="button style="color:"black"></button>' +
+                '<ul class="options">' +
+                '<li>' +
+                '<button class="buttonClass" ng-click="optionClick()(primaryOption)" accesskey="{{::primaryOption.shortcutKey}}" ng-disabled="optionDisabled" ng-bind-html="::optionText()(primaryOption,\'primary\') | translate "></button>' +
+                '</li>' +
+                '<ul class="hidden-optionsNew">' +
+                '<li bm-pop-over-target ng-repeat="option in ::secondaryOptions" class="secondaryOptionNew">' +
+                '<button class="buttonClass" ng-click="optionClick()(option)" accesskey="{{::option.shortcutKey}}" ng-disabled="optionDisabled" ng-bind-html="::optionText()(option) | translate"></button>' +
+                '</li>' +
+                '</ul>' +
+                '</ul>' +
+                '</div>',
             controller: controller,
             link: link,
             scope: {
