@@ -4,7 +4,7 @@ angular.module('bahmni.common.displaycontrol.allergiesList', []);
 angular.module('bahmni.common.displaycontrol.allergiesList')
     .directive('allergiesList', ['allergiesService', 'ngDialog', function (allergiesService, ngDialog) {
         var controller = function ($scope) {
-            $scope.statuses = ['ACTIVE', 'INACTIVE'];
+            $scope.statuses = ['ACTIVE'];
 
             $scope.openSummaryDialog = function () {
                 ngDialog.open({
@@ -13,7 +13,7 @@ angular.module('bahmni.common.displaycontrol.allergiesList')
                     data: {allergies: $scope.allergies},
                     controller: function ($scope) {
                         $scope.hideTitle = true;
-                        $scope.statuses = ['ACTIVE', 'INACTIVE'];
+                        $scope.statuses = ['ACTIVE'];
                         $scope.allergies = $scope.ngDialogData.allergies;
                     }
                 });

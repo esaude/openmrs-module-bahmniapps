@@ -3,13 +3,25 @@
 angular.module('bahmni.clinical')
     .controller('AddTreatmentController', ['$scope', '$rootScope', 'contextChangeHandler', 'treatmentConfig', 'drugService',
         '$timeout', 'clinicalAppConfigService', 'ngDialog', '$window', 'messagingService', 'appService', 'activeDrugOrders',
-        'orderSetService', '$q', 'locationService', 'spinner', '$translate',
+        'orderSetService', '$q', 'locationService', 'localeService', 'spinner', '$translate',
         function ($scope, $rootScope, contextChangeHandler, treatmentConfig, drugService, $timeout,
                   clinicalAppConfigService, ngDialog, $window, messagingService, appService, activeDrugOrders,
-                  orderSetService, $q, locationService, spinner, $translate) {
+                  orderSetService, $q, locationService, localeService, spinner, $translate) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var DrugOrderViewModel = Bahmni.Clinical.DrugOrderViewModel;
             var scrollTop = _.partial($window.scrollTo, 0, 0);
+
+            var defaultLocale = "en";
+            localeService.defaultLocale().then(function (response) {
+                defaultLocale = response.data;
+                $scope.treatment.durationUnit = defaultLocale === "pt" ? "Dia (s)" : "Day(s)";
+                treatmentConfig.durationUnits.forEach(function (durationUnit) {
+                    if (_.isEqual(durationUnit, $scope.treatment.durationUnit)) {
+                        $scope.treatment.durationUnit = durationUnit;
+                    }
+                });
+                return response.data;
+            });
 
             $scope.showOrderSetDetails = true;
             $scope.addTreatment = true;
@@ -120,9 +132,9 @@ angular.module('bahmni.clinical')
                     $scope.treatment.durationUnit = durationUnit;
                 }
             });
-
             var watchFunctionForQuantity = function () {
                 var treatment = $scope.treatment;
+                treatment.durationUnit = defaultLocale === "pt" ? "Dia (s)" : "Day(s)";
                 return {
                     uniformDosingType: treatment.uniformDosingType,
                     variableDosingType: treatment.variableDosingType,
