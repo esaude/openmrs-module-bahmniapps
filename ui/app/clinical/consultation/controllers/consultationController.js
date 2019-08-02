@@ -4,13 +4,11 @@ angular.module('bahmni.clinical').controller('ConsultationController',
     ['$scope', '$rootScope', '$state', '$location', '$translate', 'clinicalAppConfigService', 'diagnosisService', 'urlHelper', 'contextChangeHandler',
         'spinner', 'encounterService', 'messagingService', 'sessionService', 'retrospectiveEntryService', 'patientContext', '$q',
         'patientVisitHistoryService', '$stateParams', '$window', 'visitHistory', 'clinicalDashboardConfig', 'appService',
-        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService',
-        'providerTypeService',
+        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService','printer', 'printPrescriptionReportService','providerTypeService',
         function ($scope, $rootScope, $state, $location, $translate, clinicalAppConfigService, diagnosisService, urlHelper, contextChangeHandler,
                   spinner, encounterService, messagingService, sessionService, retrospectiveEntryService, patientContext, $q,
                   patientVisitHistoryService, $stateParams, $window, visitHistory, clinicalDashboardConfig, appService,
-                  ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService,
-                  providerTypeService) {
+                  ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService,providerTypeService) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var getPreviousActiveCondition = Bahmni.Common.Domain.Conditions.getPreviousActiveCondition;
             var currentProviderType;
@@ -62,15 +60,53 @@ angular.module('bahmni.clinical').controller('ConsultationController',
             };
 
             _.each(visitConfig.tabs, setVisitTabPrintAction);
+
             _.each(clinicalDashboardConfig.tabs, setDashboardPrintAction);
             $scope.printList = _.concat(clinicalDashboardConfig.tabs, visitConfig.tabs);
 
             clinicalDashboardConfig.quickPrints = appService.getAppDescriptor().getConfigValue('quickPrints');
+            
+           /*
             $scope.printDashboard = function (tab) {
                 if (tab) {
                     tab.print();
                 } else {
                     clinicalDashboardConfig.currentTab.print();
+                }
+            };*/
+
+            var clinicalDashboardUuid = '0623e3b6-8701-4c07-8493-2930bd67f11a';
+            var prescriptionReportUuid = '2c6c27b0-3eef-4010-bfbb-9133d0016d25';
+            //var tarvPrescriptionReportUuid = '31f15798-9983-4066-9b06-6868e1ba7210';
+
+            $scope.printButtonDropdownOptions = [
+                {name: $translate.instant('PRINT_CLINICAL_DASHBOARD_LABEL'), uuid: clinicalDashboardUuid},
+                {name: $translate.instant('PRESCRIPTION_REPORT_PRINT_PRESCRIPTION_LABEL'), uuid: prescriptionReportUuid}
+                // {name: $translate.instant('PRESCRIPTION_REPORT_PRINT_TARV_PRESCRIPTION_LABEL'), uuid: tarvPrescriptionReportUuid}
+            ];
+
+            $scope.optionText = function (value) {
+                return value.name;
+            };
+
+            $scope.printDashboardOrPrescription = function (option) {
+             
+                if (option.uuid === clinicalDashboardUuid) {
+                    clinicalDashboardConfig.currentTab.print();
+                } else {
+                    if (option.uuid === prescriptionReportUuid) {
+                        $rootScope.isTarvReport = false;
+                    }
+                    //  else if (option.uuid === tarvPrescriptionReportUuid) {
+                    //     $rootScope.isTarvReport = true;
+                    // }
+
+                    printPrescriptionReportService.getReportModel($stateParams.patientUuid, $rootScope.isTarvReport)
+                    .then(function (reportData) {
+                        $rootScope.prescriptionReportData = reportData;
+                        //console.log($rootScope.prescriptionReportData);
+                        printer.printFromScope("dashboard/views/printPrescriptionReport.html", $rootScope, function () { });
+                    });
                 }
             };
 
@@ -504,7 +540,6 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                         });
                 }));
             };
-
             $scope.filterTabByProviderType = function (boardIndex) {
                 if (currentProviderType == "APSS") {
                     if ($scope.availableBoards[boardIndex].translationKey == 'DIAGNOSIS_BOARD_LABEL_KEY'
@@ -516,6 +551,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 }
                 return true;
             };
+
 
             initialize();
         }]);
