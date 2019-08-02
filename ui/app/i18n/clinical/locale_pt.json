@@ -433,7 +433,6 @@
   "VALUE_RANGE_MESSAGE": "Os valores introduzidos estão fora do intervalo",
   "CLINICAL_APP_TITLE":"Clínico",
   "SERVICES_APP_TITLE": "Serviços",
-  
   "PRESCRIPTION_REPORT_GENERIC_NAME": "Nome genérico",
   "PRESCRIPTION_REPORT_DOSAGE": "Dosagem",
   "PRESCRIPTION_REPORT_PRESCRIBED": "Prescritor",
@@ -459,5 +458,6 @@
     "CLINICAL_PRINT_DASHBOARD_TRANSLATION_KEY" : "Imprimir painel",
     "CLINICAL_PRINT_PRESCRIPTION_TRANSLATION_KEY" : "Prescrição de impressão",
     "PRINT_CLINICAL_DASHBOARD_LABEL": "Imprimir Todos",
-    "PRESCRIPTION_REPORT_PRINT_PRESCRIPTION_LABEL": "Imprimir Prescrição"
+    "PRESCRIPTION_REPORT_PRINT_PRESCRIPTION_LABEL": "Imprimir Prescrição",
+  "CLINICAL_PATIENT_STATUS": "Activo em"
 }
