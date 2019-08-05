@@ -32,8 +32,7 @@ angular.module('bahmni.clinical')
                 'CONDITION_LIST_HISTORY_OF': 'HISTORY_OF'
             };
             $scope.allergiesStatuses = {
-                'ALLERGIES_LIST_ACTIVE': 'ACTIVE',
-                'ALLERGIES_LIST_INACTIVE': 'INACTIVE'
+                'ALLERGIES_LIST_ACTIVE': 'ACTIVE'
             };
             $scope.consultation.followUpConditions = $scope.consultation.followUpConditions || [];
             $scope.consultation.followUpAllergies = $scope.consultation.followUpAllergies || [];
