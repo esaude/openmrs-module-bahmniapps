@@ -53,6 +53,7 @@ angular.module('bahmni.clinical')
             };
 
             var populatePatientDemographics = function () {
+                var add1 = "";
                 var add2 = "";
                 var add3 = "";
                 var cityVillage = "";
@@ -65,6 +66,9 @@ angular.module('bahmni.clinical')
                         reportModel.patientInfo.sex = patient.gender;
                         reportModel.patientInfo.age = patient.age;
                         reportModel.patientInfo.patientId = patient.identifier;
+                        if (patient.address.address1 != null) {
+                            add1 = patient.address.address1 + ", ";
+                        }
                         if (patient.address.address2 != null) {
                             add2 = patient.address.address2 + ", ";
                         }
@@ -74,7 +78,7 @@ angular.module('bahmni.clinical')
                         if (patient.address.cityVillage != null) {
                             cityVillage = patient.address.cityVillage + ", ";
                         }
-                        reportModel.patientInfo.address = patient.address.address1 + ", " + add2 + add3 + patient.address.cityVillage + patient.address.stateProvince;
+                        reportModel.patientInfo.address = add1 + add2 + add3 + cityVillage + patient.address.stateProvince;
                         resolve();
                     }).catch(function (error) {
                         reject(error);
