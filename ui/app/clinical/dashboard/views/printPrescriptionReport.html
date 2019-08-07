@@ -1,14 +1,8 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="../styles/clinicalPrint.css" media="print" />
     <style>
-        .ver-rot {
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            color: white;
-        }
-
+       
         table,
         th,
         td {
@@ -22,21 +16,23 @@
             text-align: left;
         }
 
-        .lftcss {
-            height: min-content;
-        }
-
         td.td_box1 {
             position: relative;
-            width: 15%;
+            width: 16%;
             line-height: 2;
         }
 
         td.td_box2 {
             position: relative;
-            width: 75%;
+            width: 64%;
             line-height: 2;
         }
+        td.td_box1 {
+            position: relative;
+            width: 20%;
+            line-height: 2;
+        }
+
         tr.abc {
     position: relative;
     display: flex;
@@ -57,6 +53,32 @@ td.td_box5 {
 td.cng {
     width: 100%;
 }
+
+@media print {
+    .hi {
+        background-color: #000 !important;
+        -webkit-print-color-adjust: exact; 
+        width: 15px;
+        height: 100%;
+    }
+
+    .ver-rot {
+            writing-mode: vertical-rl;
+            -webkit-writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            color: white;
+        }
+
+        .mainName{
+            font-weight: bold ;
+            text-align: center;
+            font-size: 20px;
+            background-color :rgb(149, 218, 172) !important;
+            -webkit-print-color-adjust: exact;
+        }
+    
+
+}
     </style>
 </head>
 
@@ -72,12 +94,12 @@ td.cng {
                     <div style="border :1px solid black; padding: 5px">
                         <table style="width: 100%">
                             <tr>
-                                <td rowspan="4" style="width: 15x; background-color:black" class="lftcss">
-                                    <div class="ver-rot prescribe-report-label">CMAM-Modelo 06</div>
+                                <td rowspan="4" class="hi">
+                                    <div class="ver-rot">CMAM<span>&#8208;</span>Modelo&nbsp;06</div>
                                 </td>
 
                                 <td colspan="9"
-                                    style="font-weight: bold ;text-align: center;font-size: 20px;background-color :rgb(149, 218, 172)">
+                                    class="mainName">
                                     <span
                                         class="prescribe-report-label">{{ 'PRESCRIPTION_REPORT_NATIONAL_HEALTH_SERVICE' | translate }}</span>
                                 </td>
