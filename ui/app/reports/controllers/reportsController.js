@@ -29,7 +29,7 @@ angular.module('bahmni.reports')
 
         var validateReport = function (report) {
             if (!report.responseType) {
-                messagingService.showMessage("error", "Select format for the report: " + report.name);
+                messagingService.showMessage("error", "Seleccione o formato do relatório: " + report.name);
                 return false;
             }
             if (report.responseType === 'application/vnd.ms-excel-custom' && !report.reportTemplateLocation) {
