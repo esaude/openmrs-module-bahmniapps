@@ -77,10 +77,6 @@
 
     </form>
 
-    <div class="warning-message">
-        <span ng-if="warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{warning}}</span>
-        <p>{{warningMessage | translate :timeZoneObject}} </p>
-    </div>
 
     <div ng-show="bottomLogos" class="bottom-logos-wrapper">
         <img ng-repeat="logo in bottomLogos" id="bottom-logos-image" src={{logo}}>

@@ -157,6 +157,10 @@ angular.module('consultation')
                     'dashboard-content': {
                         templateUrl: 'dashboard/views/dashboard.html',
                         controller: 'PatientDashboardController'
+                    },
+                    'print-prescription': {
+                        templateUrl: 'dashboard/views/printPrescriptionReport.html',
+                        controller: 'PrintPrescriptionReportController'
                     }
                 }
             })

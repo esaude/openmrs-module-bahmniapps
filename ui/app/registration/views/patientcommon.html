@@ -45,7 +45,7 @@
 
                         <input data-ng-switch-default type="text" name="givenName" id="givenName" ng-model="patient.givenName" non-blank
                                pattern-validate placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
-                               focus-me="true" ng-pattern="regexCharacters"
+                               ng-pattern="regexCharacters"
                                ng-change="checkDuplicatePatients()" required field-validation="::fieldValidation"
                                ng-class="{'illegalValue' : submitted && this.myForms.myForm.givenName.$invalid || this.myForms.myForm.givenName.$error.pattern || (this.myForms.myForm.givenName.$error.required && !this.myForms.myForm.givenName.$pristine)}">
                         <p class="help-block" ng-show="this.myForms.myForm.givenName.$error.pattern">{{::'PATTERN_REGISTRATION_CHARACTERS_ONLY' | translate}}</p>
