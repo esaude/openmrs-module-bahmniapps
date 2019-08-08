@@ -241,6 +241,7 @@
   "NO_SPECIMEN_FOUND_MESSAGE": "Nenhuma amostra para este paciente",
   "NO_SPECIMEN_RESULT_FOUND_MESSAGE": "Nenhum resultado encontrado para esta amostra",
   "NO_TREATMENTS_MESSAGE": "Nenhum tratamento para este paciente.",
+  "NO_POSITIVE_PREVENTION_WITH_YES_MESSAGE": "Nenhuma resposta com sim",
   "NOTES_LABEL": "Notas",
   "OBS_ABNORMAL_TRANSLATE_KEY": "Anormal",
   "OBS_BOOLEAN_NO_KEY": "Não",
