@@ -3,8 +3,10 @@
 angular.module('bahmni.common.conceptSet')
     .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService', '$rootScope', '$translate',
         function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService, $rootScope, $translate) {
-            var height, weight, brachialPerimeter, bmi, data, key, isValidHeight;
+            var height, weight, brachialPerimeter, bmi, data, key, isValidHeight, startDateProphylaxis, enDateProphylaxis, treatmentStartDate, treatmentEndDate, answer, tuberculosisData, prophylaxisData;
+
             var link = function (scope) {
+                var dateUtil = Bahmni.Common.Util.DateUtil;
                 var patientUuid = scope.patient.uuid;
                 var dataSource = " ";
                 var eligibleForBP = false;
@@ -18,8 +20,64 @@ angular.module('bahmni.common.conceptSet')
                 var ageToMonths = (patientAgeYears * 12) + patientAgeMonths;
                 var hideAbnormalbuttonConfig = scope.observation && scope.observation.conceptUIConfig && scope.observation.conceptUIConfig['hideAbnormalButton'];
                 var currentUrl = window.location.href;
+                scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
+                scope.currentDate = $filter("date")(dateUtil.now(), 'yyyy-MM-dd');
                 weight = scope.patient.weight;
                 height = scope.patient.height;
+
+                scope.onDateChange = function () {
+                    if (scope.observation.concept.name === "SP_Treatment Start Date") {
+                        treatmentStartDate = scope.observation.value;
+                    }
+                    if (scope.observation.concept.name === "SP_Treatment End Date") {
+                        treatmentEndDate = scope.observation.value;
+                    }
+                    if (scope.observation.concept.name === "Start Date_Prophylaxis") {
+                        startDateProphylaxis = scope.observation.value;
+                    }
+                    if (scope.observation.concept.name === "End Date") {
+                        enDateProphylaxis = scope.observation.value;
+                    }
+
+                    if (treatmentStartDate === '' || treatmentEndDate === '') {
+                        answer = null;
+                        $rootScope.observationData.toggleSelectionTBState(answer);
+                    }
+                    if (treatmentStartDate === scope.today && treatmentStartDate !== '') {
+                        answer = tuberculosisData[0];
+                        $rootScope.observationData.toggleSelectionTBState(answer);
+                    }
+                    if ((treatmentStartDate < scope.today) && (scope.today < treatmentEndDate)) {
+                        answer = tuberculosisData[1];
+                        $rootScope.observationData.toggleSelectionTBState(answer);
+                    }
+                    if ((treatmentEndDate <= scope.today) && (treatmentEndDate >= treatmentStartDate) && (treatmentEndDate != '')) {
+                        answer = tuberculosisData[2];
+                        $rootScope.observationData.toggleSelectionTBState(answer);
+                    }
+
+                    if (startDateProphylaxis === '' || enDateProphylaxis === '') {
+                        answer = null;
+                        $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                    }
+                    if (startDateProphylaxis === scope.today && startDateProphylaxis !== '') {
+                        answer = prophylaxisData[0];
+                        $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                    }
+                    if ((startDateProphylaxis < scope.today) && (scope.today < enDateProphylaxis)) {
+                        answer = prophylaxisData[1];
+                        $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                    }
+                    if ((enDateProphylaxis <= scope.today) && (enDateProphylaxis >= startDateProphylaxis) && (enDateProphylaxis != '')) {
+                        answer = prophylaxisData[2];
+                        $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                    }
+
+                    if (treatmentStartDate > treatmentEndDate || startDateProphylaxis > enDateProphylaxis) {
+                        messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
+                    }
+                };
+
                 if (scope.observation !== null && scope.observation !== undefined && currentUrl.includes("registration")) {
                     scope.observation.value = "";
                 }
@@ -33,6 +91,18 @@ angular.module('bahmni.common.conceptSet')
 
                     if (scope.observation.concept.name === "BMI") {
                         scope.observation.disabled = true;
+                    }
+
+                    if (scope.conceptSetName === 'Group V-Screening / Prophylaxis') {
+                        if (scope.observation.concept.name === 'SP_Treatment State') {
+                            $rootScope.observationData = scope.observation;
+                            tuberculosisData = scope.observation.possibleAnswers;
+                        }
+
+                        if (scope.observation.concept.name === 'INH_Details' || scope.observation.concept.name === 'CTZ_Details' || scope.observation.concept.name === 'Fluconazol_Details') {
+                            $rootScope.prophylaxisObservationData = scope.observation.groupMembers[1];
+                            prophylaxisData = $rootScope.prophylaxisObservationData.possibleAnswers;
+                        }
                     }
                 }
 
