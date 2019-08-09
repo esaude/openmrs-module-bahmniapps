@@ -24,7 +24,7 @@
 
 <input id="{{::observation.uniqueId}}" ng-if="::(observation.isNumeric() && !observation.isStepperControl() && observation.concept.name !== 'WEIGHT' && observation.concept.name !== 'HEIGHT' && observation.concept.name !== 'Brachial_perimeter_new')"
        obs-constraints obs="::observation"
-       ng-model="observation.value" ng-change="handleUpdate()"
+       ng-model="observation.value" ng-change="handleUpdate();onVitalSignalChange()"
        ng-disabled="observation.disabled"
        ng-class="{'is-abnormal': observation.abnormalObs.value, 'illegalValue': !observation.isValid(atLeastOneValueIsSet,conceptSetRequired), 'computed-field': observation.isComputedAndEditable()}"
        type="number"

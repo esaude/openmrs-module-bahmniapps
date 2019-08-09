@@ -78,6 +78,45 @@ angular.module('bahmni.common.conceptSet')
                     }
                 };
 
+
+                scope.onVitalSignalChange = function () {
+                    if (scope.observation.concept.name === 'Blood_Pressure_–_Diastolic_VSNew') {
+                        var bloodPressureDiastolic = scope.observation.value;
+                        if (bloodPressureDiastolic <= 80 || bloodPressureDiastolic === undefined) {
+                            scope.hideAbnormalButton = true;
+                        } else {
+                            scope.hideAbnormalButton = false;
+                        }
+                    }
+
+                    if (scope.observation.concept.name === 'Blood_Pressure_–_Systolic_VitalS') {
+                        var bloodPressureSystolic = scope.observation.value;
+                        if (bloodPressureSystolic <= 120 || bloodPressureSystolic === undefined) {
+                            scope.hideAbnormalButton = true;
+                        } else {
+                            scope.hideAbnormalButton = false;
+                        }
+                    }
+
+                    if (scope.observation.concept.name === 'Heart_Rate_VS_VitalsNew') {
+                        var heartRate = scope.observation.value;
+                        if ((heartRate >= 60 && heartRate <= 100) || heartRate === undefined) {
+                            scope.hideAbnormalButton = true;
+                        } else {
+                            scope.hideAbnormalButton = false;
+                        }
+                    }
+
+                    if (scope.observation.concept.name === 'Temperature_VS1') {
+                        var temperature = scope.observation.value;
+                        if ((temperature >= 36.5 && temperature <= 37.5)  || temperature === undefined) {
+                            scope.hideAbnormalButton = true;
+                        } else {
+                            scope.hideAbnormalButton = false;
+                        }
+                    }
+                };
+
                 if (scope.observation !== null && scope.observation !== undefined && currentUrl.includes("registration")) {
                     scope.observation.value = "";
                 }
@@ -104,6 +143,45 @@ angular.module('bahmni.common.conceptSet')
                             prophylaxisData = $rootScope.prophylaxisObservationData.possibleAnswers;
                         }
                     }
+                    
+                    if (scope.conceptSetName === 'Clinical_Observation_form') {
+                        if (scope.observation.concept.name === 'Blood_Pressure_–_Diastolic_VSNew') {
+                            var bloodPressureDiastolic = scope.observation.value;
+                            console.log(bloodPressureDiastolic);
+                            if (bloodPressureDiastolic <= 80 || bloodPressureDiastolic === undefined) {
+                                scope.hideAbnormalButton = true;
+                            } else {
+                                scope.hideAbnormalButton = false;
+                            }
+                        }
+
+                        if (scope.observation.concept.name === 'Blood_Pressure_–_Systolic_VitalS') {
+                            var bloodPressureSystolic = scope.observation.value;
+                            if (bloodPressureSystolic <= 120 || bloodPressureSystolic === undefined) {
+                                scope.hideAbnormalButton = true;
+                            } else {
+                                scope.hideAbnormalButton = false;
+                            }
+                        }
+
+                        if (scope.observation.concept.name === 'Heart_Rate_VS_VitalsNew') {
+                            var heartRate = scope.observation.value;
+                            if ((heartRate >= 60 && heartRate <= 100) || heartRate === undefined) {
+                                scope.hideAbnormalButton = true;
+                            } else {
+                                scope.hideAbnormalButton = false;
+                            }
+                        }
+
+                        if (scope.observation.concept.name === 'Temperature_VS1') {
+                            var temperature = scope.observation.value;
+                            if ((temperature >= 36.5 && temperature <= 37.5)  || temperature === undefined) {
+                                scope.hideAbnormalButton = true;
+                            } else {
+                                scope.hideAbnormalButton = false;
+                            }
+                        }
+                    } 
                 }
 
                 scope.nutritionalStateDisplay = $rootScope.nutritionalStatusObject || "CLINICAL_NO_NUTRITIONAL_STATUS";
