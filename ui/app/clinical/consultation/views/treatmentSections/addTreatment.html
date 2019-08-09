@@ -16,7 +16,7 @@
                                 class="asterick">*</span> </label>
                     </div>
                     <div class="field-value">
-                        <select ng-init="initConceptMapping()" id="cat-dropdown" class="fl"
+                        <select ng-init="fetchCategories('medication_category')" id="cat-dropdown" class="fl"
                             ng-model="selectedCategory" ng-change="selectCategoryFromDropdown()" ng-click=""
                             ng-options="item.display for item in categories" required>
                             <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
@@ -52,7 +52,7 @@
                             </option>
                         </select>
                         <div ng-if="treatmentConfig.isAutoComplete()">
-                            <input id="drug-name" type="text" bahmni-autocomplete focus-on="startNewDrugEntry"
+                            <input id="drug-name" type="text" bahmni-autocomplete focus-on="startNewDrugEntry" ng-disabled="disableTreatmentLine"
                                 source="getDrugs" response-map="getDataResults" ng-required="!treatment.drugNameDisplay"
                                 ng-class="{active: treatment.isNonCodedDrug}"
                                    ng-change="onChange()" ng-model="treatment.drugNameDisplay" on-select="onSelect"

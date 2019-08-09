@@ -622,8 +622,13 @@ angular.module('bahmni.clinical')
                 treatment.isBeingEdited = false;
             };
 
-            $scope.getDrugsFromTreatmentLine = function () {
-                var conceptName = $scope.selectedTreatmentLine.name;
+            $scope.getDrugsFromTreatmentLineOrCategory = function () {
+                var conceptName = "";
+                if( $scope.selectedTreatmentLine !== undefined && $scope.selectedTreatmentLine !== ""){
+                    conceptName =  $scope.selectedTreatmentLine.name;
+                }else if ($scope.selectedCategory !== undefined && $scope.selectedCategory !== "") {
+                    conceptName =  $scope.selectedCategory.name;
+                }
                 return conceptSetService.getConcept({
                     name: conceptName,
                     v: "custom:(answers:(uuid,name,names))"
@@ -638,8 +643,8 @@ angular.module('bahmni.clinical')
 
             $scope.getDataResults = function (drugs) {
                 var searchString = $scope.treatment.drugNameDisplay;
-                if ($scope.selectedTreatmentLine !== "") {
-                    $scope.getDrugsFromTreatmentLine();
+                if ($scope.selectedCategory !== "" && $scope.selectedCategory !== undefined) {
+                    $scope.getDrugsFromTreatmentLineOrCategory();
                     var auxiliarDrugsList = [];
                     $scope.drugResultUuid = [];
                     $scope.selectedLineDrugs.forEach(function (element) {
@@ -673,7 +678,7 @@ angular.module('bahmni.clinical')
             (function () {
                 var selectedItem;
                 $scope.onSelect = function (item) {
-                    $scope.fillFieldsInReverse(item);
+                   // $scope.fillFieldsInReverse(item);
                     selectedItem = item;
                     $scope.onChange();
                 };
