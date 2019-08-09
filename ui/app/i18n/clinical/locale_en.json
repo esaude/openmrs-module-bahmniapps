@@ -13,6 +13,7 @@
     "NO_SPECIMEN_FOUND_MESSAGE":"No specimen for this patient",
     "NO_DATA_MESSAGE": "No data captured.",
     "NO_DRUG_DETAILS_MESSAGE": "No Drugs to show for this patient",
+    "NO_POSITIVE_PREVENTION_WITH_YES_MESSAGE": "No answers with yes",
     "DOB_LABEL": "Date of Birth",
     "ALL_LAB_RESULTS_LABEL": "All Lab Results",
     "ACCESSION_AT_LABEL": "Accession at",
