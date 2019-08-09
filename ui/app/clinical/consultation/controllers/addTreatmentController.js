@@ -624,10 +624,10 @@ angular.module('bahmni.clinical')
 
             $scope.getDrugsFromTreatmentLineOrCategory = function () {
                 var conceptName = "";
-                if( $scope.selectedTreatmentLine !== undefined && $scope.selectedTreatmentLine !== ""){
-                    conceptName =  $scope.selectedTreatmentLine.name;
-                }else if ($scope.selectedCategory !== undefined && $scope.selectedCategory !== "") {
-                    conceptName =  $scope.selectedCategory.name;
+                if ($scope.selectedTreatmentLine !== undefined && $scope.selectedTreatmentLine !== "") {
+                    conceptName = $scope.selectedTreatmentLine.name;
+                } else if ($scope.selectedCategory !== undefined && $scope.selectedCategory !== "") {
+                    conceptName = $scope.selectedCategory.name;
                 }
                 return conceptSetService.getConcept({
                     name: conceptName,
