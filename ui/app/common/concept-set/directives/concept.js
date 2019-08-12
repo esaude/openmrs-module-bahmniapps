@@ -78,7 +78,6 @@ angular.module('bahmni.common.conceptSet')
                     }
                 };
 
-
                 scope.onVitalSignalChange = function () {
                     if (scope.observation.concept.name === 'Blood_Pressure_–_Diastolic_VSNew') {
                         var bloodPressureDiastolic = scope.observation.value;
@@ -109,7 +108,7 @@ angular.module('bahmni.common.conceptSet')
 
                     if (scope.observation.concept.name === 'Temperature_VS1') {
                         var temperature = scope.observation.value;
-                        if ((temperature >= 36.5 && temperature <= 37.5)  || temperature === undefined) {
+                        if ((temperature >= 36.5 && temperature <= 37.5) || temperature === undefined) {
                             scope.hideAbnormalButton = true;
                         } else {
                             scope.hideAbnormalButton = false;
@@ -143,7 +142,7 @@ angular.module('bahmni.common.conceptSet')
                             prophylaxisData = $rootScope.prophylaxisObservationData.possibleAnswers;
                         }
                     }
-                    
+
                     if (scope.conceptSetName === 'Clinical_Observation_form') {
                         if (scope.observation.concept.name === 'Blood_Pressure_–_Diastolic_VSNew') {
                             var bloodPressureDiastolic = scope.observation.value;
@@ -175,13 +174,13 @@ angular.module('bahmni.common.conceptSet')
 
                         if (scope.observation.concept.name === 'Temperature_VS1') {
                             var temperature = scope.observation.value;
-                            if ((temperature >= 36.5 && temperature <= 37.5)  || temperature === undefined) {
+                            if ((temperature >= 36.5 && temperature <= 37.5) || temperature === undefined) {
                                 scope.hideAbnormalButton = true;
                             } else {
                                 scope.hideAbnormalButton = false;
                             }
                         }
-                    } 
+                    }
                 }
 
                 scope.nutritionalStateDisplay = $rootScope.nutritionalStatusObject || "CLINICAL_NO_NUTRITIONAL_STATUS";
