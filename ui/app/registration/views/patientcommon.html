@@ -496,65 +496,65 @@
         </div>
     </div>
 
-    <div ng-show="patient.uuid!==undefined" ng-repeat="section in ::patientConfiguration.getOrderedPatientAttributesSections()"
-         class="additional-info-wrapper" ng-if="section.title!='patientHIVTestInformation' &&  section.title!='patientContactInformation'
-         &&  section.title!='patientProfessionInformation'">
+    <!--<div ng-show="patient.uuid!==undefined" ng-repeat="section in ::patientConfiguration.getOrderedPatientAttributesSections()"-->
+         <!--class="additional-info-wrapper" ng-if="section.title!='patientHIVTestInformation' &&  section.title!='patientContactInformation'-->
+         <!--&&  section.title!='patientProfessionInformation'">-->
 
 
-        <div>
-            <div class="box-container form">
-                <legend class="additional-attribute" toggle="section.expand">
-                    <span>
-                        <i class="fa fa-caret-right"></i>
-                        <i class="fa fa-caret-down"></i>
-                        <strong>
-                            <a ng-if="::section.translationKey" href accesskey="{{::section.shortcutKey | translate}}"
-                               ng-bind-html="::'REGISTRATION_TRANSFER_OUT_INFO_KEY' | translate">
-                            </a>
-                        </strong>
-                    </span>
-                </legend>
+        <!--<div>-->
+            <!--<div class="box-container form">-->
+                <!--<legend class="additional-attribute" toggle="section.expand">-->
+                    <!--<span>-->
+                        <!--<i class="fa fa-caret-right"></i>-->
+                        <!--<i class="fa fa-caret-down"></i>-->
+                        <!--<strong>-->
+                            <!--<a ng-if="::section.translationKey" href accesskey="{{::section.shortcutKey | translate}}"-->
+                               <!--ng-bind-html="::'REGISTRATION_TRANSFER_OUT_INFO_KEY' | translate">-->
+                            <!--</a>-->
+                        <!--</strong>-->
+                    <!--</span>-->
+                <!--</legend>-->
 
-                <section class="form-field-inline clearfix">
-                    <article class="form-field" ng-repeat="attribute in ::section.attributes"
-                             ng-class="::{'right-form-field' : $index%2 != 0}">
-                        <attribute-types target-model="patient" attribute="::attribute"
-                                         field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
-                                         get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
-                                         is-read-only="isReadOnly" handle-update="handleUpdate" ng-if="attribute.name !== 'PATIENT_STATUS' && attribute.name !== 'TRANSFERRED_OUT_HF_NAME'"></attribute-types>
-                    </article>
+                <!--<section class="form-field-inline clearfix">-->
+                    <!--<article class="form-field" ng-repeat="attribute in ::section.attributes"-->
+                             <!--ng-class="::{'right-form-field' : $index%2 != 0}">-->
+                        <!--<attribute-types target-model="patient" attribute="::attribute"-->
+                                         <!--field-validation="::fieldValidation" is-auto-complete="isAutoComplete"-->
+                                         <!--get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"-->
+                                         <!--is-read-only="isReadOnly" handle-update="handleUpdate" ng-if="attribute.name !== 'PATIENT_STATUS' && attribute.name !== 'TRANSFERRED_OUT_HF_NAME'"></attribute-types>-->
+                    <!--</article>-->
 
-                    <section ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">
-                        <article class="form-field" ng-repeat="attribute in ::attributeRow"
-                                 ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'Is_Transferred_Out'">
-                            <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                                             is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
-                                             get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate" update-location-required="updateLocationRequired">
-                            </attribute-types>
-                        </article>
+                    <!--<section ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">-->
+                        <!--<article class="form-field" ng-repeat="attribute in ::attributeRow"-->
+                                 <!--ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name == 'Is_Transferred_Out'">-->
+                            <!--<attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"-->
+                                             <!--is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"-->
+                                             <!--get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate" update-location-required="updateLocationRequired">-->
+                            <!--</attribute-types>-->
+                        <!--</article>-->
 
-                        <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if="attribute.name == 'Transfer_Date'"
-                                 ng-class="::{'right-form-field' : $index%2 != 0}">
-                            <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                                             is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
-                                             get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
-                        </article>
+                        <!--<article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if="attribute.name == 'Transfer_Date'"-->
+                                 <!--ng-class="::{'right-form-field' : $index%2 != 0}">-->
+                            <!--<attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"-->
+                                             <!--is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"-->
+                                             <!--get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>-->
+                        <!--</article>-->
 
-                        <article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if="attribute.name == 'Observations'"
-                                 ng-class="::{'right-form-field' : $index%2 != 0}">
-                            <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
-                                             is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
-                                             get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
-                        </article>
+                        <!--<article class="form-field" ng-repeat="attribute in ::attributeRow" ng-if="attribute.name == 'Observations'"-->
+                                 <!--ng-class="::{'right-form-field' : $index%2 != 0}">-->
+                            <!--<attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"-->
+                                             <!--is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"-->
+                                             <!--get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>-->
+                        <!--</article>-->
 
-                    </section>
-                    <section transfer-Out-Address-Fields data-address-levels="::addressLevels" data-address="patient.address"
-                             field-validation="::fieldValidation" ng-if="::addressHierarchyConfigs.showAddressFieldsTopDown"
-                             strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel"></section>
-                </section>
-            </div>
-        </div>
-    </div>
+                    <!--</section>-->
+                    <!--<section transfer-Out-Address-Fields data-address-levels="::addressLevels" data-address="patient.address"-->
+                             <!--field-validation="::fieldValidation" ng-if="::addressHierarchyConfigs.showAddressFieldsTopDown"-->
+                             <!--strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel"></section>-->
+                <!--</section>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <div ng-repeat="section in ::patientConfiguration.getOrderedPatientAttributesSections()"
          class="additional-info-wrapper" ng-if="section.title=='patientHIVTestInformation'">
