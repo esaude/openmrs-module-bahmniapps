@@ -167,6 +167,8 @@
     "MEDICATION_STOPPED_ON": "Stopped on",
     "MEDICATION_DUE_TO": "due to",
     "MEDICATIONN_FROM": "from",
+    "MEDICATION_LABEL_DISPENSATION_TYPE" : "Type of Dispense",
+    "MEDICATION_DISPENSATION_TYPE_PLACEHOLDER" : "Choose Dispensation Type",
 
     "REMOVE_CONFIRMATION_KEY": "Are you sure you want to remove?",
     "CLEAR_CONFIRMATION_KEY": "Are you sure you want to clear?",
