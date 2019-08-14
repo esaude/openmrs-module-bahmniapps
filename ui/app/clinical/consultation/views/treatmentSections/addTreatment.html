@@ -7,6 +7,37 @@
         <div class="order-section-container"  ng-show="addTreatment">
             <div class="Order-section-orderDrug clearfix">
                 <form name="addForm" ng-class="{ 'show-invalid': formInvalid}"  ng-submit="add()" bm-form class="edit-drug-order-container" novalidate>
+
+
+                    <article class="form-field fl">
+                        <div class="field-attribute">
+                            <label class="fl unit-text"> {{::'MEDICATION_ADD_DRUG_CATEGORY' | translate}} <span
+                                    class="asterick">*</span> </label>
+                        </div>
+                        <div class="field-value">
+                            <select ng-init="fetchCategories('medication_category')" id="cat-dropdown" class="fl"
+                                    ng-model="selectedCategory" ng-change="selectCategoryFromDropdown()" ng-click=""
+                                    ng-options="item.display for item in categories" required>
+                                <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+                            </select>
+                        </div>
+                    </article>
+
+                    <article class="form-field fl">
+                        <div class="field-attribute">
+                            <label class="fl unit-text"> {{::'MEDICATION_ADD_DRUG_LINE' | translate}} <span
+                                    class="asterick">*</span> </label>
+                        </div>
+                        <div class="field-value">
+                            <select id="line-dropdown" class="fl"
+                                    ng-model="selectedTreatmentLine" ng-disabled="disableTreatmentLine"
+                                    ng-options="item.display for item in treatmentLines" required>
+                                <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+                            </select>
+                        </div>
+                    </article>
+
+
                     <article class="form-field">
                         <div class="field-attribute">
                             <label>{{::treatmentConfig.translate('drugName','MEDICATION_DRUG_NAME_TITLE')}} <span class="asterick">*</span></label>
@@ -17,7 +48,7 @@
                                 <option value="">{{ ::treatmentConfig.translate('drugNamePlaceHolder', 'MEDICATION_DRUG_NAME_PLACEHOLDER') }} </option>
                             </select>
                             <div ng-if="treatmentConfig.isAutoComplete()">
-                                <input id="drug-name" type="text" bahmni-autocomplete focus-on="startNewDrugEntry"
+                                <input id="drug-name" type="text" bahmni-autocomplete focus-on="startNewDrugEntry" ng-disabled="disableTreatmentLine"
                                        source="getDrugs" response-map="getDataResults" ng-required="!treatment.drugNameDisplay"
                                        ng-class="{
                                 active: treatment.isNonCodedDrug
