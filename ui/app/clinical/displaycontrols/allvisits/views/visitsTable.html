@@ -6,12 +6,12 @@
         {{::params.translationKey|translate}}
     </h2>
 
-    <div ng-repeat="visit in ::visits | limitTo:3">
+    <div ng-repeat="(key, visit) in ::visits | limitTo:3">
         <p class="placeholder-text" ng-if="!hasVisits()">{{::noVisitsMessage}}</p>
         <table class="visits dashboard-table" id="visitDisplayTable" ng-if="::hasVisits()">
             <tbody>
                 <td class="name" width="30%">
-                    <a class="visit" ng-click="openVisit(visit)">
+                    <a class="visit" ng-click="openVisit(key)">
                         <span>{{::visit.startDatetime | bahmniDate}}</span>
                         <span ng-if="::!visit.isActive()">- {{::visit.stopDatetime | bahmniDate }}</span>
                         <i class="fa fa-star current-visit-icon" id="currentVisitIcon" ng-if="::visit.isActive()"
