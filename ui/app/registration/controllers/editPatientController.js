@@ -192,9 +192,10 @@ angular.module('bahmni.registration')
             })();
 
             $scope.update = function () {
+                console.log($scope.patient);
                 if ($scope.patient['PATIENT_STATE'] == 'INACTIVE_TRANSFERRED_OUT') {
                     if ($scope.patient['TRANSFERENCE_HF_NAME']) {
-                        $scope.patient['PATIENT_STATE'] = 'ACTIVE';
+                        $scope.patient['PATIENT_STATE'] = $scope.patient['PATIENT_ACTIVE_STATE'];
                         $scope.patient['PATIENT_STATE_CHANGE'] = '';
                     }
                 }
