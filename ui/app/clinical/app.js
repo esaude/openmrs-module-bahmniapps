@@ -347,6 +347,9 @@ angular.module('consultation')
                 resolve: {
                     visitSummary: function (visitSummaryInitialization, $stateParams) {
                         return visitSummaryInitialization($stateParams.visitUuid);
+                    },
+                    visitHistory: function (visitHistoryInitialization, $stateParams) {
+                        return visitHistoryInitialization($stateParams.patientUuid);
                     }
                 }
             })
