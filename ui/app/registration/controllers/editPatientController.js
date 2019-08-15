@@ -197,6 +197,11 @@ angular.module('bahmni.registration')
                     if ($scope.patient['TRANSFERENCE_HF_NAME']) {
                         $scope.patient['PATIENT_STATE'] = $scope.patient['PATIENT_ACTIVE_STATE'];
                         $scope.patient['PATIENT_STATE_CHANGE'] = '';
+                        $scope.patient['TRANSFER_OUT_DISTRICT'] = '';
+                        $scope.patient['TRANSFER_OUT_NAME'] = '';
+                        $scope.patient['TRANSFER_OUT_PROVINCE'] = '';
+                        $scope.patient['Transfer_Date'] = '';
+                        $scope.patient['Observations'] = '';
                     }
                 }
                 addNewRelationships();
