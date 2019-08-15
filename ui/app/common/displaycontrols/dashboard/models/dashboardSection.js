@@ -18,7 +18,8 @@
         "pacsOrders",
         "patientInformation",
         "conditionsList",
-        "allergiesList"
+        "allergiesList",
+        "treatmentDate"
     ];
 
     var getViewUrl = function (section) {

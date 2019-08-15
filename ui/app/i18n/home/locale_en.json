@@ -59,5 +59,6 @@
     "ACCEPT":"Accept",
     "SELECT_VALUE_FROM_AUTOCOMPLETE_DEFAULT_MESSAGE": "Please select a value from auto complete",
     "POC_VERSION" : "2.0.0",
-    "HOME_APP_TITLE": "Home"
+    "HOME_APP_TITLE": "Home",
+    "TREATMENT_START_DATE": "Data Início TARV"
 }
