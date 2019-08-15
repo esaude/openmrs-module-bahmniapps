@@ -47,7 +47,7 @@ angular.module('bahmni.common.conceptSet')
                         answer = tuberculosisData[0];
                         $rootScope.observationData.toggleSelectionTBState(answer);
                     }
-                    if ((treatmentStartDate < scope.today) && (scope.today < treatmentEndDate)) {
+                    if ((treatmentStartDate < scope.today) && (scope.today < treatmentEndDate || treatmentEndDate === undefined)) {
                         answer = tuberculosisData[1];
                         $rootScope.observationData.toggleSelectionTBState(answer);
                     }
@@ -64,7 +64,7 @@ angular.module('bahmni.common.conceptSet')
                         answer = prophylaxisData[0];
                         $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                     }
-                    if ((startDateProphylaxis < scope.today) && (scope.today < enDateProphylaxis)) {
+                    if ((startDateProphylaxis < scope.today) && (scope.today < enDateProphylaxis || enDateProphylaxis === undefined)) {
                         answer = prophylaxisData[1];
                         $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                     }
