@@ -100,7 +100,7 @@ angular.module('bahmni.clinical').factory('treatmentConfig',
                     showAdditionalInformation: function () {
                         var additionalInformationFields = ["sos", "additionalInstructions", "dosingInstructions"];
                         var hiddenAdditionalInformationFields = _.intersection(additionalInformationFields, drugOrderOptions.hiddenFields);
-                        return hiddenAdditionalInformationFields.length < additionalInformationFields.length;
+                        return false;
                     },
                     translate: function (field, defaultKey) {
                         var labelKey = drugOrderOptions.labels[field];

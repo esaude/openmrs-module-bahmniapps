@@ -435,10 +435,13 @@
                     </div>
                     <div class="form-field form-field-group" ng-repeat="member in observation.groupMembers"
                          ng-if="!(member.hidden || member.hide)" ng-class="{'image-upload-wrapper': member.concept.name == 'Image'}">
-                        <concept collapse-inner-sections="collapseInnerSections" observation="member"
-                                 root-observation="observation" at-least-one-value-is-set="atLeastOneValueIsSet"
-                                 patient="::patient" show-title="::true"
-                                 concept-set-required="conceptSetRequired" concept-set-name="::conceptSetName" hide-abnormal-button="hideAbnormalButton"></concept>
+                         <div ng-if="member.concept.name != 'Apss_Disclosure_Diagnosis_results_child_adolescent' || (member.concept.name === 'Apss_Disclosure_Diagnosis_results_child_adolescent' && (patient.age >=8 && patient.age <=14))">
+                            <concept collapse-inner-sections="collapseInnerSections" observation="member"
+                                root-observation="observation" at-least-one-value-is-set="atLeastOneValueIsSet"
+                                patient="::patient" show-title="::true"
+                                concept-set-required="conceptSetRequired" concept-set-name="::conceptSetName" hide-abnormal-button="hideAbnormalButton">
+                            </concept>
+                        </div>
                     </div>
                 </div>
             </div>

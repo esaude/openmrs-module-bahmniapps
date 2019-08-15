@@ -240,12 +240,12 @@
                     </article>
                     <article class="form-field" ng-if="!treatmentConfig.isHiddenField('dosingInstructions')">
                         <div class="field-attribute">
-                            <label  class="start-date-label fl">{{::treatmentConfig.translate('dosingInstructions', 'MEDICATION_LABEL_DOSING_INSTRUCTIONS')}}</label>
+                            <label  class="start-date-label fl">{{::treatmentConfig.translate('dosingInstructions', 'MEDICATION_LABEL_DISPENSATION_TYPE')}}<span class="asterick">*</span></label>
                         </div>
                         <div class="field-value">
                             <select id="instructions" class="instruction" ng-model="treatment.instructions"
-                                    ng-options="item.name as item.name for item in treatmentConfig.getDosingInstructions()">
-                                <option value="">{{::treatmentConfig.translate('dosingInstructionsPlaceHolder', 'MEDICATION_DOSING_INSTRUCTIONS_PLACEHOLDER')}}</option>
+                                    ng-options="item.name as item.name for item in treatmentConfig.getDosingInstructions()" required>
+                                <option value="">{{::treatmentConfig.translate('dosingInstructionsPlaceHolder', 'MEDICATION_DISPENSATION_TYPE_PLACEHOLDER')}}</option>
                             </select>
                         </div>
                     </article>
