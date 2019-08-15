@@ -170,7 +170,7 @@
     "REGISTRATION_DUPLICATE_ENTRY_ERROR": "O NID introduzido está sendo usando por um outro paciente.",
     "BMI STATUS": "Estado Nutricional",
     "BMI": "IMC",
-    "REGISTRATION_TRANSFER_OUT_INFO_KEY": "Transferido Para",
+    "REGISTRATION_STATE_INFO_KEY": "Estado de Permanência",
     "REGISTRATION_TRANSFER_OUT_HF_NAME_INFO":"Unidade Sanitária de Destino",
     "Is_Transferred_Out":"Transferir Para",
     "Transfer_Date":"Data de Transferência",
@@ -179,5 +179,11 @@
     "REGISTRATION_PLACEHOLDER_FOR_NID_SEQUENCIAL_CODE" : "Ex: 12345",
     "REGISTRATION_PLACEHOLDER_FOR_NID_YEAR" : "AAAA",
     "REGISTRATION_PLACEHOLDER_FOR_NID_HEALTHFACILITY_CODE" : "Ex: 12345678",
-    "US_REG_DATE_MESSAGE" : "Digite uma data válida."
+    "US_REG_DATE_MESSAGE" : "Digite uma data válida.",
+    "PATIENT_STATE_CHANGE": "Mudança de Estado",
+    "DATE_OF_DEATH":"Data de Óbito",
+    "CAUSE_OF_DEATH": "Causa de Óbito",
+    "DEATH_OBSERVATIONS": "Observações",
+    "DATE_OF_SUSPENSION": "Data de Suspenso",
+    "SUSPENSION_OBSERVATIONS": "Observação"
 }

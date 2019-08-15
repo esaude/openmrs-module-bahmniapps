@@ -9,6 +9,7 @@ Bahmni.Registration.PatientConfig = (function () {
         if (!this.attributeRows && this.attributeTypes) {
             if (!patientInformation) {
                 this.attributeRows = this.splitAsRows(this.attributeTypes);
+
                 return;
             }
 

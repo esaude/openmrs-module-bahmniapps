@@ -12,6 +12,9 @@ angular.module('bahmni.clinical')
                     if (patientInfo[i].attributeType.display === 'PATIENT_STATUS') {
                         $scope.patientStatus = patientInfo[i].display;
                     }
+                    if (patientInfo[i].attributeType.display === 'PATIENT_STATE') {
+                        $scope.patientState = patientInfo[i].value;
+                    }
                 }
             });
 

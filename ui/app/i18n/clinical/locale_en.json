@@ -454,5 +454,8 @@
     "PRESCRIPTION_REPORT_AMOUNT_CHARGED" :"Amount Charged",
     "CLINICAL_PRINT_DASHBOARD_TRANSLATION_KEY" : "Print Dashboard",
     "CLINICAL_PRINT_PRESCRIPTION_TRANSLATION_KEY" : "Print Prescription",
-    "CLINICAL_PATIENT_STATUS": "Active in:"
+    "CLINICAL_PATIENT_STATUS": "Active in:",
+    "INACTIVE_TRANSFERRED_OUT": "Inactive Transferred-out",
+    "INACTIVE_SUSPENDED": "Inactive Patient Suspension ",
+    "INACTIVE_DEATH": "Inactive Death"
 }
