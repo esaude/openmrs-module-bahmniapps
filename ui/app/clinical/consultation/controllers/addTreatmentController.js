@@ -3,7 +3,7 @@
 angular.module('bahmni.clinical')
     .controller('AddTreatmentController', ['$scope', '$rootScope', 'contextChangeHandler', 'treatmentConfig', 'drugService',
         '$timeout', 'clinicalAppConfigService', 'ngDialog', '$window', 'messagingService', 'appService', 'activeDrugOrders',
-        'orderSetService', '$q', 'locationService', 'localeService', 'spinner', '$translate','conceptSetService',
+        'orderSetService', '$q', 'locationService', 'localeService', 'spinner', '$translate', 'conceptSetService',
         function ($scope, $rootScope, contextChangeHandler, treatmentConfig, drugService, $timeout,
                   clinicalAppConfigService, ngDialog, $window, messagingService, appService, activeDrugOrders,
                   orderSetService, $q, locationService, localeService, spinner, $translate, conceptSetService) {
@@ -34,7 +34,6 @@ angular.module('bahmni.clinical')
             $scope.disableTreatmentLine = true;
             $scope.suggestedDruglist = [];
             $scope.counter = 0;
-
 
             $scope.fetchCategories = function (conceptName) {
                 return conceptSetService.getConcept({
@@ -80,7 +79,6 @@ angular.module('bahmni.clinical')
                 });
             };
 
-
             $scope.getDrugsFromTreatmentLineOrCategory = function () {
                 var conceptName = "";
                 if ($scope.selectedTreatmentLine !== undefined && $scope.selectedTreatmentLine !== "") {
@@ -94,13 +92,13 @@ angular.module('bahmni.clinical')
                 }, true).then(function (response) {
                     var resp = response.data.results[0].answers;
                     for (var i = 0; i < resp.length; i++) {
-                        $scope.selectedLineDrugs.push(resp[i].names[0]);
+                        var respons = resp[i].names[0];
+                        respons.uuid = resp[i].uuid;
+                        $scope.selectedLineDrugs.push(respons);
                     }
                     return $scope.selectedLineDrugs;
                 });
             };
-
-
 
             $scope.getFilteredOrderSets = function (searchTerm) {
                 if (searchTerm && searchTerm.length >= 3) {
@@ -572,16 +570,13 @@ angular.module('bahmni.clinical')
                 treatment.isBeingEdited = false;
             };
 
-
             $scope.getDataResults = function (drugs) {
-                if ($scope.counter == 0){
-               var allDrugs = _.map(drugs, function (drug) {
+                var searchString = $scope.treatment.drugNameDisplay;
+                var allDrugs = _.map(drugs, function (drug) {
                     return Bahmni.Clinical.DrugSearchResult.getAllMatchingSynonyms(drug, "");
                 });
-               $scope.suggestedDruglist =_.flatten(allDrugs);
-                }
+                $scope.suggestedDruglist = _.flatten(allDrugs);
                 $scope.counter ++;
-                var searchString = $scope.treatment.drugNameDisplay;
                 if ($scope.selectedCategory !== "" && $scope.selectedCategory !== undefined) {
                     $scope.getDrugsFromTreatmentLineOrCategory();
                     var auxiliarDrugsList = [];
@@ -605,18 +600,18 @@ angular.module('bahmni.clinical')
                 }
             };
 
-
             (function () {
                 var selectedItem;
                 $scope.onSelect = function (item) {
-                    if($scope.selectedCategory !== ""){
-                    console.log($scope.suggestedDruglist);
-                    for(let i = 0; i < $scope.suggestedDruglist.length; i++){
-                        if(item.name === $scope.suggestedDruglist[i].drug.name){
-                            selectedItem = $scope.suggestedDruglist[i];
+                    console.log(item);
+                    if ($scope.selectedCategory !== "") {
+                        console.log($scope.suggestedDruglist);
+                        for (let i = 0; i < $scope.suggestedDruglist.length; i++) {
+                            if (item.uuid === $scope.suggestedDruglist[i].drug.concept.uuid) {
+                                selectedItem = $scope.suggestedDruglist[i];
+                            }
                         }
-                    }
-                    }else{
+                    } else {
                         selectedItem = item;
                     }
                     $scope.onChange();
