@@ -9,6 +9,12 @@ angular.module('bahmni.clinical')
             patientService.getPatient($scope.patient.uuid).then(function (response) {
                 var patientInfo = response.data.person.attributes;
                 for (var i = 0; i < patientInfo.length; i++) {
+                    if (patientInfo[i].attributeType.display === 'PATIENT_ACTIVE_STATE') {
+                        $scope.patientState = patientInfo[i].value;
+                    }
+                }
+
+                for (var i = 0; i < patientInfo.length; i++) {
                     if (patientInfo[i].attributeType.display === 'PATIENT_STATUS') {
                         $scope.patientStatus = patientInfo[i].display;
                     }

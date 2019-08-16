@@ -185,5 +185,8 @@
     "CAUSE_OF_DEATH": "Causa de Óbito",
     "DEATH_OBSERVATIONS": "Observações",
     "DATE_OF_SUSPENSION": "Data de Suspenso",
-    "SUSPENSION_OBSERVATIONS": "Observação"
+    "SUSPENSION_OBSERVATIONS": "Observação",
+    "Patient_Transferred_Out":"Transferir Para",
+    "Inactive_Death":"Inactive Óbito",
+    "Patient_Suspension": "Suspensão"
 }
