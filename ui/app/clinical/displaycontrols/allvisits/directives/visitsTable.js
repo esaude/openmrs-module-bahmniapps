@@ -7,7 +7,8 @@ angular.module('bahmni.clinical')
                 var emitNoDataPresentEvent = function () {
                     $scope.$emit("no-data-present-event");
                 };
-                $scope.openVisit = function (visit) {
+                $scope.openVisit = function (key) {
+                    var visit = $scope.visits[key];
                     if ($scope.$parent.closeThisDialog) {
                         $scope.$parent.closeThisDialog("closing modal");
                     }
