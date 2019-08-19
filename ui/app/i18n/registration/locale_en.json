@@ -214,5 +214,6 @@
   "SUSPENSION_OBSERVATIONS": "Observations",
   "Patient_Transferred_Out":"Transferred-out",
   "Inactive_Death":"Inactive Death",
-  "Patient_Suspension": "Suspension"
+  "Patient_Suspension": "Suspension",
+  "INVALID_DEATH_CAUSE_MESSAGE":"Invalid Cause of Death"
 }

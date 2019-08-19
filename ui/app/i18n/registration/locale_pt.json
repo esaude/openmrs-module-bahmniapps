@@ -188,5 +188,6 @@
     "SUSPENSION_OBSERVATIONS": "Observação",
     "Patient_Transferred_Out":"Transferir Para",
     "Inactive_Death":"Inactive Óbito",
-    "Patient_Suspension": "Suspensão"
+    "Patient_Suspension": "Suspensão",
+    "INVALID_DEATH_CAUSE_MESSAGE": "Inválido Causa de Óbito"
 }
