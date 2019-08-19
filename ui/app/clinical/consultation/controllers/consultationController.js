@@ -432,6 +432,55 @@ angular.module('bahmni.clinical').controller('ConsultationController',
             };
 
             var isFormValid = function () {
+                var treatmentStartDateTBValue, treatmentEndDateTBValue, treatmentStartDateINHValue, treatmentEndDateINHValue, treatmenStartDateCTZValue, treatmentEndDateCTZValue, treatmentStartDateFluconazolValue, treatmentEndDateFluconazolValue;
+
+                var treatmentStartDateTB = angular.element("#observation_38")[0];
+                var treatmentEndDateTB = angular.element("#observation_40")[0];
+
+                var treatmentStartDateINH = angular.element("#observation_43")[0];
+                var treatmentEndDateINH = angular.element("#observation_45")[0];
+
+                var treatmenStartDateCTZ = angular.element("#observation_49")[0];
+                var treatmentEndDateCTZ = angular.element("#observation_51")[0];
+
+                var treatmentStartDateFluconazol = angular.element("#observation_55")[0];
+                var treatmentEndDateFluconazol = angular.element("#observation_57")[0];
+
+                if (treatmentStartDateTB != undefined) {
+                    treatmentStartDateTBValue = treatmentStartDateTB.value;
+                }
+                if (treatmentEndDateTB != undefined) {
+                    treatmentEndDateTBValue = treatmentEndDateTB.value;
+                }
+
+                if (treatmentStartDateINH != undefined) {
+                    treatmentStartDateINHValue = treatmentStartDateINH.value;
+                }
+                if (treatmentEndDateINH != undefined) {
+                    treatmentEndDateINHValue = treatmentEndDateINH.value;
+                }
+
+                if (treatmenStartDateCTZ != undefined) {
+                    treatmenStartDateCTZValue = treatmenStartDateCTZ.value;
+                }
+                if (treatmentEndDateCTZ != undefined) {
+                    treatmentEndDateCTZValue = treatmentEndDateCTZ.value;
+                }
+
+                if (treatmentStartDateFluconazol != undefined) {
+                    treatmentStartDateFluconazolValue = treatmentStartDateFluconazol.value;
+                }
+                if (treatmentEndDateFluconazol != undefined) {
+                    treatmentEndDateFluconazolValue = treatmentEndDateFluconazol.value;
+                }
+
+                if (treatmentEndDateTBValue < treatmentStartDateTBValue || treatmentEndDateINHValue < treatmentStartDateINHValue || treatmentEndDateCTZValue < treatmenStartDateCTZValue || treatmentEndDateFluconazolValue < treatmentStartDateFluconazolValue) {
+                    messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
+                    angular.element("#observation_40").css("border", "1px solid red");
+                    angular.element("#observation_40").css("background", "#ffcdcd");
+                    angular.element("#observation_40").css("outline", "0");
+                    return false;
+                }
                 var contxChange = contextChange();
                 var shouldAllow = contxChange["allow"];
                 var discontinuedDrugOrderValidationMessage = discontinuedDrugOrderValidation($scope.consultation.discontinuedDrugs);

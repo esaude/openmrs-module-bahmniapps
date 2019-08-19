@@ -73,8 +73,41 @@ angular.module('bahmni.common.conceptSet')
                         $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                     }
 
-                    if (treatmentStartDate > treatmentEndDate || startDateProphylaxis > enDateProphylaxis) {
+                    if (treatmentStartDate > treatmentEndDate) {
                         messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
+                        angular.element("#observation_40").css("border", "1px solid red");
+                        angular.element("#observation_40").css("background", "#ffcdcd");
+                        angular.element("#observation_40").css("outline", "0");
+                    } else {
+                        angular.element("#observation_40").css("border", "1px solid #DDD");
+                        angular.element("#observation_40").css("background", "#fff");
+                        angular.element("#observation_40").css("outline", "0");
+                    }
+                    if (startDateProphylaxis > enDateProphylaxis) {
+                        messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
+                        angular.element("#observation_45").css("border", "1px solid red");
+                        angular.element("#observation_45").css("background", "#ffcdcd");
+                        angular.element("#observation_45").css("outline", "0");
+
+                        angular.element("#observation_51").css("border", "1px solid red");
+                        angular.element("#observation_51").css("background", "#ffcdcd");
+                        angular.element("#observation_51").css("outline", "0");
+
+                        angular.element("#observation_57").css("border", "1px solid red");
+                        angular.element("#observation_57").css("background", "#ffcdcd");
+                        angular.element("#observation_57").css("outline", "0");
+                    } else {
+                        angular.element("#observation_45").css("border", "1px solid #DDD");
+                        angular.element("#observation_45").css("background", "#fff");
+                        angular.element("#observation_45").css("outline", "0");
+
+                        angular.element("#observation_51").css("border", "1px solid #DDD");
+                        angular.element("#observation_51").css("background", "#fff");
+                        angular.element("#observation_51").css("outline", "0");
+
+                        angular.element("#observation_57").css("border", "1px solid #DDD");
+                        angular.element("#observation_57").css("background", "#fff");
+                        angular.element("#observation_57").css("outline", "0");
                     }
                 };
 
