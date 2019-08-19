@@ -432,6 +432,71 @@ angular.module('bahmni.clinical').controller('ConsultationController',
             };
 
             var isFormValid = function () {
+                var treatmentStartDateTBValue, treatmentEndDateTBValue, treatmentStartDateINHValue, treatmentEndDateINHValue, treatmenStartDateCTZValue, treatmentEndDateCTZValue, treatmentStartDateFluconazolValue, treatmentEndDateFluconazolValue;
+
+                var treatmentStartDateTB = angular.element("#observation_38")[0];
+                var treatmentEndDateTB = angular.element("#observation_40")[0];
+
+                var treatmentStartDateINH = angular.element("#observation_43")[0];
+                var treatmentEndDateINH = angular.element("#observation_45")[0];
+
+                var treatmenStartDateCTZ = angular.element("#observation_49")[0];
+                var treatmentEndDateCTZ = angular.element("#observation_51")[0];
+
+                var treatmentStartDateFluconazol = angular.element("#observation_55")[0];
+                var treatmentEndDateFluconazol = angular.element("#observation_57")[0];
+
+                if (treatmentStartDateTB === undefined) {
+                    treatmentStartDateTBValue = 0;
+                } else {
+                    treatmentStartDateTBValue = treatmentStartDateTB.value;
+                }
+                if (treatmentEndDateTB === undefined) {
+                    treatmentEndDateTBValue = 0;
+                } else {
+                    treatmentEndDateTBValue = treatmentEndDateTB.value;
+                }
+
+                if (treatmentStartDateINH === undefined) {
+                    treatmentStartDateINHValue = 0;
+                } else {
+                    treatmentStartDateINHValue = treatmentStartDateINH.value;
+                }
+                if (treatmentEndDateINH === undefined) {
+                    treatmentEndDateINHValue = 0;
+                } else {
+                    treatmentEndDateINHValue = treatmentEndDateINH.value;
+                }
+
+                if (treatmenStartDateCTZ === undefined) {
+                    treatmenStartDateCTZValue = 0;
+                } else {
+                    treatmenStartDateCTZValue = treatmenStartDateCTZ.value;
+                }
+                if (treatmentEndDateCTZ === undefined) {
+                    treatmentEndDateCTZValue = 0;
+                } else {
+                    treatmentEndDateCTZValue = treatmentEndDateCTZ.value;
+                }
+
+                if (treatmentStartDateFluconazol === undefined) {
+                    treatmentStartDateFluconazolValue = 0;
+                } else {
+                    treatmentStartDateFluconazolValue = treatmentStartDateFluconazol.value;
+                }
+                if (treatmentEndDateFluconazol === undefined) {
+                    treatmentEndDateFluconazolValue = 0;
+                } else {
+                    treatmentEndDateFluconazolValue = treatmentEndDateFluconazol.value;
+                }
+
+                if (treatmentEndDateTBValue < treatmentStartDateTBValue || treatmentEndDateINHValue < treatmentStartDateINHValue || treatmentEndDateCTZValue < treatmenStartDateCTZValue || treatmentEndDateFluconazolValue < treatmentStartDateFluconazolValue) {
+                    messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
+                    angular.element("#observation_40").css("border", "1px solid red");
+                    angular.element("#observation_40").css("background", "#ffcdcd");
+                    angular.element("#observation_40").css("outline", "0");
+                    return false;
+                }
                 var contxChange = contextChange();
                 var shouldAllow = contxChange["allow"];
                 var discontinuedDrugOrderValidationMessage = discontinuedDrugOrderValidation($scope.consultation.discontinuedDrugs);
