@@ -253,6 +253,7 @@ Bahmni.Common = Bahmni.Common || {};
         appointmentServiceUrl: RESTWS_V1 + "/appointmentService",
         conditionUrl: EMRAPI + '/condition',
         allergyUrl: EMRAPI + '/allergy',
+        dispenseDrugOrderUrl: EMRAPI + '/dispensedrugorder',
         conditionHistoryUrl: EMRAPI + '/conditionhistory',
         allergyHistoryUrl: EMRAPI + '/allergyhistory',
         followUpConditionConcept: 'Follow-up Condition',
