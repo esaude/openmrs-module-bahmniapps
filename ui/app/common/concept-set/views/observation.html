@@ -290,6 +290,7 @@
                     </div>
 
                     <div ng-switch-when="dropdown" class="field-value info fa fa-info-sign" ng-if="observation.concept.name === 'CONFIDENT_AGE_TYPE'">
+                        <span style="float: left; margin-top:-50px; margin-left:450px; color: red;" >*</span>
                         <concept-dropdown style="float: left; margin-top:-50px; margin-left:460px"
                                 on-change="update"
                                 ng-disabled="observation.disabled"
