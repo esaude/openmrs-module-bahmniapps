@@ -72,6 +72,7 @@ Bahmni.Common = Bahmni.Common || {};
         diseaseTemplateUrl: BAHMNI_CORE + "/diseaseTemplates",
         AllDiseaseTemplateUrl: BAHMNI_CORE + "/diseaseTemplate",
         emrapiConceptUrl: EMRAPI + "/concept",
+        emrapiConditionConceptUrl: EMRAPI + "/conditionconcept",
         emrapiAllergyConceptUrl: EMRAPI + "/allergyconcept",
         encounterConfigurationUrl: BAHMNI_CORE + "/config/bahmniencounter",
         patientConfigurationUrl: BAHMNI_CORE + "/config/patient",
