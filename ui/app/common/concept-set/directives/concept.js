@@ -39,7 +39,7 @@ angular.module('bahmni.common.conceptSet')
                         enDateProphylaxis = scope.observation.value;
                     }
 
-                    if (treatmentStartDate === '' || treatmentEndDate === '') {
+                    if (treatmentStartDate === '' && treatmentEndDate === '') {
                         answer = null;
                         $rootScope.observationData.toggleSelectionTBState(answer);
                     }
@@ -56,7 +56,7 @@ angular.module('bahmni.common.conceptSet')
                         $rootScope.observationData.toggleSelectionTBState(answer);
                     }
 
-                    if (startDateProphylaxis === '' || enDateProphylaxis === '') {
+                    if (startDateProphylaxis === '' && enDateProphylaxis === '') {
                         answer = null;
                         $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                     }
@@ -73,7 +73,7 @@ angular.module('bahmni.common.conceptSet')
                         $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                     }
 
-                    if (treatmentStartDate > treatmentEndDate) {
+                    if (treatmentStartDate > treatmentEndDate && treatmentEndDate != '') {
                         messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
                         angular.element("#observation_40").css("border", "1px solid red");
                         angular.element("#observation_40").css("background", "#ffcdcd");
@@ -83,7 +83,7 @@ angular.module('bahmni.common.conceptSet')
                         angular.element("#observation_40").css("background", "#fff");
                         angular.element("#observation_40").css("outline", "0");
                     }
-                    if (startDateProphylaxis > enDateProphylaxis) {
+                    if (startDateProphylaxis > enDateProphylaxis && enDateProphylaxis != '') {
                         messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
                         angular.element("#observation_45").css("border", "1px solid red");
                         angular.element("#observation_45").css("background", "#ffcdcd");
