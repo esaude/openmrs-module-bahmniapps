@@ -616,7 +616,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 });
             };
 
-           // $scope.dispenseddrug();
+            $scope.dispenseddrug();
 
             $scope.filterTabByProviderType = function (boardIndex) {
                 if (currentProviderType == "APSS") {
