@@ -47,7 +47,7 @@ angular.module('bahmni.common.conceptSet')
                         answer = tuberculosisData[0];
                         $rootScope.observationData.toggleSelectionTBState(answer);
                     }
-                    if ((treatmentStartDate < scope.today) && (scope.today < treatmentEndDate)) {
+                    if ((treatmentStartDate < scope.today) && (scope.today < treatmentEndDate || treatmentEndDate === undefined)) {
                         answer = tuberculosisData[1];
                         $rootScope.observationData.toggleSelectionTBState(answer);
                     }
@@ -64,7 +64,7 @@ angular.module('bahmni.common.conceptSet')
                         answer = prophylaxisData[0];
                         $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                     }
-                    if ((startDateProphylaxis < scope.today) && (scope.today < enDateProphylaxis)) {
+                    if ((startDateProphylaxis < scope.today) && (scope.today < enDateProphylaxis || enDateProphylaxis === undefined)) {
                         answer = prophylaxisData[1];
                         $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                     }
@@ -73,8 +73,41 @@ angular.module('bahmni.common.conceptSet')
                         $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                     }
 
-                    if (treatmentStartDate > treatmentEndDate || startDateProphylaxis > enDateProphylaxis) {
+                    if (treatmentStartDate > treatmentEndDate) {
                         messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
+                        angular.element("#observation_40").css("border", "1px solid red");
+                        angular.element("#observation_40").css("background", "#ffcdcd");
+                        angular.element("#observation_40").css("outline", "0");
+                    } else {
+                        angular.element("#observation_40").css("border", "1px solid #DDD");
+                        angular.element("#observation_40").css("background", "#fff");
+                        angular.element("#observation_40").css("outline", "0");
+                    }
+                    if (startDateProphylaxis > enDateProphylaxis) {
+                        messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
+                        angular.element("#observation_45").css("border", "1px solid red");
+                        angular.element("#observation_45").css("background", "#ffcdcd");
+                        angular.element("#observation_45").css("outline", "0");
+
+                        angular.element("#observation_51").css("border", "1px solid red");
+                        angular.element("#observation_51").css("background", "#ffcdcd");
+                        angular.element("#observation_51").css("outline", "0");
+
+                        angular.element("#observation_57").css("border", "1px solid red");
+                        angular.element("#observation_57").css("background", "#ffcdcd");
+                        angular.element("#observation_57").css("outline", "0");
+                    } else {
+                        angular.element("#observation_45").css("border", "1px solid #DDD");
+                        angular.element("#observation_45").css("background", "#fff");
+                        angular.element("#observation_45").css("outline", "0");
+
+                        angular.element("#observation_51").css("border", "1px solid #DDD");
+                        angular.element("#observation_51").css("background", "#fff");
+                        angular.element("#observation_51").css("outline", "0");
+
+                        angular.element("#observation_57").css("border", "1px solid #DDD");
+                        angular.element("#observation_57").css("background", "#fff");
+                        angular.element("#observation_57").css("outline", "0");
                     }
                 };
 
@@ -146,7 +179,6 @@ angular.module('bahmni.common.conceptSet')
                     if (scope.conceptSetName === 'Clinical_Observation_form') {
                         if (scope.observation.concept.name === 'Blood_Pressure_–_Diastolic_VSNew') {
                             var bloodPressureDiastolic = scope.observation.value;
-                            console.log(bloodPressureDiastolic);
                             if (bloodPressureDiastolic <= 80 || bloodPressureDiastolic === undefined) {
                                 scope.hideAbnormalButton = true;
                             } else {

@@ -44,8 +44,12 @@ angular.module('bahmni.common.obs')
                         $q.all([patientService.getPatient($scope.encounter.patientUuid), getHeight($scope.patient.uuid), getWeight($scope.patient.uuid)]).then(function (response) {
                             $scope.patient.gender = response[0].data.person.gender;
                             $scope.patient.age = response[0].data.person.age;
-                            $scope.patient.height = response[1].data[0].value;
-                            $scope.patient.weight = response[2].data[0].value;
+                            if (response[1].length > 0) {
+                                $scope.patient.height = response[1].data[0].value;
+                            }
+                            if (response[2].length > 0) {
+                                $scope.patient.weight = response[2].data[0].value;
+                            }
                             return;
                         });
                     });

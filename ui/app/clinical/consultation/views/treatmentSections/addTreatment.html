@@ -51,7 +51,8 @@
                                 <input id="drug-name" type="text" bahmni-autocomplete focus-on="startNewDrugEntry" ng-disabled="disableTreatmentLine"
                                        source="getDrugs" response-map="getDataResults" ng-required="!treatment.drugNameDisplay"
                                        ng-class="{
-                                active: treatment.isNonCodedDrug
+                                active: treatment.isNonCodedDrug,
+                                illegalValue: !treatment.drug.uuid && !treatment.concept.uuid && treatment.drugNameDisplay && !treatment.isNonCodedDrug
                            }"
                                        ng-change="onChange()"
                                        ng-model="treatment.drugNameDisplay" on-select="onSelect" autofocus
