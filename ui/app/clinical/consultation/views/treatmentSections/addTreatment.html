@@ -239,7 +239,7 @@
                             </button>
                         </div>
                     </article>
-                    <article class="form-field" ng-if="!treatmentConfig.isHiddenField('dosingInstructions')">
+                    <article class="form-field" ng-if="!treatmentConfig.isHiddenField('dosingInstructions') && isARV">
                         <div class="field-attribute">
                             <label  class="start-date-label fl">{{::treatmentConfig.translate('dosingInstructions', 'MEDICATION_LABEL_DISPENSATION_TYPE')}}<span class="asterick">*</span></label>
                         </div>
