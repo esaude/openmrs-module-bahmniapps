@@ -21,7 +21,6 @@ angular.module('bahmni.registration')
             $rootScope.regexCharacters = '^[a-záàãâéèêẽíìóòõôúùçA-ZÁÀÃÂÉÈÊẼÍÌÓÒÔÕÚÙÇ ]+$';
             $scope.myForms = {};
             $rootScope.isEligibleForVisit = true;
-            var emrApiURL = Bahmni.Registration.Constants.emrApiRESTBaseURL;
 
             var getPersonAttributeTypes = function () {
                 return $rootScope.patientConfiguration.attributeTypes;

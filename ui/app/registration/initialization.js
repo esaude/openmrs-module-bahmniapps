@@ -67,7 +67,7 @@ angular.module('bahmni.registration').factory('initialization',
                 return appService.checkPrivilege("app:registration");
             };
 
-            return function (some) {
+            return function () {
                 return spinner.forPromise(authenticator.authenticateUser()
                 .then(initApp)
                 .then(checkPrivilege)
