@@ -27,6 +27,12 @@ angular.module('bahmni.common.patient')
             });
         };
 
+        this.getPatientStatusState = function (patientUuid) {
+            return $http.get(Bahmni.Common.Constants.openmrsUrl + "/ws/rest/emrapi/patientStatusState?patientUuid=" + patientUuid, {
+                method: "GET"
+            });
+        };
+
         this.search = function (query, offset, identifier) {
             offset = offset || 0;
             var patientSearchResultsConfig = ['NICK_NAME', 'PRIMARY_CONTACT_NUMBER_1', 'PATIENT_STATUS'];

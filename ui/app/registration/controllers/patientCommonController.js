@@ -232,8 +232,8 @@ angular.module('bahmni.registration')
 
             $scope.updatePatientState = function (value) {
                 if (value.value == 'Patient_Transferred_Out') {
+                    $scope.$emit('PTO', 'INACTIVE_TRANSFERRED_OUT');
                     $scope.showTransferredOutSection = true;
-                    $scope.patient['PATIENT_STATE'] = "INACTIVE_TRANSFERRED_OUT";
                     $scope.patient['TRANSFERENCE_HF_NAME'] = '';
                     $scope.patient['TRANSFERENCE_HF_DISTRICT'] = '';
                     $scope.patient['TRANSFERENCE_HF_PROVINCE'] = '';
@@ -241,12 +241,12 @@ angular.module('bahmni.registration')
                     $scope.showSuspensionSection = false;
                 } else if (value.value == 'Inactive_Death') {
                     $scope.showDeathSection = true;
-                    $scope.patient['PATIENT_STATE'] = "INACTIVE_DEATH";
+                    $scope.$emit('PTO', 'INACTIVE_DEATH');
                     $scope.showTransferredOutSection = false;
                     $scope.showSuspensionSection = false;
                 } else if (value.value == 'Patient_Suspension') {
                     $scope.showSuspensionSection = true;
-                    $scope.patient['PATIENT_STATE'] = "INACTIVE_SUSPENDED";
+                    $scope.$emit('PTO', 'INACTIVE_SUSPENDED');
                     $scope.showDeathSection = false;
                     $scope.showTransferredOutSection = false;
                 } else {

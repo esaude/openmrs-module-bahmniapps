@@ -17,9 +17,8 @@ angular.module('bahmni.common.displaycontrol.forms')
                 };
 
                 $scope.isFormEditable = true;
-
-                if ($scope.patient['PATIENT_STATE']) {
-                    if ($scope.patient['PATIENT_STATE'].value == 'INACTIVE_SUSPENDED' || $scope.patient['PATIENT_STATE'].value == 'INACTIVE_TRANSFERRED_OUT' || $scope.patient['PATIENT_STATE'].value == 'INACTIVE_DEATH') {
+                if ($scope.patient.patientState) {
+                    if ($scope.patient.patientState == 'INACTIVE_SUSPENDED' || $scope.patient.patientState == 'INACTIVE_TRANSFERRED_OUT' || $scope.patient.patientState == 'INACTIVE_DEATH') {
                         $scope.isFormEditable = false;
                     } else {
                         $scope.isFormEditable = true;

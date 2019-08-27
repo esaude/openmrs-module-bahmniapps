@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.registration')
-    .controller('CreatePatientController', ['$scope', '$rootScope', '$state', 'patientService', 'patient', 'spinner', 'appService', 'messagingService', 'ngDialog', '$q',
-        function ($scope, $rootScope, $state, patientService, patient, spinner, appService, messagingService, ngDialog, $q) {
+    .controller('CreatePatientController', ['$scope', '$rootScope', '$state', 'patientService', 'patient', 'spinner', 'appService', 'messagingService', 'ngDialog', '$q', '$http',
+        function ($scope, $rootScope, $state, patientService, patient, spinner, appService, messagingService, ngDialog, $q, $http) {
             var dateUtil = Bahmni.Common.Util.DateUtil;
             $scope.actions = {};
             var errorMessage;
@@ -21,6 +21,7 @@ angular.module('bahmni.registration')
             $rootScope.regexCharacters = '^[a-záàãâéèêẽíìóòõôúùçA-ZÁÀÃÂÉÈÊẼÍÌÓÒÔÕÚÙÇ ]+$';
             $scope.myForms = {};
             $rootScope.isEligibleForVisit = true;
+            var emrApiURL = Bahmni.Registration.Constants.emrApiRESTBaseURL;
 
             var getPersonAttributeTypes = function () {
                 return $rootScope.patientConfiguration.attributeTypes;
@@ -147,6 +148,14 @@ angular.module('bahmni.registration')
 
             var createPatient = function (jumpAccepted) {
                 return patientService.create($scope.patient, jumpAccepted).then(function (response) {
+                    var patientStatus = _.filter(response.data.patient.person.attributes, function (currentObj) {
+                        if (currentObj.attributeType.display == 'PATIENT_STATUS') {
+                            return currentObj.value.display;
+                        }
+                    });
+                    var creatorUuid = response.data.patient.auditInfo.creator.uuid;
+                    var patientUuid = response.data.patient.person.uuid;
+                    patientService.savePatientStatusState(patientStatus[0].value.display, patientUuid, creatorUuid, 'ACTIVE');
                     copyPatientProfileDataToScope(response);
                 }, function (response) {
                     if (response.status === 412) {
