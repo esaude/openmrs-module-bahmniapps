@@ -34,6 +34,8 @@ angular.module('bahmni.clinical')
             $scope.disableTreatmentLine = true;
             $scope.suggestedDruglist = [];
             $scope.counter = 0;
+            $scope.drugOrderRelationShipList = [];
+            $scope.iBeingRevised= false;
 
             $scope.fetchCategories = function (conceptName) {
                 return conceptSetService.getConcept({
@@ -42,6 +44,7 @@ angular.module('bahmni.clinical')
                 }, true).then(function (response) {
                     var resp = response.data.results[0].answers;
                     for (var i = 0; i < resp.length; i++) {
+                        resp[i].names[0].uuid = resp[i].uuid;
                         $scope.categories.push(resp[i].names[0]);
                     }
                     return $scope.categories;
@@ -73,6 +76,7 @@ angular.module('bahmni.clinical')
                     $scope.treatmentLines = [];
                     var resp = response.data.results[0].answers;
                     for (var i = 0; i < resp.length; i++) {
+                        resp[i].names[0].uuid = resp[i].uuid;
                         $scope.treatmentLines.push(resp[i].names[0]);
                     }
                     return $scope.treatmentLines;
@@ -404,6 +408,15 @@ angular.module('bahmni.clinical')
                 $scope.treatment.setUniformDoseFraction();
                 var newDrugOrder = $scope.treatment;
                 setNonCodedDrugConcept($scope.treatment);
+                $scope.treatment.category = $scope.selectedCategory;
+                $scope.treatment.treatmentLine = $scope.selectedTreatmentLine;
+                var drugOrderRelationShip = {};
+                drugOrderRelationShip.drugUuid = $scope.treatment.drug.uuid;
+                drugOrderRelationShip.categoryUuid = $scope.selectedCategory.uuid;
+                drugOrderRelationShip.treatmentLineUuid = $scope.selectedTreatmentLine.uuid;
+
+
+                $scope.drugOrderRelationShipList.push(drugOrderRelationShip);
 
                 newDrugOrder.calculateEffectiveStopDate();
 
@@ -427,6 +440,7 @@ angular.module('bahmni.clinical')
                 if ($scope.treatment.isBeingEdited) {
                     treatments.splice($scope.treatment.currentIndex, 1, $scope.treatment);
                     $scope.treatment.isBeingEdited = false;
+                    $scope.isBeingRevised = false;
                 } else {
                     treatments.push($scope.treatment);
                 }
@@ -521,7 +535,14 @@ angular.module('bahmni.clinical')
 
             var edit = function (drugOrder, index) {
                 clearHighlights();
+                $scope.isBeingRevised = true;
                 var treatment = drugOrder;
+                if(treatment.category === undefined || treatment.category === ""){
+                    //fetch from database
+                }else{
+                    $scope.selectedCategory = treatment.category;
+                    $scope.selectedTreatmentLine = treatment.treatmentLine;
+                }
                 markEitherVariableDrugOrUniformDrug(treatment);
                 treatment.isBeingEdited = true;
                 $scope.treatment = treatment.cloneForEdit(index, treatmentConfig);
@@ -603,9 +624,7 @@ angular.module('bahmni.clinical')
             (function () {
                 var selectedItem;
                 $scope.onSelect = function (item) {
-                    console.log(item);
                     if ($scope.selectedCategory !== "") {
-                        console.log($scope.suggestedDruglist);
                         for (let i = 0; i < $scope.suggestedDruglist.length; i++) {
                             if (item.uuid === $scope.suggestedDruglist[i].drug.concept.uuid) {
                                 selectedItem = $scope.suggestedDruglist[i];
@@ -702,6 +721,7 @@ angular.module('bahmni.clinical')
                 var includedOrderSetTreatments = _.filter(orderSetTreatmentsAcrossTabs, function (treatment) {
                     return treatment.orderSetUuid ? treatment.include : true;
                 });
+                $scope.consultation.drugOrderRelationShipList=$scope.drugOrderRelationShipList;
                 $scope.consultation.newlyAddedTreatments = allTreatmentsAcrossTabs.concat(includedOrderSetTreatments);
                 if ($scope.consultation.discontinuedDrugs) {
                     $scope.consultation.discontinuedDrugs.forEach(function (discontinuedDrug) {

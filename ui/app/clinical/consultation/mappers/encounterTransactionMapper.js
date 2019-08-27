@@ -91,6 +91,8 @@ Bahmni.Clinical.EncounterTransactionMapper = function () {
 
         encounterData.drugOrders = consultation.drugOrders;
 
+        encounterData.drugOrderRelationshipList = consultation.drugOrderRelationShipList;
+
         encounterData.disposition = consultation.disposition;
 
         var addObservationsToEncounter = function () {
