@@ -20,7 +20,8 @@
                                 <input id="drug-name" type="text" bahmni-autocomplete focus-on="startNewDrugEntry"
                                        source="getDrugs" response-map="getDataResults" ng-required="!treatment.drugNameDisplay"
                                        ng-class="{
-                                active: treatment.isNonCodedDrug
+                                active: treatment.isNonCodedDrug,
+                                illegalValue: !treatment.drug.uuid && !treatment.concept.uuid && treatment.drugNameDisplay && !treatment.isNonCodedDrug
                            }"
                                        ng-change="onChange()"
                                        ng-model="treatment.drugNameDisplay" on-select="onSelect" autofocus
@@ -238,7 +239,7 @@
                             </button>
                         </div>
                     </article>
-                    <article class="form-field" ng-if="!treatmentConfig.isHiddenField('dosingInstructions')">
+                    <article class="form-field" ng-if="!treatmentConfig.isHiddenField('dosingInstructions') && isARV">
                         <div class="field-attribute">
                             <label  class="start-date-label fl">{{::treatmentConfig.translate('dosingInstructions', 'MEDICATION_LABEL_DISPENSATION_TYPE')}}<span class="asterick">*</span></label>
                         </div>

@@ -27,6 +27,7 @@ angular.module('bahmni.clinical')
             $scope.addTreatment = true;
             $scope.canOrderSetBeAdded = true;
             $scope.isSearchDisabled = false;
+            $scope.isARV = false;
 
             $scope.getFilteredOrderSets = function (searchTerm) {
                 if (searchTerm && searchTerm.length >= 3) {
@@ -519,6 +520,7 @@ angular.module('bahmni.clinical')
 
                 $scope.onChange = function () {
                     if (selectedItem) {
+                        $scope.isARV = selectedItem.drug.dosageForm && selectedItem.drug.dosageForm.display === "ARV";
                         $scope.treatment.isNonCodedDrug = false;
                         delete $scope.treatment.drugNonCoded;
                         $scope.treatment.changeDrug({
