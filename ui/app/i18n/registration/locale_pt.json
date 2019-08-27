@@ -179,5 +179,6 @@
     "REGISTRATION_PLACEHOLDER_FOR_NID_SEQUENCIAL_CODE" : "Ex: 12345",
     "REGISTRATION_PLACEHOLDER_FOR_NID_YEAR" : "AAAA",
     "REGISTRATION_PLACEHOLDER_FOR_NID_HEALTHFACILITY_CODE" : "Ex: 12345678",
-    "US_REG_DATE_MESSAGE" : "Digite uma data válida."
+    "US_REG_DATE_MESSAGE" : "Digite uma data válida.",
+    "Patient_Start_Visit_A" : "Consulta Clinica"
 }
