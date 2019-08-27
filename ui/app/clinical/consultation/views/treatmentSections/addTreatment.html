@@ -48,7 +48,7 @@
                                 <option value="">{{ ::treatmentConfig.translate('drugNamePlaceHolder', 'MEDICATION_DRUG_NAME_PLACEHOLDER') }} </option>
                             </select>
                             <div ng-if="treatmentConfig.isAutoComplete()">
-                                <input id="drug-name" type="text" bahmni-autocomplete focus-on="startNewDrugEntry" ng-disabled="disableTreatmentLine"
+                                <input id="drug-name" type="text" bahmni-autocomplete focus-on="startNewDrugEntry" ng-disabled="disableMedication"
                                        source="getDrugs" response-map="getDataResults" ng-required="!treatment.drugNameDisplay"
                                        ng-class="{
                                 active: treatment.isNonCodedDrug,

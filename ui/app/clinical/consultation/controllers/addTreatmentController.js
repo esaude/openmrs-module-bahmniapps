@@ -36,6 +36,7 @@ angular.module('bahmni.clinical')
             $scope.counter = 0;
             $scope.drugOrderRelationShipList = [];
             $scope.iBeingRevised= false;
+            $scope.disableMedication = true;
 
             $scope.fetchCategories = function (conceptName) {
                 return conceptSetService.getConcept({
@@ -56,14 +57,19 @@ angular.module('bahmni.clinical')
                     if ($scope.selectedCategory.display === "ARV") {
                         $scope.selectedTreatmentLineCategory = "treatment_line_arv";
                         $scope.disableTreatmentLine = false;
+                        $scope.disableMedication = false;
                         $scope.fetchTreatmentLines($scope.selectedTreatmentLineCategory);
                     } else if ($scope.selectedCategory.display.toUpperCase() === "Anti-Tuberculosis Drugs".toUpperCase() || $scope.selectedCategory.display.toUpperCase() === "Drogas Anti-Tuberculose".toUpperCase()) {
                         $scope.selectedTreatmentLineCategory = "treatment_line_tb";
                         $scope.fetchTreatmentLines($scope.selectedTreatmentLineCategory);
                         $scope.disableTreatmentLine = false;
+                        $scope.disableMedication = false;
+                    } else if ($scope.selectedCategory.display.toUpperCase() === "Other".toUpperCase() || $scope.selectedCategory.display.toUpperCase() === "Outra".toUpperCase()) {
+                        $scope.disableMedication = false;
                     } else {
                         $scope.selectedTreatmentLineCategory = "";
                         $scope.disableTreatmentLine = true;
+                        $scope.disableMedication = false;
                     }
                 }
             };
