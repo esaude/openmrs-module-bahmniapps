@@ -459,5 +459,7 @@
     "CLINICAL_PRINT_PRESCRIPTION_TRANSLATION_KEY" : "Print Prescription",
     "CLINICAL_PATIENT_STATUS": "Active in:",
     "TREATMENT_START_DATE_LIST_DISPLAY_CONTROL_TITLE": "Treatment Start Date",
-    "TREATMENT_START_DATE": "Treatment Start Date"
+    "TREATMENT_START_DATE": "Treatment Start Date",
+    "CONFIRMED": "Confirmed",
+    "PRIMARY": "Primary"
 }
