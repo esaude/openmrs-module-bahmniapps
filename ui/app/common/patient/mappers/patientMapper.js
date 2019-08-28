@@ -11,17 +11,12 @@ Bahmni.PatientMapper = function (patientConfig, $rootScope, $translate) {
 
     this.mapBasic = function (openmrsPatient) {
         var patient = {};
-        var DateUtil = Bahmni.Common.Util.DateUtil;
-        var birthDate = Bahmni.Common.Util.DateUtil.parseServerDateToDate(openmrsPatient.person.birthdate);
-        var age = DateUtil.diffInYearsMonthsDays(birthDate, DateUtil.now());
         patient.uuid = openmrsPatient.uuid;
         patient.givenName = openmrsPatient.person.preferredName.givenName;
         patient.familyName = openmrsPatient.person.preferredName.familyName === null ? '' : openmrsPatient.person.preferredName.familyName;
         patient.name = patient.givenName + ' ' + patient.familyName;
         patient.age = openmrsPatient.person.age;
-        patient.ageText = calculateAge(birthDate);
-        patient.ageDays = age.days;
-        patient.ageMonths = age.months;
+        patient.ageText = calculateAge(Bahmni.Common.Util.DateUtil.parseServerDateToDate(openmrsPatient.person.birthdate));
         patient.gender = openmrsPatient.person.gender;
         patient.genderText = mapGenderText(patient.gender);
         patient.address = mapAddress(openmrsPatient.person.preferredAddress);
@@ -103,7 +98,7 @@ Bahmni.PatientMapper = function (patientConfig, $rootScope, $translate) {
         if (genderChar == null) {
             return null;
         }
-        return "<span>" + $translate.instant($rootScope.genderMap[angular.uppercase(genderChar)]) + "</span>";
+        return "<span>" + $rootScope.genderMap[angular.uppercase(genderChar)] + "</span>";
     };
 
     var getPatientBloodGroupText = function (openmrsPatient) {

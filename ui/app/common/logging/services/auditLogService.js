@@ -5,7 +5,7 @@ angular.module('bahmni.common.logging')
 
         var convertToLocalDate = function (date) {
             var localDate = DateUtil.parseLongDateToServerFormat(date);
-            return DateUtil.getDateTimeInSpecifiedFormat(localDate, 'MMMM Do, YYYY [at] HH:mm');
+            return DateUtil.getDateTimeInSpecifiedFormat(localDate, 'MMMM Do, YYYY [at] h:mm:ss A');
         };
 
         this.getLogs = function (params) {

@@ -1,14 +1,9 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .controller('PatientListHeaderController', ['$scope', '$rootScope', '$stateParams', '$bahmniCookieStore', 'providerService', 'spinner', 'locationService', '$window', 'ngDialog', 'retrospectiveEntryService', '$translate',
-        function ($scope, $rootScope, $stateParams, $bahmniCookieStore, providerService, spinner, locationService, $window, ngDialog, retrospectiveEntryService, $translate) {
+    .controller('PatientListHeaderController', ['$scope', '$rootScope', '$bahmniCookieStore', 'providerService', 'spinner', 'locationService', '$window', 'ngDialog', 'retrospectiveEntryService', '$translate',
+        function ($scope, $rootScope, $bahmniCookieStore, providerService, spinner, locationService, $window, ngDialog, retrospectiveEntryService, $translate) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
-            if ($stateParams.configName === 'programs') {
-                $rootScope.title = $translate.instant('SERVICES_APP_TITLE');
-            } else {
-                $rootScope.title = $translate.instant('CLINICAL_APP_TITLE');
-            }
             $scope.maxStartDate = DateUtil.getDateWithoutTime(DateUtil.today());
             var selectedProvider = {};
             $scope.retrospectivePrivilege = Bahmni.Common.Constants.retrospectivePrivilege;

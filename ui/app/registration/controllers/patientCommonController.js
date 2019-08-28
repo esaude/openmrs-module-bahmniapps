@@ -1,13 +1,12 @@
 'use strict';
 
 angular.module('bahmni.registration')
-    .controller('PatientCommonController', ['$scope', '$rootScope', '$http', 'patientAttributeService', 'appService', 'spinner', '$location', 'ngDialog', '$window', '$state', 'patientService',
-        function ($scope, $rootScope, $http, patientAttributeService, appService, spinner, $location, ngDialog, $window, $state, patientService) {
+    .controller('PatientCommonController', ['$scope', '$rootScope', '$http', 'patientAttributeService', 'appService', 'spinner', '$location', 'ngDialog', '$window', '$state',
+        function ($scope, $rootScope, $http, patientAttributeService, appService, spinner, $location, ngDialog, $window, $state) {
             var autoCompleteFields = appService.getAppDescriptor().getConfigValue("autoCompleteFields", []);
             var showCasteSameAsLastNameCheckbox = appService.getAppDescriptor().getConfigValue("showCasteSameAsLastNameCheckbox");
             var personAttributes = [];
             var caste;
-            $scope.patientDocuments = [];
             $scope.showMiddleName = appService.getAppDescriptor().getConfigValue("showMiddleName");
             $scope.showLastName = appService.getAppDescriptor().getConfigValue("showLastName");
             $scope.isLastNameMandatory = $scope.showLastName && appService.getAppDescriptor().getConfigValue("isLastNameMandatory");
@@ -18,76 +17,10 @@ angular.module('bahmni.registration')
             $scope.readOnlyExtraIdentifiers = appService.getAppDescriptor().getConfigValue("readOnlyExtraIdentifiers");
             $scope.showSaveConfirmDialogConfig = appService.getAppDescriptor().getConfigValue("showSaveConfirmDialog");
             $scope.showSaveAndContinueButton = false;
+
             var dontSaveButtonClicked = false;
+
             var isHref = false;
-            $rootScope.duplicatePatients;
-            $rootScope.duplicatePatientCount = 0;
-            $scope.isAddressRequired = "false";
-            $rootScope.personSearchResultsConfig = ["NICK_NAME", "PRIMARY_CONTACT_NUMBER_1", "PATIENT_STATUS", "US_REG_DATE"];
-            $rootScope.searchActions = appService.getAppDescriptor().getExtensions("org.bahmni.registration.patient.search.result.action");
-            $scope.checkDuplicatePatients = function () {
-                var patientGivenName = $scope.patient.givenName || '';
-                var patientLastName = $scope.patient.familyName || '';
-                var gender = $scope.patient.gender || '';
-                var birthDate = $scope.patient.birthdate || '';
-
-                if (birthDate != '') {
-                    birthDate = new Date(birthDate);
-                }
-                var queryParams = patientGivenName + ' ' + patientLastName;
-                if (queryParams.length > 1) {
-                    patientService.searchDuplicatePatients(queryParams, gender, birthDate).then(function (response) {
-                        $rootScope.duplicatePatients = response.pageOfResults;
-                        _.map($rootScope.duplicatePatients, function (result) {
-                            result.customAttribute = result.customAttribute && JSON.parse(result.customAttribute);
-                        });
-                        $rootScope.duplicatePatientCount = $rootScope.duplicatePatients.length;
-                    });
-                } else {
-                    $rootScope.duplicatePatientCount = 0;
-                }
-            };
-
-            $rootScope.forPatient = function (patient) {
-                $scope.selectedPatient = patient;
-                return $scope;
-            };
-
-            $rootScope.doExtensionAction = function (extension) {
-                var forwardTo = appService.getAppDescriptor().formatUrl(extension.url, { 'patientUuid': $scope.selectedPatient.uuid });
-                $location.url(forwardTo);
-            };
-
-            $scope.updateBirthDateEstimated = function () {
-                if ($scope.patient.birthdate) {
-                    $scope.isBirthDateEstimatedDisabled = true;
-                    $scope.isAgeDisabled = true;
-                }
-                else {
-                    $scope.isBirthDateEstimatedDisabled = false;
-                    $scope.isAgeDisabled = false;
-                }
-            };
-
-            $scope.updateDOB = function () {
-                if ($scope.patient.birthdateEstimated) {
-                    $scope.isDOBDisabled = true;
-                }
-                else {
-                    $scope.isDOBDisabled = false;
-                }
-            };
-
-            $scope.$watch('patient.birthdateEstimated', function (newValue, oldValue) {
-                if (newValue != oldValue) {
-                    if (newValue == true) {
-                        $scope.isDOBDisabled = true;
-                    }
-                    else {
-                        $scope.isBirthDateEstimatedDisabled = false;
-                    }
-                }
-            });
 
             $rootScope.onHomeNavigate = function (event) {
                 if ($scope.showSaveConfirmDialogConfig && $state.current.name != "patient.visit") {
@@ -111,7 +44,7 @@ angular.module('bahmni.registration')
                     if (event) {
                         event.preventDefault();
                     }
-                    ngDialog.openConfirm({ template: "../common/ui-helper/views/saveConfirmation.html", scope: $scope });
+                    ngDialog.openConfirm({template: "../common/ui-helper/views/saveConfirmation.html", scope: $scope});
                 }
             };
 
@@ -214,10 +147,6 @@ angular.module('bahmni.registration')
                 }
             };
 
-            $scope.updateLocationRequired = function (value) {
-                $scope.$broadcast('HFEvent', value);
-            };
-
             var executeShowOrHideRules = function () {
                 _.each(Bahmni.Registration.AttributesConditions.rules, function (rule) {
                     executeRule(rule);
@@ -258,65 +187,6 @@ angular.module('bahmni.registration')
 
             $scope.disableIsDead = function () {
                 return ($scope.patient.causeOfDeath || $scope.patient.deathDate) && $scope.patient.dead;
-            };
-
-            $scope.nationality = function () {
-                var mozAttributes = ['REGISTRATION_OPTION_NONE', 'BI', 'CARTAO_DE_ELEITOR', 'CEDULA_DE_NASCIMENTO', 'NUIT', 'NUIC'];
-                var foreignAttributes = ['REGISTRATION_OPTION_NONE', 'DIRE', 'NUIT', 'PASSAPORTE_ESTRANGEIRO'];
-
-                if ($scope.patient.NATIONALITY == undefined) {
-                    $scope.patient.NATIONALITY = "";
-                }
-                else {
-                    $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
-                    if ($scope.nationalityChoice == 'Moçambicana' || $scope.nationalityChoice == 'Mozambican') {
-                        $scope.nationalityDocs = mozAttributes;
-                        $scope.patientDocuments = [];
-                    }
-                    else if ($scope.nationalityChoice == 'Outra' || $scope.nationalityChoice == 'Other') {
-                        $scope.nationalityDocs = foreignAttributes;
-                        $scope.patientDocuments = [];
-                    }
-                }
-            };
-
-            $scope.$watch('patient.NATIONALITY.value', function (newValue, oldValue) {
-                if (newValue != oldValue) {
-                    if (oldValue == undefined) {
-                        $scope.nationality();
-                    }
-                    else {
-                        for (var i = 0; i <= $scope.nationalityDocs.length; i++) {
-                            $scope.patient[$scope.nationalityDocs[i]] = "";
-                        }
-                        $scope.patientDocuments = [];
-                        $scope.nationality();
-                    }
-                }
-            });
-
-            $scope.nationalityAttribute = function (docz) {
-                $scope.nationalAttribute = docz;
-                $scope.patient.attribute = $scope.nationalAttribute;
-            };
-            $scope.addDocumentRow = function (dcmt) {
-                if ($scope.patientDocuments.includes(dcmt) || dcmt == undefined || !$scope.nationalityDocs.includes(dcmt)) {
-                    alert("Selecione outro documento");
-                }
-                else {
-                    $scope.patientDocuments.push(dcmt);
-                    $scope.nationalityDocs.splice($scope.nationalityDocs.indexOf(dcmt), 1);
-                }
-            };
-            $scope.removeDocumentRow = function (documnt) {
-                if ($scope.patientDocuments.includes(documnt)) {
-                    $scope.patientDocuments.splice($scope.patientDocuments.indexOf(documnt), 1);
-                    $scope.nationalityDocs.push(documnt);
-                    $scope.patient[documnt] = "";
-                }
-                else {
-                    alert("Remova outro documento");
-                }
             };
         }]);
 

@@ -61,15 +61,6 @@ angular.module('bahmni.common.domain')
             return consultationNoteConfig;
         };
 
-        configurationFunctions.whoStageConfig = function () {
-            var whoStageConfig = $http.get(Bahmni.Common.Constants.conceptSearchByFullNameUrl, {
-                method: "GET",
-                params: {v: 'custom:(uuid,name,answers,setMembers)', name: Bahmni.Common.Constants.whoStageConceptName},
-                withCredentials: true
-            });
-            return whoStageConfig;
-        };
-
         configurationFunctions.radiologyObservationConfig = function () {
             var radiologyObservationConfig = $http.get(Bahmni.Common.Constants.conceptSearchByFullNameUrl, {
                 method: "GET",

@@ -20,9 +20,7 @@
 
             <ul class="header-tabs consultation-tabs">
                 <li class="tab-item" ng-repeat="board in availableBoards track by $index" ng-class="{'tab-selected':board.isSelectedTab}">
-                    <div ng-show="filterTabByProviderType($index)">
-                        <a ng-click="showBoard($index)">{{ board | titleTranslate }}</a>
-                    </div>
+                    <a ng-click="showBoard($index)">{{ board | titleTranslate }}</a>
                 </li>
             </ul>
 
@@ -95,20 +93,11 @@
                         </li>
                     </ul>
                 </div>
-
-                <div split-buttonNew
-                    options="::printButtonDropdownOptions"
-                    primary-option="::printButtonDropdownOptions[0]"
-                    option-text="optionText"
-                    option-click="printDashboardOrPrescription"
-                    class="dialog-button-group">
-                </div>
-
-                <!-- <button ng-if="::!clinicalDashboardConfig.quickPrints" class="dialog-button-group print" ng-click="printDashboard()"
+                <button ng-if="::!clinicalDashboardConfig.quickPrints" class="dialog-button-group print" ng-click="printDashboard()"
                         accesskey="{{'CLINICAL_PRINT_ACCESS_KEY'| translate}}" ng-bind-html="'CLINICAL_PRINT_TRANSLATION_KEY'|translate">
                     <i class="fa fa-print"></i>
 
-                </button> -->
+                </button>
                 <div class="dashboard-date-picker" ng-controller="PatientListHeaderController">
                     <div class="retro-date-widget-wrapper fr">
                         <div class="retro-date-widget-header fr">

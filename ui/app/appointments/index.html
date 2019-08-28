@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en" ng-app="bahmni.appointments">
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>{{'APPOINTMENTS_APP_TITLE'|translate}}</title>
+        <title>Appointment Scheduling</title>
         <link rel="stylesheet" href="../lib/jquery/jquery-ui-1.10.4.custom.min.css">
         <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
         <link rel="stylesheet" href="../components/ngDialog/css/ngDialog.min.css"/>
@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="../components/ngDialog/css/ngDialog-theme-plain.min.css"/>
         <!-- build:css appointments.min.css -->
         <link rel="stylesheet" href="../styles/appointmentScheduling.css">
-        <link rel="stylesheet" href="../common/fullcalendar/dist/fullcalendar.css"/>
-        <link rel="stylesheet" href="../components/http://errors.angularjs.org/1.4.9/$injector/unpr?p0=auditLogServiceProvider%20%3C-%20auditLogService%20%3C-%20logOutDirectivefullcalendar-scheduler/dist/scheduler.min.css"/>
+        <link rel="stylesheet" href="../components/fullcalendar/dist/fullcalendar.min.css"/>
+        <link rel="stylesheet" href="../components/fullcalendar-scheduler/dist/scheduler.min.css"/>
         <link rel="stylesheet" href="../components/angular-ivh-treeview/dist/ivh-treeview.css"/>
         <link rel="stylesheet" href="../components/angular-ivh-treeview/dist/ivh-treeview-theme-basic.css"/>
         <link rel="stylesheet" href="../components/ng-tags-input/ng-tags-input.bootstrap.min.css"/>
@@ -19,7 +19,7 @@
         <!-- endbuild -->
     </head>
     <body>
-        <div class="bahmni-appointments">
+        <div ng-app="bahmni.appointments" class="bahmni-appointments">
             <div ui-view="additional-header"></div>
             <div ng-include src="'../common/ui-helper/messages.html'"></div>
             <div ui-view="mainContent"></div>
@@ -125,7 +125,7 @@
         <script src="../common/logging/services/loggingService.js"></script>
 
         <script  src="../components/angular-ui-calendar/src/calendar.js"></script>
-        <script  src="../common/fullcalendar/dist/fullcalendar.js"></script>
+        <script  src="../components/fullcalendar/dist/fullcalendar.min.js"></script>
         <script  src="../components/fullcalendar-scheduler/dist/scheduler.min.js"></script>
 
         <script src="init.js"></script>
@@ -168,11 +168,6 @@
         <script src="controllers/manage/appointmentsSummaryController.js" ></script>
         <script src="controllers/manage/appointmentsFilterController.js"></script>
         <script src="filters/appointmentsFilter.js"></script>
-
-
-        <script src="../common/logging/services/loggingService.js"></script>
-        <script src="../common/models/auditLogEventDetails.js"></script>
-        <script src="../common/logging/services/auditLogService.js"></script>
         <!-- endbuild -->
     </body>
 </html>

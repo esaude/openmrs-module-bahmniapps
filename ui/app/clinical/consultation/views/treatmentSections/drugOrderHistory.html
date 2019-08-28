@@ -13,7 +13,7 @@
                 <button class="secondary-button refill-drugs-btn fr" ng-click="refillAll(drugOrderGroup.drugOrders)" ng-if="!drugOrderGroupsEmpty()">{{ ::'MEDICATION_REFILL_ALL' | translate }}</button>
                 <button  ng-repeat="orderAttribute in getOrderAttributes()" class="secondary-button dispense-all-btn fr" show-if-privilege="{{dispensePrivilege}}" ng-if="!drugOrderGroupsEmpty()"  ng-click="updateAllOrderAttributesByName(orderAttribute,drugOrderGroup)" ng-disabled="!canUpdateAtLeastOneOrderAttributeOfName(drugOrderGroup,orderAttribute.name)">
                     <i  ng-init="allOrderAttributesOfNameSet(drugOrderGroup,orderAttribute.name)" class="fa fa-check" ng-show="drugOrderGroup[orderAttribute.name].selected" ></i>
-                    {{orderAttribute.shortName}} {{ ::'MEDICATION_DISPENSED_ALL' | translate }}
+                    {{orderAttribute.name}} All
                 </button>
                 <div class="inpage-tab-panel">
 					<div class="inpage-tab-content">

@@ -3,31 +3,18 @@
 angular.module('bahmni.clinical')
     .controller('AddTreatmentController', ['$scope', '$rootScope', 'contextChangeHandler', 'treatmentConfig', 'drugService',
         '$timeout', 'clinicalAppConfigService', 'ngDialog', '$window', 'messagingService', 'appService', 'activeDrugOrders',
-        'orderSetService', '$q', 'locationService', 'localeService', 'spinner', '$translate',
+        'orderSetService', '$q', 'locationService', 'spinner', '$translate',
         function ($scope, $rootScope, contextChangeHandler, treatmentConfig, drugService, $timeout,
                   clinicalAppConfigService, ngDialog, $window, messagingService, appService, activeDrugOrders,
-                  orderSetService, $q, locationService, localeService, spinner, $translate) {
+                  orderSetService, $q, locationService, spinner, $translate) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var DrugOrderViewModel = Bahmni.Clinical.DrugOrderViewModel;
             var scrollTop = _.partial($window.scrollTo, 0, 0);
-
-            var defaultLocale = "en";
-            localeService.defaultLocale().then(function (response) {
-                defaultLocale = response.data;
-                $scope.treatment.durationUnit = defaultLocale === "pt" ? "Dia (s)" : "Day(s)";
-                treatmentConfig.durationUnits.forEach(function (durationUnit) {
-                    if (_.isEqual(durationUnit, $scope.treatment.durationUnit)) {
-                        $scope.treatment.durationUnit = durationUnit;
-                    }
-                });
-                return response.data;
-            });
 
             $scope.showOrderSetDetails = true;
             $scope.addTreatment = true;
             $scope.canOrderSetBeAdded = true;
             $scope.isSearchDisabled = false;
-            $scope.isARV = false;
 
             $scope.getFilteredOrderSets = function (searchTerm) {
                 if (searchTerm && searchTerm.length >= 3) {
@@ -54,11 +41,7 @@ angular.module('bahmni.clinical')
             }
             if (treatmentConfig.isAutoCompleteForAllConcepts()) {
                 $scope.getDrugs = function (request) {
-                    if (request.term.includes("+")) {
-                        return drugService.searchDecoded(request.term);
-                    } else {
-                        return drugService.search(request.term);
-                    }
+                    return drugService.search(request.term);
                 };
             }
             if (treatmentConfig.isAutoCompleteForGivenConceptSet()) {
@@ -133,9 +116,9 @@ angular.module('bahmni.clinical')
                     $scope.treatment.durationUnit = durationUnit;
                 }
             });
+
             var watchFunctionForQuantity = function () {
                 var treatment = $scope.treatment;
-                treatment.durationUnit = defaultLocale === "pt" ? "Dia (s)" : "Day(s)";
                 return {
                     uniformDosingType: treatment.uniformDosingType,
                     variableDosingType: treatment.variableDosingType,
@@ -520,7 +503,6 @@ angular.module('bahmni.clinical')
 
                 $scope.onChange = function () {
                     if (selectedItem) {
-                        $scope.isARV = selectedItem.drug.dosageForm && selectedItem.drug.dosageForm.display === "ARV";
                         $scope.treatment.isNonCodedDrug = false;
                         delete $scope.treatment.drugNonCoded;
                         $scope.treatment.changeDrug({

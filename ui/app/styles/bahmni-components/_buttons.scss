@@ -315,7 +315,7 @@ button:hover { opacity: 0.8; }
 button:focus, a:focus, .btn:focus {
   outline: 2px solid $clinicalFormFocus;
 }
-button[disabled] { opacity: 0.9; cursor: not-allowed; }
+button[disabled] { opacity: 0.4; cursor: not-allowed; }
 
 
 /*backButton:*/

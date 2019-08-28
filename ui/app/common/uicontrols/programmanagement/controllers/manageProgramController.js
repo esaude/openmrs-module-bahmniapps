@@ -134,14 +134,6 @@ angular.module('bahmni.common.uicontrols.programmanagment')
                     return $q.when({});
                 }
                 var stateUuid = $scope.workflowStateSelected && $scope.workflowStateSelected.uuid ? $scope.workflowStateSelected.uuid : null;
-                if ($scope.programEnrollmentDate == null) {
-                    messagingService.showMessage("error", "PROGRAM_DATE_ALERT");
-                    return $q.when({});
-                }
-                if ($scope.workflowStateSelected == null) {
-                    messagingService.showMessage("error", "PROGRAM_STATE_ALERT");
-                    return $q.when({});
-                }
                 return spinner.forPromise(
                     programService.enrollPatientToAProgram($scope.patient.uuid, $scope.programSelected.uuid, $scope.programEnrollmentDate, stateUuid, $scope.patientProgramAttributes, $scope.programAttributeTypes)
                         .then(successCallback, failureCallback)

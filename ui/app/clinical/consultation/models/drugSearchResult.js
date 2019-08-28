@@ -17,10 +17,8 @@ Bahmni.Clinical.DrugSearchResult = (function () {
 
     var getMatcher = function (searchString) {
         return function (value) {
-            if (searchString !== undefined) {
-                searchString = searchString.toLowerCase();
-            }
-            return _.includes(value.toLowerCase(), searchString);
+            // return value.search(new RegExp(searchString, "i")) !== -1
+            return _.includes(value.toLowerCase(), searchString.toLowerCase());
         };
     };
     var getSynonymCreator = function (drug) {

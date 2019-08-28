@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('bahmni.common.domain')
-    .service('encounterService', ['$http', '$q', '$rootScope', '$window', 'configurations', '$bahmniCookieStore',
-        function ($http, $q, $rootScope, $window, configurations, $bahmniCookieStore) {
+    .service('encounterService', ['$http', '$q', '$rootScope', 'configurations', '$bahmniCookieStore',
+        function ($http, $q, $rootScope, configurations, $bahmniCookieStore) {
             this.buildEncounter = function (encounter) {
                 encounter.observations = encounter.observations || [];
                 encounter.observations.forEach(function (obs) {
                     stripExtraConceptInfo(obs);
                 });
-                encounter.locale = $window.localStorage["NG_TRANSLATE_LANG_KEY"] || "en";
+
                 encounter.providers = encounter.providers || [];
 
                 var providerData = $bahmniCookieStore.get(Bahmni.Common.Constants.grantProviderAccessDataCookieName);
@@ -17,43 +17,6 @@ angular.module('bahmni.common.domain')
                         encounter.providers.push({"uuid": providerData.uuid});
                     } else if ($rootScope.currentProvider && $rootScope.currentProvider.uuid) {
                         encounter.providers.push({"uuid": $rootScope.currentProvider.uuid});
-                    }
-                }
-
-                if (encounter.observations[0] !== null && encounter.observations[0] !== undefined && encounter.observations[0].groupMembers !== undefined) {
-                    if (encounter.observations[0].groupMembers[0] !== undefined && encounter.observations[0].groupMembers[0].groupMembers !== undefined) {
-                        var observations = encounter.observations[0].groupMembers[0].groupMembers;
-                        var containsWeight = false;
-                        var containsHeight = false;
-
-                        for (var h = 0; h < observations.length; h++) {
-                            if (observations[h].concept.name === "HEIGHT") {
-                                containsWeight = true;
-                            }
-                            if (observations[h].concept.name === "HEIGHT") {
-                                containsHeight = true;
-                            }
-                        }
-
-                        var containsBoth = containsHeight && containsHeight;
-
-                        var missingValue = false;
-                        for (var i = 0; i < observations.length; i++) {
-                            if (observations[i].value === undefined || observations[i].value === null) {
-                                if (observations[i].concept.name === "HEIGHT" || observations[i].concept.name === "WEIGHT") {
-                                    missingValue = true;
-                                }
-                            }
-                        }
-                        if (missingValue === true || !containsBoth) {
-                            for (var j = 0; j < observations.length; j++) {
-                                if (observations[j].concept.name === "HEIGHT" || observations[j].concept.name === "WEIGHT") {
-                                    observations.splice(j, 1);
-                                    j--;
-                                }
-                            }
-                        }
-                        encounter.observations[0].groupMembers[0].groupMembers = observations;
                     }
                 }
                 return encounter;
@@ -112,6 +75,7 @@ angular.module('bahmni.common.domain')
 
             this.create = function (encounter) {
                 encounter = this.buildEncounter(encounter);
+
                 return $http.post(Bahmni.Common.Constants.bahmniEncounterUrl, encounter, {
                     withCredentials: true
                 });

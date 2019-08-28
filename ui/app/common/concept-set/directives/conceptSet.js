@@ -228,13 +228,13 @@ angular.module('bahmni.common.conceptSet')
                                 });
                                 _.each(conditions.show, function (subConditionConceptName) {
                                     var conditionFn = Bahmni.ConceptSet.FormConditions.rules && Bahmni.ConceptSet.FormConditions.rules[subConditionConceptName];
-                                    if (conditionFn && subConditionConceptName != conditionFn.name) {
+                                    if (conditionFn) {
                                         runFormConditionForObs(true, formName, conditionFn, subConditionConceptName, flattenedObs);
                                     }
                                 });
                                 _.each(conditions.hide, function (subConditionConceptName) {
                                     var conditionFn = Bahmni.ConceptSet.FormConditions.rules && Bahmni.ConceptSet.FormConditions.rules[subConditionConceptName];
-                                    if (conditionFn && subConditionConceptName != conditionFn.name) {
+                                    if (conditionFn) {
                                         _.each(flattenedObs, function (obs) {
                                             if (obs.concept.name == subConditionConceptName) {
                                                 runFormConditionForObs(false, formName, conditionFn, subConditionConceptName, flattenedObs);
@@ -342,23 +342,23 @@ angular.module('bahmni.common.conceptSet')
                     var errorMessage;
                     if (childNode.possibleAnswers && !childNode.possibleAnswers.length) {
                         if (typeof childNode.isValueInAbsoluteRange == 'function' && !childNode.isValueInAbsoluteRange()) {
-                            errorMessage = "OBS_RANGE_ERROR_LABEL";
+                            errorMessage = "The value you entered (red field) is outside the range of allowable values for that record. Please check the value.";
                             return {message: errorMessage, status: true};
                         }
 
                         if (childNode.isNumeric()) {
                             if (!childNode.isValidNumeric()) {
-                                errorMessage = "OBS_NUMBER_ERROR_LABEL";
+                                errorMessage = "Please enter Integer value, decimal value is not allowed";
                                 return {message: errorMessage, status: true};
                             }
                             if (parentNode) {
                                 if (!childNode.isValidNumericValue() || !parentNode.isValidNumericValue()) {
-                                    errorMessage = "OBS_NUMBER_LABEL";
+                                    errorMessage = "Please enter Numeric values";
                                     return {message: errorMessage, status: true};
                                 }
                             } else {
                                 if (!childNode.isValidNumericValue()) {
-                                    errorMessage = "OBS_NUMBER_LABEL";
+                                    errorMessage = "Please enter Numeric values";
                                     return {message: errorMessage, status: true};
                                 }
                             }

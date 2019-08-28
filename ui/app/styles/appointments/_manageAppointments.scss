@@ -398,20 +398,20 @@
     font-size: 14px;
     padding: 8px;
     border: 1px solid #ddd;
-    width: 200px;
-    min-width: 200px;
-    max-width: 200px;
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
     overflow: hidden;
     text-align: center;
     word-wrap: break-word;
     &.table-mid-width {
-      width: 200px;
-      min-width: 200px;
+      width: 180px;
+      min-width: 180px;
       max-width: 180px;
     }
     &:last-child {
-      width: 180px;
-      min-width: 180px;
+      width: 540px;
+      min-width: 540px;
       max-width: 540px;
     }
   }

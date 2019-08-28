@@ -278,20 +278,6 @@ Bahmni.ConceptSet.Observation.prototype = {
         }
     },
 
-    validateWeight: function () {
-        var weight = this.value + "";
-        if (weight.includes(".")) {
-            var decimals = weight.split(".");
-            if (decimals[1].length > 1) {
-                angular.element("#weight_observation").css("border", "2px solid #ff3434");
-                angular.element("#weight_observation").css("background", "#ffcdcd");
-            } else {
-                angular.element("#weight_observation").css("border", "1px solid #d1d1d1");
-                angular.element("#weight_observation").css("background", "#fff");
-            }
-        }
-    },
-
     isConciseText: function () {
         return this.conceptUIConfig.conciseText == true;
     },
@@ -365,22 +351,6 @@ Bahmni.ConceptSet.Observation.prototype = {
             this.value = null;
         } else {
             this.value = answer;
-        }
-    },
-
-    toggleSelectionTBState: function (answer) {
-        if (answer) {
-            this.value = answer;
-        } else {
-            this.value = null;
-        }
-    },
-
-    toggleSelectionProphylaxisState: function (answer) {
-        if (answer) {
-            this.value = answer;
-        } else {
-            this.value = null;
         }
     },
 
@@ -500,9 +470,5 @@ Bahmni.ConceptSet.Observation.prototype = {
 
     assignAddMoreButtonID: function () {
         return this.concept.name.split(' ').join('_').toLowerCase() + '_addmore_' + this.uniqueId;
-    },
-
-    getObservationConceptName: function () {
-        return this.concept.name;
     }
 };

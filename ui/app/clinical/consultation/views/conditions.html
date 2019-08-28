@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col col1">
                 <input ng-model="consultation.condition.concept.name" type="text" name="name" id="name"
-                       bahmni-autocomplete source="getConditions"
+                       bahmni-autocomplete source="getDiagnosis"
                        on-select="getAddConditionMethod()"
                        ng-change="consultation.condition.clearConcept()"
                        ng-class="{illegalValue: !(consultation.condition.concept.name || consultation.condition.isEmpty())}">
@@ -126,4 +126,3 @@
         </div>
     </div>
 </div>
-<ng-include ng-if="!hideConditions" src="'consultation/views/allergies.html'"/>

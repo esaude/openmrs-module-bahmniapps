@@ -1,14 +1,11 @@
 'use strict';
 
 angular.module('bahmni.common.displaycontrol.forms')
-    .directive('formsTable', ['conceptSetService', 'spinner', '$q', 'visitFormService', 'appService', '$state', '$rootScope', 'providerService', 'providerTypeService',
-        function (conceptSetService, spinner, $q, visitFormService, appService, $state, $rootScope, providerService, providerTypeService) {
+    .directive('formsTable', ['conceptSetService', 'spinner', '$q', 'visitFormService', 'appService', '$state',
+        function (conceptSetService, spinner, $q, visitFormService, appService, $state) {
             var controller = function ($scope) {
                 $scope.shouldPromptBrowserReload = true;
                 $scope.showFormsDate = appService.getAppDescriptor().getConfigValue("showFormsDate");
-                var clinicalProviderForms = appService.getAppDescriptor().getConfigValue('clinicalProviderForms');
-                var APSSProviderForms = appService.getAppDescriptor().getConfigValue('APSSProviderForms');
-                var allProviders, finalFormsToDisplay;
                 var getAllObservationTemplates = function () {
                     return conceptSetService.getConcept({
                         name: "All Observation Templates",
@@ -40,24 +37,9 @@ angular.module('bahmni.common.displaycontrol.forms')
                 var init = function () {
                     $scope.noFormFoundMessage = "No Form found for this patient";
                     $scope.isFormFound = false;
-                    return $q.all([getAllObservationTemplates(), obsFormData(), providerTypeService.getAllProviders()]).then(function (results) {
+                    return $q.all([getAllObservationTemplates(), obsFormData()]).then(function (results) {
                         $scope.observationTemplates = results[0].data.results[0].setMembers;
-                        allProviders = results[2];
-                        var currentProvider = $rootScope.currentProvider;
-                        var providerType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
-
-                        if (providerType == "APSS") {
-                            finalFormsToDisplay = APSSProviderForms;
-                        } else if (providerType == "Clinical") {
-                            finalFormsToDisplay = clinicalProviderForms;
-                        }
                         var sortedFormDataByDate = sortedFormDataByLatestDate(results[1].data.results);
-                        /* sortedFormDataByDate = _.filter(_.map(sortedFormDataByDate, function (currentForm) {
-                            if (_.includes(finalFormsToDisplay, currentForm.concept.name.name)) {
-                                return currentForm;
-                            }
-                        })); */
-
                         if ($scope.isOnDashboard) {
                             $scope.formData = filterFormData(sortedFormDataByDate);
                         } else {

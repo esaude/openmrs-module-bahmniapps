@@ -8,7 +8,7 @@
 
         <h2 ng-hide="isEditMode()">{{ ::'ADD_NEW_APPOINTMENT' | translate}}</h2>
         <h2 ng-show="isEditMode()">{{ ::'EDIT_APPOINTMENT_KEY' | translate}}</h2>
-        <form id="create-appointment-form" name="createAppointmentForm" novalidate>
+        <form ng-submit="save()" id="create-appointment-form" name="createAppointmentForm">
 
             <section id="addNewAppointment">
                 <p>
@@ -23,8 +23,7 @@
                            response-map="responseMap"
                            on-select="onSelectPatient"
                            strict-select="true"
-                           is-invalid="invalidField"
-                           ng-class="{'illegalValue': invalidField}"
+                           ng-class="{'illegalValue': isInvalid}"
                            placeholder="{{'PLACEHOLDER_APPOINTMENT_CREATE_SEARCH_PATIENT' | translate }}"
                            non-blank
                            ng-disabled="isEditMode()"
@@ -49,8 +48,9 @@
                     <label for="service">
                         {{'APPOINTMENT_SERVICE' | translate}}<sup class="asterick">*</sup>
                     </label>
-                    <select id="service" ng-model="appointment.service" ng-change="onServiceChange()"
+                    <select id="service" ng-model="appointment.service"
                             ng-options="service.name for service in appointmentCreateConfig.services | filter: {speciality:{uuid:appointment.speciality.uuid}}:true"
+                            ng-change="onServiceChange()"
                             ng-disabled="isEditMode() && (!isEditAllowed() || !enableEditService)"
                             required>
                         <option disabled value="">{{ ::'PLACEHOLDER_SERVICE' | translate}}
@@ -71,11 +71,33 @@
                 </p>
 
                 <p>
+                    <label for="location">
+                        {{'APPOINTMENT_SERVICE_LOCATION_KEY' | translate}}
+                    </label>
+                    <select id="location" ng-model="appointment.location"
+                            ng-options="location.display for location in appointmentCreateConfig.locations | orderBy:'display'"
+                            ng-disabled="isEditMode() && !isEditAllowed()">
+                        <option value="">{{ ::'PLACEHOLDER_SERVICE_LOCATION' | translate}}
+                        </option>
+                    </select>
+                </p>
+                <p>
+                    <label for="provider">
+                        {{'APPOINTMENT_PROVIDER' | translate}}
+                    </label>
+                    <select id="provider" ng-model="appointment.provider"
+                            ng-options="provider.person.display for provider in appointmentCreateConfig.providers | orderBy:'person.display'"
+                            ng-disabled="isEditMode() && !isEditAllowed()">
+                        <option value="">{{ ::'PLACEHOLDER_CREATE_PROVIDER' | translate}}</option>
+                    </select>
+                </p>
+                <p>
                     <label for="date">
                         {{'APPOINTMENT_DATE' | translate}}<sup class="asterick">*</sup>
                     </label>
-                    <input  id="date" type="date" name="date" ng-min="isEditMode() && !isEditAllowed()" min="{{today}}" required
-                            ng-model="appointment.date" ng-change="onDateChange()"
+                    <input  id="date" type="date" ng-min="isEditMode() && !isEditAllowed()" min="{{today}}" required
+                            ng-model="appointment.date"
+                            ng-change="appointment.service && checkAvailability()"
                             placeholder="Pick appointment date"
                             ng-disabled="isEditMode() && !isEditAllowed()"/>
                     <span class="slots-remaining"></span>
@@ -86,14 +108,69 @@
                 </p>
                 <p>
                     <label for="startTimeID">
-                        {{'APPOINTMENT_SELECT_BLOCK_KEY' | translate}}<sup class="asterick">*</sup>
+                        {{'APPOINTMENT_START_TIME_KEY' | translate}}<sup class="asterick">*</sup>
                     </label>
-                    <select id="appointmentBlock" ng-change="setBlockTimes()" ng-model="selectedAppointmentBlock"
-                            ng-options="appointmentBlock.name | translate for appointmentBlock in appointmentBlocks track by appointmentBlock.name">
-                        <option disabled value="">{{ ::'APPOINTMENT_SELECT_AN_BLOCK' | translate}}
-                    </select>
+                    <input type="text"
+                           id="startTimeID"
+                           min-length=1
+                           bahmni-autocomplete
+                           ng-model="appointment.startTime"
+                           source="timeSource"
+                           ng-change="onKeyDownOnStartTime()"
+                           on-select="onSelectStartTime"
+                           ng-blur="onSelectStartTime()"
+                           ng-class="{'illegalValue': isInvalid}"
+                           placeholder="{{'PLACEHOLDER_APPOINTMENT_TIME_FORMAT' | translate }}"
+                           non-blank
+                           ng-pattern="timeRegex"
+                           ng-model-options="{allowInvalid: true}"
+                           ng-disabled='(!appointment.date || (isEditMode() && !isEditAllowed()))'
+                           required/>
+                    <i class="fa fa-search search-icon-app" aria-hidden="true"></i>
                 </p>
-                <p class="ng-hide walk-in-app">
+                <p class="warning-message" ng-if="warning.startTime">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <span> {{'APPOINTMENT_CREATION_START_TIME_WARNING' | translate}} </span>
+                </p>
+
+                <p>
+                    <label for="endTimeID">
+                        {{'APPOINTMENT_END_TIME_KEY' | translate}}<sup class="asterick">*</sup>
+                    </label>
+                    <input type="text"
+                           id="endTimeID"
+                           min-length=1
+                           bahmni-autocomplete
+                           ng-model="appointment.endTime"
+                           source="endTimeSlots"
+                           ng-change="onKeyDownOnEndTime()"
+                           on-select="onSelectEndTime"
+                           ng-blur="onSelectEndTime()"
+                           ng-class="{'illegalValue': isInvalid}"
+                           placeholder="{{'PLACEHOLDER_APPOINTMENT_TIME_FORMAT' | translate }}"
+                           non-blank
+                           ng-disabled='(!appointment.date || (isEditMode() && !isEditAllowed()))'
+                           ng-pattern="timeRegex"
+                           ng-model-options="{allowInvalid: true}"
+                           required/>
+                    <i class="fa fa-search search-icon-app" aria-hidden="true"></i>
+                </p>
+                <p class="app-ava-slots"
+                   ng-if="currentLoad || maxAppointmentsLimit || (maxAppointmentsLimit && currentLoad)">
+                    <span ng-if="maxAppointmentsLimit"><span style="color: #5cb85c;">{{maxAppointmentsLimit-currentLoad}} {{'APPOINTMENT_CREATE_SLOT' | translate}} {{'APPOINTMENT_CREATE_AVAL' | translate}}</span>
+                        {{'APPOINTMENT_CREATE_OUTOF' | translate}} <span style="color: #0275d8;">{{maxAppointmentsLimit}} {{'APPOINTMENT_CREATE_SLOT' | translate}}</span><span
+                                ng-if="maxAppointmentsLimit && currentLoad">, </span></span>
+                    <span style="color: #f0ad4e;" ng-if="currentLoad">{{currentLoad}} {{'APPOINTMENT_CREATE_SLOT' | translate}} {{'APPOINTMENT_CREATE_BOOKED' | translate}}</span>
+                </p>
+                <p class="warning-message" ng-if="warning.endTime">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <span> {{'APPOINTMENT_CREATION_END_TIME_WARNING' | translate}} </span>
+                </p>
+                <p class="warning-message" ng-if="warning.outOfRange">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <span> {{'APPOINTMENT_CREATION_OUT_OF_RANGE_WARNING' | translate}} </span>
+                </p>
+                <p class="walk-in-app">
                     <input type="checkbox" ng-model="appointment.appointmentKind" ng-true-value="'WalkIn'"
                            ng-false-value="'Scheduled'" ng-disabled="isEditMode() && !isEditAllowed()">
                     <span class="walk-in-text">{{'APPOINTMENT_CREATE_WALK_IN' | translate}}</span>
@@ -107,12 +184,9 @@
                 </p>
             </section>
             <a class="create-appointment-action-btn" ui-sref="^">{{::'APPOINTMENT_CREATE_CANCEL' | translate }}</a>
-
-            <button type="submit" ng-click="save()" disabled ng-if="!canSave" class="service-save-btn create-appointment-action-btn">{{::'APPOINTMENT_CREATE_SAVE' | translate }}</button>
-            <button type="submit" ng-click="save()" ng-if="canSave" class="service-save-btn create-appointment-action-btn">{{::'APPOINTMENT_CREATE_SAVE' | translate }}</button>
-            <button type="submit" ng-click="saveContinue();" disabled ng-if="!canSave" class="service-save-btn create-appointment-action-btn">{{::'APPOINTMENT_CREATE_SAVE_ADD_NEW' | translate }}</button>
-            <button type="submit" ng-click="saveContinue();" ng-if="canSave" class="service-save-btn create-appointment-action-btn">{{::'APPOINTMENT_CREATE_SAVE_ADD_NEW' | translate }}</button>
+            <button type="submit" class="service-save-btn create-appointment-action-btn">{{::'APPOINTMENT_CREATE_SAVE' |
+                translate }}
+            </button>
         </form>
-
     </div>
 </div>

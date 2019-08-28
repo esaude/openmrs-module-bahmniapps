@@ -17,6 +17,5 @@
   "FILTER_BUTTON_LABEL": "Filter",
   "AUDIT_LOG_TABLE_HEADER_LABEL": "Audit Log Events",
   "NO_NAVIGATION_LINKS_AVAILABLE_MESSAGE": "No navigation links available.",
-  "SELECT_VALUE_FROM_AUTOCOMPLETE_DEFAULT_MESSAGE": "Please select a value from auto complete",
-  "ADMIN_APP_TITLE":"Admin"
+  "SELECT_VALUE_FROM_AUTOCOMPLETE_DEFAULT_MESSAGE": "Please select a value from auto complete"
 }

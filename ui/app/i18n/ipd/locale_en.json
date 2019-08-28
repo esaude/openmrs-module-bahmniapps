@@ -56,6 +56,5 @@
     "GENDER_OTHER_KEY": "Other",
     "ADMISSION_DATE_LABEL": "Admission Date",
     "DOB_LABEL": "Date of Birth",
-    "PATIENT_BED_MANAGEMENT_PAGE_KEY": "Patient Bed Management",
-    "TREATMENT_START_DATE": "Data Início TARV"
+    "PATIENT_BED_MANAGEMENT_PAGE_KEY": "Patient Bed Management" 
 }

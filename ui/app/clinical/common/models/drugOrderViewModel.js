@@ -2,7 +2,7 @@
 
 var constructDrugNameDisplay = function (drug) {
     if (!_.isEmpty(drug)) {
-        return drug.form !== null ? drug.name + " (" + drug.form + ")" : drug.name;
+        return drug.name + " (" + drug.form + ")";
     }
 };
 
@@ -388,11 +388,7 @@ Bahmni.Clinical.DrugOrderViewModel = function (config, proto, encounterDate) {
     };
 
     this.setQuantityEnteredManually = function () {
-        if (this.isDurationRequired) {
-            self.quantityEnteredManually = false;
-        } else {
-            self.quantityEnteredManually = true;
-        }
+        self.quantityEnteredManually = true;
     };
 
     this.setQuantityUnitEnteredManually = function () {

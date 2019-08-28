@@ -263,8 +263,4 @@ angular.module('bahmni.clinical')
             };
 
             init();
-
-            (function () {
-                $scope.clinicalOrderUrgent = {forwardUrl: Bahmni.Clinical.Constants.adtForwardUrl, title: $translate.instant("CLINICAL_ORDER_URGENT_TITLE"), privilege: Bahmni.Clinical.Constants.adtPrivilege };
-            })();
         }]);

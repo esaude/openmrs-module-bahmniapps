@@ -8,10 +8,6 @@
 
 body{
   font-size: 14px;
-  
-  input#Observations {
-    width:20.5em;
-  }
   @media (max-width : 768px){
     font-size: 15px;
   }
@@ -139,16 +135,6 @@ body{
     display: none;
   }
 
-}
-
-.input-prepend.estimate_box {
-    padding-left: 1%;
-    padding-top: 0.7%;
-}
-
-span.estimate-label.ng-binding {
-    left: 12%;
-    position: relative;
 }
 
 .showOn-desktop-registration{

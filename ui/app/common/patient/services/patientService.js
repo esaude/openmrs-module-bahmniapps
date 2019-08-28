@@ -29,15 +29,13 @@ angular.module('bahmni.common.patient')
 
         this.search = function (query, offset, identifier) {
             offset = offset || 0;
-            var patientSearchResultsConfig = ['NICK_NAME', 'PRIMARY_CONTACT_NUMBER_1', 'PATIENT_STATUS'];
             return $http.get(Bahmni.Common.Constants.bahmniSearchUrl + "/patient", {
                 method: "GET",
                 params: {
                     q: query,
                     startIndex: offset,
                     identifier: identifier,
-                    loginLocationUuid: sessionService.getLoginLocationUuid(),
-                    patientSearchResultsConfig: patientSearchResultsConfig
+                    loginLocationUuid: sessionService.getLoginLocationUuid()
                 },
                 withCredentials: true
             });

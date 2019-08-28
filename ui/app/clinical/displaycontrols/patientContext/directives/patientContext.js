@@ -6,15 +6,6 @@ angular.module('bahmni.clinical')
             var patientContextConfig = appService.getAppDescriptor().getConfigValue('patientContext') || {};
             $scope.initPromise = patientService.getPatientContext($scope.patient.uuid, $state.params.enrollment, patientContextConfig.personAttributes, patientContextConfig.programAttributes, patientContextConfig.additionalPatientIdentifiers);
 
-            patientService.getPatient($scope.patient.uuid).then(function (response) {
-                var patientInfo = response.data.person.attributes;
-                for (var i = 0; i < patientInfo.length; i++) {
-                    if (patientInfo[i].attributeType.display === 'PATIENT_STATUS') {
-                        $scope.patientStatus = patientInfo[i].display;
-                    }
-                }
-            });
-
             $scope.initPromise.then(function (response) {
                 $scope.patientContext = response.data;
                 var programAttributes = $scope.patientContext.programAttributes;

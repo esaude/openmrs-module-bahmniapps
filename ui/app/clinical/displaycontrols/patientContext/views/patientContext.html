@@ -10,9 +10,8 @@
                     ({{patientContext.identifier}})
                 </span>
             </li>
-            <li>{{patientContext.gender | translate}}</li>
+            <li>{{patientContext.gender}}</li>
             <li>{{patientContext.birthdate | birthDateToAgeText}}</li>
-            <li><span ng-if="patientStatus === 'Pre TARV' || patientStatus === 'TARV'">{{'CLINICAL_PATIENT_STATUS' | translate}}</span> {{patientStatus}}</li>
             <li ng-repeat="(key, value) in patientContext.additionalPatientIdentifiers">
                 {{key}}: {{value}}
             </li>

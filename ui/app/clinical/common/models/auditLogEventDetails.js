@@ -3,7 +3,6 @@ Bahmni.Clinical.StateNameEvenTypeMap = {
     "patient.dashboard.show": "VIEWED_CLINICAL_DASHBOARD",
     "patient.dashboard.show.observations": "VIEWED_OBSERVATIONS_TAB",
     "patient.dashboard.show.diagnosis": "VIEWED_DIAGNOSIS_TAB",
-    "patient.dashboard.show.allergy": "VIEWED_ALLERGY_TAB",
     "patient.dashboard.show.treatment.page": "VIEWED_TREATMENT_TAB",
     "patient.dashboard.show.disposition": "VIEWED_DISPOSITION_TAB",
     "patient.dashboard.show.summary": "VIEWED_DASHBOARD_SUMMARY",

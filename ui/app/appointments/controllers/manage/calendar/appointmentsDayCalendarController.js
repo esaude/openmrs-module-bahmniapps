@@ -103,8 +103,7 @@ angular.module('bahmni.appointments')
                         eventDrop: $scope.alertOnDrop,
                         eventResize: $scope.alertOnResize,
                         eventRender: $scope.eventRender,
-                        schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
-                        slotLabelFormat: ['HH:mm']
+                        schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source'
                     }
                 };
 

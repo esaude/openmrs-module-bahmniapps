@@ -63,6 +63,5 @@
     "BED_LABEL": "Bed",
     "ASSIGN_BED_LABEL": "Assign",
     "TRANSFER_BED_LABEL": "Transfer",
-    "EMPTY_WARD_MESSAGE": "There are no patients in this ward.",
-    "TREATMENT_START_DATE": "Data Início TARV"
+    "EMPTY_WARD_MESSAGE": "There are no patients in this ward."
 }

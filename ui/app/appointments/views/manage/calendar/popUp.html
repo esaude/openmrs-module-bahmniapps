@@ -15,19 +15,13 @@
         <p ng-show="scope.patientAppointmentMap[patient.uuid].serviceType"><b>{{::'APPOINTMENT_SERVICE_TYPE_FULL' |
             translate}}:</b> {{scope.patientAppointmentMap[patient.uuid].serviceType.name}}</p>
         <p ng-show="scope.patientAppointmentMap[patient.uuid].status"><b>{{::'APPOINTMENT_STATUS' | translate}}:</b>
-            <span ng-if="scope.patientAppointmentMap[patient.uuid].status === 'Scheduled'">{{::'SCHEDULED_APPOINTMENT' | translate}}</span>
-            <span ng-if="scope.patientAppointmentMap[patient.uuid].status === 'CheckedIn'">{{::'CHECK_IN_APPOINTMENT' | translate}}</span>
-            <span ng-if="scope.patientAppointmentMap[patient.uuid].status === 'Completed'">{{::'COMPLETED_APPOINTMENT' | translate}}</span>
-            <span ng-if="scope.patientAppointmentMap[patient.uuid].status === 'Missed'">{{::'MISSED_APPOINTMENT' | translate}}</span>
-        </p>
+            {{scope.patientAppointmentMap[patient.uuid].status}}</p>
     </div>
+    <p ng-if="scope.appointments[0].provider"><b>{{::'APPOINTMENT_PROVIDER' | translate}}:</b>
+        {{scope.appointments[0].provider.name}}</p>
     <p><b>{{::'APPOINTMENT_DATE' | translate}}:</b> {{scope.appointments[0].startDateTime | bahmniDate}}</p>
-
-
-    <!--<p><b>{{::'APPOINTMENT_SLOT' | translate}}:</b> {{scope.appointments[0].startDateTime | bahmniTime}} - -->
-        <!--{{scope.appointments[0].endDateTime | bahmniTime}}</p>-->
-
-
+    <p><b>{{::'APPOINTMENT_SLOT' | translate}}:</b> {{scope.appointments[0].startDateTime | bahmniTime}} -
+        {{scope.appointments[0].endDateTime | bahmniTime}}</p>
     <p class="app-dialog-btn-wrap">
         <button show-if-privilege="{{manageAppointmentPrivilege}}" style="background: #039BE5"
                 ng-disabled="!patient"
@@ -51,6 +45,12 @@
                 ng-disabled="!patient || !isValidAction(scope.patientAppointmentMap[patient.uuid], 'Missed')"
                 ng-click="confirmAction(scope.patientAppointmentMap[patient.uuid], 'Missed')">
             {{::'MISSED_APPOINTMENT' | translate}}
+        </button>
+        <button show-if-privilege="{{manageAppointmentPrivilege}}" style="background: #DD2C00"
+                ng-show="isAllowedAction('Cancelled')"
+                ng-disabled="!patient || !isValidAction(scope.patientAppointmentMap[patient.uuid], 'Cancelled')"
+                ng-click="confirmAction(scope.patientAppointmentMap[patient.uuid], 'Cancelled')">
+            {{::'CANCEL_APPOINTMENT' | translate}}
         </button>
         <button show-if-privilege="{{manageAppointmentPrivilege}}" style="background: #8BC34A"
                 ng-show="scope.enableCreateAppointment"

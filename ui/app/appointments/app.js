@@ -131,9 +131,7 @@ angular
                     viewDate: null,
                     patient: null,
                     doFetchAppointmentsData: true,
-                    appointmentsData: null,
-                    selectedAppointmentBlock: null,
-                    selectedAppointmentDate: null
+                    appointmentsData: null
                 },
                 views: {
                     'content@viewAppointments': {

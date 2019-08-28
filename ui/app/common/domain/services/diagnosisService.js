@@ -10,20 +10,6 @@ angular.module('bahmni.common.domain')
             });
         };
 
-        this.getAllConditionsFor = function (searchTerm) {
-            var url = Bahmni.Common.Constants.emrapiConditionConceptUrl;
-            return $http.get(url, {
-                params: {term: searchTerm, limit: 20}
-            });
-        };
-
-        this.getAllForAllergy = function (searchTerm) {
-            var url = Bahmni.Common.Constants.emrapiAllergyConceptUrl;
-            return $http.get(url, {
-                params: {term: searchTerm, limit: 20}
-            });
-        };
-
         this.getDiagnoses = function (patientUuid, visitUuid) {
             var url = Bahmni.Common.Constants.bahmniDiagnosisUrl;
             return $http.get(url, {

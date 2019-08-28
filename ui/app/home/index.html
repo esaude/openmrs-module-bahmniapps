@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en" ng-app="bahmni.home">
+<html lang="en">
     <head>
-        <title>{{'HOME_APP_TITLE' | translate}}</title>
+        <title>Bahmni Home</title>
 
         <meta charset="utf-8">
         <meta name="HandheldFriendly" content="true">
@@ -19,7 +19,7 @@
     </head>
     <body>
         <div class="reg-wrapper">
-            <div >
+            <div ng-app="bahmni.home">
                 <div ng-include src="'../common/ui-helper/messages.html'"></div>
                 <div ui-view id="view-content"></div>
             </div>
@@ -112,9 +112,6 @@
         <script src="../common/app-framework/services/loadConfigService.js"></script>
         <script src="../common/logging/services/loggingService.js"></script>
         <script src="../common/logging/services/auditLogService.js"></script>
-        <script src="../common/domain/services/providerService.js"></script>
-        <script src="../common/domain/services/providerTypeService.js"></script>
-       
         <!-- endbuild -->
     </body>
 </html>

@@ -39,10 +39,6 @@ angular.module('bahmni.common.config')
             return this.configs.consultationNoteConfig.results[0] || [];
         };
 
-        this.whoStageConcept = function () {
-            return this.configs.whoStageConfig.results[0] || [];
-        };
-
         this.patientConfig = function () {
             return this.configs.patientConfig || {};
         };

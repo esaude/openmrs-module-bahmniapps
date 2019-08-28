@@ -14,7 +14,7 @@ angular.module('bahmni.registration')
             }
         };
     })
-    .controller('TopDownAddressFieldsDirectiveController', ['$scope', '$rootScope', 'addressHierarchyService', function ($scope, $rootScope, addressHierarchyService) {
+    .controller('TopDownAddressFieldsDirectiveController', ['$scope', 'addressHierarchyService', function ($scope, addressHierarchyService) {
         $scope.addressFieldInvalid = false;
         var selectedAddressUuids = {};
         var selectedUserGeneratedIds = {};
@@ -44,6 +44,7 @@ angular.module('bahmni.registration')
                 });
             }
         };
+
         $scope.addressFieldSelected = function (fieldName) {
             return function (addressFieldItem) {
                 selectedAddressUuids[fieldName] = addressFieldItem.addressField.uuid;
@@ -54,17 +55,6 @@ angular.module('bahmni.registration')
                 parentFields.forEach(function (parentField) {
                     if (!parent) {
                         return;
-                    }
-                    if (parentField == "country") {
-                        angular.element("#" + parentField).addClass("legalValue");
-                        angular.element("#stateProvince").addClass("legalValue");
-                    }
-                    if (parentField == "stateProvince") {
-                        angular.element("#" + parentField).addClass("legalValue");
-                        angular.element("#cityVillage").addClass("legalValue");
-                    }
-                    if (parentField == "cityVillage") {
-                        angular.element("#" + parentField).addClass("legalValue");
                     }
                     $scope.address[parentField] = parent.name;
                     $scope.selectedValue[parentField] = parent.name;
@@ -121,22 +111,7 @@ angular.module('bahmni.registration')
 
         $scope.getAddressDataResults = addressHierarchyService.getAddressDataResults;
 
-        var addressHierarchEmptyFieldsValidations = function (fieldName) {
-            if (fieldName === "country" || fieldName === "stateProvince" || fieldName === "cityVillage") {
-                $rootScope.fieldValue = angular.element("#" + fieldName)[0].value;
-
-                if ($rootScope.fieldValue === undefined || $rootScope.fieldValue === "") {
-                    angular.element("#" + fieldName).css("border", "1px solid red");
-                    angular.element("#" + fieldName).css("background", "#ffcdcd");
-                    angular.element("#" + fieldName).css("outline", "0");
-                } else {
-                    $scope.addressFieldSelected(fieldName);
-                }
-            }
-        };
-
         $scope.clearFields = function (fieldName) {
-            addressHierarchEmptyFieldsValidations(fieldName);
             var childFields = addressLevelsNamesInDescendingOrder.slice(0, addressLevelsNamesInDescendingOrder.indexOf(fieldName));
             childFields.forEach(function (childField) {
                 if ($scope.selectedValue[childField] !== null) {

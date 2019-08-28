@@ -21,19 +21,6 @@ angular.module('bahmni.registration')
             return defer.promise;
         };
 
-        var searchDuplicatePatients = function (config) {
-            var defer = $q.defer();
-            var patientSearchUrl = Bahmni.Common.Constants.bahmniDuplicateSearchUrl + "/patient";
-            var onResults = function (result) {
-                defer.resolve(result);
-            };
-            $http.get(patientSearchUrl, config).success(onResults)
-                .error(function (error) {
-                    defer.reject(error);
-                });
-            return defer.promise;
-        };
-
         var getByUuid = function (uuid) {
             var url = openmrsUrl + "/ws/rest/v1/patientprofile/" + uuid;
             var config = {
@@ -86,7 +73,6 @@ angular.module('bahmni.registration')
 
         return {
             search: search,
-            searchDuplicatePatients: searchDuplicatePatients,
             get: getByUuid,
             create: create,
             update: update,

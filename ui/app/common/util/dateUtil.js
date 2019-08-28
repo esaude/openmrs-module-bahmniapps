@@ -89,7 +89,7 @@ Bahmni.Common.Util.DateUtil = {
         if (!moment(dateRepresentation).isValid()) {
             return datetime;
         }
-        return dateRepresentation ? moment(dateRepresentation).format("DD MMM YY HH:mm") : null;
+        return dateRepresentation ? moment(dateRepresentation).format("DD MMM YY h:mm a") : null;
     },
 
     formatDateWithoutTime: function (date) {
@@ -116,7 +116,7 @@ Bahmni.Common.Util.DateUtil = {
         if (!moment(dateRepresentation).isValid()) {
             return date;
         }
-        return dateRepresentation ? moment(dateRepresentation).format("HH:mm") : null;
+        return dateRepresentation ? moment(dateRepresentation).format("h:mm a") : null;
     },
 
     getDate: function (dateTime) {
@@ -276,6 +276,6 @@ Bahmni.Common.Util.DateUtil = {
         return date ? moment(date).toDate().toISOString() : null;
     },
     isBeforeTime: function (time, otherTime) {
-        return moment(time, 'HH:mm').format('YYYY-MM-DD');
+        return moment(time, 'hh:mm a').format('YYYY-MM-DD');
     }
 };

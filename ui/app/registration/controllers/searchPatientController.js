@@ -5,13 +5,8 @@ angular.module('bahmni.registration')
         'messagingService', '$translate', '$filter',
         function ($rootScope, $scope, $location, $window, spinner, patientService, appService, messagingService, $translate, $filter) {
             $scope.results = [];
-            $scope.orderByField = 'givenName';
-            $scope.reverseSort = false;
-            $scope.isExtraIdentifier = false;
-            $scope.idColumns = 'NID';
-            var extraIdentifiersToDisplay = appService.getAppDescriptor().getConfigValue("extraIdentifiersToDisplay") || [];
-            $scope.extraIdentifierTypes = _.filter($rootScope.patientConfiguration.identifierTypes, function (identifierType, index) {
-                return extraIdentifiersToDisplay.indexOf(identifierType.name) !== -1;
+            $scope.extraIdentifierTypes = _.filter($rootScope.patientConfiguration.identifierTypes, function (identifierType) {
+                return !identifierType.primary;
             });
             var searching = false;
             var maxAttributesFromConfig = 5;
@@ -72,7 +67,6 @@ angular.module('bahmni.registration')
                         mapProgramAttributesSearchResults(response);
                         return response;
                     });
-
                     searchPromise['finally'](function () {
                         searching = false;
                     });
@@ -193,9 +187,9 @@ angular.module('bahmni.registration')
                 var resultsConfigNotFound = false;
                 if (_.isEmpty(patientSearchResultConfigs)) {
                     resultsConfigNotFound = true;
-                    patientSearchResultConfigs.address = { "fields": allSearchConfigs.address ? [allSearchConfigs.address.field] : {} };
+                    patientSearchResultConfigs.address = {"fields": allSearchConfigs.address ? [allSearchConfigs.address.field] : {}};
                     patientSearchResultConfigs.personAttributes
-                        = { fields: allSearchConfigs.customAttributes ? allSearchConfigs.customAttributes.fields : {} };
+                        = {fields: allSearchConfigs.customAttributes ? allSearchConfigs.customAttributes.fields : {}};
                 } else {
                     if (!patientSearchResultConfigs.address) patientSearchResultConfigs.address = {};
                     if (!patientSearchResultConfigs.personAttributes) patientSearchResultConfigs.personAttributes = {};
@@ -278,12 +272,12 @@ angular.module('bahmni.registration')
                         if (data.pageOfResults.length === 1) {
                             var patient = data.pageOfResults[0];
                             var forwardUrl = appService.getAppDescriptor().getConfigValue("searchByIdForwardUrl") || "/patient/{{patientUuid}}";
-                            $location.url(appService.getAppDescriptor().formatUrl(forwardUrl, { 'patientUuid': patient.uuid }));
+                            $location.url(appService.getAppDescriptor().formatUrl(forwardUrl, {'patientUuid': patient.uuid}));
                         } else if (data.pageOfResults.length > 1) {
                             $scope.results = data.pageOfResults;
                             $scope.noResultsMessage = null;
                         } else {
-                            $scope.patientIdentifier = { 'patientIdentifier': patientIdentifier };
+                            $scope.patientIdentifier = {'patientIdentifier': patientIdentifier};
                             $scope.noResultsMessage = 'REGISTRATION_LABEL_COULD_NOT_FIND_PATIENT';
                         }
                     });

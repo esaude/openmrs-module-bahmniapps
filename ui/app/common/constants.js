@@ -16,12 +16,12 @@ Bahmni.Common = Bahmni.Common || {};
 
     var serverErrorMessages = [
         {
-            serverMessage: "{{::'MEDICATION_ERROR_CAN_NOT_HAVE_MORE_THAN' | translate}}",
-            clientMessage: "{{::'MEDICATION_ERROR_ONE_OR_MORE' | translate}}"
+            serverMessage: "Cannot have more than one active order for the same orderable and care setting at same time",
+            clientMessage: "One or more drugs you are trying to order are already active. Please change the start date of the conflicting drug or remove them from the new prescription."
         },
         {
             serverMessage: "[Order.cannot.have.more.than.one]",
-            clientMessage: "{{::'MEDICATION_ERROR_ONE_OR_MORE' | translate}}"
+            clientMessage: "One or more drugs you are trying to order are already active. Please change the start date of the conflicting drug or remove them from the new prescription."
         }
     ];
 
@@ -72,8 +72,6 @@ Bahmni.Common = Bahmni.Common || {};
         diseaseTemplateUrl: BAHMNI_CORE + "/diseaseTemplates",
         AllDiseaseTemplateUrl: BAHMNI_CORE + "/diseaseTemplate",
         emrapiConceptUrl: EMRAPI + "/concept",
-        emrapiConditionConceptUrl: EMRAPI + "/conditionconcept",
-        emrapiAllergyConceptUrl: EMRAPI + "/allergyconcept",
         encounterConfigurationUrl: BAHMNI_CORE + "/config/bahmniencounter",
         patientConfigurationUrl: BAHMNI_CORE + "/config/patient",
         drugOrderConfigurationUrl: BAHMNI_CORE + "/config/drugOrders",
@@ -86,7 +84,6 @@ Bahmni.Common = Bahmni.Common || {};
         bahmniDispositionByVisitUrl: BAHMNI_CORE + "/disposition/visit",
         bahmniDispositionByPatientUrl: BAHMNI_CORE + "/disposition/patient",
         bahmniSearchUrl: BAHMNI_CORE + "/search",
-        bahmniDuplicateSearchUrl: BAHMNI_CORE + "/duplicatesearch",
         bahmniLabOrderResultsUrl: BAHMNI_CORE + "/labOrderResults",
         bahmniEncounterUrl: BAHMNI_CORE + "/bahmniencounter",
         conceptUrl: RESTWS_V1 + "/concept",
@@ -128,7 +125,6 @@ Bahmni.Common = Bahmni.Common || {};
         diseaseSummaryPivotUrl: BAHMNI_CORE + "/diseaseSummaryData",
         allTestsAndPanelsConceptName: 'All_Tests_and_Panels',
         dosageFrequencyConceptName: 'Dosage Frequency',
-        whoStageConceptName: 'HTC, WHO Staging',
         dosageInstructionConceptName: 'Dosage Instructions',
         stoppedOrderReasonConceptName: 'Stopped Order Reason',
         consultationNoteConceptName: 'Consultation Note',
@@ -252,10 +248,7 @@ Bahmni.Common = Bahmni.Common || {};
         auditLogUrl: RESTWS_V1 + "/auditlog",
         appointmentServiceUrl: RESTWS_V1 + "/appointmentService",
         conditionUrl: EMRAPI + '/condition',
-        allergyUrl: EMRAPI + '/allergy',
-        dispenseDrugOrderUrl: EMRAPI + '/dispensedrugorder',
         conditionHistoryUrl: EMRAPI + '/conditionhistory',
-        allergyHistoryUrl: EMRAPI + '/allergyhistory',
         followUpConditionConcept: 'Follow-up Condition',
         localeLangs: "/bahmni_config/openmrs/apps/home/locale_languages.json",
         privilegeRequiredErrorMessage: "PRIVILEGE_REQUIRED",

@@ -17,9 +17,7 @@
         "obsToObsFlowSheet",
         "pacsOrders",
         "patientInformation",
-        "conditionsList",
-        "allergiesList",
-        "treatmentDate"
+        "conditionsList"
     ];
 
     var getViewUrl = function (section) {

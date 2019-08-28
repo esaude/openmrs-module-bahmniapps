@@ -3,11 +3,11 @@
 angular.module('bahmni.registration')
     .directive('patientAction', ['$window', '$location', '$state', 'spinner', '$rootScope', '$stateParams',
         '$bahmniCookieStore', 'appService', 'visitService', 'sessionService', 'encounterService',
-        'messagingService', '$translate', 'auditLogService', '$document',
+        'messagingService', '$translate', 'auditLogService',
         function ($window, $location, $state, spinner, $rootScope, $stateParams,
                   $bahmniCookieStore, appService, visitService, sessionService, encounterService,
-                  messagingService, $translate, auditLogService, $document) {
-            var controller = function ($scope, $timeout) {
+                  messagingService, $translate, auditLogService) {
+            var controller = function ($scope) {
                 var self = this;
                 var uuid = $stateParams.patientUuid;
                 var editActionsConfig = appService.getAppDescriptor().getExtensions(Bahmni.Registration.Constants.nextStepConfigId, "config") || [];
@@ -20,8 +20,7 @@ angular.module('bahmni.registration')
                 showStartVisitButton = (_.isUndefined(showStartVisitButton) || _.isNull(showStartVisitButton)) ? true : showStartVisitButton;
                 var visitLocationUuid = $rootScope.visitLocation;
                 var forwardUrls = forwardUrlsForVisitTypes || false;
-                $scope.visitTable = [];
-                $scope.allVisits = $rootScope.regEncounterConfiguration.getVisitTypesAsArray();
+
                 var getForwardUrlEntryForVisitFromTheConfig = function () {
                     var matchedEntry = _.find(forwardUrls, function (entry) {
                         if (self.hasActiveVisit) {
@@ -80,79 +79,16 @@ angular.module('bahmni.registration')
                     }));
                 };
 
-                var getVisitHistory = function () {
-                    var historyTable = [];
-                    var visitTb = [];
-                    return visitService.search({
-                        patient: uuid,
-                        v: 'custom:(uuid,visitType,startDatetime,stopDatetime,location,encounters:(uuid))',
-                        includeInactive: true
-                    })
-                        .then(function (data) {
-                            historyTable = data.data.results;
-
-                            // get all visits, counts and date, location??
-                            for (var i = 0; i <= historyTable.length; i++) {
-                                if (historyTable[i] == undefined) {
-                                } else {
-                                    visitTb.push({
-                                        "type": historyTable[i].visitType.display,
-                                        "date": historyTable[i].stopDatetime,
-                                        "encounters": historyTable[i].encounters.length
-                                    });
-                                }
-                            }
-                            $scope.visitTable = visitTb;
-                        });
-                };
-                getVisitHistory();
-
-                if (uuid == undefined) {
-                    $scope.startVisits = [$scope.allVisits[0]];
-                } else {
-                    $scope.startVisits = [$scope.allVisits[0]];
-                }
-
                 $scope.visitControl = new Bahmni.Common.VisitControl(
-                    $scope.startVisits, defaultVisitType, encounterService, $translate, visitService
+                    $rootScope.regEncounterConfiguration.getVisitTypesAsArray(),
+                    defaultVisitType, encounterService, $translate, visitService
                 );
 
                 $scope.visitControl.onStartVisit = function () {
                     $scope.setSubmitSource('startVisit');
                 };
 
-                var checkEmptyFields = function () {
-                    $scope.countryValue = angular.element("#country")[0].value;
-                    $scope.stateProvinceValue = angular.element("#stateProvince")[0].value;
-                    $scope.cityVillageValue = angular.element("#cityVillage")[0].value;
-
-                    if ($scope.countryValue === undefined || $scope.countryValue === "") {
-                        angular.element("#country").addClass("illegalValue");
-                    }
-                    if ($scope.stateProvinceValue === undefined || $scope.stateProvinceValue === "") {
-                        angular.element("#stateProvince").addClass("illegalValue");
-                    }
-                    if ($scope.cityVillageValue === undefined || $scope.cityVillageValue === "") {
-                        angular.element("#cityVillage").addClass("illegalValue");
-                    }
-                };
-
-                var validFields = function () {
-                    if ($scope.myForms.myForm.country.$invalid || $scope.myForms.myForm.stateProvince.$invalid || $scope.myForms.myForm.cityVillage.$invalid) {
-                        return false;
-                    }
-                    return true;
-                };
-
                 $scope.setSubmitSource = function (source) {
-                    if (!validFields()) {
-                        $rootScope.isValidFields = false;
-                    } else {
-                        $rootScope.isValidFields = true;
-                    }
-                    $scope.submitted = true;
-                    validFields();
-                    checkEmptyFields();
                     $scope.actions.submitSource = source;
                 };
 
@@ -210,10 +146,7 @@ angular.module('bahmni.registration')
                         return;
                     }
                     spinner.forPromise($scope.visitControl.createVisitOnly(patientProfileData.patient.uuid, $rootScope.visitLocation).then(function (response) {
-                        auditLogService.log(patientProfileData.patient.uuid, "OPEN_VISIT", {
-                            visitUuid: response.data.uuid,
-                            visitType: response.data.visitType.display
-                        }, 'MODULE_LABEL_REGISTRATION_KEY');
+                        auditLogService.log(patientProfileData.patient.uuid, "OPEN_VISIT", {visitUuid: response.data.uuid, visitType: response.data.visitType.display}, 'MODULE_LABEL_REGISTRATION_KEY');
                         if (forwardUrl) {
                             var updatedForwardUrl = appService.getAppDescriptor().formatUrl(forwardUrl, {'patientUuid': patientProfileData.patient.uuid});
                             $window.location.href = updatedForwardUrl;
