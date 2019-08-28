@@ -179,7 +179,7 @@ angular.module('bahmni.common.conceptSet')
                     if (scope.conceptSetName === 'Clinical_Observation_form') {
                         if (scope.observation.concept.name === 'Blood_Pressure_–_Diastolic_VSNew') {
                             var bloodPressureDiastolic = scope.observation.value;
-                            if (bloodPressureDiastolic <= 80 || bloodPressureDiastolic === undefined) {
+                            if ((bloodPressureDiastolic >= 60 && bloodPressureDiastolic <= 80) || bloodPressureDiastolic === undefined) {
                                 scope.hideAbnormalButton = true;
                             } else {
                                 scope.hideAbnormalButton = false;
@@ -188,7 +188,7 @@ angular.module('bahmni.common.conceptSet')
 
                         if (scope.observation.concept.name === 'Blood_Pressure_–_Systolic_VitalS') {
                             var bloodPressureSystolic = scope.observation.value;
-                            if (bloodPressureSystolic <= 120 || bloodPressureSystolic === undefined) {
+                            if ((bloodPressureSystolic >= 90 && bloodPressureSystolic <= 120) || bloodPressureSystolic === undefined) {
                                 scope.hideAbnormalButton = true;
                             } else {
                                 scope.hideAbnormalButton = false;
