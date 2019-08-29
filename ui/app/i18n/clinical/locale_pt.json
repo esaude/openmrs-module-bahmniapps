@@ -467,5 +467,7 @@
   "PRESCRIPTION_REPORT_PRINT_PRESCRIPTION_LABEL": "Prescrição",
   "CLINICAL_PATIENT_STATUS": "Activo em",
   "CONFIRMED": "Confirmado",
-  "PRIMARY": "Primário"
+  "PRIMARY": "Primária",
+  "PRESUMED": "Presumido",
+  "SECONDARY": "Secundária"
 }
