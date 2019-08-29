@@ -6,7 +6,7 @@
             <bm-back-links></bm-back-links>
             <recent-patients ng-if="enablePatientSearch()"></recent-patients>
             <a show-if-privilege="{{adtNavigationConfig.privilege}}" ng-click= "displayConfirmationDialog($event)" class="back-btn" ng-href="{{adtNavigationURL(consultation.uuid)}}"
-               title="{{adtNavigationConfig.title}}">
+               title="{{adtNavigationConfig.title}}" ng-hide="true">
                 <i class="fa fa-bed fa-white"></i>
             </a>
             <a class="back-btn-link" id="dashboard-link" accesskey="d" ng-click="gotoPatientDashboard()" title="Back to {{patient.name}} Dashboard">
@@ -44,7 +44,7 @@
             <bm-back-links></bm-back-links>
             <recent-patients></recent-patients>
             <a show-if-privilege="{{adtNavigationConfig.privilege}}" ng-click= "displayConfirmationDialog($event)" class="back-btn" ng-href="{{adtNavigationURL(visitHistory.activeVisit.uuid)}}"
-               title="{{adtNavigationConfig.title}}">
+               title="{{adtNavigationConfig.title}}" ng-hide="true">
                 <i class="fa fa-bed fa-white"></i>
             </a>
             <div class="desktop-menu fl">
