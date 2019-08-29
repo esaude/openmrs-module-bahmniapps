@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+
+            line-height: normal;
+        }
+
+        input {
+            outline: 0;
+            border-width: 0 0 2px;
+            border-color: black
+        }
+
+        p {
+            font-size: 20px;
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+        fieldset {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+        legend {
+            font-size: 20px;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+</head>
+
+<body>
+    <div ng-controller="transferController">
+        <div ng-if="data">
+            <img ng-if="data.hospitalLogo" height="80px" width="80px" src="{{ data.hospitalLogo }}"
+                style="padding-left:300px;" class="prescribe-report-logo">
+            <h3 align=center>REPÚBLICA DE MOÇAMBIQUE<br>MINISTÉRIO DA SAÚDEGUIA<br>GUIA DE TRANSFERÊNCIA</h3>
+            <br><br>
+            <p>
+                <b>{{ 'TRANSFER_FROM' | translate }}</b>&nbsp:&nbsp{{ data.hospitalName }}&nbsp&nbsp&nbsp&nbsp
+                <b> {{ 'PROGRAM_MANAGEMENT_TO_KEY' | translate }}</b>&nbsp:&nbsp{{ data.dest }}&nbsp&nbsp&nbsp&nbsp
+                <b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp{{ data.Transfer |  bahmniDate}}</p>
+            <br>
+            <fieldset align:center; style="border: 2px solid black;">
+                <legend><b>{{ 'PATIENT_IDENTIFICATION' | translate }}</b></legend>
+                <br>
+
+                <b> {{ 'PRESCRIPTION_REPORT_PATIENT_NAME' | translate }}</b>&nbsp:&nbsp
+                {{ data.patientInfo.firstName }}&nbsp&nbsp{{ data.patientInfo.lastName }}
+                <span style="margin-left: 80px;"><b> {{ 'PRESCRIPTION_REPORT_PATIENT_ID' | translate }}</b>&nbsp:&nbsp
+                    {{data.patientInfo.patientId}}</span><br><br>
+                <b>{{ 'CLINICAL_LIST_PATIENT_SEX' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.sex }}
+                <span style="margin-left: 223px;">
+                    <b>{{ 'CLINICAL_LIST_PATIENT_DOB' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.birth_date | bahmniDate }}</span>
+                <span
+                    style="margin-left: 65px;"><b>{{ 'PRESCRIPTION_REPORT_PATIENT_AGE_AND_SEX' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.age }}</span>
+                <br><br><b>{{ 'CLINICAL_LIST_PATIENT_MAIN_CONTACT' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.mainContact }}</span><br><br>
+                <b>{{ 'PRESCRIPTION_REPORT_PATIENT_ADDRESS' | translate }}</b><br>
+                <table border=0>
+                    <tr height="35">
+                        <td height="20"><b>{{ 'PROVINCE' | translate }}</b>&nbsp:&nbsp{{ data.province }} </td>
+                        <td height="20"> <b>{{ 'DISTRICT_CITY' | translate }}</b>&nbsp:&nbsp{{ data.District }}</td>
+                    </tr>
+                    <tr height="35">
+                        <td height="20" style="width:278px">
+                            <b>{{ 'TOWN' | translate }}</b>&nbsp:&nbsp{{ data.address1 }}</td>
+                        <td height="20"> <b>{{ 'CELL_BLOCK' | translate }}</b>&nbsp:&nbsp{{ data.address3 }}</td>
+                    </tr>
+                    <tr height="35">
+                        <td><b>{{ 'STREET_HOUSE' | translate }}</b>&nbsp:&nbsp{{ data.address4}}</td>
+                        <td> <b>{{ 'CLOSE_OF' | translate }}</b>&nbsp:&nbsp{{ data.address2}}</td>
+                    </tr>
+                </table>
+            </fieldset>
+            <br><br>
+            <fieldset style="border: 2px solid black;">
+                <legend><b>{{ 'PROPHILAXIS' | translate }}</b></legend>
+                <br>
+                <b>{{ 'DATE_OF_DIAGNOSIS' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.hivDate | bahmniDate}}<br><br>
+                <b> {{ 'TREATMENT_STATUS' | translate }}&nbsp:&nbsp</b>
+                <div ng-repeat="s in data.patientInfo.patientStatus">
+                    <span style="padding-left: 130px;"> <input type="checkbox"
+                            ng-checked="s === 'TARV' " />TARV&nbsp&nbsp
+                        <input type="checkbox" ng-checked="s !== 'TARV' " />Pre TARV&nbsp&nbsp
+
+                        (
+                        <b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.regDate | bahmniDate}})</span><br><br>
+                </div> <b> {{ 'ART_REGIME' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.currRegARV}}<br><br>
+                <b>{{ 'REGIME_CHANGE_TO' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.secLast}}
+                &nbsp<b>{{ 'MEDICATION_DUE_TO' | translate }}</b>&nbsp:&nbsp<input type=text size=10>
+                &nbsp<b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.secLastDate | bahmniDate}}<br><br>
+                <b> {{ 'REGIME_CHANGE_TO' | translate }}</b>&nbsp:&nbsp {{data.patientInfo.thirdLast | bahmniDate}}
+                &nbsp <b>{{ 'MEDICATION_DUE_TO' | translate }}</b>&nbsp:&nbsp<input type=text size=10>
+                &nbsp&nbsp<b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.thirdLastDate | bahmniDate}}<br>
+                <table border=0>
+                    <tr>
+                        <td height="40"><b>INH
+                                –{{ 'START_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.INH_start |  bahmniDate}}
+                        </td>
+                        <td></td>
+                        <td><b>{{ 'END_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.INH_end |  bahmniDate}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b> CTZ
+                                –{{ 'START_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.CTZ_start |  bahmniDate}}
+                        </td>
+                        <td></td>
+                        <td><b>{{ 'END_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.CTZ_end |  bahmniDate}}
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <br><br> <br><br> <br><br>
+            <fieldset style="border: 2px solid black;">
+                <legend><b>{{ 'CLINICAL_SITUATION' | translate }}</b></legend>
+                <br>
+                <b>{{ 'WEIGHT' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.weight }}
+                <span style="padding-left: 20px;">
+                    <b>{{ 'HEIGHT' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.height }}
+                    <span
+                        style="padding-left: 20px;"><b>{{ 'BMI' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.BMI }}
+                        <span style="padding-left: 20px;"></span>
+                        <b>{{ 'CLINICAL_STAGE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.whoStaging }} <br><br>
+                        <b>
+                            {{ 'CONDITION_NAME' | translate }}</span></b>&nbsp:&nbsp{{ data.patientInfo.condName }}<br><br>
+                    <b>{{ 'TB_BACKGROUND' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.Tb_back }}
+                    <b> ({{ 'TREATMENT_START' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.Tb_start }} &nbsp&nbsp
+                    <b>{{ 'TREATMENT_END' | translate }}</b>{{ data.patientInfo.Tb_end }})<br><br>
+                    <b> {{ 'CURRENT_DIAGNOSIS' | translate }}</b>&nbsp:&nbsp
+                    <span>{{ data.patientInfo.diagnosisPastName }}</span>
+
+                    <span ng-repeat="c in data.patientInfo.diagnosisName">
+                        <span style="margin-left: 10px"> {{c}} <br><span style="margin-left: 149px"></span></span>
+                    </span> <br><br>
+
+                    <b> {{ 'ON_GOING_TREATMENT' | translate }}</b>&nbsp:&nbsp<span
+                        ng-repeat="b in data.patientInfo.notARV">
+                        <span style="margin-left: 7px;"> {{b}}<br><span style="margin-left: 162px"></span></span>
+                    </span><br>
+                    <b> {{ 'PREGNANCY' | translate }}</b>&nbsp:&nbsp {{ data.patientInfo.pregStatus }}
+                    &nbsp&nbsp &nbsp&nbsp <b>
+                        {{ 'BREASTFEEDING_STATUS' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.breastFeedingStatus }}<br><br>
+                    <b> {{ 'MDS_STATUS' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.mdsYes}}
+
+                    <BR><BR><b>{{ 'MODEL_TYPE' | translate }}</b>&nbsp:&nbsp<span
+                        ng-repeat="a in data.patientInfo.modelTypes">
+                        <span style="margin-left: 7px;"> {{a}}<br><span style="margin-left: 120px"></span></span>
+                    </span>
+                    <br>
+                    (
+                    <b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.modelDate | bahmniDate}})
+                    <br><br>
+            </fieldset>
+
+            <br><br>
+            <fieldset style="border: 2px solid black;">
+                <legend><b>{{ 'LABORATORY_SITUATION' | translate }}</b></legend>
+                <br>
+                <b>{{ 'LATEST_ANAYSIS' | translate }}</b><br><br>
+                <table>
+                    <tr>
+                        <td style="width:150px"><b> CD4</b> &nbsp:&nbsp{{ data.patientInfo.resultcd}}% </td>
+                        <td style="width:150px"><b>{{ 'ALLERGIES_LIST_DATE' | translate }}&nbsp:&nbsp </b></td>
+                        <td colspan="2" style="width:150px"><b>{{ 'VIRAL_LOAD' | translate }}</b>&nbsp:&nbsp
+                            {{ data.patientInfo.resultVl}}</td>
+                        <td style="width:150px"> <b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp</td>
+                    </tr>
+                    <tr>
+                        <td> <b> {{ 'HB' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.resultHb}}&nbsp&nbsp</td>
+                        <td> <b>{{ 'ALLERGIES_LIST_DATE' | translate }} </b>&nbsp:&nbsp</td>
+                        <td><b>ALT</b> &nbsp:&nbsp{{ data.patientInfo.resultAlt}}</td>
+                        <td><b> AST</b>&nbsp:&nbsp {{ data.patientInfo.resultAst}}</td>
+                        <td> <b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp</td>
+                    </tr>
+                </table><br>
+            </fieldset>
+            <br><br>
+            <p><b>{{ 'NAME_OF_PROVIDER' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.username }}
+                <span style="padding-left: 200px;"> <b> {{ 'CONTACT' | translate }}</b>&nbsp:&nbsp<input type=text
+                        size=10><br><br>
+                    <b> {{ 'PRESCRIPTION_REPORT_SIGNATURE' | translate }}</b> &nbsp:&nbsp<input type=text size=30></p>
+            <h4 align=center>{{ 'INFO' | translate }}</h4>
+        </div>
+    </div>
+</body>
+
+</html>

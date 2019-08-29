@@ -22,7 +22,8 @@ angular.module('bahmni.clinical')
                 });
                 return response.data;
             });
-
+            $rootScope.newTreatment = $scope.treatment;
+            
             $scope.showOrderSetDetails = true;
             $scope.addTreatment = true;
             $scope.canOrderSetBeAdded = true;
@@ -520,7 +521,7 @@ angular.module('bahmni.clinical')
 
                 $scope.onChange = function () {
                     if (selectedItem) {
-                        $scope.isARV = selectedItem.drug.dosageForm && selectedItem.drug.dosageForm.display === "ARV";
+                      $scope.isARV = selectedItem.drug.dosageForm && selectedItem.drug.dosageForm.display === "ARV";
                         $scope.treatment.isNonCodedDrug = false;
                         delete $scope.treatment.drugNonCoded;
                         $scope.treatment.changeDrug({
