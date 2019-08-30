@@ -104,7 +104,7 @@ angular.module('bahmni.reports')
         var initialization = function () {
             var reportList = appService.getAppDescriptor().getConfigForPage("reports");
             $rootScope.reportsRequiringDateRange = _.isUndefined($rootScope.reportsRequiringDateRange) ? _.values(reportList).filter(function (report) {
-                report.titleKey  = report.titleKey ?  getTranslatedMessage(report.titleKey) : report.name;
+                report.titleKey = report.titleKey ? getTranslatedMessage(report.titleKey) : report.name;
                 return !(report.config && report.config.dateRangeRequired === false);
             }) : $rootScope.reportsRequiringDateRange;
             $rootScope.reportsNotRequiringDateRange = _.isUndefined($rootScope.reportsNotRequiringDateRange) ? _.values(reportList).filter(function (report) {
