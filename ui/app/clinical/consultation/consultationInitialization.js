@@ -67,12 +67,12 @@ angular.module('bahmni.clinical').factory('consultationInitialization',
                         diagnosisConsultation.preSaveHandler = new Bahmni.Clinical.Notifier();
                         var arrCurrent = [];
                         var arrPast = [];
-                        if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length === 0 && diagnosisConsultation.pastDiagnoses.length === 0)
+                        if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length  && diagnosisConsultation.pastDiagnoses.length)
                         {
                             $rootScope.diagName = null;
                         }
 
-                        else if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length === 0 && diagnosisConsultation.pastDiagnoses.length > 0)
+                        else if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length && diagnosisConsultation.pastDiagnoses.length > 0)
                         {
                             for (var j = 0; j < diagnosisConsultation.pastDiagnoses.length; j++)
                             {
@@ -99,7 +99,7 @@ angular.module('bahmni.clinical').factory('consultationInitialization',
                 {
                     return conditionsService.getConditions(patientUuid).then(function (conditions) {
                         consultation.conditions = conditions;
-                        if (consultation.conditions === 0)
+                        if (consultation.conditions)
                         {
                             $rootScope.conditionName = null;
                         }

@@ -224,7 +224,7 @@ angular.module('bahmni.clinical')
                         var startDate = "Start Date_Prophylaxis";
                         var endDate = "End Date";
 
-                        if ((response.data.length == 0)) {
+                        if ((response.data.length === 0)) {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
                                 reportModel.patientInfo.INH_end = null;
                                 reportModel.patientInfo.INH_start = null;
@@ -539,7 +539,7 @@ angular.module('bahmni.clinical')
                         if (modelarray.length !== 0) {
                             reportModel.patientInfo.mdsYes = "Sim";
                         }
-                        if (modelarray.length == 0) {
+                        if (modelarray.length === 0) {
                             reportModel.patientInfo.mdsYes = "Não";
                         }
 
@@ -551,7 +551,7 @@ angular.module('bahmni.clinical')
 
                         })
 
-                        if (arrDate === undefined || arrDate.length == 0) {
+                        if (arrDate === undefined || arrDate.length === 0) {
                             reportModel.patientInfo.modelDate = null;
 
                         }
@@ -611,7 +611,7 @@ angular.module('bahmni.clinical')
                                 reportModel.patientInfo.isARV = resarray[i].concept.name;
 
                                 for (var j = 0; j < arrARV.length; j++) {
-                                    if (arrARV.length == 0) {
+                                    if (arrARV.length === 0) {
                                         reportModel.patientInfo.currRegARV = null;
                                         reportModel.patientInfo.secLast = null;
                                         reportModel.patientInfo.thirdLast = null;
@@ -620,11 +620,11 @@ angular.module('bahmni.clinical')
 
                                     }
 
-                                    else if (arrARV.length == 1) {
+                                    else if (arrARV.length === 1) {
                                         reportModel.patientInfo.currRegARV = arrARV[j];
                                     }
 
-                                    else if (arrARV.length == 2) {
+                                    else if (arrARV.length === 2) {
                                         reportModel.patientInfo.currRegARV = arrARV[0];
                                         reportModel.patientInfo.secLast = arrARV[1];
                                         reportModel.patientInfo.thirdLast = null;
