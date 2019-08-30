@@ -29,10 +29,21 @@ angular.module('bahmni.common.conceptSet')
             });
         };
 
+        var getDrugOrderRelationship = function (orderUuid) {
+            var url = Bahmni.Common.Constants.drugOrderRelationShipUrl;
+            return $http.get(url, {
+                params: {
+                    orderUuid: orderUuid
+                }
+            });
+        };
+
+
         return {
             getConcept: getConcept,
             getComputedValue: getComputedValue,
-            getObsTemplatesForProgram: getObsTemplatesForProgram
+            getObsTemplatesForProgram: getObsTemplatesForProgram,
+            getDrugOrderRelationship: getDrugOrderRelationship
         };
     }]);
 

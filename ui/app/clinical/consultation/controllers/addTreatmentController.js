@@ -396,6 +396,12 @@ angular.module('bahmni.clinical')
                     $scope.treatment.isUniformFrequency = false;
                 }
                 $scope.treatment.quantity = $scope.treatment.quantity ? $scope.treatment.quantity : null;
+
+                conceptSetService.getDrugOrderRelationship("7b95f90a-7a78-4be9-9838-247a77b680ce").then(function (response) {
+                    $scope.selectedCategory = response.data.category;
+                    $scope.selectedTreatmentLine = response.data.treatmentLine;
+                });
+
             });
 
             $scope.$watch(watchFunctionForQuantity, function () {
@@ -544,7 +550,6 @@ angular.module('bahmni.clinical')
                 $scope.isBeingRevised = true;
                 var treatment = drugOrder;
                 if(treatment.category === undefined || treatment.category === ""){
-                    //fetch from database
                 }else{
                     $scope.selectedCategory = treatment.category;
                     $scope.selectedTreatmentLine = treatment.treatmentLine;
