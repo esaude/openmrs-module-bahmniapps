@@ -472,5 +472,7 @@
   "PRESCRIPTION_REPORT_PRINT_PRESCRIPTION_LABEL": "Prescrição",
   "CLINICAL_PATIENT_STATUS": "Activo em",
   "CONFIRMED": "Confirmado",
-  "PRIMARY": "Primário"
+  "PRIMARY": "Primário",
+  "DRUG_SUSPEND_WARNING":"Atenção: o estado de permanência do paciente será actualizado para TARV-Suspenso",
+  "TARV_TREATMENT_SUSPENDED": "TARV-Tratamento Suspenso"
 }
