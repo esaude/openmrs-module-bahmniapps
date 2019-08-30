@@ -18,16 +18,6 @@
                        on-select="getAddAllergyMethod()"
                        ng-change="consultation.allergy.clearConcept()"
                        ng-class="{illegalValue: !(consultation.allergy.concept.name || consultation.allergy.isEmpty())}">
-                <button type="button" ng-model="consultation.allergy.isNonCoded"
-                        class="small-btn accept-btn" id="accept-button"
-                        ng-click="consultation.allergy.toggleNonCoded()"
-                        ng-class="{
-                                                illegalValue: !consultation.allergy.isValidConcept(),
-                                                active: consultation.allergy.isNonCoded
-                                            }"
-                        ng-disabled="consultation.allergy.concept.uuid">
-                    <span>{{'ACCEPT'|translate}} {{consultation.allergy.isNonCoded}}</span>
-                </button>
             </div>
             <div class="col col2">
                 <buttons-radio class="btn-group" model='consultation.allergy.status'

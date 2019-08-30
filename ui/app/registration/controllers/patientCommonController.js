@@ -23,6 +23,22 @@ angular.module('bahmni.registration')
             $rootScope.duplicatePatients;
             $rootScope.duplicatePatientCount = 0;
             $scope.isAddressRequired = "false";
+            $scope.showTransferredOutSection = false;
+            $scope.showSuspensionSection = false;
+            $scope.showDeathSection = false;
+
+            $scope.$on("IN_TF", function (evt, data) {
+                $scope.showTransferredOutSection = data;
+            });
+
+            $scope.$on("IN_SU", function (evt, data) {
+                $scope.showSuspensionSection = data;
+            });
+
+            $scope.$on("IN_DT", function (evt, data) {
+                $scope.showDeathSection = data;
+            });
+
             $rootScope.personSearchResultsConfig = ["NICK_NAME", "PRIMARY_CONTACT_NUMBER_1", "PATIENT_STATUS", "US_REG_DATE"];
             $rootScope.searchActions = appService.getAppDescriptor().getExtensions("org.bahmni.registration.patient.search.result.action");
             $scope.checkDuplicatePatients = function () {
@@ -214,6 +230,32 @@ angular.module('bahmni.registration')
                 }
             };
 
+            $scope.updatePatientState = function (value) {
+                if (value.value == 'Patient_Transferred_Out') {
+                    $scope.$emit('PTO', 'INACTIVE_TRANSFERRED_OUT');
+                    $scope.showTransferredOutSection = true;
+                    $scope.patient['TRANSFERENCE_HF_NAME'] = '';
+                    $scope.patient['TRANSFERENCE_HF_DISTRICT'] = '';
+                    $scope.patient['TRANSFERENCE_HF_PROVINCE'] = '';
+                    $scope.showDeathSection = false;
+                    $scope.showSuspensionSection = false;
+                } else if (value.value == 'Inactive_Death') {
+                    $scope.showDeathSection = true;
+                    $scope.$emit('PTO', 'INACTIVE_DEATH');
+                    $scope.showTransferredOutSection = false;
+                    $scope.showSuspensionSection = false;
+                } else if (value.value == 'Patient_Suspension') {
+                    $scope.showSuspensionSection = true;
+                    $scope.$emit('PTO', 'INACTIVE_SUSPENDED');
+                    $scope.showDeathSection = false;
+                    $scope.showTransferredOutSection = false;
+                } else {
+                    $scope.showDeathSection = false;
+                    $scope.showTransferredOutSection = false;
+                    $scope.showSuspensionSection = false;
+                }
+            };
+
             $scope.updateLocationRequired = function (value) {
                 $scope.$broadcast('HFEvent', value);
             };
@@ -294,7 +336,6 @@ angular.module('bahmni.registration')
                     }
                 }
             });
-
             $scope.nationalityAttribute = function (docz) {
                 $scope.nationalAttribute = docz;
                 $scope.patient.attribute = $scope.nationalAttribute;

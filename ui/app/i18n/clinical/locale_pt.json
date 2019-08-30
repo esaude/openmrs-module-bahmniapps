@@ -84,7 +84,6 @@
   "CONCEPT_SET_GROUP_PIN_UNPIN_KEY": "Marcar/Desmarcar",
   "CONCEPT_SET_GROUP_REMOVE_KEY": "Remover",
   "CONCEPT_SET_GROUP_SEARCH_LABEL": "Pesquisar formulários de observação",
-  "CONDITION_LIST_ACTIVE_SINCE": "Condição do formulário",
   "CONDITION_LIST_ACTIVE": "Activo",
   "CONDITION_LIST_ADD": "Adicionar",
   "CONDITION_LIST_ALREADY_EXISTS_AS_ACTIVE": "Condição já existe como activa",
@@ -461,11 +460,18 @@
   "PRESCRIPTION_REPORT_AMOUNT_CHARGED" :"Valor Cobrado",
   "CLINICAL_PRINT_DASHBOARD_TRANSLATION_KEY" : "Imprimir painel",
   "CLINICAL_PRINT_PRESCRIPTION_TRANSLATION_KEY" : "Prescrição de impressão",
+  "PRINT_CLINICAL_DASHBOARD_LABEL": "Imprimir Todos",
+  "PRESCRIPTION_REPORT_PRINT_PRESCRIPTION_LABEL": "Imprimir Prescrição",
+  "CLINICAL_PATIENT_STATUS": "Activo em",
+  "INACTIVE_TRANSFERRED_OUT": "Inactivo Transferir para",
+  "INACTIVE_SUSPENDED": "Inactivo Paciente Suspensão",
+  "INACTIVE_DEATH": "Inactive Óbito",
   "TREATMENT_START_DATE_LIST_DISPLAY_CONTROL_TITLE": "Data Início TARV",
   "TREATMENT_START_DATE": "Data Início TARV",
   "PRINT_CLINICAL_DASHBOARD_LABEL": "Imprimir",
   "PRESCRIPTION_REPORT_PRINT_PRESCRIPTION_LABEL": "Prescrição",
   "CLINICAL_PATIENT_STATUS": "Activo em",
+
   "TRANSFER_OUT_FORM":"Guia de Transferência",
   "TRANSFER_FROM": "Transferido de",
   "PROVINCE": "Província",
@@ -504,5 +510,8 @@
 "INFO":"Informação adicional deve ser registada no versoda folha",
 "HB":"Hemoglobina",
 "VIRAL_LOAD":"Carga Viral",
-"PATIENT_IDENTIFICATION":"IDENTIFICAÇÃO DO PACIENTE"
+"PATIENT_IDENTIFICATION":"IDENTIFICAÇÃO DO PACIENTE",
+  "CONFIRMED": "Confirmado",
+  "PRIMARY": "Primário"
+
 }
