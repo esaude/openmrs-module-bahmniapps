@@ -465,5 +465,7 @@
     "CONFIRMED": "Confirmed",
     "PRIMARY": "Primary",
     "DRUG_SUSPEND_WARNING": "Attention: the patient state will be updated to TARV-Suspended",
-    "TARV_TREATMENT_SUSPENDED": "TARV-Treatment Suspensed"
+    "TARV_TREATMENT_SUSPENDED": "TARV-Treatment Suspensed",
+    "PRESUMED": "Presumed",
+    "SECONDARY": "Secundary"
 }
