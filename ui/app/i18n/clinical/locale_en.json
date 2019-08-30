@@ -271,7 +271,6 @@
     "CONDITION_LIST_ALREADY_EXISTS_AS_ACTIVE": "Already exists as active condition",
     "CONDITION_LIST_CREATED_BY": "by",
     "CONDITION_LIST_FOLLOW_UP": "Follow up",
-    "CONDITION_LIST_ACTIVE_SINCE": "condition from",
     "CONDITION_LIST_NO_CONDITIONS": "No Conditions available",
     "CONDITION_LIST_NO_RETRO_MODE":"<strong>Conditions cannot</strong> be edited in retrospective mode",
     "SEARCH_BY_PATIENT_ID_KEY": "Search Patient by ID",
@@ -458,8 +457,12 @@
     "CLINICAL_PRINT_DASHBOARD_TRANSLATION_KEY" : "Print Dashboard",
     "CLINICAL_PRINT_PRESCRIPTION_TRANSLATION_KEY" : "Print Prescription",
     "CLINICAL_PATIENT_STATUS": "Active in:",
+    "INACTIVE_TRANSFERRED_OUT": "Inactive Transferred-out",
+    "INACTIVE_SUSPENDED": "Inactive Patient Suspension ",
+    "INACTIVE_DEATH": "Inactive Death",
     "TREATMENT_START_DATE_LIST_DISPLAY_CONTROL_TITLE": "Treatment Start Date",
     "TREATMENT_START_DATE": "Treatment Start Date",
+
     "TRANSFER_OUT_FORM":"Transfer Out Form",
     "TRANSFER_FROM":"Transfer from",
     "PROVINCE": "Province",
@@ -498,7 +501,7 @@
     "INFO":"Additional information should be recorded on the back page",
     "HB":"Hemoglobin",
     "VIRAL_LOAD":"Viral Load",
-    "PATIENT_IDENTIFICATION":"PATIENT IDENTIFICATION"
-
-
+    "PATIENT_IDENTIFICATION":"PATIENT IDENTIFICATION
+    "CONFIRMED": "Confirmed",
+    "PRIMARY": "Primary"
 }

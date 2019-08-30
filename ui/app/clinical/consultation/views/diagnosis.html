@@ -22,18 +22,6 @@
                                             active: diagnosis.isNonCodedAnswer
                                        }"
                                        ng-change="restEmptyRowsToOne($index); diagnosis.clearCodedAnswerUuid(); checkInvalidDiagnoses()">
-
-                                <span ng-if="!allowOnlyCodedDiagnosis">
-                                    <button type="button" ng-model="diagnosis.isNonCodedAnswer"
-                                            class="small-btn accept-btn" id="accept-button-{{$index}}"
-                                            ng-click="diagnosis.setAsNonCodedAnswer() && restEmptyRowsToOne($index)"
-                                            ng-class="{
-                                                illegalValue: diagnosis.codedAnswer.name && !diagnosis.codedAnswer.uuid && !diagnosis.isNonCodedAnswer,
-                                                active: diagnosis.isNonCodedAnswer
-                                            }"
-                                            ng-disabled="diagnosis.codedAnswer.uuid"><span></span>{{ ::'ACCEPT' | translate }}</button>
-                                </span>
-
                             </div>
                             <div class="col col2">
                                 <buttons-radio class="btn-group" model='diagnosis.order' id="order-{{$index}}"

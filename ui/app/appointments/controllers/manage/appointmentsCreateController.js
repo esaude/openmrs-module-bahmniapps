@@ -185,7 +185,7 @@ angular.module('bahmni.appointments')
                     };
                     formattedUrl = appService.getAppDescriptor().formatUrl(patientSearchURL, params);
                 }
-                return (spinner.forPromise(formattedUrl ? $http.get(Bahmni.Common.Constants.RESTWS_V1 + formattedUrl) : patientService.search($scope.appointment.patient.label)).then(function (response) {
+                return (spinner.forPromise(formattedUrl ? $http.get(Bahmni.Common.Constants.RESTWS_V1 + formattedUrl) : patientService.statusBasedSearch($scope.appointment.patient.label)).then(function (response) {
                     return response.data.pageOfResults;
                 }));
             };

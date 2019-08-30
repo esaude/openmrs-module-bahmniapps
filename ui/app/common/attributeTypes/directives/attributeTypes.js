@@ -13,6 +13,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             getAutoCompleteList: '&',
             getDataResults: '&',
             handleUpdate: '&',
+            updatePatientState: '&',
             isReadOnly: '&',
             isForm: '=?'
         },
@@ -27,6 +28,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             $scope.isAutoComplete = $scope.isAutoComplete() || function () { return false; };
             $scope.isReadOnly = $scope.isReadOnly() || function () { return false; };
             $scope.handleUpdate = $scope.handleUpdate() || function () { return false; };
+            $scope.updatePatientState = $scope.updatePatientState() || function () { return false; };
             $scope.handleLocationChange = $scope.handleLocationChange() || function () { return false; };
             $scope.handleSectorChange = $scope.handleSectorChange() || function () { return false; };
             $scope.updateLocationRequired = $scope.updateLocationRequired() || function () { return false; };
@@ -111,7 +113,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                             output.push(suggestion);
                         }
                     });
-                    $scope.filterOcuppation = output;
+                    $scope.filterSuggestions = output;
                 } else {
                     $scope.hideList = true;
                 }
@@ -127,7 +129,7 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                 $scope.backgroundColor = "#fff";
             };
 
-            $scope.validateField = function (isMouse) {
+            $scope.validateField = function (isMouse, fieldName) {
                 if ($scope.targetModel[$scope.attribute.name] !== undefined && $scope.targetModel[$scope.attribute.name].value !== "" && $scope.targetModel[$scope.attribute.name] !== null) {
                     var alert = true;
                     $timeout(function () {
@@ -137,13 +139,25 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                             }
                         }
                         if (alert) {
-                            $scope.borderColor = "1px solid #ff5252";
-                            $scope.backgroundColor = "#ffcdcd";
-                            if (!isMouse) {
-                                messagingService.showMessage("error", "INVALID_OCCUPATION");
-                                $scope.hideList = true;
+                            if (fieldName == 'PATIENT_OCCUPATION') {
+                                $scope.borderColor = "1px solid #ff5252";
+                                $scope.backgroundColor = "#ffcdcd";
+                                if (!isMouse) {
+                                    messagingService.showMessage("error", "INVALID_OCCUPATION");
+                                    $scope.hideList = true;
+                                }
+                                $rootScope.canSave = false;
                             }
-                            $rootScope.canSave = false;
+
+                            if (fieldName == 'CAUSE_OF_DEATH') {
+                                $scope.borderColor = "1px solid #ff5252";
+                                $scope.backgroundColor = "#ffcdcd";
+                                if (!isMouse) {
+                                    messagingService.showMessage("error", "INVALID_DEATH_CAUSE_MESSAGE");
+                                    $scope.hideList = true;
+                                }
+                                $rootScope.canSave = false;
+                            }
                         }
                     }, 500);
                 } else {
