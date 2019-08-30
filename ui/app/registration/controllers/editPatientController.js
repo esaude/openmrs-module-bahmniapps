@@ -2,9 +2,9 @@
 
 angular.module('bahmni.registration')
     .controller('EditPatientController', ['$scope', 'patientService', 'encounterService', '$stateParams', 'openmrsPatientMapper',
-        '$window', '$q', 'spinner', 'appService', 'messagingService', '$rootScope', 'auditLogService',
+        '$window', '$q', 'spinner', 'appService', 'messagingService', '$rootScope', 'auditLogService', '$state',
         function ($scope, patientService, encounterService, $stateParams, openmrsPatientMapper, $window, $q, spinner,
-            appService, messagingService, $rootScope, auditLogService) {
+            appService, messagingService, $rootScope, auditLogService, $state) {
             var dateUtil = Bahmni.Common.Util.DateUtil;
             var uuid = $stateParams.patientUuid;
             $scope.patient = {};
@@ -13,6 +13,7 @@ angular.module('bahmni.registration')
             $scope.addressHierarchyConfigs = appService.getAppDescriptor().getConfigValue("addressHierarchy");
             $scope.disablePhotoCapture = appService.getAppDescriptor().getConfigValue("disablePhotoCapture");
             $scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
+            $rootScope.isEligibleForVisit = true;
             var setReadOnlyFields = function () {
                 $scope.readOnlyFields = {};
                 var readOnlyFields = appService.getAppDescriptor().getConfigValue("readOnlyFields");
@@ -22,12 +23,36 @@ angular.module('bahmni.registration')
                     }
                 });
             };
-
             var successCallBack = function (openmrsPatient) {
                 $scope.openMRSPatient = openmrsPatient["patient"];
                 $scope.patient = openmrsPatientMapper.map(openmrsPatient);
-                $scope.editPatientDocuments = [];
+                patientService.getPatientStatusState(uuid).then(function (response) {
+                    $scope.patient.patientStatus = response.data[0].patient_status;
+                    $scope.patient.patientState = response.data[0].patient_state;
 
+                    _.map(response.data, function (currentObj) {
+                        if (currentObj.patient_state != 'INACTIVE_TRANSFERRED_OUT' || currentObj.patient_state != 'INACTIVE_SUSPENDED' || currentObj.patient_state != 'INACTIVE_DEATH') {
+                            $scope.patient.lastActiveState = currentObj.patient_state;
+                        }
+                    });
+
+                    if ($scope.patient.patientState == "INACTIVE_SUSPENDED" || $scope.patient.patientState === "INACTIVE_TRANSFERRED_OUT" || $scope.patient.patientState === "INACTIVE_DEATH") {
+                        $rootScope.isEligibleForVisit = false;
+                    }
+
+                    if ($scope.patient.patientState == "INACTIVE_TRANSFERRED_OUT") {
+                        $scope.$broadcast("IN_TF", true);
+                    }
+
+                    if ($scope.patient.patientState == "INACTIVE_SUSPENDED") {
+                        $scope.$broadcast("IN_SU", true);
+                    }
+
+                    if ($scope.patient.patientState == "INACTIVE_DEATH") {
+                        $scope.$broadcast("IN_DT", true);
+                    }
+                });
+                $scope.editPatientDocuments = [];
                 var nationalityVar = function () {
                     if ($scope.patient.NATIONALITY == undefined) {
                         $scope.patient.NATIONALITY = "";
@@ -171,7 +196,27 @@ angular.module('bahmni.registration')
                 spinner.forPromise($q.all([getPatientPromise, isDigitized]));
             })();
 
+            $scope.$on("PTO", function (evt, data) {
+                $scope.patient.patientState = data;
+            });
+
             $scope.update = function () {
+                var patientStatus = $scope.patient.patientStatus;
+                var patientUuid = $scope.patient.uuid;
+                var creatorUuid = $rootScope.currentUser.uuid;
+                var patientState = $scope.patient.patientState;
+
+                if ($scope.patient.patientState == 'INACTIVE_TRANSFERRED_OUT') {
+                    if ($scope.patient['TRANSFERENCE_HF_NAME']) {
+                        $scope.patient['PATIENT_STATE_CHANGE'] = '';
+                        $scope.patient['TRANSFER_OUT_DISTRICT'] = '';
+                        $scope.patient['TRANSFER_OUT_NAME'] = '';
+                        $scope.patient['TRANSFER_OUT_PROVINCE'] = '';
+                        $scope.patient['Transfer_Date'] = '';
+                        $scope.patient['Observations'] = '';
+                        patientState = $scope.patient.lastActiveState;
+                    }
+                }
                 addNewRelationships();
                 var errorMessages = Bahmni.Common.Util.ValidationUtil.validate($scope.patient, $scope.patientConfiguration.attributeTypes);
                 if (errorMessages.length > 0) {
@@ -181,13 +226,15 @@ angular.module('bahmni.registration')
                     return $q.when({});
                 }
 
-                return spinner.forPromise(patientService.update($scope.patient, $scope.openMRSPatient).then(function (result) {
-                    var patientProfileData = result.data;
-                    if (!patientProfileData.error) {
-                        successCallBack(patientProfileData);
-                        $scope.actions.followUpAction(patientProfileData);
-                    }
-                }));
+                return spinner.forPromise($q.all([patientService.update($scope.patient, $scope.openMRSPatient),
+                    patientService.savePatientStatusState(patientStatus, patientUuid, creatorUuid, patientState)]).then(function (result) {
+                        var patientProfileData = result[0].data;
+                        if (!patientProfileData.error) {
+                            successCallBack(patientProfileData);
+                            $state.go($state.current, {}, {reload: true});
+                            $scope.actions.followUpAction(patientProfileData);
+                        }
+                    }));
             };
 
             var addNewRelationships = function () {

@@ -16,6 +16,17 @@ angular.module('bahmni.common.displaycontrol.forms')
                     });
                 };
 
+                $scope.isFormEditable = true;
+                if ($scope.patient.patientState) {
+                    if ($scope.patient.patientState == 'INACTIVE_SUSPENDED' || $scope.patient.patientState == 'INACTIVE_TRANSFERRED_OUT' || $scope.patient.patientState == 'INACTIVE_DEATH') {
+                        $scope.isFormEditable = false;
+                    } else {
+                        $scope.isFormEditable = true;
+                    }
+                } else {
+                    $scope.isFormEditable = true;
+                }
+
                 var obsFormData = function () {
                     return visitFormService.formData($scope.patient.uuid, $scope.section.dashboardConfig.maximumNoOfVisits, $scope.section.formGroup, $state.params.enrollment);
                 };

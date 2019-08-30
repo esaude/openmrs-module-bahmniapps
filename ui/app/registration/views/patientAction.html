@@ -14,7 +14,7 @@
                         ng-bind-html="::activeVisitConfig.translationKey | translate">
                 </button>
         </span>
-        <span ng-if="::showStartVisitButton()" data-ng-switch-when="startVisit">
+        <span ng-if="isEligibleForVisit()" data-ng-switch-when="startVisit">
             <div split-button options="::visitControl.visitTypes"
                              primary-option="::visitControl.defaultVisitType"
                  option-text="visitControl.startButtonText"

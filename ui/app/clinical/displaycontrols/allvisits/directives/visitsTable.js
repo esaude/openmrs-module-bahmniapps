@@ -127,21 +127,40 @@ angular.module('bahmni.clinical')
                             }
                         }
 
+                        var appsTracker = new Map();
+                        var clinicalTracker = new Map();
+
                         for (var i = 0; i < APSSEncounters.length; i++) {
                             if (i == APSSEncounters.length - 1) {
+                                if (appsTracker.get(APSSEncounters[i].visit.uuid) !== undefined) {
+                                    var position = appsTracker.get(APSSEncounters[i].visit.uuid);
+                                    APSSEncounters[position].actualEncounterType = undefined;
+                                }
                                 APSSEncounters[i].actualEncounterType = "ENCOUNTER_APSS_FIRST";
+                                appsTracker.set(APSSEncounters[i].visit.uuid, i);
                             }
                             else {
-                                APSSEncounters[i].actualEncounterType = "ENCOUNTER_APSS_FOLLOWUP";
+                                if (appsTracker.get(APSSEncounters[i].visit.uuid) === undefined) {
+                                    APSSEncounters[i].actualEncounterType = "ENCOUNTER_APSS_FOLLOWUP";
+                                    appsTracker.set(APSSEncounters[i].visit.uuid, i);
+                                }
                             }
                         }
 
                         for (var i = 0; i < clinicalEncounters.length; i++) {
                             if (i == clinicalEncounters.length - 1) {
+                                if (clinicalTracker.get(clinicalEncounters[i].visit.uuid) !== undefined) {
+                                    var j = clinicalTracker.get(clinicalEncounters[i].visit.uuid);
+                                    clinicalEncounters[j].actualEncounterType = undefined;
+                                }
                                 clinicalEncounters[i].actualEncounterType = "ENCOUNTER_CLINICAL_FIRST";
+                                clinicalTracker.set(clinicalEncounters[i].visit.uuid, i);
                             }
                             else {
-                                clinicalEncounters[i].actualEncounterType = "ENCOUNTER_CLINICAL_FOLLOWUP";
+                                if (clinicalTracker.get(clinicalEncounters[i].visit.uuid) === undefined) {
+                                    clinicalEncounters[i].actualEncounterType = "ENCOUNTER_CLINICAL_FOLLOWUP";
+                                    clinicalTracker.set(clinicalEncounters[i].visit.uuid, i);
+                                }
                             }
                         }
 

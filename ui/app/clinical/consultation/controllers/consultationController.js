@@ -506,7 +506,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     treatmentEndDateFluconazolValue = treatmentEndDateFluconazol.value;
                 }
 
-                if (treatmentEndDateTBValue < treatmentStartDateTBValue || treatmentEndDateINHValue < treatmentStartDateINHValue || treatmentEndDateCTZValue < treatmenStartDateCTZValue || treatmentEndDateFluconazolValue < treatmentStartDateFluconazolValue) {
+                if ((treatmentEndDateTBValue < treatmentStartDateTBValue && treatmentEndDateTBValue != '') || (treatmentEndDateINHValue < treatmentStartDateINHValue && treatmentEndDateINHValue != '') || (treatmentEndDateCTZValue < treatmenStartDateCTZValue && treatmentEndDateCTZValue != '') || (treatmentEndDateFluconazolValue < treatmentStartDateFluconazolValue && treatmentEndDateFluconazolValue != '')) {
                     messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
                     angular.element("#observation_40").css("border", "1px solid red");
                     angular.element("#observation_40").css("background", "#ffcdcd");
@@ -611,12 +611,12 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     if (isEmpty(results.data)) {
                         $rootScope.arvdispenseddate = null;
                     } else {
-                        $rootScope.arvdispenseddate = results.data[0].dispenseddate;
+                        $rootScope.arvdispenseddate = results.data[0].dispensed_date;
                     }
                 });
             };
 
-           // $scope.dispenseddrug();
+            $scope.dispenseddrug();
 
             $scope.filterTabByProviderType = function (boardIndex) {
                 if (currentProviderType == "APSS") {

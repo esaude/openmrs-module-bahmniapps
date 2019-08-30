@@ -37,6 +37,7 @@ angular.module('bahmni.clinical')
             $scope.drugOrderRelationShipList = [];
             $scope.iBeingRevised= false;
             $scope.disableMedication = true;
+            $scope.isARV = false;
 
             $scope.fetchCategories = function (conceptName) {
                 return conceptSetService.getConcept({
@@ -652,6 +653,7 @@ angular.module('bahmni.clinical')
 
                 $scope.onChange = function () {
                     if (selectedItem) {
+                        $scope.isARV = selectedItem.drug.dosageForm && selectedItem.drug.dosageForm.display === "ARV";
                         $scope.treatment.isNonCodedDrug = false;
                         delete $scope.treatment.drugNonCoded;
                         $scope.treatment.changeDrug({

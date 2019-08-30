@@ -44,6 +44,27 @@ angular.module('bahmni.registration')
             return patientServiceStrategy.searchDuplicatePatients(config);
         };
 
+        var getPatientStatusState = function (patientUuid) {
+            return $http.get(Bahmni.Common.Constants.openmrsUrl + "/ws/rest/emrapi/patientStatusState?patientUuid=" + patientUuid, {
+                method: "GET"
+            });
+        };
+
+        var savePatientStatusState = function (patientStatus, patientUuid, creatorUuid, patientState) {
+            var emrApiURL = Bahmni.Registration.Constants.emrApiRESTBaseURL;
+            var url = emrApiURL + "/setPatientStatusState";
+            var data = {
+                "patientUuid": patientUuid,
+                "patient_state": patientState,
+                "patient_status": patientStatus,
+                "creatorUuid": creatorUuid
+            };
+            return $http.post(url, data, {
+                withCredentials: true,
+                headers: {"Accept": "application/json", "Content-Type": "application/json"}
+            });
+        };
+
         var searchByIdentifier = function (identifier) {
             return $http.get(Bahmni.Common.Constants.bahmniSearchUrl + "/patient", {
                 method: "GET",
@@ -100,6 +121,8 @@ angular.module('bahmni.registration')
             create: create,
             update: update,
             get: get,
+            getPatientStatusState: getPatientStatusState,
+            savePatientStatusState: savePatientStatusState,
             updateImage: updateImage,
             searchByNameOrIdentifier: searchByNameOrIdentifier
         };
