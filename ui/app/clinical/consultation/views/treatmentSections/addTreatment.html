@@ -16,9 +16,10 @@
                         </div>
                         <div class="field-value">
                             <select ng-init="fetchCategories('medication_category')" id="cat-dropdown" class="fl"
-                                    ng-model="selectedCategory" ng-disabled="isBeingRevised" ng-change="selectCategoryFromDropdown()" ng-click=""
+                                    ng-model="selectedCategory" ng-disabled="isBeingRevised" ng-value="selectedCategory" ng-change="selectCategoryFromDropdown()" ng-click=""
                                     ng-options="item.display for item in categories" required >
-                                <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+                                <option value="" ng-if="selectedCategory === ''">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+                                <option value="" ng-if="selectedCategory !== ''">{{selectedCategory.display}}</option>
                             </select>
                         </div>
                     </article>
@@ -31,7 +32,8 @@
                             <select id="line-dropdown" class="fl"
                                     ng-model="selectedTreatmentLine" ng-disabled="disableTreatmentLine || isBeingRevised"
                                     ng-options="item.display for item in treatmentLines" required>
-                                <option value="">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+                                <option value="" ng-if="selectedCategory === ''">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+                                <option value="" ng-if="selectedCategory !== ''">{{selectedCategory.display}}</option>
                             </select>
                         </div>
                     </article>

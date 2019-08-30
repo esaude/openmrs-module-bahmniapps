@@ -237,6 +237,7 @@ angular.module('bahmni.clinical')
             };
 
             var clearOtherDrugOrderActions = function (drugOrders) {
+
                 drugOrders.forEach(function (drugOrder) {
                     drugOrder.isDiscontinuedAllowed = true;
                     drugOrder.isBeingEdited = false;
@@ -396,12 +397,10 @@ angular.module('bahmni.clinical')
                     $scope.treatment.isUniformFrequency = false;
                 }
                 $scope.treatment.quantity = $scope.treatment.quantity ? $scope.treatment.quantity : null;
-
                 conceptSetService.getDrugOrderRelationship("7b95f90a-7a78-4be9-9838-247a77b680ce").then(function (response) {
                     $scope.selectedCategory = response.data.category;
                     $scope.selectedTreatmentLine = response.data.treatmentLine;
                 });
-
             });
 
             $scope.$watch(watchFunctionForQuantity, function () {
