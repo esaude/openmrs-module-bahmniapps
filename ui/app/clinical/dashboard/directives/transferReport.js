@@ -15,7 +15,6 @@ angular.module('bahmni.clinical')
                 }
             };
         };
-
         return {
             restrict: 'E',
             controller: controller,

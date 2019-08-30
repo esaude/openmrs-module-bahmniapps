@@ -64,57 +64,55 @@ angular.module('bahmni.clinical').factory('consultationInitialization',
 
                 return getEncounter().then(function (consultation) {
                     return diagnosisService.populateDiagnosisInformation(patientUuid, consultation).then(function (diagnosisConsultation) {
-                       var arrCurrent=[];
-                       var arrPast=[];
-                      
-                        if(diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length == 0 && diagnosisConsultation.pastDiagnoses.length == 0)
-                    {
-                        $rootScope.diagName=null;
-                        
-                    }
-
-                    else if(diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length == 0 && diagnosisConsultation.pastDiagnoses.length>0)
-                    {
-                        
-                        for (var j=0;j<diagnosisConsultation.pastDiagnoses.length;j++)
+                        diagnosisConsultation.preSaveHandler = new Bahmni.Clinical.Notifier();
+                        var arrCurrent = [];
+                        var arrPast = [];
+                        if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length === 0 && diagnosisConsultation.pastDiagnoses.length === 0)
                         {
-                        var a=diagnosisConsultation.pastDiagnoses[j].codedAnswer.name;
-                        $rootScope.diagPastName= a;
-                        arrPast.push($rootScope.diagPastName);
-                        break
-                       
+                            $rootScope.diagName = null;
                         }
-                       
-                    }
 
-                    else if(diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length > 0 && diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length > 0) 
-                    { 
-                        for (var i=0;i<diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length;i++)
+                        else if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length === 0 && diagnosisConsultation.pastDiagnoses.length > 0)
                         {
-                            arrCurrent.push(diagnosisConsultation.savedDiagnosesFromCurrentEncounter[i].codedAnswer.shortName)
-                      
-                    }  $rootScope.diagName=arrCurrent;
-                    }
+                            for (var j = 0; j < diagnosisConsultation.pastDiagnoses.length; j++)
+                            {
+                                var a = diagnosisConsultation.pastDiagnoses[j].codedAnswer.name;
+                                $rootScope.diagPastName = a;
+                                arrPast.push($rootScope.diagPastName);
+                                break;
+                            }
+                        }
 
-                    
-                      diagnosisConsultation.preSaveHandler = new Bahmni.Clinical.Notifier();
+                        else if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length > 0 && diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length > 0)
+                        {
+                            for (var i = 0; i < diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length; i++)
+                            {
+                                arrCurrent.push(diagnosisConsultation.savedDiagnosesFromCurrentEncounter[i].codedAnswer.shortName);
+                            }
+                            $rootScope.diagName = arrCurrent;
+                        }
+                        diagnosisConsultation.preSaveHandler = new Bahmni.Clinical.Notifier();
                         diagnosisConsultation.postSaveHandler = new Bahmni.Clinical.Notifier();
                         return diagnosisConsultation;
                     });
-                }).then(function (consultation) {
+                }).then(function (consultation)
+                {
                     return conditionsService.getConditions(patientUuid).then(function (conditions) {
                         consultation.conditions = conditions;
-                        if (consultation.conditions == 0)
+                        if (consultation.conditions === 0)
                         {
-                            $rootScope.conditionName = null; 
+                            $rootScope.conditionName = null;
                         }
-                        else{
-                        $rootScope.conditionName = consultation.conditions[0].concept.name;
+                        else
+                        {
+                            $rootScope.conditionName = consultation.conditions[0].concept.name;
                         }
                         return consultation;
                     });
-                }).then(function (consultation) {
-                    return allergiesService.getAllergies(patientUuid).then(function (allergies) {
+                }).then(function (consultation)
+                {
+                    return allergiesService.getAllergies(patientUuid).then(function (allergies)
+                    {
                         consultation.allergies = allergies;
                         return consultation;
                     });

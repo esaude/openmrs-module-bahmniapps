@@ -162,7 +162,7 @@ angular.module('consultation')
                         templateUrl: 'dashboard/views/printPrescriptionReport.html',
                         controller: 'PrintPrescriptionReportController'
                     },
-                     'print-transferOut': {
+                    'print-transferOut': {
                         templateUrl: 'dashboard/views/PrintTransferOut.html',
                         controller: 'transferController'
                     }
