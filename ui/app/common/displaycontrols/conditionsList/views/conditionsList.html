@@ -19,7 +19,7 @@
                                 <p class="placeholder-text">{{'CONDITION_LIST_NO_CONDITIONS' | translate}}</p>
                             </li>
                             <li class="table-body" ng-repeat="condition in conditions | filter:{status:status}:true">
-                                <div class="tree-list-item clearfix">
+                                <div>
                                     <span class="testUnderPanel left"><label>{{ condition.displayString() }}</label></span>
                                     <div class="activeSince">
 
