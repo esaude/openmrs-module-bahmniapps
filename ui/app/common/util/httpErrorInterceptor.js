@@ -48,7 +48,7 @@ angular.module('httpErrorInterceptor', [])
                 } else if (response.status === 405) {
                     showError(unexpectedError);
                 } else if (response.status === 400) {
-                    if (response.data.error.message.includes('Identifier')) {
+                    if (response.data.error.message.includes('Identifier') || response.data.error.message.includes('Identificador')) {
                         var errorMessage = "REGISTRATION_DUPLICATE_ENTRY_ERROR";
                         showError(errorMessage);
                     }
