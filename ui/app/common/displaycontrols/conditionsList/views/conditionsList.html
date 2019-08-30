@@ -19,12 +19,12 @@
                                 <p class="placeholder-text">{{'CONDITION_LIST_NO_CONDITIONS' | translate}}</p>
                             </li>
                             <li class="table-body" ng-repeat="condition in conditions | filter:{status:status}:true">
-                                <div class="tree-list-item clearfix">
+                                <div>
                                     <span class="testUnderPanel left"><label>{{ condition.displayString() }}</label></span>
                                     <div class="activeSince">
 
                                     <span class="value-text-only" ng-if="condition.activeSince">
-                                        {{'CONDITION_LIST_ACTIVE_SINCE'|translate}} {{condition.activeSince | bahmniDate}}
+                                        {{condition.activeSince | bahmniDate}}
                                     </span>
                                         <button class="toggle fr" ng-if="::!condition.additionalDetail"
                                                 ng-class="{'has-notes': condition.additionalDetail}"

@@ -4,7 +4,7 @@ angular.module('bahmni.common.displaycontrol.conditionsList', []);
 angular.module('bahmni.common.displaycontrol.conditionsList')
     .directive('conditionsList', ['conditionsService', 'ngDialog', function (conditionsService, ngDialog) {
         var controller = function ($scope) {
-            $scope.statuses = ['ACTIVE', 'HISTORY_OF'];
+            $scope.statuses = ['ACTIVE'];
 
             $scope.openSummaryDialog = function () {
                 ngDialog.open({
@@ -13,7 +13,7 @@ angular.module('bahmni.common.displaycontrol.conditionsList')
                     data: {conditions: $scope.conditions},
                     controller: function ($scope) {
                         $scope.hideTitle = true;
-                        $scope.statuses = ['ACTIVE', 'HISTORY_OF', 'INACTIVE'];
+                        $scope.statuses = ['ACTIVE', 'INACTIVE'];
                         $scope.conditions = $scope.ngDialogData.conditions;
                     }
                 });
