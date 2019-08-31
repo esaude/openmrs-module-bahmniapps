@@ -654,13 +654,14 @@ angular.module('bahmni.clinical')
             (function () {
                 var selectedItem;
                 $scope.onSelect = function (item) {
-                    if ($scope.selectedCategory !== "") {
+                    if ($scope.selectedCategory !== "" && $scope.selectedCategory.display !== "Other" && $scope.selectedCategory.display !== "Outra Categoria") {
                         for (let i = 0; i < $scope.suggestedDruglist.length; i++) {
                             if (item.uuid === $scope.suggestedDruglist[i].drug.concept.uuid) {
                                 selectedItem = $scope.suggestedDruglist[i];
                             }
                         }
                     } else {
+                        console.log("entrou aqui");
                         selectedItem = item;
                     }
                     $scope.onChange();
