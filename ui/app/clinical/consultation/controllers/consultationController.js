@@ -4,11 +4,11 @@ angular.module('bahmni.clinical').controller('ConsultationController',
     ['$scope', '$rootScope', '$state', '$location', '$translate', 'clinicalAppConfigService', 'diagnosisService', 'urlHelper', 'contextChangeHandler',
         'spinner', 'encounterService', 'messagingService', 'sessionService', 'retrospectiveEntryService', 'patientContext', '$q',
         'patientVisitHistoryService', '$stateParams', '$window', 'visitHistory', 'clinicalDashboardConfig', 'appService',
-        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService', 'printer', 'printPrescriptionReportService', 'providerTypeService', '$http',
+        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService', 'printer', 'printPrescriptionReportService', 'providerTypeService', '$http', 'patientService',
         function ($scope, $rootScope, $state, $location, $translate, clinicalAppConfigService, diagnosisService, urlHelper, contextChangeHandler,
             spinner, encounterService, messagingService, sessionService, retrospectiveEntryService, patientContext, $q,
             patientVisitHistoryService, $stateParams, $window, visitHistory, clinicalDashboardConfig, appService,
-            ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerTypeService, $http) {
+            ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerTypeService, $http, patientService) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var getPreviousActiveCondition = Bahmni.Common.Domain.Conditions.getPreviousActiveCondition;
             var currentProviderType;
@@ -544,6 +544,13 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     encounterData.encounterTypeUuid = results[1].uuid;
                     var params = angular.copy($state.params);
                     params.cachebuster = Math.random();
+                    _.map(encounterData.drugOrders, function (currentObj) {
+                        if (currentObj.drug.form == 'ARV') {
+                            if (currentObj.action == 'DISCONTINUE') {
+                                patientService.savePatientStatusState('TARV_TREATMENT_SUSPENDED', $scope.patient.uuid, $rootScope.currentUser.uuid, $scope.patient.patientState);
+                            }
+                        }
+                    });
                     return encounterService.create(encounterData)
                         .then(function (saveResponse) {
                             var messageParams = {
@@ -578,7 +585,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                                         return $state.transitionTo(toStateConfig ? toStateConfig.toState : $state.current, toStateConfig ? toStateConfig.toParams : params, {
                                             inherit: false,
                                             notify: true,
-                                            reload: (toStateConfig !== undefined)
+                                            reload: true
                                         });
                                     });
                                 }));
