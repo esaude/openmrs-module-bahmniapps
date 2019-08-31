@@ -77,6 +77,7 @@ angular.module('bahmni.clinical')
             };
 
             $scope.fetchTreatmentLines = function (conceptName) {
+                $scope.treatmentLines = [];
                 return conceptSetService.getConcept({
                     name: conceptName,
                     v: "custom:(answers:(uuid,name,names))"
@@ -97,7 +98,6 @@ angular.module('bahmni.clinical')
                 } else if ($scope.selectedCategory !== undefined && $scope.selectedCategory !== "") {
                     conceptName = $scope.selectedCategory.name;
                 }
-                conceptName = $scope.mapTreatmentLines(conceptName);
                 return conceptSetService.getConcept({
                     name: conceptName,
                     v: "custom:(answers:(uuid,name,names))"
@@ -661,7 +661,6 @@ angular.module('bahmni.clinical')
                             }
                         }
                     } else {
-                        console.log("entrou aqui");
                         selectedItem = item;
                     }
                     $scope.onChange();
