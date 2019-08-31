@@ -12,7 +12,7 @@ angular.module('bahmni.clinical')
 
             var params = {
                 patientUuid: $scope.params.patientUuid,
-                //numberOfVisits: $scope.params.numberOfVisits,
+                // numberOfVisits: $scope.params.numberOfVisits,
                 visitUuids: $scope.params.visitUuids,
                 initialAccessionCount: $scope.params.initialAccessionCount,
                 latestAccessionCount: $scope.params.latestAccessionCount
