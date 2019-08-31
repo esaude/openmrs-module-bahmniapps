@@ -628,7 +628,7 @@ angular.module('bahmni.clinical')
                 });
                 $scope.suggestedDruglist = _.flatten(allDrugs);
                 $scope.counter ++;
-                if ($scope.selectedCategory !== "" && $scope.selectedCategory !== undefined) {
+                if ($scope.selectedCategory !== "" && $scope.selectedCategory !== undefined && $scope.selectedCategory.display !== "Other" && $scope.selectedCategory.display !== "Outra Categoria") {
                     $scope.getDrugsFromTreatmentLineOrCategory();
                     var auxiliarDrugsList = [];
                     $scope.drugResultUuid = [];
