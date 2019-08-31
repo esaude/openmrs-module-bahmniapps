@@ -32,8 +32,8 @@
                             <select id="line-dropdown" class="fl"
                                     ng-model="selectedTreatmentLine" ng-disabled="disableTreatmentLine || isBeingRevised"
                                     ng-options="item.display for item in treatmentLines" required>
-                                <option value="" ng-if="selectedCategory === ''">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
-                                <option value="" ng-if="selectedCategory !== ''">{{selectedCategory.display}}</option>
+                                <option value="" ng-if="selectedTreatmentLine=== ''">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+                                <option value="" ng-if="selectedTreatmentLine !== ''">{{selectedTreatmentLine.display}}</option>
                             </select>
                         </div>
                     </article>
