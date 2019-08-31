@@ -28,6 +28,7 @@ angular.module('bahmni.clinical')
             $scope.canOrderSetBeAdded = true;
             $scope.isSearchDisabled = false;
             $scope.categories = [];
+            $scope.treatmentLines = [];
             $scope.selectedCategory = "";
             $scope.selectedTreatmentLine = "";
             $scope.selectedLineDrugs = [];
@@ -35,7 +36,7 @@ angular.module('bahmni.clinical')
             $scope.suggestedDruglist = [];
             $scope.counter = 0;
             $scope.drugOrderRelationShipList = [];
-            $scope.iBeingRevised = false;
+            $scope.isBeingRevised = false;
             $scope.disableMedication = true;
             $scope.isARV = false;
 
@@ -80,7 +81,6 @@ angular.module('bahmni.clinical')
                     name: conceptName,
                     v: "custom:(answers:(uuid,name,names))"
                 }, true).then(function (response) {
-                    $scope.treatmentLines = [];
                     var resp = response.data.results[0].answers;
                     for (var i = 0; i < resp.length; i++) {
                         resp[i].names[0].uuid = resp[i].uuid;
@@ -407,6 +407,7 @@ angular.module('bahmni.clinical')
             $scope.$on("event:reviseDrugOrder", function (event, drugOrder, drugOrders) {
                 clearOtherDrugOrderActions(drugOrders);
                 drugOrder.isBeingEdited = true;
+                $scope.isBeingRevised = true;
                 drugOrder.isDiscontinuedAllowed = false;
                 $scope.treatments.forEach(setIsNotBeingEdited);
                 setDrugOrderBeingEdited(drugOrder);

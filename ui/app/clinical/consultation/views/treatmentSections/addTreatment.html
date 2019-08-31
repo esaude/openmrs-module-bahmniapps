@@ -29,15 +29,18 @@
                                     class="asterick">*</span> </label>
                         </div>
                         <div class="field-value">
-                            <select id="line-dropdown" class="fl"
-                                    ng-model="selectedTreatmentLine" ng-disabled="disableTreatmentLine || isBeingRevised"
-                                    ng-options="item.display for item in treatmentLines" required>
+                            <select  ng-show="isBeingRevised == false" id="line-dropdown" class="fl"
+                                    ng-model="selectedTreatmentLine" ng-value="selectedTreatmentLine" ng-disabled="disableTreatmentLine || isBeingRevised"
+                                    ng-options="item.display for item in treatmentLines" ng-change="" ng-click="" required>
                                 <option value="" ng-if="selectedTreatmentLine=== ''">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
-                                <option value="" ng-if="selectedTreatmentLine !== ''">{{selectedTreatmentLine.display}}</option>
+                                <option value="" ng-if="selectedTreatmentLine != ''" >{{selectedTreatmentLine.display}}</option>
+                            </select>
+                            <select ng-if="isBeingRevised" ng-disabled="true"
+                                    id="line-dropdown1" class="fl">
+                                <option value="">{{selectedTreatmentLine.display}}</option>
                             </select>
                         </div>
                     </article>
-
 
                     <article class="form-field">
                         <div class="field-attribute">
