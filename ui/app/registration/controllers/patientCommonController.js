@@ -26,6 +26,19 @@ angular.module('bahmni.registration')
             $scope.showTransferredOutSection = false;
             $scope.showSuspensionSection = false;
             $scope.showDeathSection = false;
+            $scope.formFieldsDisabled = false;
+
+            $scope.$on('DisableRegistrationFields', function (ent, data) {
+                if (data) {
+                    $scope.formFieldsDisabled = data;
+                } else {
+                    $scope.formFieldsDisabled = false;
+                }
+            });
+
+            $scope.$on("DisableFields", function (evt, data) {
+                $scope.formFieldsDisabled = data;
+            });
 
             $scope.$on("IN_TF", function (evt, data) {
                 $scope.showTransferredOutSection = data;
