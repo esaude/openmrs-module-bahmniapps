@@ -38,7 +38,6 @@ angular.module('bahmni.common.conceptSet')
             });
         };
 
-
         return {
             getConcept: getConcept,
             getComputedValue: getComputedValue,

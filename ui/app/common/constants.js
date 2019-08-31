@@ -261,7 +261,7 @@ Bahmni.Common = Bahmni.Common || {};
         localeLangs: "/bahmni_config/openmrs/apps/home/locale_languages.json",
         privilegeRequiredErrorMessage: "PRIVILEGE_REQUIRED",
         defaultPossibleRelativeSearchLimit: 10,
-        drugOrderRelationShipUrl: BAHMNI_CORE+"/drugOrders/drugOrderRelationship"
+        drugOrderRelationShipUrl: BAHMNI_CORE + "/drugOrders/drugOrderRelationship"
     };
 })();
 
