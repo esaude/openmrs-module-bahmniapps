@@ -3,7 +3,7 @@
     <div>
         <p class="placeholder-text" ng-if="!hasLabOrders()">{{ ::params.noLabOrdersMessage  | translate }}</p>
         <ul ng-if="hasLabOrders()">
-            <li ng-repeat="labOrderResults in accessions" bindonce="accessions" >
+            <li ng-repeat="labOrderResults in accessions | limitTo: params.numberOfVisits" bindonce="accessions" >
                 <div class="laborder-sub-heading toggle-container" toggle="labOrderResults.isOpen">
                     <i class="fa fa-caret-right"></i>
                     <i class="fa fa-caret-down"></i>
