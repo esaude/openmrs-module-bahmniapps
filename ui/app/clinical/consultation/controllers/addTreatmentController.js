@@ -97,6 +97,7 @@ angular.module('bahmni.clinical')
                 } else if ($scope.selectedCategory !== undefined && $scope.selectedCategory !== "") {
                     conceptName = $scope.selectedCategory.name;
                 }
+                conceptName = $scope.mapTreatmentLines(conceptName);
                 return conceptSetService.getConcept({
                     name: conceptName,
                     v: "custom:(answers:(uuid,name,names))"
@@ -109,6 +110,26 @@ angular.module('bahmni.clinical')
                     }
                     return $scope.selectedLineDrugs;
                 });
+            };
+
+            // Code to be improved
+            $scope.mapTreatmentLines = function (conceptName) {
+                if (conceptName === "Primeira Linha") {
+                    conceptName = "1st Line";
+                }
+                if (conceptName === "Segunda Linha") {
+                    conceptName = "2nd Line";
+                }
+                if (conceptName === "Terceira Linha") {
+                    conceptName = "3rd Line";
+                }
+                if (conceptName === "Resistente") {
+                    conceptName = "Resistant";
+                }
+                if (conceptName === "Sensitivo") {
+                    conceptName = "Sensitive";
+                }
+                return conceptName;
             };
 
             $scope.getFilteredOrderSets = function (searchTerm) {
