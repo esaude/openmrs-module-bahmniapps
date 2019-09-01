@@ -640,7 +640,7 @@ angular.module('bahmni.clinical')
                         element.label = element.name;
                         element.value = element.name;
 
-                        if (element.value.includes(searchString)) {
+                        if (element.value.toLowerCase().includes(searchString.toLowerCase())) {
                             auxiliarDrugsList.push(element);
                         }
                     });
