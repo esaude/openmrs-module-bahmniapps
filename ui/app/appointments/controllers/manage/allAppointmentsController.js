@@ -17,7 +17,7 @@ angular.module('bahmni.appointments')
             $scope.hideAppointmentButton = false;
 
             $scope.$on("HideAppointmentButton", function (evt, data) {
-                if (data == true) {
+                if (data === true) {
                     $scope.hideAppointmentButton = true;
                 } else {
                     $scope.hideAppointmentButton = false;
