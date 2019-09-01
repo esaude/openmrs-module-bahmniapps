@@ -468,5 +468,6 @@
     "TARV_TREATMENT_SUSPENDED": "TARV-Treatment Suspensed",
     "PRESUMED": "Presumed",
     "SECONDARY": "Secondary",
-    "ABANDONED": "Abandoned"
+    "ABANDONED": "Abandoned",
+    "CONDITION_LIST_ACTIVE_SINCE": "Active Condition since:"
 }
