@@ -478,5 +478,6 @@
   "PRIMARY": "Primária",
   "PRESUMED": "Presumido",
   "SECONDARY": "Secundária",
-  "ABANDONED": "Abandono"
+  "ABANDONED": "Abandono",
+  "CONDITION_LIST_ACTIVE_SINCE": "Condição Activa desde:"
 }
