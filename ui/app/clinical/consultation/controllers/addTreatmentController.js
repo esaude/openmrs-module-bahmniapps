@@ -55,6 +55,7 @@ angular.module('bahmni.clinical')
             };
 
             $scope.selectCategoryFromDropdown = function () {
+                $scope.selectedTreatmentLine = "";
                 if ($scope.selectedCategory != undefined) {
                     if ($scope.selectedCategory.display === "ARV") {
                         $scope.selectedTreatmentLineCategory = "treatment_line_arv";
@@ -97,6 +98,9 @@ angular.module('bahmni.clinical')
                     conceptName = $scope.selectedTreatmentLine.name;
                 } else if ($scope.selectedCategory !== undefined && $scope.selectedCategory !== "") {
                     conceptName = $scope.selectedCategory.name;
+                }
+                if (defaultLocale === "en") {
+                    conceptName = $scope.mapTreatmentLines(conceptName);
                 }
                 return conceptSetService.getConcept({
                     name: conceptName,
