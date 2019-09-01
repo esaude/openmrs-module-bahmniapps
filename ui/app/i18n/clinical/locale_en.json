@@ -467,5 +467,6 @@
     "DRUG_SUSPEND_WARNING": "Attention: the patient state will be updated to TARV-Suspended",
     "TARV_TREATMENT_SUSPENDED": "TARV-Treatment Suspensed",
     "PRESUMED": "Presumed",
-    "SECONDARY": "Secondary"
+    "SECONDARY": "Secondary",
+    "ABANDONED": "Abandoned"
 }
