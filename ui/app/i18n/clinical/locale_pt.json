@@ -477,5 +477,6 @@
   "TARV_TREATMENT_SUSPENDED": "TARV-Tratamento Suspenso",
   "PRIMARY": "Primária",
   "PRESUMED": "Presumido",
-  "SECONDARY": "Secundária"
+  "SECONDARY": "Secundária",
+  "ABANDONED": "Abandono"
 }
