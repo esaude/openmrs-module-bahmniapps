@@ -546,8 +546,10 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     params.cachebuster = Math.random();
                     _.map(encounterData.drugOrders, function (currentObj) {
                         if (currentObj.drug.form == 'ARV') {
-                            if (currentObj.action == 'DISCONTINUE') {
+                            if (currentObj.action == 'DISCONTINUE'){
+                               if($scope.patient.toUpperCase() !== "Pre TARV".toUpperCase()){
                                 patientService.savePatientStatusState('TARV_TREATMENT_SUSPENDED', $scope.patient.uuid, $rootScope.currentUser.uuid, $scope.patient.patientState);
+                                }
                             }
                         }
                     });
