@@ -545,7 +545,6 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     var params = angular.copy($state.params);
                     params.cachebuster = Math.random();
                     _.map(encounterData.drugOrders, function (currentObj) {
-                        console.log(currentObj);
                         if (currentObj.drug.form == 'ARV') {
                             if (currentObj.action == 'DISCONTINUE'){
                                if(!($scope.patient.patientStatus.toUpperCase() === "Pre TARV".toUpperCase() && currentObj.orderAttributes !== undefined)){
