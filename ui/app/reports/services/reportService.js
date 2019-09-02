@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bahmni.reports')
-    .service('reportService', ['appService', '$bahmniCookieStore', '$http', function (appService, $bahmniCookieStore, $http) {
+    .service('reportService', ['appService', '$bahmniCookieStore', '$http', '$window', function (appService, $bahmniCookieStore, $http, $window) {
         var paperSize = appService.getAppDescriptor().getConfigValue("paperSize");
         var appName = appService.getAppName() ? appService.getAppName() : "reports";
         var availableFormats = {
@@ -52,7 +52,8 @@ angular.module('bahmni.reports')
 
         var generateReport = function (report) {
             var url = Bahmni.Common.Constants.reportsUrl + "/report";
-            url = (url + "?name={0}&startDate={1}&endDate={2}&responseType={3}&paperSize={4}&appName={5}").format(report.name, report.startDate, report.stopDate, report.responseType, paperSize, appName);
+            var lang = $window.localStorage["NG_TRANSLATE_LANG_KEY"] || "pt";
+            url = (url + "?name={0}&startDate={1}&endDate={2}&responseType={3}&paperSize={4}&appName={5}&titleKey={6}&locale={7}").format(report.name, report.startDate, report.stopDate, report.responseType, paperSize, appName, report.titleKey, lang);
             if (report.reportTemplateLocation && report.responseType == 'application/vnd.ms-excel-custom') {
                 url = (url + "&macroTemplateLocation=" + report.reportTemplateLocation);
             }

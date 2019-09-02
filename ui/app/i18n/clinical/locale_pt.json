@@ -512,6 +512,13 @@
 "VIRAL_LOAD":"Carga Viral",
 "PATIENT_IDENTIFICATION":"IDENTIFICAÇÃO DO PACIENTE",
   "CONFIRMED": "Confirmado",
-  "PRIMARY": "Primário"
+  "PRIMARY": "Primário",
+  "DRUG_SUSPEND_WARNING":"Atenção: o estado de permanência do paciente será actualizado para TARV-Suspenso",
+  "TARV_TREATMENT_SUSPENDED": "TARV-Tratamento Suspenso",
+  "PRIMARY": "Primária",
+  "PRESUMED": "Presumido",
+  "SECONDARY": "Secundária",
+  "ABANDONED": "Abandono",
+  "CONDITION_LIST_ACTIVE_SINCE": "Condição Activa desde:"
 
 }

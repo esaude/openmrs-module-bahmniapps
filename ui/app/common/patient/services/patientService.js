@@ -33,6 +33,21 @@ angular.module('bahmni.common.patient')
             });
         };
 
+        this.savePatientStatusState = function (patientStatus, patientUuid, creatorUuid, patientState) {
+            var emrApiURL = Bahmni.Common.Constants.hostURL + '/openmrs/ws/rest/emrapi';
+            var url = emrApiURL + "/setPatientStatusState";
+            var data = {
+                "patientUuid": patientUuid,
+                "patient_state": patientState,
+                "patient_status": patientStatus,
+                "creatorUuid": creatorUuid
+            };
+            return $http.post(url, data, {
+                withCredentials: true,
+                headers: {"Accept": "application/json", "Content-Type": "application/json"}
+            });
+        };
+
         this.search = function (query, offset, identifier) {
             offset = offset || 0;
             var patientSearchResultsConfig = ['NICK_NAME', 'PRIMARY_CONTACT_NUMBER_1', 'PATIENT_STATUS'];

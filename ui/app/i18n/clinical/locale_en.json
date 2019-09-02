@@ -503,5 +503,11 @@
     "VIRAL_LOAD":"Viral Load",
     "PATIENT_IDENTIFICATION":"PATIENT IDENTIFICATION",
     "CONFIRMED": "Confirmed",
-    "PRIMARY": "Primary"
+    "PRIMARY": "Primary",
+    "DRUG_SUSPEND_WARNING": "Attention: the patient state will be updated to TARV-Suspended",
+    "TARV_TREATMENT_SUSPENDED": "TARV-Treatment Suspensed",
+    "PRESUMED": "Presumed",
+    "SECONDARY": "Secondary",
+    "ABANDONED": "Abandoned",
+    "CONDITION_LIST_ACTIVE_SINCE": "Active Condition since:"
 }
