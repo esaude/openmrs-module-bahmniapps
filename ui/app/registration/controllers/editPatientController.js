@@ -205,7 +205,7 @@ angular.module('bahmni.registration')
                 var patientStatus = $scope.patient.patientStatus;
                 var patientUuid = $scope.patient.uuid;
                 var creatorUuid = $rootScope.currentUser.uuid;
-                var patientState = $scope.patient.patientStateChange;
+                var patientState = $scope.patient.patientStateChange || $scope.patient.patientState;
 
                 if ($scope.patient.patientState == 'INACTIVE_TRANSFERRED_OUT') {
                     if ($scope.patient['TRANSFERENCE_HF_NAME']) {
