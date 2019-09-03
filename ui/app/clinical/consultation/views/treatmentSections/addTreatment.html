@@ -31,7 +31,7 @@
                         <div class="field-value">
                             <select  ng-show="isBeingRevised == false" id="line-dropdown" class="fl"
                                     ng-model="selectedTreatmentLine" ng-value="selectedTreatmentLine" ng-disabled="disableTreatmentLine || isBeingRevised"
-                                    ng-options="item.display for item in treatmentLines" ng-change="" ng-click="" >
+                                    ng-options="item.display for item in treatmentLines" ng-change="selectTreatmentLineFromDropDown()" ng-click="" >
                                 <option value="" ng-if="selectedCategory=== ''">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
                             </select>
                             <select ng-if="isBeingRevised" ng-disabled="true"

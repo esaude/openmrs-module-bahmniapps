@@ -81,6 +81,10 @@ angular.module('bahmni.clinical')
                 }
             };
 
+            $scope.selectTreatmentLineFromDropDown = function () {
+                $scope.selectedLineDrugs = [];
+            };
+
             $scope.fetchTreatmentLines = function (conceptName) {
                 $scope.treatmentLines = [];
                 return conceptSetService.getConcept({
@@ -146,6 +150,40 @@ angular.module('bahmni.clinical')
                 }
                 if (conceptName === "Drogas Anti-Tuberculose") {
                     conceptName = "Anti-Tuberculosis Drugs";
+                }
+                return conceptName;
+            };
+
+            $scope.mapConceptNames = function (conceptName) {
+                if (conceptName === "1st Line") {
+                    conceptName = "Primeira Linha";
+                }
+                if (conceptName === "2nd Line") {
+                    conceptName = "Segunda Linha";
+                }
+                if (conceptName === "3rd Line") {
+                    conceptName = "Terceira Linha";
+                }
+                if (conceptName === "Resistant") {
+                    conceptName = "Resistente";
+                }
+                if (conceptName === "Sensitive") {
+                    conceptName = "Sensitivo";
+                }
+                if (conceptName === "Tratament of ITS") {
+                    conceptName = "Treatmento de ITS";
+                }
+                if (conceptName === "Prophylaxis") {
+                    conceptName = "Profilaxia";
+                }
+                if (conceptName === "Anti-Tuberculosis Drugs") {
+                    conceptName = "Drogas Anti-Tuberculose";
+                }
+                if (conceptName === "Other category") {
+                    conceptName = "Outra Categoria";
+                }
+                if (conceptName === "Choose an answer") {
+                    conceptName = "Escolha uma resposta";
                 }
                 return conceptName;
             };
@@ -439,7 +477,9 @@ angular.module('bahmni.clinical')
                 $scope.treatment.quantity = $scope.treatment.quantity ? $scope.treatment.quantity : null;
                 conceptSetService.getDrugOrderRelationship($scope.treatment.previousOrderUuid).then(function (response) {
                     $scope.selectedCategory = response.data.category;
+                    $scope.selectedCategory.display = $scope.mapConceptNames($scope.selectedCategory.display);
                     $scope.selectedTreatmentLine = response.data.treatmentLine;
+                    $scope.selectedTreatmentLine.display = $scope.mapConceptNames($scope.selectedTreatmentLine.display);
                 });
             });
 
@@ -465,7 +505,7 @@ angular.module('bahmni.clinical')
                 drugOrderRelationShip.drugUuid = $scope.treatment.drug.uuid;
                 drugOrderRelationShip.categoryUuid = $scope.selectedCategory.uuid;
                 if ($scope.selectedTreatmentLine == null || $scope.selectedTreatmentLine == "" || $scope.selectedTreatmentLine === undefined) {
-                    drugOrderRelationShip.treatmentLineUuid = "2c7f29f9-fab3-4f72-9681-61cbda3131d4";
+                    drugOrderRelationShip.treatmentLineUuid = "e53fd4bf-b89c-4f97-9c82-120038ea435c";
                 } else {
                     drugOrderRelationShip.treatmentLineUuid = $scope.selectedTreatmentLine.uuid;
                 }
