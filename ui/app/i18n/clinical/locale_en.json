@@ -462,6 +462,8 @@
     "INACTIVE_DEATH": "Inactive Death",
     "TREATMENT_START_DATE_LIST_DISPLAY_CONTROL_TITLE": "Treatment Start Date",
     "TREATMENT_START_DATE": "Treatment Start Date",
+    "MEDICATION_ADD_DRUG_CATEGORY": "Category",
+    "MEDICATION_ADD_DRUG_LINE": "Line of Treatment",
     "CONFIRMED": "Confirmed",
     "PRIMARY": "Primary",
     "DRUG_SUSPEND_WARNING": "Attention: the patient state will be updated to TARV-Suspended",
