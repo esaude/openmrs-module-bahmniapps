@@ -10,6 +10,12 @@ angular.module('bahmni.clinical').factory('patientInitialization',
                         var patient = patientMapper.map(openMRSPatientResponse[0].data);
                         patient.patientStatus = openMRSPatientResponse[1].data[0].patient_status;
                         patient.patientState = openMRSPatientResponse[1].data[0].patient_state;
+
+                        if (patient.patientState == 'INACTIVE_TRANSFERRED_OUT' || patient.patientState == 'INACTIVE_SUSPENDED' || patient.patientState == 'INACTIVE_DEATH') {
+                            patient.isReadOnly = true;
+                        } else {
+                            patient.isReadOnly = false;
+                        }
                         return {"patient": patient};
                     });
                 };

@@ -80,6 +80,7 @@ angular.module('bahmni.registration')
                             self.activeVisit = activeVisitForCurrentLoginLocation[0];
                         }
                         setForwardActionKey();
+                        patientState();
                     }));
                 };
 
@@ -146,6 +147,16 @@ angular.module('bahmni.registration')
                     }
                     return true;
                 };
+
+                var patientState = function () {
+                    if ($scope.patient.PATIENT_STATE_CHANGE == undefined || $scope.patient.PATIENT_STATE_CHANGE.value == 'Patient_Transferred_Out') {
+                        $scope.canSave = true;
+                    } else {
+                        $scope.canSave = false;
+                    }
+                };
+
+                patientState();
 
                 $scope.setSubmitSource = function (source) {
                     if (!validFields()) {

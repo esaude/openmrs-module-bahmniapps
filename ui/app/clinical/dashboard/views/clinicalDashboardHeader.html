@@ -119,6 +119,7 @@
                 </div>
             <span class="grouped-buttons">
                  <a class=" btn--left btn--success "
+                    ng-hide="patient.isReadOnly"
                     ng-if="visitHistory.activeVisit || retrospectiveEntry || allowConsultation()"
                     ng-click="openConsultation()"
                     accesskey="{{'CONSULTATION_SHORTCUT_KEY' | translate}}"
