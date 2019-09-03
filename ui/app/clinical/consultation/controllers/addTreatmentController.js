@@ -55,7 +55,7 @@ angular.module('bahmni.clinical')
             };
 
             $scope.selectCategoryFromDropdown = function () {
-                $scope.selectedTreatmentLine = "";
+                $scope.treatmentLines = [];
                 if ($scope.selectedCategory != undefined) {
                     if ($scope.selectedCategory.display === "ARV") {
                         $scope.selectedTreatmentLineCategory = "treatment_line_arv";
@@ -67,12 +67,16 @@ angular.module('bahmni.clinical')
                         $scope.fetchTreatmentLines($scope.selectedTreatmentLineCategory);
                         $scope.disableTreatmentLine = false;
                         $scope.disableMedication = false;
-                    } else if ($scope.selectedCategory.display.toUpperCase() === "Other".toUpperCase() || $scope.selectedCategory.display.toUpperCase() === "Outra".toUpperCase()) {
+                    } else if ($scope.selectedCategory.display.toUpperCase() === "Other".toUpperCase() || $scope.selectedCategory.display.toUpperCase() === "Outra Categoria".toUpperCase()) {
                         $scope.disableMedication = false;
+                        $scope.disableTreatmentLine = true;
+                    } else if ($scope.selectedCategory.display.toUpperCase() === "Tratamento de ITS".toUpperCase() || $scope.selectedCategory.display.toUpperCase() === "Treatment of ITS".toUpperCase()) {
+                        $scope.disableMedication = false;
+                        $scope.disableTreatmentLine = true;
                     } else {
                         $scope.selectedTreatmentLineCategory = "";
                         $scope.disableTreatmentLine = true;
-                        $scope.disableMedication = false;
+                        $scope.disableMedication = true;
                     }
                 }
             };
@@ -94,7 +98,7 @@ angular.module('bahmni.clinical')
 
             $scope.getDrugsFromTreatmentLineOrCategory = function () {
                 var conceptName = "";
-                if ($scope.selectedTreatmentLine !== undefined && $scope.selectedTreatmentLine !== "") {
+                if ($scope.selectedTreatmentLine !== undefined && $scope.selectedTreatmentLine !== null && $scope.selectedTreatmentLine !== "" && $scope.selectedTreatmentLine.display.toUpperCase() !== "Escolha uma resposta".toUpperCase() && $scope.selectedTreatmentLine.display.toUpperCase() !== "Choose an answer".toUpperCase()) {
                     conceptName = $scope.selectedTreatmentLine.name;
                 } else if ($scope.selectedCategory !== undefined && $scope.selectedCategory !== "") {
                     conceptName = $scope.selectedCategory.name;
@@ -102,6 +106,7 @@ angular.module('bahmni.clinical')
                 if (defaultLocale === "en") {
                     conceptName = $scope.mapTreatmentLines(conceptName);
                 }
+                console.log(conceptName);
                 return conceptSetService.getConcept({
                     name: conceptName,
                     v: "custom:(answers:(uuid,name,names))"
@@ -132,6 +137,15 @@ angular.module('bahmni.clinical')
                 }
                 if (conceptName === "Sensitivo") {
                     conceptName = "Sensitive";
+                }
+                if (conceptName === "Tratamento de ITS") {
+                    conceptName = "Treatment of ITS";
+                }
+                if (conceptName === "Profilaxia") {
+                    conceptName = "Prophylaxis";
+                }
+                if (conceptName === "Drogas Anti-Tuberculose") {
+                    conceptName = "Anti-Tuberculosis Drugs";
                 }
                 return conceptName;
             };
@@ -450,7 +464,11 @@ angular.module('bahmni.clinical')
                 var drugOrderRelationShip = {};
                 drugOrderRelationShip.drugUuid = $scope.treatment.drug.uuid;
                 drugOrderRelationShip.categoryUuid = $scope.selectedCategory.uuid;
-                drugOrderRelationShip.treatmentLineUuid = $scope.selectedTreatmentLine.uuid;
+                if ($scope.selectedTreatmentLine == null || $scope.selectedTreatmentLine == "" || $scope.selectedTreatmentLine === undefined) {
+                    drugOrderRelationShip.treatmentLineUuid = "2c7f29f9-fab3-4f72-9681-61cbda3131d4";
+                } else {
+                    drugOrderRelationShip.treatmentLineUuid = $scope.selectedTreatmentLine.uuid;
+                }
                 $scope.drugOrderRelationShipList.push(drugOrderRelationShip);
 
                 newDrugOrder.calculateEffectiveStopDate();
