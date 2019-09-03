@@ -148,6 +148,7 @@ angular.module('bahmni.registration')
                 };
 
                 $scope.setSubmitSource = function (source) {
+                    $rootScope.buildFinalNID();
                     if (!validFields()) {
                         $rootScope.isValidFields = false;
                     } else {
