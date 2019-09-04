@@ -11,7 +11,7 @@
             </span>
             <div ng-if="isOpen[$index] == true">
                 <div ng-repeat="concept in confidentDetailsData[$index] track by $index" class="print-observations hidden-print" style="background-color:#fff;margin-bottom:1px;padding-left:20px;padding-top:4px;padding-bottom:4px">
-                    <span>{{concept.conceptNameToDisplay}}</span> <span>{{concept.valueAsString}}</span>
+                    <strong><span>{{concept.conceptNameToDisplay}}:</span></strong> <span>{{concept.valueAsString}}</span>
                 </div>
             </div>
         </li>
