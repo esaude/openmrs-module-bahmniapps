@@ -8,6 +8,24 @@ angular.module('bahmni.clinical')
             $scope.patientStatus = $scope.patient.patientStatus;
             $scope.patientState = $scope.patient.patientState;
 
+            if ($scope.patientState.includes('DEATH')) {
+                $scope.patientAction = 'PA_DEATH';
+            }
+
+            if ($scope.patientState.includes('SUSPENDED')) {
+                $scope.patientAction = 'PA_SUSPENDED';
+            }
+
+            if ($scope.patientState.includes('TRANSFERRED')) {
+                $scope.patientAction = 'PA_TRANSFERRED';
+            }
+
+            if ($scope.patientStatus.includes('Pre')) {
+                $scope.patientActualStatus = 'PAS_PRE_TARV';
+            } else {
+                $scope.patientActualStatus = 'PAS_TARV';
+            }
+
             $scope.initPromise.then(function (response) {
                 $scope.patientContext = response.data;
                 var programAttributes = $scope.patientContext.programAttributes;

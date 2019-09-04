@@ -467,9 +467,18 @@
     "CONFIRMED": "Confirmed",
     "PRIMARY": "Primary",
     "DRUG_SUSPEND_WARNING": "Attention: the patient state will be updated to TARV-Suspended",
-    "TARV_TREATMENT_SUSPENDED": "TARV-Treatment Suspensed",
+    "TARV_TREATMENT_SUSPENDED": "TARV - Suspensed",
     "PRESUMED": "Presumed",
     "SECONDARY": "Secondary",
     "ABANDONED": "Abandoned",
-    "CONDITION_LIST_ACTIVE_SINCE": "Active Condition since:"
+    "CONDITION_LIST_ACTIVE_SINCE": "Active Condition since:",
+    "PA_DEATH": "Death",
+    "PA_SUSPENDED": "Suspended",
+    "PA_TRANSFERRED": "Transferred Out",
+    "PAS_PRE_TARV": "Pre-TARV",
+    "PAS_TARV": "TARV",
+    "ACTIVE": "Active in",
+    "TARV_ABANDONED": "TARV - Abandoned",
+    "TARV_RESTART": "TARV - Restart",
+    "Pre TARV":"Pre-TARV"
 }
