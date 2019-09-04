@@ -180,7 +180,7 @@ angular.module('bahmni.clinical')
 
                 if (orderAttribute.name.toUpperCase() == 'Dispensed'.toUpperCase() && orderAttribute.value === true && valueToSet == undefined) {
                     angular.element('#stop-drug-btn')[0].disabled = true;
-                }else if (orderAttribute.name.toUpperCase() == 'Dispensed'.toUpperCase() && orderAttribute.value === false && valueToSet == undefined) {
+                } else if (orderAttribute.name.toUpperCase() == 'Dispensed'.toUpperCase() && orderAttribute.value === false && valueToSet == undefined) {
                     angular.element('#stop-drug-btn')[0].disabled = false;
                 }
             };
