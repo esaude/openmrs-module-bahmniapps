@@ -156,11 +156,13 @@ angular.module('bahmni.clinical')
                 if (drugOrder.isDiscontinuedAllowed) {
                     $rootScope.$broadcast("event:discontinueDrugOrder", drugOrder);
                     $scope.updateFormConditions(drugOrder);
+                    angular.element('#dispense-drug-btn')[0].disabled = true;
                 }
             };
 
             $scope.undoDiscontinue = function (drugOrder) {
                 $rootScope.$broadcast("event:undoDiscontinueDrugOrder", drugOrder);
+                angular.element('#dispense-drug-btn')[0].disabled = false;
             };
 
             $scope.shouldBeDisabled = function (drugOrder, orderAttribute) {
@@ -174,6 +176,12 @@ angular.module('bahmni.clinical')
                 if (!$scope.shouldBeDisabled(drugOrder, orderAttribute)) {
                     $scope.toggleDrugOrderAttribute(orderAttribute, valueToSet);
                     $scope.consultation.drugOrdersWithUpdatedOrderAttributes[drugOrder.uuid] = drugOrder;
+                }
+
+                if (orderAttribute.name.toUpperCase() == 'Dispensed'.toUpperCase() && orderAttribute.value === true && valueToSet == undefined) {
+                    angular.element('#stop-drug-btn')[0].disabled = true;
+                }else if (orderAttribute.name.toUpperCase() == 'Dispensed'.toUpperCase() && orderAttribute.value === false && valueToSet == undefined) {
+                    angular.element('#stop-drug-btn')[0].disabled = false;
                 }
             };
 

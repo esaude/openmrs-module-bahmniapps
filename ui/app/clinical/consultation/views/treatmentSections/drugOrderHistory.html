@@ -28,7 +28,8 @@
                                     <div class="button-group">
                                         <button ng-repeat="orderAttribute in drugOrder.orderAttributes" show-if-privilege="{{dispensePrivilege}}"
                                                 class="dispense-btn" ng-disabled="shouldBeDisabled(drugOrder,orderAttribute)"
-                                                ng-click="updateOrderAttribute(drugOrder,orderAttribute)">
+                                                ng-click="updateOrderAttribute(drugOrder,orderAttribute)"
+                                                id="dispense-drug-btn">
                                             <i class="fa fa-check" ng-show="orderAttribute.value"></i>
                                             {{orderAttribute.name.substring(0,1)}}
                                         </button>
@@ -38,7 +39,7 @@
                                         <button class="undo-btn" ng-if="drugOrder.isMarkedForDiscontinue" ng-disabled="!drugOrder.isActive() || !drugOrder.isDiscontinuedAllowed" ng-click="undoDiscontinue(drugOrder)">
                                             <i class="fa fa-undo"></i>
                                         </button>
-                                        <button class="stop-drug-btn" ng-if="!drugOrder.isMarkedForDiscontinue" ng-disabled="!drugOrder.isActive() || !drugOrder.isDiscontinuedAllowed" ng-click="discontinue(drugOrder)">
+                                        <button class="stop-drug-btn" ng-if="!drugOrder.isMarkedForDiscontinue" ng-disabled="!drugOrder.isActive() || !drugOrder.isDiscontinuedAllowed" ng-click="discontinue(drugOrder)" id="stop-drug-btn">
                                             {{ ::'MEDICATION_STOP' | translate }}
                                         </button>
                                         <button class="refill-btn" ng-disabled="!drugOrder.effectiveStopDate || drugOrder.isDrugRetired" ng-click="refill(drugOrder)">
