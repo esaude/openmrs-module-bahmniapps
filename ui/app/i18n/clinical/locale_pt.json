@@ -482,5 +482,15 @@
   "PRESUMED": "Presumido",
   "SECONDARY": "Secundária",
   "ABANDONED": "Abandono",
-  "CONDITION_LIST_ACTIVE_SINCE": "Condição Activa desde:"
+  "CONDITION_LIST_ACTIVE_SINCE": "Condição Activa desde:",
+  "PA_DEATH": "Óbito",
+  "PA_SUSPENDED": "Suspenso",
+  "PA_TRANSFERRED": "Transferido Para",
+  "PAS_PRE_TARV": "Pré-TARV",
+  "PAS_TARV": "TARV",
+  "ACTIVE": "Activo em",
+  "TARV_ABANDONED": "TARV - Abandono",
+  "TARV_RESTART": "TARV - Reinício",
+  "Pre TARV":"Pré-TARV"
+
 }
