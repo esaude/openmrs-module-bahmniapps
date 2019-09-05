@@ -27,6 +27,16 @@ angular.module('bahmni.registration')
             $scope.showSuspensionSection = false;
             $scope.showDeathSection = false;
             $scope.formFieldsDisabled = false;
+            $scope.hasClinical = "false";
+
+            var findPrivilege = function (privilegeName) {
+                return _.find($rootScope.currentUser.privileges, function (privilege) {
+                    $scope.hasCLinical = privilegeName === privilege.name;
+                    return privilegeName === privilege.name;
+                });
+            };
+
+            findPrivilege("app:clinical");
 
             $scope.$on('DisableRegistrationFields', function (ent, data) {
                 if (data) {
