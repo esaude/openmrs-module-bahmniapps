@@ -58,7 +58,12 @@ angular.module('bahmni.clinical')
             };
 
             $scope.getDiagnosis = function (params) {
-                return diagnosisService.getAllFor(params.term).then(mapConcept);
+                var diagnose = diagnosisService.getAllFor(params.term).then(mapConcept);
+
+                if(!diagnose.$$state.value){
+                    angular.element("#name-0").addClass('illegalValue');
+                }
+                return diagnose;
             };
 
             $scope.getConditions = function (params) {
