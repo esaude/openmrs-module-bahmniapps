@@ -58,12 +58,7 @@ angular.module('bahmni.clinical')
             };
 
             $scope.getDiagnosis = function (params) {
-                var diagnose = diagnosisService.getAllFor(params.term).then(mapConcept);
-
-                if(!diagnose.$$state.value){
-                    angular.element("#name-0").addClass('illegalValue');
-                }
-                return diagnose;
+                return diagnosisService.getAllFor(params.term).then(mapConcept);
             };
 
             $scope.getConditions = function (params) {
@@ -435,6 +430,17 @@ angular.module('bahmni.clinical')
             };
 
             $scope.cleanOutDiagnosisList = function (allDiagnoses) {
+                angular.element("#name-0").addClass('illegalValue');
+
+                if(allDiagnoses.length === 1){
+                    var codedAnswers = _.map(_.remove(_.map($scope.consultation.newlyAddedDiagnoses, 'codedAnswer'), undefined), function (answer) {
+                        return answer.name.toLowerCase();
+                    });
+                    if(codedAnswers[0].toUpperCase() === allDiagnoses[0].value.toUpperCase()){
+                        angular.element("#name-0").removeClass('illegalValue');
+                    }
+                }
+                
                 return allDiagnoses.filter(function (diagnosis) {
                     return !alreadyAddedToDiagnosis(diagnosis);
                 });
