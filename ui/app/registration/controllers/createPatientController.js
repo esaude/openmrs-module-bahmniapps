@@ -21,7 +21,7 @@ angular.module('bahmni.registration')
             $rootScope.regexCharacters = '^[a-záàãâéèêẽíìóòõôúùçA-ZÁÀÃÂÉÈÊẼÍÌÓÒÔÕÚÙÇ ]+$';
             $scope.myForms = {};
             $rootScope.isEligibleForVisit = true;
-
+            $rootScope.typeOfRegistrationSelected = undefined;
             var getPersonAttributeTypes = function () {
                 return $rootScope.patientConfiguration.attributeTypes;
             };
