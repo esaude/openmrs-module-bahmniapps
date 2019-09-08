@@ -132,6 +132,16 @@ angular.module('bahmni.clinical')
                 });
             };
 
+            $scope.checkInvalidConditions = function () {
+                // Should check first, before adding class but as the system only accepts on-select values then check is skipped
+                angular.element("#condition").addClass('illegalValue');
+            };
+
+            $scope.checkInvalidAllergies = function (consultation) {
+                // Should check first, before adding class but as the system only accepts on-select values then check is skipped
+                angular.element("#allergy").addClass('illegalValue');
+            };
+
             var isInvalidDiagnosis = function (diagnosis) {
                 var codedAnswers = _.map(_.remove(_.map($scope.consultation.newlyAddedDiagnoses, 'codedAnswer'), undefined), function (answer) {
                     return answer.name.toLowerCase();
@@ -189,6 +199,7 @@ angular.module('bahmni.clinical')
                 return function (item) {
                     $scope.consultation.condition.concept.uuid = item.lookup.uuid;
                     item.value = $scope.consultation.condition.concept.name = item.lookup.name;
+                    angular.element("#condition").removeClass('illegalValue');
                 };
             };
 
@@ -196,6 +207,7 @@ angular.module('bahmni.clinical')
                 return function (item) {
                     $scope.consultation.allergy.concept.uuid = item.lookup.uuid;
                     item.value = $scope.consultation.allergy.concept.name = item.lookup.name;
+                    angular.element("#allergy").removeClass('illegalValue');
                 };
             };
 

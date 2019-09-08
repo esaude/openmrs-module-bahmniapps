@@ -13,10 +13,10 @@
         </div>
         <div class="row">
             <div class="col col1">
-                <input ng-model="consultation.condition.concept.name" type="text" name="name" id="name"
+                <input ng-model="consultation.condition.concept.name" type="text" name="name" id="condition"
                        bahmni-autocomplete source="getConditions"
                        on-select="getAddConditionMethod()"
-                       ng-change="consultation.condition.clearConcept()"
+                       ng-change="consultation.condition.clearConcept(); checkInvalidConditions()"
                        ng-class="{illegalValue: !(consultation.condition.concept.name || consultation.condition.isEmpty())}">
             </div>
             <div class="col col2">
