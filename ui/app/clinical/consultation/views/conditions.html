@@ -13,21 +13,11 @@
         </div>
         <div class="row">
             <div class="col col1">
-                <input ng-model="consultation.condition.concept.name" type="text" name="name" id="name"
-                       bahmni-autocomplete source="getDiagnosis"
+                <input ng-model="consultation.condition.concept.name" type="text" name="name" id="condition"
+                       bahmni-autocomplete source="getConditions"
                        on-select="getAddConditionMethod()"
-                       ng-change="consultation.condition.clearConcept()"
+                       ng-change="consultation.condition.clearConcept(); checkInvalidConditions()"
                        ng-class="{illegalValue: !(consultation.condition.concept.name || consultation.condition.isEmpty())}">
-                <button type="button" ng-model="consultation.condition.isNonCoded"
-                        class="small-btn accept-btn" id="accept-button"
-                        ng-click="consultation.condition.toggleNonCoded()"
-                        ng-class="{
-                                                illegalValue: !consultation.condition.isValidConcept(),
-                                                active: consultation.condition.isNonCoded
-                                            }"
-                        ng-disabled="consultation.condition.concept.uuid">
-                    <span>{{'ACCEPT'|translate}}</span>
-                </button>
             </div>
             <div class="col col2">
                 <buttons-radio class="btn-group" model='consultation.condition.status'

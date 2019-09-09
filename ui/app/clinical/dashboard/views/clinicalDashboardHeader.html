@@ -95,11 +95,20 @@
                         </li>
                     </ul>
                 </div>
-                <button ng-if="::!clinicalDashboardConfig.quickPrints" class="dialog-button-group print" ng-click="printDashboard()"
+
+                <div split-buttonNew
+                    options="::printButtonDropdownOptions"
+                    primary-option="::printButtonDropdownOptions[0]"
+                    option-text="optionText"
+                    option-click="printDashboardOrPrescription"
+                    class="dialog-button-group">
+                </div>
+
+                <!-- <button ng-if="::!clinicalDashboardConfig.quickPrints" class="dialog-button-group print" ng-click="printDashboard()"
                         accesskey="{{'CLINICAL_PRINT_ACCESS_KEY'| translate}}" ng-bind-html="'CLINICAL_PRINT_TRANSLATION_KEY'|translate">
                     <i class="fa fa-print"></i>
 
-                </button>
+                </button> -->
                 <div class="dashboard-date-picker" ng-controller="PatientListHeaderController">
                     <div class="retro-date-widget-wrapper fr">
                         <div class="retro-date-widget-header fr">
@@ -110,6 +119,7 @@
                 </div>
             <span class="grouped-buttons">
                  <a class=" btn--left btn--success "
+                    ng-hide="patient.isReadOnly"
                     ng-if="visitHistory.activeVisit || retrospectiveEntry || allowConsultation()"
                     ng-click="openConsultation()"
                     accesskey="{{'CONSULTATION_SHORTCUT_KEY' | translate}}"

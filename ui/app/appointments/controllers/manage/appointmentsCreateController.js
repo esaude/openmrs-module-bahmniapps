@@ -53,7 +53,9 @@ angular.module('bahmni.appointments')
                 $scope.appointment = Bahmni.Appointments.AppointmentViewModel.create(appointmentContext.appointment || { appointmentKind: 'Scheduled' }, appointmentCreateConfig);
                 $scope.selectedService = appointmentCreateConfig.selectedService;
                 $scope.isPastAppointment = $scope.isEditMode() ? Bahmni.Common.Util.DateUtil.isBeforeDate($scope.appointment.date, moment().startOf('day')) : false;
-                $scope.appointment.patient = $state.params.patient;
+                if ($state.params.patient) {
+                    $scope.appointment.patient = $state.params.patient;
+                }
                 $scope.appointment.date = $stateParams.selectedAppointmentDate || null;
                 $scope.selectedAppointmentBlock = $stateParams.selectedAppointmentBlock;
                 if ($scope.selectedAppointmentBlock) {
@@ -183,7 +185,7 @@ angular.module('bahmni.appointments')
                     };
                     formattedUrl = appService.getAppDescriptor().formatUrl(patientSearchURL, params);
                 }
-                return (spinner.forPromise(formattedUrl ? $http.get(Bahmni.Common.Constants.RESTWS_V1 + formattedUrl) : patientService.search($scope.appointment.patient.label)).then(function (response) {
+                return (spinner.forPromise(formattedUrl ? $http.get(Bahmni.Common.Constants.RESTWS_V1 + formattedUrl) : patientService.statusBasedSearch($scope.appointment.patient.label)).then(function (response) {
                     return response.data.pageOfResults;
                 }));
             };

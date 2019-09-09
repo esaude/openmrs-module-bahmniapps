@@ -21,6 +21,9 @@ angular.module('bahmni.registration')
                 var visitLocationUuid = $rootScope.visitLocation;
                 var forwardUrls = forwardUrlsForVisitTypes || false;
                 $scope.visitTable = [];
+                $scope.isEligibleForVisit = function () {
+                    return $rootScope.isEligibleForVisit;
+                };
                 $scope.allVisits = $rootScope.regEncounterConfiguration.getVisitTypesAsArray();
                 var getForwardUrlEntryForVisitFromTheConfig = function () {
                     var matchedEntry = _.find(forwardUrls, function (entry) {
@@ -77,6 +80,7 @@ angular.module('bahmni.registration')
                             self.activeVisit = activeVisitForCurrentLoginLocation[0];
                         }
                         setForwardActionKey();
+                        patientState();
                     }));
                 };
 
@@ -108,26 +112,9 @@ angular.module('bahmni.registration')
                 getVisitHistory();
 
                 if (uuid == undefined) {
-                    $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
+                    $scope.startVisits = [$scope.allVisits[0]];
                 } else {
-                    var visitTableList = [];
-                    $scope.visitTable.forEach(function (item, index) {
-                        visitTableList.push($scope.visitTable[index].type);
-                    });
-
-                    if (visitTableList == undefined) {
-                        $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
-                    } else if (visitTableList == "") {
-                        $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
-                    } else if (visitTableList.includes("FIRST_APSS_CONSULTATION", "FIRST_CLINICAL_CONSULTATION") === true) {
-                        $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[1]];
-                    } else if (visitTableList.includes("FIRST_APSS_CONSULTATION") === true) {
-                        $scope.startVisits = [$scope.allVisits[0], $scope.allVisits[2]];
-                    } else if (visitTableList.includes("FIRST_CLINICAL_CONSULTATION") === true) {
-                        $scope.startVisits = [$scope.allVisits[1], $scope.allVisits[3]];
-                    } else {
-                        $scope.startVisits = [$scope.allVisits[2], $scope.allVisits[3]];
-                    }
+                    $scope.startVisits = [$scope.allVisits[0]];
                 }
 
                 $scope.visitControl = new Bahmni.Common.VisitControl(
@@ -160,6 +147,16 @@ angular.module('bahmni.registration')
                     }
                     return true;
                 };
+
+                var patientState = function () {
+                    if ($scope.patient.PATIENT_STATE_CHANGE == undefined || $scope.patient.PATIENT_STATE_CHANGE.value == 'Patient_Transferred_Out') {
+                        $scope.canSave = true;
+                    } else {
+                        $scope.canSave = false;
+                    }
+                };
+
+                patientState();
 
                 $scope.setSubmitSource = function (source) {
                     if (!validFields()) {

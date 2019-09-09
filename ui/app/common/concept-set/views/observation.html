@@ -178,7 +178,7 @@
                     <span class="details" ng-bind-html="::observation.concept.description"></span>
                 </div>
 
-                <label class="control-label" ng-hide="observation.getControlType()== 'image'"  ng-if="::showTitle" for="{{::observation.uniqueId}}">
+                <label class="control-label" ng-hide="observation.getControlType()== 'image'"  ng-if="::showTitle && observation.concept.name != 'CONFIDENT_AGE_TYPE'" for="{{::observation.uniqueId}}">
                     <span ng-bind="::observation.label"></span>
                     <span ng-show="::getBooleanResult(observation.units)" ng-bind-html="::'(' + observation.units + ')'"></span>
                     <span ng-if="::observation.conceptUIConfig.required===true" class="asterick">*</span>
@@ -186,6 +186,9 @@
                        ng-if="::getBooleanResult(observation.concept.description)">
                     </i>
                 </label>
+
+
+
 
                 <div class="field-value" ng-switch="::observation.getControlType()"  ng-class="{'field-value-buttonSelectType' :observation.getControlType()== 'buttonselect' || observation.getControlType()== 'grid'}">
                     <div class="concept-description" ng-if="::getBooleanResult(observation.previous)">
@@ -195,8 +198,12 @@
                     <div ng-if="observation.concept.name =='Prophylaxis_Nutritional_Status'" style="position: absolute; top: 14%">
                         <strong class="grid-row-element">{{nutritionalStateDisplay | translate}}</strong>
                     </div>
-                    
-                    <div ng-switch-when="html5InputDataType">
+
+                    <div ng-switch-when="html5InputDataType" ng-if="observation.concept.name !== 'CONFIDENT_AGE'">
+                        <div ng-include src="'../common/concept-set/views/observationDataTypes/html5DataType.html'"></div>
+                    </div>
+
+                    <div ng-switch-when="html5InputDataType" ng-if="observation.concept.name === 'CONFIDENT_AGE'" style="margin-bottom: -50px">
                         <div ng-include src="'../common/concept-set/views/observationDataTypes/html5DataType.html'"></div>
                     </div>
 
@@ -270,8 +277,21 @@
                         </textarea>
                     </div>
 
-                    <div ng-switch-when="dropdown" class="field-value info fa fa-info-sign">
+                    <div ng-switch-when="dropdown" class="field-value info fa fa-info-sign" ng-if="observation.concept.name !== 'CONFIDENT_AGE_TYPE'">
                         <concept-dropdown
+                                on-change="update"
+                                ng-disabled="observation.disabled"
+                                model="observation.value"
+                                answers-concept-name="::observation.conceptUIConfig.answersConceptName"
+                                default-concept="::observation.concept"
+                                on-invalid-class="'illegalValue'"
+                                is-valid="observation.isValid(atLeastOneValueIsSet,conceptSetRequired)">
+                        </concept-dropdown>
+                    </div>
+
+                    <div ng-switch-when="dropdown" class="field-value info fa fa-info-sign" ng-if="observation.concept.name === 'CONFIDENT_AGE_TYPE'">
+                        <span style="float: left; margin-top:-50px; margin-left:450px; color: red;" >*</span>
+                        <concept-dropdown style="float: left; margin-top:-50px; margin-left:460px"
                                 on-change="update"
                                 ng-disabled="observation.disabled"
                                 model="observation.value"
@@ -386,7 +406,6 @@
             </div>
         </fieldset>
 
-
         <fieldset ng-if="(!observation.isObservationNode && !observation.isFormElement() && observation.getControlType()!='tabular')" class="hasLegend"
                   ng-class="{'collapsible-set': isCollapsibleSet(), 'collapsed': collapse}" scroll-to-obs-element="{{ observation.scrollToElement }}">
             <legend ng-if="::(showTitle && !observation.isComputed())" class="mylegend" ng-click="toggleSection()">
@@ -417,13 +436,17 @@
                     </div>
                     <div class="form-field form-field-group" ng-repeat="member in observation.groupMembers"
                          ng-if="!(member.hidden || member.hide)" ng-class="{'image-upload-wrapper': member.concept.name == 'Image'}">
-                        <concept collapse-inner-sections="collapseInnerSections" observation="member"
-                                 root-observation="observation" at-least-one-value-is-set="atLeastOneValueIsSet"
-                                 patient="::patient" show-title="::true"
-                                 concept-set-required="conceptSetRequired" concept-set-name="::conceptSetName" hide-abnormal-button="hideAbnormalButton"></concept>
+                         <div ng-if="member.concept.name != 'Apss_Disclosure_Diagnosis_results_child_adolescent' || (member.concept.name === 'Apss_Disclosure_Diagnosis_results_child_adolescent' && (patient.age >=8 && patient.age <=14))">
+                            <concept collapse-inner-sections="collapseInnerSections" observation="member"
+                                root-observation="observation" at-least-one-value-is-set="atLeastOneValueIsSet"
+                                patient="::patient" show-title="::true"
+                                concept-set-required="conceptSetRequired" concept-set-name="::conceptSetName" hide-abnormal-button="hideAbnormalButton">
+                            </concept>
+                        </div>
                     </div>
                 </div>
             </div>
         </fieldset>
+
     </div>
 </div>

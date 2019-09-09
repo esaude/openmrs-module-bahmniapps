@@ -5,6 +5,26 @@ angular.module('bahmni.clinical')
         var controller = function ($scope, $rootScope) {
             var patientContextConfig = appService.getAppDescriptor().getConfigValue('patientContext') || {};
             $scope.initPromise = patientService.getPatientContext($scope.patient.uuid, $state.params.enrollment, patientContextConfig.personAttributes, patientContextConfig.programAttributes, patientContextConfig.additionalPatientIdentifiers);
+            $scope.patientStatus = $scope.patient.patientStatus;
+            $scope.patientState = $scope.patient.patientState;
+
+            if ($scope.patientState.includes('DEATH')) {
+                $scope.patientAction = 'PA_DEATH';
+            }
+
+            if ($scope.patientState.includes('SUSPENDED')) {
+                $scope.patientAction = 'PA_SUSPENDED';
+            }
+
+            if ($scope.patientState.includes('TRANSFERRED')) {
+                $scope.patientAction = 'PA_TRANSFERRED';
+            }
+
+            if ($scope.patientStatus.includes('Pre')) {
+                $scope.patientActualStatus = 'PAS_PRE_TARV';
+            } else {
+                $scope.patientActualStatus = 'PAS_TARV';
+            }
 
             $scope.initPromise.then(function (response) {
                 $scope.patientContext = response.data;

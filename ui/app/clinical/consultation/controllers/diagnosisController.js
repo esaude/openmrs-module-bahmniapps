@@ -32,8 +32,7 @@ angular.module('bahmni.clinical')
                 'CONDITION_LIST_HISTORY_OF': 'HISTORY_OF'
             };
             $scope.allergiesStatuses = {
-                'ALLERGIES_LIST_ACTIVE': 'ACTIVE',
-                'ALLERGIES_LIST_INACTIVE': 'INACTIVE'
+                'ALLERGIES_LIST_ACTIVE': 'ACTIVE'
             };
             $scope.consultation.followUpConditions = $scope.consultation.followUpConditions || [];
             $scope.consultation.followUpAllergies = $scope.consultation.followUpAllergies || [];
@@ -60,6 +59,10 @@ angular.module('bahmni.clinical')
 
             $scope.getDiagnosis = function (params) {
                 return diagnosisService.getAllFor(params.term).then(mapConcept);
+            };
+
+            $scope.getConditions = function (params) {
+                return diagnosisService.getAllConditionsFor(params.term).then(mapConcept);
             };
 
             $scope.getAllergyDiagnosis = function (params) {
@@ -129,6 +132,16 @@ angular.module('bahmni.clinical')
                 });
             };
 
+            $scope.checkInvalidConditions = function () {
+                // Should check first, before adding class but as the system only accepts on-select values then check is skipped
+                angular.element("#condition").addClass('illegalValue');
+            };
+
+            $scope.checkInvalidAllergies = function (consultation) {
+                // Should check first, before adding class but as the system only accepts on-select values then check is skipped
+                angular.element("#allergy").addClass('illegalValue');
+            };
+
             var isInvalidDiagnosis = function (diagnosis) {
                 var codedAnswers = _.map(_.remove(_.map($scope.consultation.newlyAddedDiagnoses, 'codedAnswer'), undefined), function (answer) {
                     return answer.name.toLowerCase();
@@ -186,6 +199,7 @@ angular.module('bahmni.clinical')
                 return function (item) {
                     $scope.consultation.condition.concept.uuid = item.lookup.uuid;
                     item.value = $scope.consultation.condition.concept.name = item.lookup.name;
+                    angular.element("#condition").removeClass('illegalValue');
                 };
             };
 
@@ -193,6 +207,7 @@ angular.module('bahmni.clinical')
                 return function (item) {
                     $scope.consultation.allergy.concept.uuid = item.lookup.uuid;
                     item.value = $scope.consultation.allergy.concept.name = item.lookup.name;
+                    angular.element("#allergy").removeClass('illegalValue');
                 };
             };
 
@@ -427,6 +442,16 @@ angular.module('bahmni.clinical')
             };
 
             $scope.cleanOutDiagnosisList = function (allDiagnoses) {
+                angular.element("#name-0").addClass('illegalValue');
+
+                if (allDiagnoses.length === 1) {
+                    var codedAnswers = _.map(_.remove(_.map($scope.consultation.newlyAddedDiagnoses, 'codedAnswer'), undefined), function (answer) {
+                        return answer.name.toLowerCase();
+                    });
+                    if (codedAnswers[0].toUpperCase() === allDiagnoses[0].value.toUpperCase()) {
+                        angular.element("#name-0").removeClass('illegalValue');
+                    }
+                }
                 return allDiagnoses.filter(function (diagnosis) {
                     return !alreadyAddedToDiagnosis(diagnosis);
                 });

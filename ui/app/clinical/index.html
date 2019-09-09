@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="consultation" >
     <head>
-        <title>OPD</title>
+        <title ng-bind-html="title || 'Clínico'"></title>
 
         <meta charset="utf-8">
         <meta name="HandheldFriendly" content="true">
@@ -22,7 +22,7 @@
         <!-- endbuild -->
 
     </head>
-    <body ng-app="consultation" >
+    <body>
         <div ng-controller="ClinicalController" ng-class="{'retro-mode':retrospectiveClass()}" id="ClinicalController">
             <div ng-include src="'../common/ui-helper/messages.html'"></div>
             <div class="opd-wrapper">
@@ -140,6 +140,7 @@
         <script src="../common/domain/services/dispositionService.js"></script>
         <script src="../common/domain/services/visitDocumentService.js"></script>
         <script src="../common/domain/services/bedService.js"></script>
+        <script src="../common/domain/services/localeService.js"></script>
 
         <script src="../common/domain/services/providerService.js"></script>
         <script src="../common/domain/services/providerTypeService.js"></script>
@@ -165,6 +166,8 @@
         <script src="../common/ui-helper/directives.js"></script>
         <script src="../common/ui-helper/directives/bahmniAutocomplete.js"></script>
         <script src="../common/ui-helper/directives/popOver.js"></script>
+        <script src="../common/ui-helper/directives/splitButton.js"></script>
+        <script src="../common/ui-helper/directives/splitButtonNew.js"></script>
         <script src="../common/ui-helper/directives/conceptAutocomplete.js"></script>
         <script src="../common/ui-helper/directives/datetimepicker.js"></script>
         <script src="../common/ui-helper/directives/monthyearpicker.js"></script>
@@ -262,7 +265,8 @@
 
         <script src="../common/displaycontrols/conditionsList/directives/conditionsList.js"></script>
         <script src="../common/displaycontrols/allergiesList/directives/allergiesList.js"></script>
-
+        <script src="../common/displaycontrols/treatmentStartdate/directives/TreatmentDate.js"></script>
+        
 
         <script src="../common/displaycontrols/dashboard/init.js"></script>
         <script src="../common/displaycontrols/dashboard/directives/dashboardSection.js"></script>
@@ -348,6 +352,7 @@
 
         <script src="dashboard/services/clinicalDashboardConfig.js"></script>
         <script src="dashboard/directives/diseaseTemplate.js"></script>
+        <script src="dashboard/directives/prescriptionReport.js"></script>
         <script src="dashboard/directives/recentPatients.js"></script>
         <script src="dashboard/controllers/diseaseTemplateController.js"></script>
         <script src="dashboard/controllers/editObservationFormController.js"></script>
@@ -356,6 +361,7 @@
         <script src="dashboard/controllers/patientDashboardLabSummaryController.js"></script>
         <script src="dashboard/controllers/patientDashboardRadiologyController.js"></script>
         <script src="dashboard/controllers/patientDashboardAllDiseaseTemplateController.js"></script>
+        <script src="dashboard/controllers/printPrescriptionReportController.js"></script>
         <script src="dashboard/controllers/patientDashboardController.js"></script>
         <script src="dashboard/controllers/patientDashboardVisitsController.js"></script>
         <script src="dashboard/controllers/patientDashboardAllVisitsController.js"></script>
@@ -512,6 +518,8 @@
         <script src="../common/app-framework/services/loadConfigService.js"></script>
         <script src="../common/domain/services/encounterService.js"></script>
         <script src="dashboard/services/diseaseTemplateService.js"></script>
+        <script src="dashboard/services/printPrescriptionReportService.js"></script>
+
         <script src="../common/domain/services/observationsService.js"></script>
         <script src="../common/concept-set/services/conceptSetServices.js"></script>
         <script src="../common/util/dateTimeFormatter.js"></script>

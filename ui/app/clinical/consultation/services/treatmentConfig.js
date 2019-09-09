@@ -1,13 +1,22 @@
 'use strict';
 
 angular.module('bahmni.clinical').factory('treatmentConfig',
-    ['treatmentService', 'spinner', 'configurationService', 'appService', '$q', '$translate',
-        function (treatmentService, spinner, configurationService, appService, $q, $translate) {
+    ['treatmentService', 'spinner', 'configurationService', 'appService', 'localeService', '$q', '$translate',
+        function (treatmentService, spinner, configurationService, appService, localeService, $q, $translate) {
+            var defaultLocale = "en";
+            var getDefaultLocale = function () {
+                return localeService.defaultLocale().then(function (response) {
+                    defaultLocale = response.data;
+                    return response.data;
+                });
+            };
+
             var getConfigFromServer = function (baseTreatmentConfig) {
                 return treatmentService.getConfig().then(function (result) {
                     var config = angular.extend(baseTreatmentConfig, result.data);
+                    var durationConceptName = defaultLocale === "pt" ? "Dia (s)" : "Day(s)";
                     config.durationUnits = [
-                        {name: "Day(s)", factor: 1}
+                        {name: durationConceptName, factor: 1}
                     ];
                     config.frequencies = _(config.frequencies)
                         .reverse()
@@ -38,6 +47,7 @@ angular.module('bahmni.clinical').factory('treatmentConfig',
 
             return function (tabConfigName) {
                 var drugOrderOptions;
+                getDefaultLocale();
                 var baseTreatmentConfig = {
                     allowNonCodedDrugs: function () {
                         return drugOrderOptions.allowNonCodedDrugs;
@@ -90,7 +100,7 @@ angular.module('bahmni.clinical').factory('treatmentConfig',
                     showAdditionalInformation: function () {
                         var additionalInformationFields = ["sos", "additionalInstructions", "dosingInstructions"];
                         var hiddenAdditionalInformationFields = _.intersection(additionalInformationFields, drugOrderOptions.hiddenFields);
-                        return hiddenAdditionalInformationFields.length < additionalInformationFields.length;
+                        return false;
                     },
                     translate: function (field, defaultKey) {
                         var labelKey = drugOrderOptions.labels[field];

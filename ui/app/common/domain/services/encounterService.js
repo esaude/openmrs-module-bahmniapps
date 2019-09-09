@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('bahmni.common.domain')
-    .service('encounterService', ['$http', '$q', '$rootScope', 'configurations', '$bahmniCookieStore',
-        function ($http, $q, $rootScope, configurations, $bahmniCookieStore) {
+    .service('encounterService', ['$http', '$q', '$rootScope', '$window', 'configurations', '$bahmniCookieStore',
+        function ($http, $q, $rootScope, $window, configurations, $bahmniCookieStore) {
             this.buildEncounter = function (encounter) {
                 encounter.observations = encounter.observations || [];
                 encounter.observations.forEach(function (obs) {
                     stripExtraConceptInfo(obs);
                 });
-
+                encounter.locale = $window.localStorage["NG_TRANSLATE_LANG_KEY"] || "en";
                 encounter.providers = encounter.providers || [];
 
                 var providerData = $bahmniCookieStore.get(Bahmni.Common.Constants.grantProviderAccessDataCookieName);
@@ -112,7 +112,6 @@ angular.module('bahmni.common.domain')
 
             this.create = function (encounter) {
                 encounter = this.buildEncounter(encounter);
-
                 return $http.post(Bahmni.Common.Constants.bahmniEncounterUrl, encounter, {
                     withCredentials: true
                 });

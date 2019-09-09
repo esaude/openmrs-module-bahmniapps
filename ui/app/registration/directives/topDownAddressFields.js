@@ -10,15 +10,15 @@ angular.module('bahmni.registration')
                 address: '=',
                 addressLevels: '=',
                 fieldValidation: '=',
+                patient: '=',
                 strictAutocompleteFromLevel: '='
             }
         };
     })
-    .controller('TopDownAddressFieldsDirectiveController', ['$scope', '$rootScope', 'addressHierarchyService', function ($scope, $rootScope, addressHierarchyService) {
+    .controller('TopDownAddressFieldsDirectiveController', ['$scope', '$rootScope', 'addressHierarchyService', 'patientService', '$q', function ($scope, $rootScope, addressHierarchyService, patientService, $q) {
         $scope.addressFieldInvalid = false;
         var selectedAddressUuids = {};
         var selectedUserGeneratedIds = {};
-
         var addressLevelsCloneInDescendingOrder = $scope.addressLevels.slice(0).reverse();
         var addressLevelUIOrderBasedOnConfig = $scope.addressLevels;
         $scope.addressLevelsChunks = Bahmni.Common.Util.ArrayUtil.chunk(addressLevelUIOrderBasedOnConfig, 2);
@@ -120,7 +120,6 @@ angular.module('bahmni.registration')
         };
 
         $scope.getAddressDataResults = addressHierarchyService.getAddressDataResults;
-
         var addressHierarchEmptyFieldsValidations = function (fieldName) {
             if (fieldName === "country" || fieldName === "stateProvince" || fieldName === "cityVillage") {
                 $rootScope.fieldValue = angular.element("#" + fieldName)[0].value;
@@ -177,6 +176,17 @@ angular.module('bahmni.registration')
                         return addressLevel && addressLevel.isStrictEntry ? value : null;
                     });
                     deregisterAddressWatch();
+                }
+            });
+
+            var deregisterAddressWatchForPatientState = $scope.$watch('patient', function (newValue) {
+                if (newValue !== undefined) {
+                    if (newValue == "INACTIVE_SUSPENDED" || newValue === "INACTIVE_TRANSFERRED_OUT" || newValue === "INACTIVE_DEATH") {
+                        $scope.isAddressDisabled = true;
+                    } else {
+                        $scope.isAddressDisabled = false;
+                    }
+                    deregisterAddressWatchForPatientState();
                 }
             });
         };

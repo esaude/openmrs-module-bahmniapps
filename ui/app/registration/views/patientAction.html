@@ -14,7 +14,7 @@
                         ng-bind-html="::activeVisitConfig.translationKey | translate">
                 </button>
         </span>
-        <span ng-if="::showStartVisitButton()" data-ng-switch-when="startVisit">
+        <span ng-if="isEligibleForVisit()" data-ng-switch-when="startVisit">
             <div split-button options="::visitControl.visitTypes"
                              primary-option="::visitControl.defaultVisitType"
                  option-text="visitControl.startButtonText"
@@ -30,9 +30,9 @@
         </span>
     </span>
 
-    <button type="submit" class="right submit-btn" ng-click="setSubmitSource('save')" disabled ng-if="!canSave"
+    <button ng-hide="patient.PATIENT_STATE_CHANGE.value !== 'Patient_Transferred_Out'" type="submit" class="right submit-btn" ng-click="setSubmitSource('save')" disabled ng-if="!canSave"
             accesskey="{{ ::'REGISTRATION_SAVE_ACCESS_KEY' | translate}}" ng-bind-html="::'REGISTRATION_LABEL_SAVE' | translate"></button>
 
-    <button type="submit" class="right submit-btn" ng-click="setSubmitSource('save')" ng-if="canSave"
+    <button type="submit" class="right submit-btn" ng-click="setSubmitSource('save');patientState();" ng-if="canSave"
             accesskey="{{ ::'REGISTRATION_SAVE_ACCESS_KEY' | translate}}" ng-bind-html="::'REGISTRATION_LABEL_SAVE' | translate"></button>
 </div>

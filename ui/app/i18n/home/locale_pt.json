@@ -32,7 +32,7 @@
 	"LOGIN_PAGE_HEADER_TEXT": "SESP - POC",
 	"LOGIN_PAGE_HEADER_TEXT_1": "REPÚBLICA DE MOÇAMBIQUE",
 	"LOGIN_PAGE_HEADER_TEXT_2": "MINISTÉRIO DA SAÚDE",
-	"LOGIN_PAGE_HEADER_TEXT_3": "Sistema Electrónico de Seguimento de Pacientes (SESP)",
+	"LOGIN_PAGE_HEADER_TEXT_3": "SISTEMA ELETRÓNICO DE SEGUIMENTO DE PACIENTES (SESP) - POC",
 	"LOGIN_PAGE_TITLE_TEXT": "MINISTÉRIO DA SAÚDE",
 	"LOGIN_UNSUPPORTED_BROWSER_KEY": "Bahmni é suportado pelo navegador Chrome",
 	"MESSAGE_DIALOG_OPTION_COPY": "Erro de Cópia",
@@ -58,5 +58,7 @@
 	"UNABLE_TO_GET_PROVIDER_DATA": "Não foi possível obter dados do Médico",
 	"WARNING_SERVER_TIME_ZONE_MISMATCH": "O fuso horário do servidor ({{serverTime}}) é diferente do fuso horário / hora do seu navegador ({{localeTimeZone}}). Isso pode fazer com que alguns dados ou relatórios pareçam incorretos. Por favor entre em contato com o administrador para mais detalhes.",
 	"YOU_HAVE_NOT_BEEN_SETUP_PROVIDER": "Não está configurado como Provedor, por favor entre em contacto com o Administrador.",
-	"POC_VERSION" : "2.0.0"
+	"POC_VERSION" : "2.0.0",
+	"HOME_APP_TITLE": "Página Inicial",
+	"TREATMENT_START_DATE": "Data Início TARV"
 }

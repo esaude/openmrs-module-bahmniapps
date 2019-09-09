@@ -7,6 +7,40 @@
         <div class="order-section-container"  ng-show="addTreatment">
             <div class="Order-section-orderDrug clearfix">
                 <form name="addForm" ng-class="{ 'show-invalid': formInvalid}"  ng-submit="add()" bm-form class="edit-drug-order-container" novalidate>
+
+
+                    <article class="form-field fl">
+                        <div class="field-attribute">
+                            <label class="fl unit-text"> {{::'MEDICATION_ADD_DRUG_CATEGORY' | translate}} <span
+                                    class="asterick">*</span> </label>
+                        </div>
+                        <div class="field-value">
+                            <select ng-init="fetchCategories('medication_category')" id="cat-dropdown" class="fl"
+                                    ng-model="selectedCategory" ng-disabled="isBeingRevised" ng-value="selectedCategory" ng-change="selectCategoryFromDropdown()" ng-click=""
+                                    ng-options="item.display for item in categories" required >
+                                <option value="" ng-if="selectedCategory === ''">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+                                <option value="" ng-if="selectedCategory !== ''">{{selectedCategory.display}}</option>
+                            </select>
+                        </div>
+                    </article>
+                    <article class="form-field fl">
+                        <div class="field-attribute">
+                            <label class="fl unit-text"> {{::'MEDICATION_ADD_DRUG_LINE' | translate}} <span
+                                    class="asterick">*</span> </label>
+                        </div>
+                        <div class="field-value">
+                            <select  ng-show="isBeingRevised == false" id="line-dropdown" class="fl"
+                                    ng-model="selectedTreatmentLine" ng-value="selectedTreatmentLine" ng-disabled="disableTreatmentLine || isBeingRevised"
+                                    ng-options="item.display for item in treatmentLines" ng-change="selectTreatmentLineFromDropDown()" ng-click="" >
+                                <option value="" ng-if="selectedCategory=== ''">{{ 'CHOOSE_ANSWER_FROM_DROPDOWN_LABEL'|translate }}</option>
+                            </select>
+                            <select ng-if="isBeingRevised" ng-disabled="true"
+                                    id="line-dropdown1" class="fl">
+                                <option value="">{{selectedTreatmentLine.display}}</option>
+                            </select>
+                        </div>
+                    </article>
+
                     <article class="form-field">
                         <div class="field-attribute">
                             <label>{{::treatmentConfig.translate('drugName','MEDICATION_DRUG_NAME_TITLE')}} <span class="asterick">*</span></label>
@@ -17,10 +51,11 @@
                                 <option value="">{{ ::treatmentConfig.translate('drugNamePlaceHolder', 'MEDICATION_DRUG_NAME_PLACEHOLDER') }} </option>
                             </select>
                             <div ng-if="treatmentConfig.isAutoComplete()">
-                                <input id="drug-name" type="text" bahmni-autocomplete focus-on="startNewDrugEntry"
+                                <input id="drug-name" type="text" bahmni-autocomplete focus-on="startNewDrugEntry" ng-disabled="disableMedication"
                                        source="getDrugs" response-map="getDataResults" ng-required="!treatment.drugNameDisplay"
                                        ng-class="{
-                                active: treatment.isNonCodedDrug
+                                active: treatment.isNonCodedDrug,
+                                illegalValue: !treatment.drug.uuid && !treatment.concept.uuid && treatment.drugNameDisplay && !treatment.isNonCodedDrug
                            }"
                                        ng-change="onChange()"
                                        ng-model="treatment.drugNameDisplay" on-select="onSelect" autofocus
@@ -189,6 +224,7 @@
                                 <select  ng-if="!treatmentConfig.isHiddenField('durationUnits')" id="duration-unit"
                                          class=" duration-unit" ng-model="treatment.durationUnit"
                                          ng-options="item.name as item.name for item in treatmentConfig.getDurationUnits()"
+                                         ng-disabled="treatmentConfig.getDurationUnits().length == 1"
                                          required></select>
                             </div>
                         </article>
@@ -237,14 +273,14 @@
                             </button>
                         </div>
                     </article>
-                    <article class="form-field" ng-if="!treatmentConfig.isHiddenField('dosingInstructions')">
+                    <article class="form-field" ng-if="!treatmentConfig.isHiddenField('dosingInstructions') && isARV">
                         <div class="field-attribute">
-                            <label  class="start-date-label fl">{{::treatmentConfig.translate('dosingInstructions', 'MEDICATION_LABEL_DOSING_INSTRUCTIONS')}}</label>
+                            <label  class="start-date-label fl">{{::treatmentConfig.translate('dosingInstructions', 'MEDICATION_LABEL_DISPENSATION_TYPE')}}<span class="asterick">*</span></label>
                         </div>
                         <div class="field-value">
                             <select id="instructions" class="instruction" ng-model="treatment.instructions"
-                                    ng-options="item.name as item.name for item in treatmentConfig.getDosingInstructions()">
-                                <option value="">{{::treatmentConfig.translate('dosingInstructionsPlaceHolder', 'MEDICATION_DOSING_INSTRUCTIONS_PLACEHOLDER')}}</option>
+                                    ng-options="item.name as item.name for item in treatmentConfig.getDosingInstructions()" required>
+                                <option value="">{{::treatmentConfig.translate('dosingInstructionsPlaceHolder', 'MEDICATION_DISPENSATION_TYPE_PLACEHOLDER')}}</option>
                             </select>
                         </div>
                     </article>

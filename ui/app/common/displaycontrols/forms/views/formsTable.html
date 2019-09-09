@@ -26,7 +26,8 @@
                                   ng-dialog-data="{{getConfigToFetchDataAndShow(data)}}">
                                 <i class="fa fa-eye"></i>
                             </span>
-                            <span class="has-link fl formDataEdit"
+                            <span ng-if="isFormEditable"
+                                  class="has-link fl formDataEdit"
                                   ng-dialog="dashboard/views/dashboardSections/editObservationForm.html"
                                   ng-dialog-class="ngdialog-theme-default ng-dialog-all-details-page ng-dialog-edit"
                                   ng-dialog-data="{{getEditObsData(data)}}"

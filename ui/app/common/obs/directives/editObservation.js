@@ -2,9 +2,9 @@
 
 angular.module('bahmni.common.obs')
     .directive('editObservation', ['$q', 'spinner', '$state', '$rootScope', 'ngDialog', 'messagingService',
-        'encounterService', 'configurations', 'contextChangeHandler', 'auditLogService', 'patientService',
+        'encounterService', 'configurations', 'contextChangeHandler', 'auditLogService', 'patientService', '$http',
         function ($q, spinner, $state, $rootScope, ngDialog, messagingService, encounterService, configurations,
-                  contextChangeHandler, auditLogService, patientService) {
+                  contextChangeHandler, auditLogService, patientService, $http) {
             var controller = function ($scope) {
                 var ObservationUtil = Bahmni.Common.Obs.ObservationUtil;
                 var findEditableObs = function (observations) {
@@ -22,8 +22,8 @@ angular.module('bahmni.common.obs')
                     var consultationMapper = new Bahmni.ConsultationMapper(configurations.dosageFrequencyConfig(), configurations.dosageInstructionConfig(),
                         configurations.consultationNoteConcept(), configurations.whoStageConcept(), configurations.labOrderNotesConcept());
 
-                    return encounterService.findByEncounterUuid($scope.observation.encounterUuid).then(function (reponse) {
-                        var encounterTransaction = reponse.data;
+                    return $q.all([encounterService.findByEncounterUuid($scope.observation.encounterUuid)]).then(function (reponse) {
+                        var encounterTransaction = reponse[0].data;
                         $scope.encounter = consultationMapper.map(encounterTransaction);
                         $scope.editableObservations = [];
                         if (shouldEditSpecificObservation()) {
@@ -41,10 +41,39 @@ angular.module('bahmni.common.obs')
                         // Need the UUID up front so the execution of the process can continue
                         // fetch the gender (or whatever other patient data is needed) later
                         $scope.patient = {uuid: $scope.encounter.patientUuid};
-                        patientService.getPatient($scope.encounter.patientUuid).then(function (response) {
-                            $scope.patient.gender = response.data.person.gender;
+                        $q.all([patientService.getPatient($scope.encounter.patientUuid), getHeight($scope.patient.uuid), getWeight($scope.patient.uuid)]).then(function (response) {
+                            $scope.patient.gender = response[0].data.person.gender;
+                            $scope.patient.age = response[0].data.person.age;
+                            if (response[1].length > 0) {
+                                $scope.patient.height = response[1].data[0].value;
+                            }
+                            if (response[2].length > 0) {
+                                $scope.patient.weight = response[2].data[0].value;
+                            }
                             return;
                         });
+                    });
+                };
+
+                var getHeight = function (patientUuid) {
+                    return $http.get(Bahmni.Common.Constants.observationsUrl, {
+                        params: {
+                            concept: "HEIGHT",
+                            numberOfVisits: 1,
+                            patientUuid: patientUuid
+                        },
+                        withCredentials: true
+                    });
+                };
+
+                var getWeight = function (patientUuid) {
+                    return $http.get(Bahmni.Common.Constants.observationsUrl, {
+                        params: {
+                            concept: "WEIGHT",
+                            numberOfVisits: 1,
+                            patientUuid: patientUuid
+                        },
+                        withCredentials: true
                     });
                 };
 

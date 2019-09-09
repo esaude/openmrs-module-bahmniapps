@@ -72,6 +72,7 @@ Bahmni.Common = Bahmni.Common || {};
         diseaseTemplateUrl: BAHMNI_CORE + "/diseaseTemplates",
         AllDiseaseTemplateUrl: BAHMNI_CORE + "/diseaseTemplate",
         emrapiConceptUrl: EMRAPI + "/concept",
+        emrapiConditionConceptUrl: EMRAPI + "/conditionconcept",
         emrapiAllergyConceptUrl: EMRAPI + "/allergyconcept",
         encounterConfigurationUrl: BAHMNI_CORE + "/config/bahmniencounter",
         patientConfigurationUrl: BAHMNI_CORE + "/config/patient",
@@ -86,6 +87,7 @@ Bahmni.Common = Bahmni.Common || {};
         bahmniDispositionByPatientUrl: BAHMNI_CORE + "/disposition/patient",
         bahmniSearchUrl: BAHMNI_CORE + "/search",
         bahmniDuplicateSearchUrl: BAHMNI_CORE + "/duplicatesearch",
+        bahmniStatusBasedSearchUrl: BAHMNI_CORE + "/patientStatusBasedSearch",
         bahmniLabOrderResultsUrl: BAHMNI_CORE + "/labOrderResults",
         bahmniEncounterUrl: BAHMNI_CORE + "/bahmniencounter",
         conceptUrl: RESTWS_V1 + "/concept",
@@ -252,12 +254,14 @@ Bahmni.Common = Bahmni.Common || {};
         appointmentServiceUrl: RESTWS_V1 + "/appointmentService",
         conditionUrl: EMRAPI + '/condition',
         allergyUrl: EMRAPI + '/allergy',
+        dispenseDrugOrderUrl: EMRAPI + '/dispensedrugorder',
         conditionHistoryUrl: EMRAPI + '/conditionhistory',
         allergyHistoryUrl: EMRAPI + '/allergyhistory',
         followUpConditionConcept: 'Follow-up Condition',
         localeLangs: "/bahmni_config/openmrs/apps/home/locale_languages.json",
         privilegeRequiredErrorMessage: "PRIVILEGE_REQUIRED",
-        defaultPossibleRelativeSearchLimit: 10
+        defaultPossibleRelativeSearchLimit: 10,
+        drugOrderRelationShipUrl: BAHMNI_CORE + "/drugOrders/drugOrderRelationship"
     };
 })();
 

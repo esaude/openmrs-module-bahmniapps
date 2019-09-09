@@ -22,7 +22,7 @@
                     {{::'REPORT_FORMAT_KEY' | translate}}
                     <span class="asterick">*</span>
                     <select ng-model="default.reportsRequiringDateRange.responseType"
-                            ng-options="type as label for (label , type) in ::formats"
+                            ng-options="type as label | translate for (label , type) in ::formats"
                             ng-change="setDefault('responseType', 'reportsRequiringDateRange')">
                         <option value="">{{'CHOOSE_REPORT_FORMAT'|translate}}</option>
                     </select>
@@ -33,7 +33,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="report in ::reportsRequiringDateRange">
-                <td>{{:: report.name }}</td>
+                <td>{{:: report.titleKey | translate}}</td>
                 <td class="reports-start-date">
                     <input date-converter class="form-field start-date" type="date" max="{{report.stopDate | date:'yyyy-MM-dd'}}"
                            ng-model="report.startDate">
@@ -43,7 +43,7 @@
                             ng-model="report.stopDate">
                 </td>
                 <td class="reports-format">
-                    <select ng-model="report.responseType" ng-options="type as label for (label , type) in ::formats">
+                    <select ng-model="report.responseType" ng-options="type as label | translate for (label , type) in ::formats">
                         <option value="">{{'CHOOSE_REPORT_FORMAT'|translate}}</option>
                     </select>
                     <input ng-if="report.responseType=='application/vnd.ms-excel-custom' && !report.config.macroTemplatePath"

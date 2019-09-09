@@ -368,6 +368,22 @@ Bahmni.ConceptSet.Observation.prototype = {
         }
     },
 
+    toggleSelectionTBState: function (answer) {
+        if (answer) {
+            this.value = answer;
+        } else {
+            this.value = null;
+        }
+    },
+
+    toggleSelectionProphylaxisState: function (answer) {
+        if (answer) {
+            this.value = answer;
+        } else {
+            this.value = null;
+        }
+    },
+
     isValidDate: function () {
         if (this.isComputed()) {
             return true;

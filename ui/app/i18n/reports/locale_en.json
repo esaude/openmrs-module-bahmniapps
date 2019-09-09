@@ -43,5 +43,18 @@
     "YEARS_LABEL": "Years",
     "CHOOSE_ANSWER_FROM_DROPDOWN_LABEL": "Choose Answer",
     "DELETE_LABEL": "Delete",
-    "EDIT_LABEL": "Edit"
+    "EDIT_LABEL": "Edit",
+    "PLEASE_SELECT_KEY" : "Please select the ",
+    "AND_KEY" : " and ",
+    "ADDED_TO_MY_REPORTS" : " added to My Reports",
+    "ERROR_SCHEDULING_REPORT" : "Error in scheduling report",
+    "SELECT_REPORT_FORMAT" : "Select format for the report: ",
+    "CSV_FORMAT_CONCATENATED_REPORTS_ERROR" : "CSV format is not supported for concatenated reports",
+    "WORKBOOK_TEMPLATE_ERROR" : "Workbook template should be selected for generating report: ",
+    "CSV" : "CSV",
+    "EXCEL" : "EXCEL",
+    "HTML" : "HTML",
+    "PDF" : "PDF",
+    "CUSTOM EXCEL" : "CUSTOM EXCEL",
+    "ODS" : "ODS"
 }
