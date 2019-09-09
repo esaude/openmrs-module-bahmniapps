@@ -491,6 +491,10 @@
   "ACTIVE": "Activo em",
   "TARV_ABANDONED": "TARV - Abandono",
   "TARV_RESTART": "TARV - Reinício",
-  "Pre TARV":"Pré-TARV"
-
+  "Pre TARV":"Pré-TARV",
+  "ARV_KEY" : "Antirretrovirais",
+  "PROPHYLAXIS_KEY" : "Profilaxias",
+  "ITS_KEY" : "Tratamento de ITS",
+  "ANTI_TB_KEY" : "Medicamentos Anti-Tuberculose",
+  "OTHER_CATEGORY" : "Outros Medicamentos"
 }

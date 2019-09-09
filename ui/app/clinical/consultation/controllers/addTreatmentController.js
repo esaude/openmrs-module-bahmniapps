@@ -54,23 +54,27 @@ angular.module('bahmni.clinical')
                 });
             };
 
+            var getTranslatedMessage = function (key) {
+                return $translate.instant(key);
+            };
+
             $scope.selectCategoryFromDropdown = function () {
                 $scope.treatmentLines = [];
                 if ($scope.selectedCategory != undefined) {
-                    if ($scope.selectedCategory.display === "ARV") {
+                    if ($scope.selectedCategory.display === getTranslatedMessage("ARV_KEY")) {
                         $scope.selectedTreatmentLineCategory = "treatment_line_arv";
                         $scope.disableTreatmentLine = false;
                         $scope.disableMedication = false;
                         $scope.fetchTreatmentLines($scope.selectedTreatmentLineCategory);
-                    } else if ($scope.selectedCategory.display.toUpperCase() === "Anti-Tuberculosis Drugs".toUpperCase() || $scope.selectedCategory.display.toUpperCase() === "Drogas Anti-Tuberculose".toUpperCase()) {
+                    } else if ($scope.selectedCategory.display === getTranslatedMessage("ANTI_TB_KEY")) {
                         $scope.selectedTreatmentLineCategory = "treatment_line_tb";
                         $scope.fetchTreatmentLines($scope.selectedTreatmentLineCategory);
                         $scope.disableTreatmentLine = false;
                         $scope.disableMedication = false;
-                    } else if ($scope.selectedCategory.display.toUpperCase() === "Other".toUpperCase() || $scope.selectedCategory.display.toUpperCase() === "Outra Categoria".toUpperCase()) {
+                    } else if ($scope.selectedCategory.display === getTranslatedMessage("OTHER_CATEGORY")) {
                         $scope.disableMedication = false;
                         $scope.disableTreatmentLine = true;
-                    } else if ($scope.selectedCategory.display.toUpperCase() === "Tratamento de ITS".toUpperCase() || $scope.selectedCategory.display.toUpperCase() === "Treatment of ITS".toUpperCase()) {
+                    } else if ($scope.selectedCategory.display === getTranslatedMessage("ITS_KEY")) {
                         $scope.disableMedication = false;
                         $scope.disableTreatmentLine = true;
                     } else {
@@ -110,7 +114,6 @@ angular.module('bahmni.clinical')
                 if (defaultLocale === "en") {
                     conceptName = $scope.mapTreatmentLines(conceptName);
                 }
-                console.log(conceptName);
                 return conceptSetService.getConcept({
                     name: conceptName,
                     v: "custom:(answers:(uuid,name,names))"
