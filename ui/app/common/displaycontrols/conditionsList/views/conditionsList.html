@@ -20,10 +20,10 @@
                             </li>
                             <li class="table-body" ng-repeat="condition in conditions | filter:{status:status}:true">
                                 <div>
-                                    <span class="testUnderPanel left"><label>{{ condition.displayString() }}</label></span>
+                                    <span class="testUnderPanel left" style="color: #363463;"><label>{{ condition.displayString() }}</label></span>
                                     <div class="activeSince">
 
-                                    <span class="value-text-only" ng-if="condition.activeSince">
+                                    <span style="position: absolute;right: 8%;font-size: 11px;color: #666;" ng-if="condition.activeSince">
                                         {{condition.activeSince | bahmniDate}}
                                     </span>
                                         <button class="toggle fr" ng-if="::!condition.additionalDetail"
