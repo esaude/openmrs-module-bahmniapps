@@ -142,7 +142,7 @@ angular.module('bahmni.clinical')
                 if (conceptName === "Resistente") {
                     conceptName = "Resistant";
                 }
-                if (conceptName === "Sensitivo") {
+                if (conceptName === "Sensível") {
                     conceptName = "Sensitive";
                 }
                 if (conceptName === "Tratamento de ITS") {
