@@ -3,7 +3,6 @@
 angular.module('bahmni.clinical')
     .service('transferOutService', ['$rootScope', '$translate', 'patientService', 'observationsService', 'programService', 'treatmentService', 'localeService', 'patientVisitHistoryService', 'conceptSetService', 'labOrderResultService',
         function ($rootScope, $translate, patientService, observationsService, programService, treatmentService, localeService, patientVisitHistoryService, conceptSetService, labOrderResultService) {
-
             var reportModel = {
 
                 hospitalLogo: '',
@@ -66,8 +65,7 @@ angular.module('bahmni.clinical')
                     resultHb: '',
                     resultVl: '',
                     resultcd: ''
-                },
-
+                }
             };
 
             var patientUuid = '';
@@ -85,7 +83,7 @@ angular.module('bahmni.clinical')
                     var p5 = populateHospitalNameAndLogo();
                     var p6 = populatePatientHeight();
                     var p7 = populateBMI();
-                    var p8 = populateTransfer_Date();
+                    var p8 = populateTransferDate();
                     var p9 = populatehospitalName();
                     var p14 = populateTbDetails();
                     var p15 = populateTbEndDate();
@@ -99,22 +97,19 @@ angular.module('bahmni.clinical')
                     var p25 = populateARV();
                     var p23 = populateARTDetails();
 
-
                     Promise.all([p1, p2, p4, p6, p5, p7, p8, p9, p14, p15, p16, p17, p18, p19, p20, p22, p23, p24, p25]).then(function () {
                         resolve(reportModel);
                     }).catch(function (error) {
                         reject(error);
                     });
-                })
+                });
             };
 
             var populatehospitalName = function () {
                 reportModel.hospitalName = $rootScope.healthFacility.name;
+            };
 
-            }
-            var populateTransfer_Date = function () {
-
-
+            var populateTransferDate = function () {
                 if ($rootScope.patient.TRANSFER_OUT_NAME === undefined && $rootScope.patient.Transfer_Date === undefined) {
                     reportModel.dest = null;
                     reportModel.Transfer = null;
@@ -123,12 +118,9 @@ angular.module('bahmni.clinical')
                     reportModel.dest = $rootScope.patient.TRANSFER_OUT_NAME.value;
                     reportModel.Transfer = $rootScope.patient.Transfer_Date.value;
                 }
-
-            }
+            };
 
             var populatePatientDemographics = function () {
-
-
                 return new Promise(function (resolve, reject) {
                     patientService.getPatient(patientUuid).then(function (response) {
                         var patientMapper = new Bahmni.PatientMapper($rootScope.patientConfig, $rootScope, $translate);
@@ -146,7 +138,6 @@ angular.module('bahmni.clinical')
 
                         if ($rootScope.patient.DateofHIVDiagnosis === undefined) {
                             reportModel.patientInfo.hivDate = null;
-
                         }
                         else {
                             reportModel.patientInfo.hivDate = $rootScope.patient.DateofHIVDiagnosis.value;
@@ -166,11 +157,9 @@ angular.module('bahmni.clinical')
                         else if ($rootScope.diagName !== null && $rootScope.diagPastName !== null) {
                             for (var j = 0; j < $rootScope.diagName.length; j++) {
                                 arrDiagc.push($rootScope.diagName[j]);
-
                             }
                             reportModel.patientInfo.diagnosisName = arrDiagc;
                             reportModel.patientInfo.diagnosisPastName = null;
-
                         }
 
                         reportModel.patientInfo.regDate = $rootScope.patient.US_REG_DATE.value;
@@ -178,9 +167,9 @@ angular.module('bahmni.clinical')
                         var statusArray = [{ name: "Pre TARV" }, { name: "TARV" }];
                         var arrStatus = [];
                         for (var k = 0; k < statusArray.length; k++) {
-                            if ($rootScope.patient.PATIENT_STATUS.value.display == statusArray[k].name)
+                            if ($rootScope.patient.PATIENT_STATUS.value.display == statusArray[k].name) {
                                 arrStatus.push(statusArray[k].name);
-
+                            }
                         }
                         reportModel.patientInfo.patientStatus = arrStatus;
                         reportModel.patientInfo.patientStatus = arrStatus;
@@ -190,7 +179,7 @@ angular.module('bahmni.clinical')
                         reportModel.address3 = addressMap.address3;
                         reportModel.address4 = addressMap.address4;
                         reportModel.District = addressMap.cityVillage;
-                        reportModel.close = addressMap.closeof
+                        reportModel.close = addressMap.closeof;
                         reportModel.province = addressMap.stateProvince;
                         resolve();
                     }).catch(function (error) {
@@ -199,15 +188,12 @@ angular.module('bahmni.clinical')
                 });
             };
 
-
             var populatePatientWeightAndHeight = function () {
                 return new Promise(function (resolve, reject) {
                     var patientWeightConceptName = 'Weight';
                     observationsService.fetch(patientUuid, [patientWeightConceptName]).then(function (response) {
-
                         if (response.data && response.data.length > 0) {
                             reportModel.patientInfo.weight = response.data[0].value;
-
                         }
                         resolve();
                     }).catch(function (error) {
@@ -215,12 +201,12 @@ angular.module('bahmni.clinical')
                     });
                 });
             };
+
             var populateProf = function () {
                 return new Promise(function (resolve, reject) {
                     var patienINH = 'INH_Details';
                     var patientCTZ = 'CTZ_Details';
                     observationsService.fetch(patientUuid, [patienINH, patientCTZ]).then(function (response) {
-
                         var startDate = "Start Date_Prophylaxis";
                         var endDate = "End Date";
 
@@ -228,21 +214,20 @@ angular.module('bahmni.clinical')
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
                                 reportModel.patientInfo.INH_end = null;
                                 reportModel.patientInfo.INH_start = null;
-                            })
+                            });
                         }
                         else if (response.data[0].concept.name == "CTZ_Details") {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
                                 reportModel.patientInfo.CTZ_end = response.data[1].value;
                                 reportModel.patientInfo.CTZ_start = response.data[0].value;
-                            })
+                            });
                         }
                         else if ((response.data[0].concept.name == "INH_Details")) {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
                                 reportModel.patientInfo.INH_end = response.data[1].value;
                                 reportModel.patientInfo.INH_start = response.data[0].value;
-                            })
+                            });
                         }
-
                         resolve();
                     }).catch(function (error) {
                         reject(error);
@@ -252,10 +237,8 @@ angular.module('bahmni.clinical')
 
             var populateARV = function () {
                 return new Promise(function (resolve, reject) {
-                    var arvDrug = '	ARV DRUG';
+                    var arvDrug = 'ARV DRUG';
                     observationsService.fetch(patientUuid, [arvDrug]).then(function (response) {
-
-
                         resolve();
                     }).catch(function (error) {
                         reject(error);
@@ -264,10 +247,8 @@ angular.module('bahmni.clinical')
             };
             var populatePatientHeight = function () {
                 return new Promise(function (resolve, reject) {
-
                     var patientHeightConceptName = 'Height';
                     observationsService.fetch(patientUuid, [patientHeightConceptName]).then(function (response) {
-
                         if (response.data && response.data.length > 0) {
                             reportModel.patientInfo.height = response.data[0].value;
                         }
@@ -285,9 +266,7 @@ angular.module('bahmni.clinical')
                         if (response.data && response.data.length > 0) {
                             reportModel.patientInfo.Tb_start = response.data[0].value;
                         }
-
                         resolve();
-
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -298,13 +277,10 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     var TbEnd = "SP_Treatment End Date";
                     observationsService.fetch(patientUuid, [TbEnd]).then(function (response) {
-
                         if (response.data && response.data.length > 0) {
                             reportModel.patientInfo.Tb_end = response.data[0].value;
                         }
-
                         resolve();
-
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -314,7 +290,6 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     var TbEnd = "Has TB Symptoms";
                     observationsService.fetch(patientUuid, [TbEnd]).then(function (response) {
-
                         if (response.data && response.data.length > 0) {
                             var a = response.data[0].value;
                             if (a === true) {
@@ -323,11 +298,8 @@ angular.module('bahmni.clinical')
                             else {
                                 reportModel.patientInfo.Tb_back = "Não";
                             }
-
                         }
-
                         resolve();
-
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -338,13 +310,10 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     var preg = "Pregnancy_Yes_No";
                     observationsService.fetch(patientUuid, [preg]).then(function (response) {
-
                         if (response.data && response.data.length > 0) {
                             reportModel.patientInfo.pregStatus = response.data[0].valueAsString;
                         }
-
                         resolve();
-
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -355,11 +324,8 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     var brestFeeding = "Breastfeeding_ANA";
                     observationsService.fetch(patientUuid, [brestFeeding]).then(function (response) {
-
-
                         if (response.data && response.data.length > 0) {
                             var status = response.data[0].valueAsString;
-
                             if (status == "No") {
                                 reportModel.patientInfo.breastFeedingStatus = "Não";
                             }
@@ -367,9 +333,7 @@ angular.module('bahmni.clinical')
                                 reportModel.patientInfo.breastFeedingStatus = "Sim";
                             }
                         }
-
                         resolve();
-
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -380,13 +344,10 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     var WhoStage = "HTC, WHO Staging";
                     observationsService.fetch(patientUuid, [WhoStage]).then(function (response) {
-
                         if (response.data && response.data.length > 0) {
                             reportModel.patientInfo.whoStaging = response.data[0].valueAsString;
                         }
-
                         resolve();
-
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -400,16 +361,13 @@ angular.module('bahmni.clinical')
                 }
                 else {
                     var labResult = $rootScope.lab.results.forEach(function (labres) {
-
                         Resultarray.push(labres);
-
-                    })
-
+                    });
                     var temp = [];
                     var temp1 = [];
                     for (var i = 0; i < Resultarray.length; i++) {
-                        temp.push(Resultarray[i].orderName)
-                        temp1.push(Resultarray[i].result)
+                        temp.push(Resultarray[i].orderName);
+                        temp1.push(Resultarray[i].result);
                         reportModel.patientInfo.labName = temp[i];
 
                         if (temp[i] == "LO_HB)")
@@ -418,73 +376,66 @@ angular.module('bahmni.clinical')
                              {
                                 reportModel.patientInfo.resultHb = null;
                             }
-                            else 
+                            else
                             {
                                 reportModel.patientInfo.resultHb = temp1[i];
                             }
-
                         }
 
                         if (temp[i] == "LO_ViralLoad")
                          {
-                            if (temp[i] === null) 
+                            if (temp[i] === null)
                             {
                                 reportModel.patientInfo.resultVl = null;
                             }
-                            else 
+                            else
                             {
                                 reportModel.patientInfo.resultVl = temp1[i];
                             }
-
                         }
 
                         if (temp[i] == "LO_CD4")
                          {
-                            if (temp[i] === null) 
+                            if (temp[i] === null)
                             {
                                 reportModel.patientInfo.resultcd = null;
                             }
-                            else 
+                            else
                             {
                                 reportModel.patientInfo.resultcd = temp1[i];
                             }
-
                         }
 
                         if (temp[i] == "LO_ALT")
                          {
-                            if (temp[i] === null) 
+                            if (temp[i] === null)
                             {
                                 reportModel.patientInfo.resultAlt = null;
                             }
-                            else 
+                            else
                             {
                                 reportModel.patientInfo.resultAlt = temp1[i];
                             }
-
                         }
 
-                        if (temp[i] == "LO_AST") 
+                        if (temp[i] == "LO_AST")
                         {
                             if (temp[i] === null)
                              {
                                 reportModel.patientInfo.resultAst = null;
                             }
-                            else 
+                            else
                             {
                                 reportModel.patientInfo.resultAst = temp1[i];
                             }
-
                         }
-
-
                     }
                 }
-
             };
+
             var populateARTDetails = function ()
              {
-                return new Promise(function (resolve, reject) 
+                return new Promise(function (resolve, reject)
                 {
                     treatmentService.getActiveDrugOrders(patientUuid, null, null).then(function (response)
                      {
@@ -505,35 +456,28 @@ angular.module('bahmni.clinical')
                                 reportModel.regimeStartDate = drugarr[i - 1][j - 1];
                                 reportModel.regimeChangeDate = drugarr[i - 2][j - 1];
                             }
-
                         }
                         resolve();
                     }).catch(function (error) {
                         reject(error);
                     });
                 });
-
             };
 
             var populateModels = function () {
                 return new Promise(function (resolve, reject) {
                     var modelsName = "Apss_Differentiated_Models";
                     observationsService.fetch(patientUuid, [modelsName]).then(function (response) {
-
                         var modelarray = [];
-
                         var abc = response.data.forEach(function (res) {
-                             var group = res.groupMembers.forEach(function (name) {
+                            var group = res.groupMembers.forEach(function (name) {
                                 modelarray.push(name);
-
-                            })
-                        })
-
+                            });
+                        });
 
                         var temp = [];
                         for (var i = 0; i < modelarray.length; i++) {
-                            temp.push(modelarray[i].concept.shortName)
-
+                            temp.push(modelarray[i].concept.shortName);
                         }
 
                         if (modelarray.length !== 0) {
@@ -542,69 +486,55 @@ angular.module('bahmni.clinical')
                         if (modelarray.length === 0) {
                             reportModel.patientInfo.mdsYes = "Não";
                         }
-
                         reportModel.patientInfo.modelTypes = temp;
 
                         var arrDate = [];
                         var arr = response.data.forEach(function (date) {
                             arrDate.push(date);
-
-                        })
+                        });
 
                         if (arrDate === undefined || arrDate.length === 0) {
                             reportModel.patientInfo.modelDate = null;
-
                         }
                         else if (arrDate.length >= 1) {
                             var ddate = arrDate.length - 1;
-
                             reportModel.patientInfo.modelDate = arrDate[ddate].observationDateTime;
-
                         }
-
                         resolve();
-
                     }).catch(function (error) {
                         reject(error);
                     });
                 });
             };
-            var populateBMI = function () {
 
+            var populateBMI = function () {
                 var patientBMIConceptName = 'BMI';
                 observationsService.fetch(patientUuid, [patientBMIConceptName]).then(function (response) {
-
                     if (response.data && response.data.length > 0) {
                         reportModel.patientInfo.BMI = response.data[0].value;
                     }
-
-                })
+                });
             };
+
             var populateDrugOrders = function (visitUuid) {
                 return new Promise(function (resolve, reject) {
                     treatmentService.getPrescribedDrugOrders(patientUuid, true).then(function (response) {
-
                         var resarray = [];
                         var arrres = response.forEach(function (Drug) {
                             resarray.push(Drug);
-
                         });
                         var arrARV = [];
                         var arrNotARV = [];
                         var dateARV = [];
                         var dateNotARV = [];
                         for (var i = 0; i < resarray.length; i++) {
-
                             if (resarray[i].drug.form !== 'ARV') {
                                 resarray[i].concept.name;
                                 arrNotARV.push(resarray[i].concept.name);
                                 dateNotARV.push(resarray[i].effectiveStartDate);
                                 reportModel.patientInfo.notARV = arrNotARV;
-
                             }
-
                             else {
-
                                 resarray[i].concept.name;
                                 arrARV.push(resarray[i].concept.name);
                                 dateARV.push(resarray[i].effectiveStartDate);
@@ -617,7 +547,6 @@ angular.module('bahmni.clinical')
                                         reportModel.patientInfo.thirdLast = null;
                                         reportModel.patientInfo.secLastDate = null;
                                         reportModel.patientInfo.thirdLastDate = null;
-
                                     }
 
                                     else if (arrARV.length === 1) {
@@ -629,11 +558,9 @@ angular.module('bahmni.clinical')
                                         reportModel.patientInfo.secLast = arrARV[1];
                                         reportModel.patientInfo.thirdLast = null;
                                         reportModel.patientInfo.secLastDate = dateARV[1];
-
                                         reportModel.patientInfo.thirdLastDate = null;
                                     }
                                     else if (arrARV.length >= 3) {
-
                                         reportModel.patientInfo.currRegARV = arrARV[0];
                                         reportModel.patientInfo.secLast = arrARV[1];
                                         reportModel.patientInfo.thirdLast = arrARV[2];
@@ -641,20 +568,13 @@ angular.module('bahmni.clinical')
                                         reportModel.patientInfo.thirdLastDate = dateARV[2];
                                     }
                                 }
-
-
                             }
-
                         }
-
-
                     });
-
                     resolve();
                 }).catch(function (error) {
                     reject(error);
                 });
-
             };
 
             var populateLocationAndDrugOrders = function (lastVisit) {
@@ -674,7 +594,6 @@ angular.module('bahmni.clinical')
             var populateHospitalNameAndLogo = function () {
                 return new Promise(function (resolve, reject) {
                     localeService.getLoginText().then(function (response) {
-
                         reportModel.hospitalLogo = response.data.homePage.logo;
                         resolve();
                     }).catch(function (error) {

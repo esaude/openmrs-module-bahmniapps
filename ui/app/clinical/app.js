@@ -164,7 +164,7 @@ angular.module('consultation')
                     },
                     'print-transferOut': {
                         templateUrl: 'dashboard/views/PrintTransferOut.html',
-                        controller: 'transferController'
+                        controller: 'TransferController'
                     }
                 }
             })

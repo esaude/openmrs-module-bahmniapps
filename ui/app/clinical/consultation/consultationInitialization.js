@@ -67,7 +67,7 @@ angular.module('bahmni.clinical').factory('consultationInitialization',
                         diagnosisConsultation.preSaveHandler = new Bahmni.Clinical.Notifier();
                         var arrCurrent = [];
                         var arrPast = [];
-                        if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length  && diagnosisConsultation.pastDiagnoses.length)
+                        if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length && diagnosisConsultation.pastDiagnoses.length)
                         {
                             $rootScope.diagName = null;
                         }
