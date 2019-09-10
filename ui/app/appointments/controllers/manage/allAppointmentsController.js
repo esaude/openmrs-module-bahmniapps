@@ -14,6 +14,16 @@ angular.module('bahmni.appointments')
                 $state.go(path, $state.params, {reload: false});
             };
 
+            $scope.hideAppointmentButton = false;
+
+            $scope.$on("HideAppointmentButton", function (evt, data) {
+                if (data === true) {
+                    $scope.hideAppointmentButton = true;
+                } else {
+                    $scope.hideAppointmentButton = false;
+                }
+            });
+
             $scope.getCurrentAppointmentTabName = function () {
                 return $state.current.tabName;
             };

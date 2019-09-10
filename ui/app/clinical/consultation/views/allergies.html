@@ -13,10 +13,10 @@
         </div>
         <div class="row">
             <div class="col col1">
-                <input ng-model="consultation.allergy.concept.name" type="text" name="name" id="name"
+                <input ng-model="consultation.allergy.concept.name" type="text" name="name" id="allergy"
                        bahmni-autocomplete source="getAllergyDiagnosis"
                        on-select="getAddAllergyMethod()"
-                       ng-change="consultation.allergy.clearConcept()"
+                       ng-change="consultation.allergy.clearConcept(); checkInvalidAllergies()"
                        ng-class="{illegalValue: !(consultation.allergy.concept.name || consultation.allergy.isEmpty())}">
             </div>
             <div class="col col2">

@@ -86,6 +86,8 @@ angular.module('bahmni.appointments')
             };
 
             $scope.goBackToPreviousView = function () {
+                $scope.$emit("HideAppointmentButton", false);
+                $state.params.patient = null;
                 $scope.searchedPatient = false;
                 $scope.tableInfo[2].enable = false;
                 $scope.filteredAppointments = oldPatientData;

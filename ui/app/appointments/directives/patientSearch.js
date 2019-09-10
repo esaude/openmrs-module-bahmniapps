@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bahmni.appointments')
-    .directive('patientSearch', ['patientService', 'appointmentsService', 'spinner', '$state', function (patientService, appointmentsService, spinner, $state) {
+    .directive('patientSearch', ['patientService', 'appointmentsService', 'spinner', '$state', '$q', function (patientService, appointmentsService, spinner, $state, $q) {
         return {
             restrict: "E",
             scope: {
@@ -25,8 +25,14 @@ angular.module('bahmni.appointments')
 
                     $scope.onSelectPatient = function (data) {
                         $state.params.patient = data;
-                        spinner.forPromise(appointmentsService.search({patientUuid: data.uuid}).then(function (oldAppointments) {
-                            var appointmentInDESCOrderBasedOnStartDateTime = _.sortBy(oldAppointments.data, "startDateTime").reverse();
+                        spinner.forPromise($q.all([appointmentsService.search({patientUuid: data.uuid}), patientService.getPatientStatusState(data.uuid)]).then(function (oldAppointments) {
+                            var patientState = oldAppointments[1].data[0].patient_state;
+                            if (patientState == 'INACTIVE_TRANSFERRED_OUT' || patientState == 'INACTIVE_SUSPENDED' || patientState == 'INACTIVE_DEATH') {
+                                $scope.$emit("HideAppointmentButton", true);
+                            } else {
+                                $scope.$emit("HideAppointmentButton", false);
+                            }
+                            var appointmentInDESCOrderBasedOnStartDateTime = _.sortBy(oldAppointments[0].data, "startDateTime").reverse();
                             $scope.onSearch(appointmentInDESCOrderBasedOnStartDateTime);
                         }));
                     };

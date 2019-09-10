@@ -38,6 +38,8 @@ angular.module('bahmni.registration')
 
                     if ($scope.patient.patientState == "INACTIVE_SUSPENDED" || $scope.patient.patientState === "INACTIVE_TRANSFERRED_OUT" || $scope.patient.patientState === "INACTIVE_DEATH") {
                         $rootScope.isEligibleForVisit = false;
+                        $scope.$broadcast("DisableRegistrationFields", true);
+                        $scope.$emit("DisableRegistrationFields", true);
                     }
 
                     if ($scope.patient.patientState == "INACTIVE_TRANSFERRED_OUT") {
@@ -184,7 +186,6 @@ angular.module('bahmni.registration')
 
             (function () {
                 var getPatientPromise = patientService.get(uuid).then(successCallBack);
-
                 var isDigitized = encounterService.getDigitized(uuid);
                 isDigitized.then(function (data) {
                     var encountersWithObservations = data.data.results.filter(function (encounter) {
@@ -197,14 +198,14 @@ angular.module('bahmni.registration')
             })();
 
             $scope.$on("PTO", function (evt, data) {
-                $scope.patient.patientState = data;
+                $scope.patient.patientStateChange = data;
             });
 
             $scope.update = function () {
                 var patientStatus = $scope.patient.patientStatus;
                 var patientUuid = $scope.patient.uuid;
                 var creatorUuid = $rootScope.currentUser.uuid;
-                var patientState = $scope.patient.patientState;
+                var patientState = $scope.patient.patientStateChange || $scope.patient.patientState;
 
                 if ($scope.patient.patientState == 'INACTIVE_TRANSFERRED_OUT') {
                     if ($scope.patient['TRANSFERENCE_HF_NAME']) {
@@ -250,7 +251,13 @@ angular.module('bahmni.registration')
             };
 
             $scope.isReadOnly = function (field) {
-                return $scope.readOnlyFields ? ($scope.readOnlyFields[field] ? true : false) : undefined;
+                if ($scope.patient.patientState) {
+                    if ($scope.patient.patientState === "INACTIVE_SUSPENDED" || $scope.patient.patientState === "INACTIVE_TRANSFERRED_OUT" || $scope.patient.patientState === "INACTIVE_DEATH") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
             };
 
             $scope.afterSave = function () {

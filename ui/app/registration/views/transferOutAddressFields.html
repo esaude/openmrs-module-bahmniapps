@@ -22,6 +22,7 @@
                initial-value="selectedValue[addressLevel.addressField]"
                is-invalid="addressFieldInvalid"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
+               ng-disabled="isAddressDisabled"
                required/>
     </div>
 
@@ -43,6 +44,7 @@
                initial-value="selectedValue[addressLevel.addressField]"
                is-invalid="addressFieldInvalid"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
+               ng-disabled="isAddressDisabled"
                required/>
     </div>
 
@@ -63,6 +65,7 @@
                initial-value="selectedValue[addressLevel.addressField]"
                is-invalid="addressFieldInvalid"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
+               ng-disabled="isAddressDisabled"
                ng-required="isRequired"/>
     </div>
 
