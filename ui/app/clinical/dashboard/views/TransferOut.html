@@ -46,15 +46,15 @@
             <legend><b>{{ 'PROPHILAXIS' | translate }}</b></legend>
             <br>
             <b>{{ 'DATE_OF_DIAGNOSIS' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.hivDate | bahmniDate}}<br><br>
-            <b> {{ 'TREATMENT_STATUS' | translate }}&nbsp:&nbsp</b>
+            <b> {{ 'TREATMENT_STATUS' | translate }}</b>
             <div ng-repeat="s in data.patientInfo.patientStatus">
                 <span style="padding-left: 130px;"> <input type="checkbox"
                         ng-checked="s === 'TARV' " />TARV&nbsp&nbsp
                     <input type="checkbox" ng-checked="s !== 'TARV' " />Pre TARV&nbsp&nbsp
-
-                    (
-                    <b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.regDate | bahmniDate}})</span><br><br>
-            </div> <b> {{ 'ART_REGIME' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.currRegARV}}<br><br>
+                    (<b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.regDate | bahmniDate}})
+                </span>
+            </div> 
+            <b> {{ 'ART_REGIME' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.currRegARV}}<br><br>
             <b>{{ 'REGIME_CHANGE_TO' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.secLast}}
             &nbsp<b>{{ 'MEDICATION_DUE_TO' | translate }}</b>&nbsp:&nbsp<input type=text size=10>
             &nbsp<b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.secLastDate | bahmniDate}}<br><br>

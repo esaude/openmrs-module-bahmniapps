@@ -161,7 +161,6 @@ angular.module('bahmni.clinical')
                             reportModel.patientInfo.diagnosisName = arrDiagc;
                             reportModel.patientInfo.diagnosisPastName = null;
                         }
-
                         reportModel.patientInfo.regDate = $rootScope.patient.US_REG_DATE.value;
 
                         var statusArray = [{ name: "Pre TARV" }, { name: "TARV" }];
