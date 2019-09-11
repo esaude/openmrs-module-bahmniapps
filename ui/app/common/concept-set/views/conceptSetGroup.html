@@ -11,7 +11,7 @@
                 <ul>
                     <li ng-repeat="conceptSet in allTemplates track by $index"
                         ng-if="conceptSet.isAvailable(context) && (conceptSet.isAdded || conceptSet.alwaysShow)"  ng-class="openActiveForm(conceptSet)">
-                        <div ng-hide="patient.PATIENT_STATUS.value.display === 'TARV' && conceptSet.conceptName === 'Apss_Section_IV_form'">
+                        <div ng-hide="patient.PATIENT_STATUS.value.display === 'TARV' && conceptSet.conceptName === 'Apss_Section_III_form'">
                             <a ng-click="showLeftPanelConceptSet(conceptSet)">
                                 <span class="concept-set-name" ng-class="{'concept-set-name-extra':conceptSet.isValid === false}">
                                     {{conceptSet.label}}
