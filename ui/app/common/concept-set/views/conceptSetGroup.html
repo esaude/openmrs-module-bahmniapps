@@ -11,17 +11,15 @@
                 <ul>
                     <li ng-repeat="conceptSet in allTemplates track by $index"
                         ng-if="conceptSet.isAvailable(context) && (conceptSet.isAdded || conceptSet.alwaysShow)"  ng-class="openActiveForm(conceptSet)">
-                        <div ng-hide="patient.PATIENT_STATUS.value.display === 'TARV' && conceptSet.conceptName === 'Apss_Section_III_form'">
-                            <a ng-click="showLeftPanelConceptSet(conceptSet)">
-                                <span class="concept-set-name" ng-class="{'concept-set-name-extra':conceptSet.isValid === false}">
-                                    {{conceptSet.label}}
-                                    <span ng-if="conceptSet.observations[0].observationDateTime"> ( {{conceptSet.observations[0].observationDateTime|bahmniDate}} )</span>
-                                </span>
-                            </a>
-                            <div class="button-wrap">
-                                <label class="fa fa-exclamation-triangle fa-red" ng-show="conceptSet.isValid === false" ng-click="conceptSet.klass =='active' && focusOnErrors()"></label>
-                                <label class="fr" ng-click="clonePanelConceptSet(conceptSet)" ng-if="isLastClonedSection(conceptSet) && conceptSet.canAddMore()"> <i class="fa fa-plus"></i></label>
-                            </div>
+                        <a ng-click="showLeftPanelConceptSet(conceptSet)">
+                            <span class="concept-set-name" ng-class="{'concept-set-name-extra':conceptSet.isValid === false}">
+                                {{conceptSet.label}}
+                                <span ng-if="conceptSet.observations[0].observationDateTime"> ( {{conceptSet.observations[0].observationDateTime|bahmniDate}} )</span>
+                            </span>
+                        </a>
+                        <div class="button-wrap">
+                            <label class="fa fa-exclamation-triangle fa-red" ng-show="conceptSet.isValid === false" ng-click="conceptSet.klass =='active' && focusOnErrors()"></label>
+                            <label class="fr" ng-click="clonePanelConceptSet(conceptSet)" ng-if="isLastClonedSection(conceptSet) && conceptSet.canAddMore()"> <i class="fa fa-plus"></i></label>
                         </div>
                     </li>
                     <li class="emptymsg">{{::'EMPTY_TEMPLATE_MESSAGE' | translate}}</li>
