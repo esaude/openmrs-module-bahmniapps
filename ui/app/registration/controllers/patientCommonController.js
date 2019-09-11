@@ -37,7 +37,7 @@ angular.module('bahmni.registration')
                     if (providerType === 'Clinical') {
                         $scope.hasClinicalProfile = true;
                     }
-                })
+                });
             };
 
             spinner.forPromise($scope.getProfile());
