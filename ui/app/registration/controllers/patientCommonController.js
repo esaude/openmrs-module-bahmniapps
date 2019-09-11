@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.registration')
-    .controller('PatientCommonController', ['$scope', '$rootScope', '$http', 'patientAttributeService', 'appService', 'spinner', '$location', 'ngDialog', '$window', '$state', 'patientService',
-        function ($scope, $rootScope, $http, patientAttributeService, appService, spinner, $location, ngDialog, $window, $state, patientService) {
+    .controller('PatientCommonController', ['$scope', '$rootScope', '$http', 'patientAttributeService', 'appService', 'spinner', '$location', 'ngDialog', '$window', '$state', 'patientService', 'providerTypeService',
+        function ($scope, $rootScope, $http, patientAttributeService, appService, spinner, $location, ngDialog, $window, $state, patientService, providerTypeService) {
             var autoCompleteFields = appService.getAppDescriptor().getConfigValue("autoCompleteFields", []);
             var showCasteSameAsLastNameCheckbox = appService.getAppDescriptor().getConfigValue("showCasteSameAsLastNameCheckbox");
             var personAttributes = [];
@@ -28,7 +28,19 @@ angular.module('bahmni.registration')
             $scope.showDeathSection = false;
             $scope.formFieldsDisabled = false;
             $scope.hasClinical = "false";
+            $scope.hasClinicalProfile = false;
 
+            $scope.getProfile = function () {
+                return providerTypeService.getAllProviders().then(function (results) {
+                    var currentProvider = $rootScope.currentProvider;
+                    var providerType = _.filter(providerTypeService.getProviderType(results, currentProvider)[0])[0];
+                    if (providerType === 'Clinical') {
+                        $scope.hasClinicalProfile = true;
+                    }
+                });
+            };
+
+            spinner.forPromise($scope.getProfile());
             var findPrivilege = function (privilegeName) {
                 return _.find($rootScope.currentUser.privileges, function (privilege) {
                     $scope.hasCLinical = privilegeName === privilege.name;
@@ -93,7 +105,7 @@ angular.module('bahmni.registration')
             };
 
             $rootScope.doExtensionAction = function (extension) {
-                var forwardTo = appService.getAppDescriptor().formatUrl(extension.url, { 'patientUuid': $scope.selectedPatient.uuid });
+                var forwardTo = appService.getAppDescriptor().formatUrl(extension.url, {'patientUuid': $scope.selectedPatient.uuid});
                 $location.url(forwardTo);
             };
 
@@ -150,7 +162,7 @@ angular.module('bahmni.registration')
                     if (event) {
                         event.preventDefault();
                     }
-                    ngDialog.openConfirm({ template: "../common/ui-helper/views/saveConfirmation.html", scope: $scope });
+                    ngDialog.openConfirm({template: "../common/ui-helper/views/saveConfirmation.html", scope: $scope});
                 }
             };
 
