@@ -22,6 +22,7 @@
                is-invalid="addressFieldInvalid"
                ng-class="{'illegalValue': addressFieldInvalid}"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
+               ng-disabled="::isAddressDisabled"
                required/>
     </div>
 
@@ -44,6 +45,7 @@
                is-invalid="addressFieldInvalid"
                ng-class="{'illegalValue': addressFieldInvalid}"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
+               ng-disabled="::isAddressDisabled"
                required/>
     </div>
 
@@ -65,6 +67,7 @@
                is-invalid="addressFieldInvalid"
                ng-class="{'illegalValue': addressFieldInvalid}"
                ng-keydown="removeSelection($event, addressLevel.addressField)"
+               ng-disabled="::isAddressDisabled"
                required/>
     </div>
 

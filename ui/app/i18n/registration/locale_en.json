@@ -213,7 +213,7 @@
   "DATE_OF_SUSPENSION": "Date of Suspension",
   "SUSPENSION_OBSERVATIONS": "Observations",
   "Patient_Transferred_Out":"Transferred-out",
-  "Inactive_Death":"Inactive Death",
+  "Inactive_Death":"Death",
   "Patient_Suspension": "Suspension",
   "INVALID_DEATH_CAUSE_MESSAGE":"Invalid Cause of Death",
   "Patient_Start_Visit_A" : "Clinical Consultation"
