@@ -737,7 +737,7 @@ angular.module('bahmni.clinical')
 
                 $scope.onChange = function () {
                     if (selectedItem) {
-                        $scope.isARV = selectedItem.drug.dosageForm && (selectedItem.drug.dosageForm.display === "ARV" || selectedItem.drug.dosageForm.display === getTranslatedMessage("ARV_KEY"));
+                        $scope.isARV = selectedItem.drug.dosageForm && ($scope.selectedCategory.display === "ARV" || $scope.selectedCategory.display === getTranslatedMessage("ARV_KEY"));
                         $scope.treatment.isNonCodedDrug = false;
                         delete $scope.treatment.drugNonCoded;
                         $scope.treatment.changeDrug({
