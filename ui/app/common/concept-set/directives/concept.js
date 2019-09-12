@@ -529,6 +529,16 @@ angular.module('bahmni.common.conceptSet')
                 scope.getBooleanResult = function (value) {
                     return !!value;
                 };
+
+                scope.hideField = function (conceptName) {
+                    if (scope.patient.gender === 'M' && conceptName === 'Gynecology/Obstetrics') {
+                        return true;
+                    }
+                    if (scope.patient.patientStatus != 'Pre TARV' && conceptName === 'Apss_Prepared_start_ARV_treatment') {
+                        return true;
+                    }
+                    return false;
+                };
             };
 
             var compile = function (element) {
