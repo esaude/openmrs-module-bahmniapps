@@ -1,6 +1,6 @@
 <div class="submit-btn-container clearfix">
     <span ng-switch="forwardActionKey">
-        <span data-ng-switch-when="enterVisitDetails">
+        <span ng-if="isEligibleForVisit()" data-ng-switch-when="enterVisitDetails">
             <button type="submit" class="right confirm"
                 ng-click="setSubmitSource('enterVisitDetails')"
                 accesskey="{{ ::'REGISTRATION_ENTER_VISIT_DETAILS_ACCESS_KEY' | translate }}"

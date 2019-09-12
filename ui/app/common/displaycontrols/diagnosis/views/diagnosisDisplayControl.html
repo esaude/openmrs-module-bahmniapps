@@ -20,13 +20,16 @@
                 </td>
 
                 <td ng-if="::!isLatestDiagnosis(diagnosis)" class="view">
+                <div style="position: absolute;left: 48%;font-size: 12px;color: #363463;">
+
                 <span id="certainty" ng-hide="::(config.showCertainty == false)"
                       class="certainty">{{::diagnosis.certainty | translate}}</span>
                              <span id="order" ng-hide="::(config.showOrder == false)"
                                    class="order">{{::diagnosis.order | translate}}</span>
                 <span id="status" class="status">{{::diagnosis.diagnosisStatus}}</span>
+                </div>
                 <span class="toggle-btn-date-wrapper">
-                <span id="diagnosisDate" class="date">{{::diagnosis.diagnosisDateTime | bahmniDate}}</span>
+                <span id="diagnosisDate" class="date" style="position: absolute;right: 8%;font-size: 11px;color: #666;">{{::diagnosis.diagnosisDateTime | bahmniDate}}</span>
                 <span class="toggle-btn" toggle="diagnosis.showDetails"
                       ng-show="::(!diagnosis.comments && (config.showDetailsButton == true))">
                     <button class="toggle fr" ng-class="::{'has-notes': diagnosis.comments}">
