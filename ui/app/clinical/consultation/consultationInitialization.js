@@ -99,11 +99,7 @@ angular.module('bahmni.clinical').factory('consultationInitialization',
                 {
                     return conditionsService.getConditions(patientUuid).then(function (conditions) {
                         consultation.conditions = conditions;
-                        if (consultation.conditions)
-                        {
-                            $rootScope.conditionName = null;
-                        }
-                        else
+                        if (consultation.conditions.length > 0)
                         {
                             $rootScope.conditionName = consultation.conditions[0].concept.name;
                         }

@@ -56,40 +56,40 @@
         <fieldset style="border: 2px solid black; margin-top: 100px">
             <legend><b>{{ 'PROPHILAXIS' | translate }}</b></legend>
             <br>
-            <b>{{ 'DATE_OF_DIAGNOSIS' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.hivDate | bahmniDate}}<br><br>
+            <b>{{ 'DATE_OF_DIAGNOSIS' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.hivDate | date:'dd/MM/yyyy'}}<br><br>
 
             <div ng-repeat="s in data.patientInfo.patientStatus">
                 <b> {{ 'TREATMENT_STATUS' | translate }}</b>
                 <span> <input type="checkbox"
                         ng-checked="s === 'TARV' " />TARV&nbsp&nbsp
                     <input type="checkbox" ng-checked="s !== 'TARV' " />Pre TARV&nbsp&nbsp
-                    (<b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.regDate | bahmniDate}})
+                    (<b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.regDate | date:'dd/MM/yyyy'}})
                 </span>
             </div>
 
             <p style="margin-top: 20px"><b> {{ 'ART_REGIME' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.currRegARV}}</p>
             <b>{{ 'REGIME_CHANGE_TO' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.secLast}}
             &nbsp<b>{{ 'MEDICATION_DUE_TO' | translate }}</b>&nbsp:&nbsp<input type=text size=10>
-            &nbsp<b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.secLastDate | bahmniDate}}<br><br>
-            <b> {{ 'REGIME_CHANGE_TO' | translate }}</b>&nbsp:&nbsp {{data.patientInfo.thirdLast | bahmniDate}}
+            &nbsp<b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.secLastDate | date:'dd/MM/yyyy'}}<br><br>
+            <b> {{ 'REGIME_CHANGE_TO' | translate }}</b>&nbsp:&nbsp {{data.patientInfo.thirdLast | date:'dd/MM/yyyy'}}
             &nbsp <b>{{ 'MEDICATION_DUE_TO' | translate }}</b>&nbsp:&nbsp<input type=text size=10>
-            &nbsp&nbsp<b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.thirdLastDate | bahmniDate}}<br>
+            &nbsp&nbsp<b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.thirdLastDate | date:'dd/MM/yyyy'}}<br>
             <table border=0>
                 <tr>
                     <td height="40"><b>INH
-                            –{{ 'START_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.INH_start |  bahmniDate}}
+                            –{{ 'START_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.INH_start | date:'dd/MM/yyyy'}}
                     </td>
                     <td></td>
-                    <td><b>{{ 'END_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.INH_end |  bahmniDate}}
+                    <td><b>{{ 'END_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.INH_end | date:'dd/MM/yyyy'}}
                     </td>
                 </tr>
 
                 <tr>
                     <td><b> CTZ
-                            –{{ 'START_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.CTZ_start |  bahmniDate}}
+                            –{{ 'START_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.CTZ_start | date:'dd/MM/yyyy'}}
                     </td>
                     <td></td>
-                    <td><b>{{ 'END_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.CTZ_end |  bahmniDate}}
+                    <td><b>{{ 'END_DATE' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.CTZ_end | date:'dd/MM/yyyy'}}
                     </td>
                 </tr>
             </table>
@@ -110,8 +110,8 @@
                     <b>
                         {{ 'CONDITION_NAME' | translate }}</span></b>&nbsp:&nbsp{{ data.patientInfo.condName }}<br><br>
                 <b>{{ 'TB_BACKGROUND' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.Tb_back }}
-                <b> ({{ 'TREATMENT_START' | translate }}</b>&nbsp&nbsp{{ data.patientInfo.Tb_start }} &nbsp&nbsp
-                <b>{{ 'TREATMENT_END' | translate }}</b>{{ data.patientInfo.Tb_end }})<br><br>
+                <b> ({{ 'TREATMENT_START' | translate }}</b>&nbsp&nbsp{{ data.patientInfo.Tb_start | date:'dd/MM/yyyy'}} &nbsp&nbsp
+                <b>{{ 'TREATMENT_END' | translate }}</b>{{ data.patientInfo.Tb_end | date:'dd/MM/yyyy' }})<br><br>
                 <b> {{ 'CURRENT_DIAGNOSIS' | translate }}</b>&nbsp:&nbsp
                 <span>{{ data.patientInfo.diagnosisPastName }}</span>
 
@@ -125,14 +125,14 @@
                 </span><br><br>
                 <b> {{ 'PREGNANCY' | translate }}</b>&nbsp:&nbsp {{ data.patientInfo.pregStatus }}
                 &nbsp&nbsp &nbsp&nbsp <b>
-                    {{ 'BREASTFEEDING_STATUS' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.breastFeedingStatus }}<br><br>
-                <b> {{ 'MDS_STATUS' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.mdsYes}}
+                    {{ 'BREASTFEEDING_STATUS' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.breastFeedingStatus | translate }}<br><br>
+                <b> {{ 'MDS_STATUS' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.mdsYes | translate}}
 
                 <BR><BR><b>{{ 'MODEL_TYPE' | translate }}</b>&nbsp:&nbsp<span
                     ng-repeat="a in data.patientInfo.modelTypes">
                     <span style="margin-left: 7px;"> {{a}}<br><span style="margin-left: 120px"></span></span>
                 </span>
-                <span style="margin-left: 20%;">(<b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.modelDate | bahmniDate}})</span>
+                <span style="margin-left: 20%;">(<b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.modelDate | date:'dd/MM/yyyy'}})</span>
         </fieldset>
 
         <fieldset style="border: 2px solid black; margin-top: 100px">

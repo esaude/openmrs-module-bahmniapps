@@ -147,6 +147,7 @@ angular.module('bahmni.clinical')
                         else {
                             reportModel.patientInfo.hivDate = $rootScope.patient.DateofHIVDiagnosis.value;
                         }
+                        console.log($rootScope);
                         reportModel.patientInfo.condName = $rootScope.conditionName;
 
                         var arrDiagc = [];
@@ -281,6 +282,7 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     var TbEnd = "SP_Treatment End Date";
                     observationsService.fetch(patientUuid, [TbEnd]).then(function (response) {
+                        console.log(response);
                         if (response.data && response.data.length > 0) {
                             reportModel.patientInfo.Tb_end = response.data[0].value;
                         }
@@ -331,10 +333,10 @@ angular.module('bahmni.clinical')
                         if (response.data && response.data.length > 0) {
                             var status = response.data[0].valueAsString;
                             if (status == "No") {
-                                reportModel.patientInfo.breastFeedingStatus = "Não";
+                                reportModel.patientInfo.breastFeedingStatus = "ANSWER_NO";
                             }
                             else {
-                                reportModel.patientInfo.breastFeedingStatus = "Sim";
+                                reportModel.patientInfo.breastFeedingStatus = "ANSWER_YES";
                             }
                         }
                         resolve();
@@ -485,10 +487,10 @@ angular.module('bahmni.clinical')
                         }
 
                         if (modelarray.length !== 0) {
-                            reportModel.patientInfo.mdsYes = "Sim";
+                            reportModel.patientInfo.mdsYes = "ANSWER_YES";
                         }
                         if (modelarray.length === 0) {
-                            reportModel.patientInfo.mdsYes = "Não";
+                            reportModel.patientInfo.mdsYes = "ANSWER_NO";
                         }
                         reportModel.patientInfo.modelTypes = temp;
 

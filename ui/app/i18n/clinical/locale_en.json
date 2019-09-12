@@ -524,5 +524,7 @@
     "INFO":"Additional information should be recorded on the back page",
     "HB":"Hemoglobin",
     "VIRAL_LOAD":"Viral Load",
-    "PATIENT_IDENTIFICATION":"PATIENT IDENTIFICATION"
+    "PATIENT_IDENTIFICATION":"PATIENT IDENTIFICATION",
+    "ANSWER_YES":"Yes",
+    "ANSWER_NO":"No"
 }

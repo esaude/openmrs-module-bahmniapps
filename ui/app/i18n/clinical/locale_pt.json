@@ -535,5 +535,7 @@
   "INFO":"Informação adicional deve ser registada no versoda folha",
   "HB":"Hemoglobina",
   "VIRAL_LOAD":"Carga Viral",
-  "PATIENT_IDENTIFICATION":"IDENTIFICAÇÃO DO PACIENTE"
+  "PATIENT_IDENTIFICATION":"IDENTIFICAÇÃO DO PACIENTE",
+  "ANSWER_YES": "Sim",
+  "ANSWER_NO":"Não"
 }
