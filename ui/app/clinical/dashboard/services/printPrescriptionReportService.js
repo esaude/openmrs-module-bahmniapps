@@ -176,14 +176,16 @@ angular.module('bahmni.clinical')
                 });
             };
 
-            var populateDifferentiatedCareModel = function (visitUuid) {
+            var populateDifferentiatedCareModel = function () {
                 return new Promise(function (resolve, reject) {
                     observationsService.fetch(patientUuid, 'Reference_MDC_Section', undefined, 0, undefined, undefined, undefined, undefined).then(function (response) {
-                        response.data[0].groupMembers.forEach(member => {
-                            if (member.concept.name != "Reference_Eligible" && member.value.name != "Reference_End") {
-                                reportModel.differentiatedCareModel.push(member.concept.shortName);
-                            }
-                        });
+                        if (response.data && response.data.length > 0 && response.data[0].groupMembers) {
+                            response.data[0].groupMembers.forEach(member => {
+                                if (member.concept.name != "Reference_Eligible" && member.value.name != "Reference_End") {
+                                    reportModel.differentiatedCareModel.push(member.concept.shortName);
+                                }
+                            });
+                        }
                         resolve();
                     }).catch(function (error) {
                         reject(error);
