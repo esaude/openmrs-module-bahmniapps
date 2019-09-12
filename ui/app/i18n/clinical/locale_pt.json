@@ -496,5 +496,8 @@
   "PROPHYLAXIS_KEY" : "Profilaxias",
   "ITS_KEY" : "Tratamento de ITS",
   "ANTI_TB_KEY" : "Medicamentos Anti-Tuberculose",
-  "OTHER_CATEGORY" : "Outros Medicamentos"
+  "OTHER_CATEGORY" : "Outros Medicamentos",
+  "Panels": "Grupo",
+  "Lab Tests": "Exames",
+  "Terms which don't fit other categories": "Termos que não se enquadram em outras categorias"
 }
