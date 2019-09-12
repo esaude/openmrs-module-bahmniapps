@@ -1,4 +1,15 @@
 
+<style type="text/css">
+
+@media all {
+    .page-break { display: none; }
+}
+
+@media print {
+    .page-break { display: block; page-break-before: always; }
+}
+
+</style>
 <div ng-controller="TransferController">
     <div ng-if="data">
         <img ng-if="data.hospitalLogo" height="80px" width="80px" src="{{ data.hospitalLogo }}"
@@ -8,7 +19,7 @@
         <p>
             <b>{{ 'TRANSFER_FROM' | translate }}</b>&nbsp:&nbsp{{ data.hospitalName }}&nbsp&nbsp&nbsp&nbsp
             <b> {{ 'PROGRAM_MANAGEMENT_TO_KEY' | translate }}</b>&nbsp:&nbsp{{ data.dest }}&nbsp&nbsp&nbsp&nbsp
-            <b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp{{ data.Transfer |  bahmniDate}}</p>
+            <b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp{{ data.Transfer | date:'dd/MM/yyyy'}}</p>
         <br>
         <fieldset style="border: 2px solid black;">
             <legend><b>{{ 'PATIENT_IDENTIFICATION' | translate }}</b></legend>
@@ -16,16 +27,17 @@
 
             <b> {{ 'PRESCRIPTION_REPORT_PATIENT_NAME' | translate }}</b>&nbsp:&nbsp
             {{ data.patientInfo.firstName }}&nbsp&nbsp{{ data.patientInfo.lastName }}
-            <span style="margin-left: 80px;"><b> {{ 'PRESCRIPTION_REPORT_PATIENT_ID' | translate }}</b>&nbsp:&nbsp
+            <span style="margin-left: 12%;"><b> {{ 'PRESCRIPTION_REPORT_PATIENT_ID' | translate }}</b>&nbsp:&nbsp
                 {{data.patientInfo.patientId}}</span><br><br>
             <b>{{ 'CLINICAL_LIST_PATIENT_SEX' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.sex }}
-            <span style="margin-left: 223px;">
-                <b>{{ 'CLINICAL_LIST_PATIENT_DOB' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.birth_date | bahmniDate }}</span>
+            <span style="margin-left: 1.2%;">
+                <b>{{ 'CLINICAL_LIST_PATIENT_DOB' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.birth_date | date:'dd/MM/yyyy'}}</span>
             <span
-                style="margin-left: 65px;"><b>{{ 'PRESCRIPTION_REPORT_PATIENT_AGE_AND_SEX' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.age }}</span>
-            <br><br><b>{{ 'CLINICAL_LIST_PATIENT_MAIN_CONTACT' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.mainContact }}</span><br><br>
+                style="margin-left: 1.2%;"><b>{{ 'PRESCRIPTION_REPORT_PATIENT_AGE_AND_SEX' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.age }}</span>
+            <span
+                style="margin-left: 1.2%;"><b>{{ 'CLINICAL_LIST_PATIENT_MAIN_CONTACT' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.mainContact }}</span><br><br>
             <b>{{ 'PRESCRIPTION_REPORT_PATIENT_ADDRESS' | translate }}</b><br>
-            <table border=0>
+            <table style="margin-left: 5%;" border=0>
                 <tr height="35">
                     <td height="20"><b>{{ 'PROVINCE' | translate }}</b>&nbsp:&nbsp{{ data.province }} </td>
                     <td height="20"> <b>{{ 'DISTRICT_CITY' | translate }}</b>&nbsp:&nbsp{{ data.District }}</td>
@@ -41,20 +53,21 @@
                 </tr>
             </table>
         </fieldset>
-        <br><br>
-        <fieldset style="border: 2px solid black;">
+        <fieldset style="border: 2px solid black; margin-top: 100px">
             <legend><b>{{ 'PROPHILAXIS' | translate }}</b></legend>
             <br>
             <b>{{ 'DATE_OF_DIAGNOSIS' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.hivDate | bahmniDate}}<br><br>
-            <b> {{ 'TREATMENT_STATUS' | translate }}</b>
+
             <div ng-repeat="s in data.patientInfo.patientStatus">
-                <span style="padding-left: 130px;"> <input type="checkbox"
+                <b> {{ 'TREATMENT_STATUS' | translate }}</b>
+                <span> <input type="checkbox"
                         ng-checked="s === 'TARV' " />TARV&nbsp&nbsp
                     <input type="checkbox" ng-checked="s !== 'TARV' " />Pre TARV&nbsp&nbsp
                     (<b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.regDate | bahmniDate}})
                 </span>
-            </div> 
-            <b> {{ 'ART_REGIME' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.currRegARV}}<br><br>
+            </div>
+
+            <p style="margin-top: 20px"><b> {{ 'ART_REGIME' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.currRegARV}}</p>
             <b>{{ 'REGIME_CHANGE_TO' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.secLast}}
             &nbsp<b>{{ 'MEDICATION_DUE_TO' | translate }}</b>&nbsp:&nbsp<input type=text size=10>
             &nbsp<b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.secLastDate | bahmniDate}}<br><br>
@@ -81,8 +94,10 @@
                 </tr>
             </table>
         </fieldset>
-        <br><br> <br><br> <br><br>
-        <fieldset style="border: 2px solid black;">
+
+        <div class="page-break"></div>
+
+        <fieldset style="border: 2px solid black; padding-top:20px;">
             <legend><b>{{ 'CLINICAL_SITUATION' | translate }}</b></legend>
             <br>
             <b>{{ 'WEIGHT' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.weight }}
@@ -95,7 +110,7 @@
                     <b>
                         {{ 'CONDITION_NAME' | translate }}</span></b>&nbsp:&nbsp{{ data.patientInfo.condName }}<br><br>
                 <b>{{ 'TB_BACKGROUND' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.Tb_back }}
-                <b> ({{ 'TREATMENT_START' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.Tb_start }} &nbsp&nbsp
+                <b> ({{ 'TREATMENT_START' | translate }}</b>&nbsp&nbsp{{ data.patientInfo.Tb_start }} &nbsp&nbsp
                 <b>{{ 'TREATMENT_END' | translate }}</b>{{ data.patientInfo.Tb_end }})<br><br>
                 <b> {{ 'CURRENT_DIAGNOSIS' | translate }}</b>&nbsp:&nbsp
                 <span>{{ data.patientInfo.diagnosisPastName }}</span>
@@ -107,7 +122,7 @@
                 <b> {{ 'ON_GOING_TREATMENT' | translate }}</b>&nbsp:&nbsp<span
                     ng-repeat="b in data.patientInfo.notARV">
                     <span style="margin-left: 7px;"> {{b}}<br><span style="margin-left: 162px"></span></span>
-                </span><br>
+                </span><br><br>
                 <b> {{ 'PREGNANCY' | translate }}</b>&nbsp:&nbsp {{ data.patientInfo.pregStatus }}
                 &nbsp&nbsp &nbsp&nbsp <b>
                     {{ 'BREASTFEEDING_STATUS' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.breastFeedingStatus }}<br><br>
@@ -117,14 +132,10 @@
                     ng-repeat="a in data.patientInfo.modelTypes">
                     <span style="margin-left: 7px;"> {{a}}<br><span style="margin-left: 120px"></span></span>
                 </span>
-                <br>
-                (
-                <b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.modelDate | bahmniDate}})
-                <br><br>
+                <span style="margin-left: 20%;">(<b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.modelDate | bahmniDate}})</span>
         </fieldset>
 
-        <br><br>
-        <fieldset style="border: 2px solid black;">
+        <fieldset style="border: 2px solid black; margin-top: 100px">
             <legend><b>{{ 'LABORATORY_SITUATION' | translate }}</b></legend>
             <br>
             <b>{{ 'LATEST_ANAYSIS' | translate }}</b><br><br>

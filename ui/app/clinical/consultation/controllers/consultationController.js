@@ -74,13 +74,17 @@ angular.module('bahmni.clinical').controller('ConsultationController',
             {
                 name: $translate.instant('PRESCRIPTION_REPORT_PRINT_PRESCRIPTION_LABEL'),
                 uuid: prescriptionReportUuid
-            },
-            {
-                name: $translate.instant('TRANSFER_OUT_FORM'),
-                uuid: transferReportUuid
             }
-
             ];
+
+            if ($scope.patient['PATIENT_STATE_CHANGE']) {
+                if ($scope.patient['PATIENT_STATE_CHANGE'].value.display == 'Patient_Transferred_Out') {
+                    $scope.printButtonDropdownOptions.push({
+                        name: $translate.instant('TRANSFER_OUT_FORM'),
+                        uuid: transferReportUuid
+                    });
+                }
+            }
 
             $scope.optionText = function (value) {
                 return value.name;

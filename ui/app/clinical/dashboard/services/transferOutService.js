@@ -115,8 +115,13 @@ angular.module('bahmni.clinical')
                     reportModel.Transfer = null;
                 }
                 else {
-                    reportModel.dest = $rootScope.patient.TRANSFER_OUT_NAME.value;
-                    reportModel.Transfer = $rootScope.patient.Transfer_Date.value;
+                    if ($rootScope.patient.TRANSFER_OUT_NAME) {
+                        reportModel.dest = $rootScope.patient.TRANSFER_OUT_NAME.value;
+                    }
+
+                    if ($rootScope.patient.Transfer_Date) {
+                        reportModel.Transfer = $rootScope.patient.Transfer_Date.value;
+                    }
                 }
             };
 
