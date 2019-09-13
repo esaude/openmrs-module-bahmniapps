@@ -190,5 +190,8 @@
     "Inactive_Death":"Óbito",
     "Patient_Suspension": "Suspensão",
     "INVALID_DEATH_CAUSE_MESSAGE": "Inválido Causa de Óbito",
-    "Patient_Start_Visit_A" : "Consulta Clinica"
+    "Patient_Start_Visit_A" : "Consulta Clinica",
+    "SUSPENSION_REASONS":"Motivo da Suspensão",
+    "PRESUMPTIVE_DIAGNOSIS":"Diagnóstico Presuntivo",
+    "FALSE_POSITIVE":"Falso Positivo"
 }

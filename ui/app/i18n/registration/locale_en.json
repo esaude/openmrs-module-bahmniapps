@@ -216,5 +216,8 @@
   "Inactive_Death":"Death",
   "Patient_Suspension": "Suspension",
   "INVALID_DEATH_CAUSE_MESSAGE":"Invalid Cause of Death",
-  "Patient_Start_Visit_A" : "Clinical Consultation"
+  "Patient_Start_Visit_A" : "Clinical Consultation",
+  "SUSPENSION_REASONS":"Suspension Reasons",
+  "PRESUMPTIVE_DIAGNOSIS":"Presumptive Diagnosis",
+  "FALSE_POSITIVE":"False Positive"
 }
