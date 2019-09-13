@@ -22,7 +22,7 @@ angular.module('bahmni.clinical')
                 });
                 return response.data;
             });
-
+            $rootScope.newTreatment = $scope.treatment;
             $scope.showOrderSetDetails = true;
             $scope.addTreatment = true;
             $scope.canOrderSetBeAdded = true;
@@ -748,7 +748,8 @@ angular.module('bahmni.clinical')
                         selectedItem = null;
                         return;
                     }
-                    if ($scope.treatment.acceptedItem) {
+                    if ($scope.treatment.acceptedItem)
+                    {
                         $scope.treatment.isNonCodedDrug = !$scope.treatment.isNonCodedDrug;
                         $scope.treatment.drugNonCoded = $scope.treatment.acceptedItem;
                         delete $scope.treatment.drug;
