@@ -179,7 +179,7 @@ angular.module('bahmni.clinical')
             var populateDifferentiatedCareModel = function () {
                 return new Promise(function (resolve, reject) {
                     observationsService.fetch(patientUuid, 'Reference_MDC_Section', undefined, 0, undefined, undefined, undefined, undefined).then(function (response) {
-                        if (reportModel.differentiatedCareModel.length){
+                        if (reportModel.differentiatedCareModel.length) {
                             reportModel.differentiatedCareModel = [];
                         }
                         if (response.data && response.data.length > 0 && response.data[0].groupMembers) {
