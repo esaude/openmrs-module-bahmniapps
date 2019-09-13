@@ -41,6 +41,7 @@ angular.module('bahmni.clinical')
             $scope.isARV = false;
 
             $scope.fetchCategories = function (conceptName) {
+                $scope.fetchAllDrugs();
                 return conceptSetService.getConcept({
                     name: conceptName,
                     v: "custom:(answers:(uuid,name,names))"
@@ -51,6 +52,16 @@ angular.module('bahmni.clinical')
                         $scope.categories.push(resp[i].names[0]);
                     }
                     return $scope.categories;
+                });
+            };
+
+            $scope.fetchAllDrugs = function () {
+                conceptSetService.getAllDrugs().then(function (response) {
+                    $scope.allDrugs = response.data.results;
+                    var allDrugs = _.map($scope.allDrugs, function (drug) {
+                        return Bahmni.Clinical.DrugSearchResult.getAllMatchingSynonyms(drug, "");
+                    });
+                    $scope.suggestedDruglist = _.flatten(allDrugs);
                 });
             };
 
@@ -83,10 +94,12 @@ angular.module('bahmni.clinical')
                         $scope.disableMedication = true;
                     }
                 }
+                $scope.getDrugsFromTreatmentLineOrCategory();
             };
 
             $scope.selectTreatmentLineFromDropDown = function () {
                 $scope.selectedLineDrugs = [];
+                $scope.getDrugsFromTreatmentLineOrCategory();
             };
 
             $scope.fetchTreatmentLines = function (conceptName) {
@@ -106,6 +119,7 @@ angular.module('bahmni.clinical')
 
             $scope.getDrugsFromTreatmentLineOrCategory = function () {
                 var conceptName = "";
+                $scope.selectedLineDrugs = [];
                 if ($scope.selectedTreatmentLine !== undefined && $scope.selectedTreatmentLine !== null && $scope.selectedTreatmentLine !== "" && $scope.selectedTreatmentLine.display.toUpperCase() !== "Escolha uma resposta".toUpperCase() && $scope.selectedTreatmentLine.display.toUpperCase() !== "Choose an answer".toUpperCase()) {
                     conceptName = $scope.selectedTreatmentLine.name;
                 } else if ($scope.selectedCategory !== undefined && $scope.selectedCategory !== "") {
@@ -688,13 +702,8 @@ angular.module('bahmni.clinical')
 
             $scope.getDataResults = function (drugs) {
                 var searchString = $scope.treatment.drugNameDisplay;
-                var allDrugs = _.map(drugs, function (drug) {
-                    return Bahmni.Clinical.DrugSearchResult.getAllMatchingSynonyms(drug, "");
-                });
-                $scope.suggestedDruglist = _.flatten(allDrugs);
                 $scope.counter ++;
                 if ($scope.selectedCategory !== "" && $scope.selectedCategory !== undefined && $scope.selectedCategory.display !== "Other" && $scope.selectedCategory.display !== "Outros Medicamentos") {
-                    $scope.getDrugsFromTreatmentLineOrCategory();
                     var auxiliarDrugsList = [];
                     $scope.drugResultUuid = [];
                     $scope.selectedLineDrugs.forEach(function (element) {
@@ -707,7 +716,6 @@ angular.module('bahmni.clinical')
                             }
                         }
                     });
-                    $scope.selectedLineDrugs = [];
                     return auxiliarDrugsList;
                 } else {
                     var listOfDrugSynonyms = _.map(drugs, function (drug) {
