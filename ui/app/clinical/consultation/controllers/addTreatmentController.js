@@ -94,10 +94,7 @@ angular.module('bahmni.clinical')
                         $scope.disableMedication = true;
                     }
                 }
-
-                if ($scope.selectedCategory.display !== "Outros Medicamentos" && $scope.selectedCategory.display === "Other Category" && $scope.selectedCategory !== undefined) {
                     $scope.getDrugsFromTreatmentLineOrCategory();
-                }
             };
 
             $scope.selectTreatmentLineFromDropDown = function () {
@@ -131,19 +128,24 @@ angular.module('bahmni.clinical')
                 if (defaultLocale === "en") {
                     conceptName = $scope.mapTreatmentLines(conceptName);
                 }
-                console.log(conceptName);
-                return conceptSetService.getConcept({
-                    name: conceptName,
-                    v: "custom:(answers:(uuid,name,names))"
-                }, true).then(function (response) {
-                    var resp = response.data.results[0].answers;
-                    for (var i = 0; i < resp.length; i++) {
-                        var respons = resp[i].names[0];
-                        respons.uuid = resp[i].uuid;
-                        $scope.selectedLineDrugs.push(respons);
-                    }
-                    return $scope.selectedLineDrugs;
-                });
+
+                if(conceptName !== undefined) {
+                    return conceptSetService.getConcept({
+                        name: conceptName,
+                        v: "custom:(answers:(uuid,name,names))"
+                    }, true).then(function (response) {
+                        console.log(response);
+                        if(response.data.results.length !== 0 ) {
+                        var resp = response.data.results[0].answers;
+                        for (var i = 0; i < resp.length; i++) {
+                            var respons = resp[i].names[0];
+                            respons.uuid = resp[i].uuid;
+                            $scope.selectedLineDrugs.push(respons);
+                        }
+                        }
+                        return $scope.selectedLineDrugs;
+                    });
+                }
             };
 
             // Code to be improved
