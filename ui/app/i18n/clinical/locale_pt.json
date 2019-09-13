@@ -527,7 +527,7 @@
   "PREGNANCY":"Grávida",
   "BREASTFEEDING_STATUS":"Lactante",
   "MDS_STATUS":"Inscrito em algum MDS",
-  "MODEL_TYPE":"Tipo de modelo",
+  "MODEL_TYPE":"Tipo de modelo:",
   "LABORATORY_SITUATION":"SITUAÇÃO LABORATORIAL",
   "LATEST_ANAYSIS":"ÚLTIMAS ANÁLISES",
   "NAME_OF_PROVIDER":"Nome do Clínico",
@@ -537,5 +537,12 @@
   "VIRAL_LOAD":"Carga Viral",
   "PATIENT_IDENTIFICATION":"IDENTIFICAÇÃO DO PACIENTE",
   "ANSWER_YES": "Sim",
-  "ANSWER_NO":"Não"
+  "ANSWER_NO":"Não",
+  "LO_CD4":"CD4",
+  "LO_ViralLoad":"Carga Viral",
+  "LO_ALT":"ALT",
+  "LO_AST":"AST",
+  "LO_HB":"Hemoglobina",
+  "LO_Other:":"Outra",
+  "LO_DATE":"Data"
 }

@@ -67,23 +67,12 @@ angular.module('bahmni.clinical').factory('consultationInitialization',
                         diagnosisConsultation.preSaveHandler = new Bahmni.Clinical.Notifier();
                         var arrCurrent = [];
                         var arrPast = [];
-                        if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length && diagnosisConsultation.pastDiagnoses.length)
+                        if ((diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length == 0) && (diagnosisConsultation.pastDiagnoses.length == 0))
                         {
                             $rootScope.diagName = null;
                         }
 
-                        else if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length && diagnosisConsultation.pastDiagnoses.length > 0)
-                        {
-                            for (var j = 0; j < diagnosisConsultation.pastDiagnoses.length; j++)
-                            {
-                                var a = diagnosisConsultation.pastDiagnoses[j].codedAnswer.name;
-                                $rootScope.diagPastName = a;
-                                arrPast.push($rootScope.diagPastName);
-                                break;
-                            }
-                        }
-
-                        else if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length > 0 && diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length > 0)
+                        else if (diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length > 0)
                         {
                             for (var i = 0; i < diagnosisConsultation.savedDiagnosesFromCurrentEncounter.length; i++)
                             {
@@ -91,6 +80,14 @@ angular.module('bahmni.clinical').factory('consultationInitialization',
                             }
                             $rootScope.diagName = arrCurrent;
                         }
+
+                        else if (diagnosisConsultation.pastDiagnoses.length > 0)
+                        {
+                            var a = diagnosisConsultation.pastDiagnoses[0].codedAnswer.name;
+                            $rootScope.diagPastName = a;
+                            arrPast.push($rootScope.diagPastName);
+                        }
+
                         diagnosisConsultation.preSaveHandler = new Bahmni.Clinical.Notifier();
                         diagnosisConsultation.postSaveHandler = new Bahmni.Clinical.Notifier();
                         return diagnosisConsultation;

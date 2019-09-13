@@ -96,8 +96,9 @@ angular.module('bahmni.clinical')
                     var p24 = populateLabResult();
                     var p25 = populateARV();
                     var p23 = populateARTDetails();
+                    var p26 = populatePatientLabResults();
 
-                    Promise.all([p1, p2, p4, p6, p5, p7, p8, p9, p14, p15, p16, p17, p18, p19, p20, p22, p23, p24, p25]).then(function () {
+                    Promise.all([p1, p2, p4, p6, p5, p7, p8, p9, p14, p15, p16, p17, p18, p19, p20, p22, p23, p24, p25, p26]).then(function () {
                         resolve(reportModel);
                     }).catch(function (error) {
                         reject(error);
@@ -147,7 +148,6 @@ angular.module('bahmni.clinical')
                         else {
                             reportModel.patientInfo.hivDate = $rootScope.patient.DateofHIVDiagnosis.value;
                         }
-                        console.log($rootScope);
                         reportModel.patientInfo.condName = $rootScope.conditionName;
 
                         var arrDiagc = [];
@@ -199,6 +199,27 @@ angular.module('bahmni.clinical')
                     observationsService.fetch(patientUuid, [patientWeightConceptName]).then(function (response) {
                         if (response.data && response.data.length > 0) {
                             reportModel.patientInfo.weight = response.data[0].value;
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+                });
+            };
+
+            var populatePatientLabResults = function () {
+                reportModel.labOrderResult = {};
+                var labResultsToShow = ['LO_CD4', 'LO_ViralLoad', 'LO_ALT', 'LO_AST', 'LO_HB', 'LO_Other:'];
+                return new Promise(function (resolve, reject) {
+                    labOrderResultService.getAllForPatient({patientUuid: patientUuid}).then(function (response) {
+                        if (response.labAccessions) {
+                            if (response.labAccessions.length > 0) {
+                                _.map(response.labAccessions[0], function (currentObj) {
+                                    if (_.includes(labResultsToShow, currentObj.testName)) {
+                                        reportModel.labOrderResult[currentObj.testName] = {testDate: currentObj.resultDateTime, testResult: currentObj.result};
+                                    }
+                                });
+                            }
                         }
                         resolve();
                     }).catch(function (error) {
@@ -282,7 +303,6 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     var TbEnd = "SP_Treatment End Date";
                     observationsService.fetch(patientUuid, [TbEnd]).then(function (response) {
-                        console.log(response);
                         if (response.data && response.data.length > 0) {
                             reportModel.patientInfo.Tb_end = response.data[0].value;
                         }

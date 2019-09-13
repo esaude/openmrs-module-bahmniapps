@@ -516,9 +516,9 @@
     "PREGNANCY":"Pregnant status",
     "BREASTFEEDING_STATUS":"Breastfeeding Status",
     "MDS_STATUS":"DSD Status",
-    "MODEL_TYPE":"Model Type",
+    "MODEL_TYPE":"Model Type:",
     "LABORATORY_SITUATION":"LABORATORY SITUATION",
-    "LATEST_ANAYSIS":"LATEST ANAYSIS",
+    "LATEST_ANAYSIS":"LATEST ANALYSIS",
     "NAME_OF_PROVIDER":"Provider Name",
     "CONTACT":"Contact",
     "INFO":"Additional information should be recorded on the back page",
@@ -526,5 +526,12 @@
     "VIRAL_LOAD":"Viral Load",
     "PATIENT_IDENTIFICATION":"PATIENT IDENTIFICATION",
     "ANSWER_YES":"Yes",
-    "ANSWER_NO":"No"
+    "ANSWER_NO":"No",
+    "LO_CD4":"CD4",
+    "LO_ViralLoad":"Viral Load",
+    "LO_ALT":"ALT",
+    "LO_AST":"AST",
+    "LO_HB":"Hemoglobin",
+    "LO_Other:":"Other",
+    "LO_DATE":"Date"
 }

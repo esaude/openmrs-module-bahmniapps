@@ -113,11 +113,12 @@
                 <b> ({{ 'TREATMENT_START' | translate }}</b>&nbsp&nbsp{{ data.patientInfo.Tb_start | date:'dd/MM/yyyy'}} &nbsp&nbsp
                 <b>{{ 'TREATMENT_END' | translate }}</b>{{ data.patientInfo.Tb_end | date:'dd/MM/yyyy' }})<br><br>
                 <b> {{ 'CURRENT_DIAGNOSIS' | translate }}</b>&nbsp:&nbsp
-                <span>{{ data.patientInfo.diagnosisPastName }}</span>
 
                 <span ng-repeat="c in data.patientInfo.diagnosisName">
                     <span style="margin-left: 10px"> {{c}} <br><span style="margin-left: 149px"></span></span>
-                </span> <br><br>
+                </span> 
+
+                <span>{{ data.patientInfo.diagnosisPastName }}</span><br><br>
 
                 <b> {{ 'ON_GOING_TREATMENT' | translate }}</b>&nbsp:&nbsp<span
                     ng-repeat="b in data.patientInfo.notARV">
@@ -128,33 +129,46 @@
                     {{ 'BREASTFEEDING_STATUS' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.breastFeedingStatus | translate }}<br><br>
                 <b> {{ 'MDS_STATUS' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.mdsYes | translate}}
 
-                <BR><BR><b>{{ 'MODEL_TYPE' | translate }}</b>&nbsp:&nbsp<span
-                    ng-repeat="a in data.patientInfo.modelTypes">
-                    <span style="margin-left: 7px;"> {{a}}<br><span style="margin-left: 120px"></span></span>
-                </span>
-                <span style="margin-left: 20%;">(<b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.modelDate | date:'dd/MM/yyyy'}})</span>
+                <BR><BR>
+                <div style="clear: both;">
+                    <div style="width: 25%;float: left;">
+                        <b>{{ 'MODEL_TYPE' | translate }}</b>
+                    </div>
+                    <div style="width: 70%;float: right;" ng-repeat="a in data.patientInfo.modelTypes track by $index">
+                        <span style="margin-left: 5%;">{{a}}</span>
+                    </div>
+                </div>
+                <div style="clear: both;">(<b>{{ 'REGISTRATION_DATE' | translate }}</b>&nbsp:&nbsp{{data.patientInfo.modelDate | date:'dd/MM/yyyy'}})</div>
         </fieldset>
 
         <fieldset style="border: 2px solid black; margin-top: 100px">
             <legend><b>{{ 'LABORATORY_SITUATION' | translate }}</b></legend>
             <br>
             <b>{{ 'LATEST_ANAYSIS' | translate }}</b><br><br>
-            <table>
-                <tr>
-                    <td style="width:150px"><b> CD4</b> &nbsp:&nbsp{{ data.patientInfo.resultcd}}% </td>
-                    <td style="width:150px"><b>{{ 'ALLERGIES_LIST_DATE' | translate }}&nbsp:&nbsp </b></td>
-                    <td colspan="2" style="width:150px"><b>{{ 'VIRAL_LOAD' | translate }}</b>&nbsp:&nbsp
-                        {{ data.patientInfo.resultVl}}</td>
-                    <td style="width:150px"> <b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp</td>
-                </tr>
-                <tr>
-                    <td> <b> {{ 'HB' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.resultHb}}&nbsp&nbsp</td>
-                    <td> <b>{{ 'ALLERGIES_LIST_DATE' | translate }} </b>&nbsp:&nbsp</td>
-                    <td><b>ALT</b> &nbsp:&nbsp{{ data.patientInfo.resultAlt}}</td>
-                    <td><b> AST</b>&nbsp:&nbsp {{ data.patientInfo.resultAst}}</td>
-                    <td> <b>{{ 'ALLERGIES_LIST_DATE' | translate }}</b>&nbsp:&nbsp</td>
-                </tr>
-            </table><br>
+            <div>
+                <div style="width: 50%; float: left;">
+                <span><b>{{'LO_CD4' | translate}}</b> <span>{{data.labOrderResult.LO_CD4.testResult}} %</span> <span style="margin-left: 10%;"><b>{{'LO_DATE' | translate}}</b> {{data.labOrderResult.LO_CD4.testDate | date:'dd/MM/yyyy'}}</span></span>
+                </div>
+
+                <div style="width: 50%; float: left;">
+                <span><b>{{'LO_ViralLoad' | translate}}</b> <span>{{data.labOrderResult.LO_ViralLoad.testResult}}</span> <span style="margin-left: 10%;">
+                <b>{{'LO_DATE' | translate}}</b> {{data.labOrderResult.LO_ViralLoad.testDate | date:'dd/MM/yyyy'}}</span></span>
+                </div>
+
+                <div style="width: 50%; float: left;margin-top: 7px">
+                <span><b>{{'LO_HB' | translate}}</b> <span>{{data.labOrderResult.LO_HB.testResult}}</span> <span style="margin-left: 10%;"><b>{{'LO_DATE' | translate}}</b> {{data.labOrderResult.LO_HB.testDate | date:'dd/MM/yyyy'}}</span></span>
+                </div>
+
+                <div style="width: 50%; float: left;margin-top: 7px">
+                <span><b>{{'LO_ALT' | translate}}</b> <span>{{data.labOrderResult.LO_ALT.testResult}}</span></span>
+
+                <span><b>{{'LO_AST' | translate}}</b> <span>{{data.labOrderResult.LO_AST.testResult}}</span> <span style="margin-left: 10%;"><b>{{'LO_DATE' | translate}}</b> {{data.labOrderResult.LO_AST.testDate | date:'dd/MM/yyyy'}}</span></span>
+                </div>
+
+                <div style="width: 50%; float: left;margin-top: 7px">
+                <span><b>{{'LO_Other' | translate}}</b> <span>{{data.labOrderResult['LO_Other:'].testResult}}</span> <span style="margin-left: 10%;"><b>{{'LO_DATE' | translate}}</b> {{data.labOrderResult['LO_Other:'].testDate | date:'dd/MM/yyyy'}}</span></span>
+                </div>
+            </div>
         </fieldset>
         <br><br>
         <p><b>{{ 'NAME_OF_PROVIDER' | translate }}</b>&nbsp:&nbsp{{ data.patientInfo.username }}
