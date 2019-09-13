@@ -95,7 +95,7 @@ angular.module('bahmni.clinical')
                     }
                 }
 
-                if ($scope.selectedCategory.display !== getTranslatedMessage("OTHER_CATEGORY") && $scope.selectedCategory.display === "Other Category") {
+                if ($scope.selectedCategory.display !== "Outros Medicamentos" && $scope.selectedCategory.display === "Other Category" && $scope.selectedCategory !== undefined) {
                     $scope.getDrugsFromTreatmentLineOrCategory();
                 }
             };
@@ -131,6 +131,7 @@ angular.module('bahmni.clinical')
                 if (defaultLocale === "en") {
                     conceptName = $scope.mapTreatmentLines(conceptName);
                 }
+                console.log(conceptName);
                 return conceptSetService.getConcept({
                     name: conceptName,
                     v: "custom:(answers:(uuid,name,names))"
