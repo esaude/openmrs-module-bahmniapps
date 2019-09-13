@@ -94,7 +94,10 @@ angular.module('bahmni.clinical')
                         $scope.disableMedication = true;
                     }
                 }
-                $scope.getDrugsFromTreatmentLineOrCategory();
+
+                if ($scope.selectedCategory.display !== getTranslatedMessage("OTHER_CATEGORY") && $scope.selectedCategory.display === "Other Category") {
+                    $scope.getDrugsFromTreatmentLineOrCategory();
+                }
             };
 
             $scope.selectTreatmentLineFromDropDown = function () {
