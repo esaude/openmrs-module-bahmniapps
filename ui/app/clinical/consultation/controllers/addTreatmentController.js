@@ -94,7 +94,7 @@ angular.module('bahmni.clinical')
                         $scope.disableMedication = true;
                     }
                 }
-                    $scope.getDrugsFromTreatmentLineOrCategory();
+                $scope.getDrugsFromTreatmentLineOrCategory();
             };
 
             $scope.selectTreatmentLineFromDropDown = function () {
@@ -129,19 +129,19 @@ angular.module('bahmni.clinical')
                     conceptName = $scope.mapTreatmentLines(conceptName);
                 }
 
-                if(conceptName !== undefined) {
+                if (conceptName !== undefined) {
                     return conceptSetService.getConcept({
                         name: conceptName,
                         v: "custom:(answers:(uuid,name,names))"
                     }, true).then(function (response) {
                         console.log(response);
-                        if(response.data.results.length !== 0 ) {
-                        var resp = response.data.results[0].answers;
-                        for (var i = 0; i < resp.length; i++) {
-                            var respons = resp[i].names[0];
-                            respons.uuid = resp[i].uuid;
-                            $scope.selectedLineDrugs.push(respons);
-                        }
+                        if (response.data.results.length !== 0) {
+                            var resp = response.data.results[0].answers;
+                            for (var i = 0; i < resp.length; i++) {
+                                var respons = resp[i].names[0];
+                                respons.uuid = resp[i].uuid;
+                                $scope.selectedLineDrugs.push(respons);
+                            }
                         }
                         return $scope.selectedLineDrugs;
                     });
