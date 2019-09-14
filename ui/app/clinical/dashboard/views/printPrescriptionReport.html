@@ -213,8 +213,16 @@ td.cng {
                                 <td colspan="1"></td>
                                 <td colspan="1">00</td>
                             </tr>
+                            <tr ng-if="data.differentiatedCareModel.length">
+                                <td colspan="20" class="cng"> 
+                                    <span class="cng" style="font-weight: bold ;">{{ 'PRESCRIPTION_REPORT_DIFFERENTIATED_CARE_MODEL' | translate }}</span>:
+                                    <span class="cng2" ng-repeat="model in data.differentiatedCareModel track by $index">
+                                        {{ model }}<span ng-if="(data.differentiatedCareModel.length > 1) && (data.differentiatedCareModel.length - 1 != $index)">;&nbsp;</span>
+                                    </span>
+                                </td>
+                            </tr>
                             <tr>
-                                <td colspan="14"><span
+                                <td colspan="20"><span
                                         class="prescribe-report-label">{{ 'PRESCRIPTION_REPORT_NOTE' | translate }}
                                     </span></td>
                             </tr>
