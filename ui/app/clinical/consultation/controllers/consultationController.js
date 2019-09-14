@@ -569,12 +569,19 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     var params = angular.copy($state.params);
                     params.cachebuster = Math.random();
                     _.map(encounterData.drugOrders, function (currentObj) {
-                        if (currentObj.drug.form == 'ARV') {
-                            if (currentObj.action == 'DISCONTINUE') {
-                                if (!($scope.patient.patientStatus.toUpperCase() === "Pre TARV".toUpperCase() && currentObj.orderAttributes !== undefined)) {
-                                    patientService.savePatientStatusState('TARV_TREATMENT_SUSPENDED', $scope.patient.uuid, $rootScope.currentUser.uuid, $scope.patient.patientState);
+                        if(currentObj.orderAttributes && currentObj.orderAttributes.length){
+                            currentObj.orderAttributes.forEach(attribute => {
+                                if(attribute.name.toUpperCase() === "Dispensed".toUpperCase() && attribute.value){
+                                    if (currentObj.drug.form == 'ARV') {
+                                        if (currentObj.action == 'DISCONTINUE') {
+                                            if (!($scope.patient.patientStatus.toUpperCase() === "Pre TARV".toUpperCase())) {
+                                                patientService.savePatientStatusState('TARV_TREATMENT_SUSPENDED', $scope.patient.uuid, $rootScope.currentUser.uuid, $scope.patient.patientState);
+                                                return;
+                                            }
+                                        }
+                                    }
                                 }
-                            }
+                            });
                         }
                     });
                     return encounterService.create(encounterData)
