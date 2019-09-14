@@ -134,7 +134,6 @@ angular.module('bahmni.clinical')
                         name: conceptName,
                         v: "custom:(answers:(uuid,name,names))"
                     }, true).then(function (response) {
-                        console.log(response);
                         if(response.data.results.length !== 0 ) {
                         var resp = response.data.results[0].answers;
                         for (var i = 0; i < resp.length; i++) {
