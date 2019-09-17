@@ -71,12 +71,14 @@ angular.module('bahmni.clinical')
 
             $scope.selectCategoryFromDropdown = function () {
                 $scope.treatmentLines = [];
-                if ($scope.selectedCategory != undefined) {
+                if ($scope.selectedCategory !== undefined) {
+                    $scope.isARV = false;
                     if ($scope.selectedCategory.display === getTranslatedMessage("ARV_KEY")) {
                         $scope.selectedTreatmentLineCategory = "treatment_line_arv";
                         $scope.disableTreatmentLine = false;
                         $scope.disableMedication = false;
                         $scope.fetchTreatmentLines($scope.selectedTreatmentLineCategory);
+                        $scope.isARV = true;
                     } else if ($scope.selectedCategory.display === getTranslatedMessage("ANTI_TB_KEY")) {
                         $scope.selectedTreatmentLineCategory = "treatment_line_tb";
                         $scope.fetchTreatmentLines($scope.selectedTreatmentLineCategory);
@@ -92,6 +94,13 @@ angular.module('bahmni.clinical')
                         $scope.selectedTreatmentLineCategory = "";
                         $scope.disableTreatmentLine = true;
                         $scope.disableMedication = true;
+                    }
+
+                    if ($scope.treatment.drugNameDisplay) {
+                        delete $scope.treatment.drugNameDisplay;
+                    }
+                    if ($scope.selectedTreatmentLine) {
+                        delete $scope.selectedTreatmentLine;
                     }
                 }
                 $scope.getDrugsFromTreatmentLineOrCategory();
@@ -134,7 +143,6 @@ angular.module('bahmni.clinical')
                         name: conceptName,
                         v: "custom:(answers:(uuid,name,names))"
                     }, true).then(function (response) {
-                        console.log(response);
                         if (response.data.results.length !== 0) {
                             var resp = response.data.results[0].answers;
                             for (var i = 0; i < resp.length; i++) {
@@ -387,9 +395,13 @@ angular.module('bahmni.clinical')
                 _.each(refilledOrderGroupOrders, function (drugOrder) {
                     _.each(orderSetMembersOfMatchedOrderSet, function (orderSetMember) {
                         if (orderSetMember.orderTemplate.drug) {
-                            if (orderSetMember.orderTemplate.drug.uuid === _.get(drugOrder, 'drug.uuid')) { matchedMembers.push(orderSetMember); }
+                            if (orderSetMember.orderTemplate.drug.uuid === _.get(drugOrder, 'drug.uuid')) {
+                                matchedMembers.push(orderSetMember);
+                            }
                         } else {
-                            if (orderSetMember.concept.uuid === drugOrder.concept.uuid) { matchedMembers.push(orderSetMember); }
+                            if (orderSetMember.concept.uuid === drugOrder.concept.uuid) {
+                                matchedMembers.push(orderSetMember);
+                            }
                         }
                     });
                 });
@@ -400,11 +412,11 @@ angular.module('bahmni.clinical')
                         var baseDose = eachMember.orderTemplate.dosingInstructions.dose;
                         var drugName = eachMember.orderTemplate.concept.name;
                         return orderSetService.getCalculatedDose($scope.patient.uuid, drugName, baseDose, doseUnits, $scope.newOrderSet.name)
-                                     .then(function (calculatedDosage) {
-                                         refilledOrderGroupOrders[index].uniformDosingType.dose = calculatedDosage.dose;
-                                         refilledOrderGroupOrders[index].uniformDosingType.doseUnits = calculatedDosage.doseUnit;
-                                         refilledOrderGroupOrders[index].calculateQuantityAndUnit();
-                                     });
+                            .then(function (calculatedDosage) {
+                                refilledOrderGroupOrders[index].uniformDosingType.dose = calculatedDosage.dose;
+                                refilledOrderGroupOrders[index].uniformDosingType.doseUnits = calculatedDosage.doseUnit;
+                                refilledOrderGroupOrders[index].calculateQuantityAndUnit();
+                            });
                     }
                 });
 
@@ -690,7 +702,10 @@ angular.module('bahmni.clinical')
             var contextChange = function () {
                 var errorMessages = Bahmni.Clinical.Constants.errorMessages;
                 if (isSameDrugBeingDiscontinuedAndOrdered()) {
-                    return {allow: false, errorMessage: $translate.instant(errorMessages.discontinuingAndOrderingSameDrug)};
+                    return {
+                        allow: false,
+                        errorMessage: $translate.instant(errorMessages.discontinuingAndOrderingSameDrug)
+                    };
                 }
                 if ($scope.incompleteDrugOrders()) {
                     $scope.formInvalid = true;
@@ -708,7 +723,7 @@ angular.module('bahmni.clinical')
 
             $scope.getDataResults = function (drugs) {
                 var searchString = $scope.treatment.drugNameDisplay;
-                $scope.counter ++;
+                $scope.counter++;
                 if ($scope.selectedCategory !== "" && $scope.selectedCategory !== undefined && $scope.selectedCategory.display !== "Other" && $scope.selectedCategory.display !== "Outros Medicamentos") {
                     var auxiliarDrugsList = [];
                     $scope.drugResultUuid = [];
@@ -764,8 +779,7 @@ angular.module('bahmni.clinical')
                         selectedItem = null;
                         return;
                     }
-                    if ($scope.treatment.acceptedItem)
-                    {
+                    if ($scope.treatment.acceptedItem) {
                         $scope.treatment.isNonCodedDrug = !$scope.treatment.isNonCodedDrug;
                         $scope.treatment.drugNonCoded = $scope.treatment.acceptedItem;
                         delete $scope.treatment.drug;
@@ -897,7 +911,9 @@ angular.module('bahmni.clinical')
                 $scope.newOrderSet.name = orderSet.name;
                 var orderSetMemberTemplates = _.map(orderSet.orderSetMembers, 'orderTemplate');
                 var promisesToCalculateDose = _.map(orderSetMemberTemplates, putCalculatedDose);
-                var returnOrderSet = function () { return orderSet; };
+                var returnOrderSet = function () {
+                    return orderSet;
+                };
                 return $q.all(promisesToCalculateDose).then(returnOrderSet);
             };
             var createDrugOrderViewModel = function (orderTemplate) {
