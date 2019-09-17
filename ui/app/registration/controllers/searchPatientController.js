@@ -149,12 +149,12 @@ angular.module('bahmni.registration')
                         $scope.results = data.pageOfResults;
                         $scope.noResultsMessage = $scope.results.length === 0 ? 'REGISTRATION_NO_RESULTS_FOUND' : null;
                     }).then(function () {
-                        angular.forEach($scope.results, function(value, key) {
+                        angular.forEach($scope.results, function (value, key) {
                             patientService.getPatientStatusState(value.uuid).then(function (patientstate) {
                                 if (patientstate.data.length > 0) {
                                     $scope.results[key].patient_state = patientstate.data[0].patient_status;
                                 }
-                            })
+                            });
                         });
                     });
                 }
@@ -201,9 +201,9 @@ angular.module('bahmni.registration')
                 var resultsConfigNotFound = false;
                 if (_.isEmpty(patientSearchResultConfigs)) {
                     resultsConfigNotFound = true;
-                    patientSearchResultConfigs.address = { "fields": allSearchConfigs.address ? [allSearchConfigs.address.field] : {} };
+                    patientSearchResultConfigs.address = {"fields": allSearchConfigs.address ? [allSearchConfigs.address.field] : {}};
                     patientSearchResultConfigs.personAttributes
-                        = { fields: allSearchConfigs.customAttributes ? allSearchConfigs.customAttributes.fields : {} };
+                        = {fields: allSearchConfigs.customAttributes ? allSearchConfigs.customAttributes.fields : {}};
                 } else {
                     if (!patientSearchResultConfigs.address) patientSearchResultConfigs.address = {};
                     if (!patientSearchResultConfigs.personAttributes) patientSearchResultConfigs.personAttributes = {};
@@ -290,12 +290,12 @@ angular.module('bahmni.registration')
                         } else if (data.pageOfResults.length > 1) {
                             $scope.results = data.pageOfResults;
                             $scope.noResultsMessage = null;
-                            angular.forEach($scope.results, function(value, key) {
+                            angular.forEach($scope.results, function (value, key) {
                                 patientService.getPatientStatusState(value.uuid).then(function (patientstate) {
                                     if (patientstate.data.length > 0) {
                                         $scope.results[key].patient_state = patientstate.data[0].patient_status;
                                     }
-                                })
+                                });
                             });
                         } else {
                             $scope.patientIdentifier = { 'patientIdentifier': patientIdentifier };
