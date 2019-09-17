@@ -723,7 +723,7 @@ angular.module('bahmni.clinical')
 
             $scope.getDataResults = function (drugs) {
                 var searchString = $scope.treatment.drugNameDisplay;
-                $scope.counter++;
+                $scope.counter ++;
                 if ($scope.selectedCategory !== "" && $scope.selectedCategory !== undefined && $scope.selectedCategory.display !== "Other" && $scope.selectedCategory.display !== "Outros Medicamentos") {
                     var auxiliarDrugsList = [];
                     $scope.drugResultUuid = [];
@@ -733,7 +733,15 @@ angular.module('bahmni.clinical')
 
                         if (searchString !== undefined && searchString !== "") {
                             if (element.value.toLowerCase().includes(searchString.toLowerCase())) {
-                                auxiliarDrugsList.push(element);
+                                var elementExists = false;
+                                for (var k = 0; k < auxiliarDrugsList.length; k++) {
+                                    if (element.value === auxiliarDrugsList[k].value) {
+                                        elementExists = true;
+                                    }
+                                }
+                                if (!elementExists) {
+                                    auxiliarDrugsList.push(element);
+                                }
                             }
                         }
                     });

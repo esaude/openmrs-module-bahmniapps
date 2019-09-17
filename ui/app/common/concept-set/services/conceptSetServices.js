@@ -42,7 +42,8 @@ angular.module('bahmni.common.conceptSet')
             var url = Bahmni.Common.Constants.drugUrl;
             return $http.get(url, {
                 params: {
-                    v: "full"
+                    v: "full",
+                    limit: 150
                 }
             });
         };
