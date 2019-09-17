@@ -534,5 +534,6 @@
     "LO_AST":"AST",
     "LO_HB":"Hemoglobin",
     "LO_Other:":"Other",
-    "LO_DATE":"Date"
+    "LO_DATE":"Date",
+    "CONSULTATION_TAB_REVISED_DIAGNOSES_LABEL_DIAGNOSES_LABEL":"Details"
 }

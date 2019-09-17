@@ -132,7 +132,7 @@ Bahmni.Common = Bahmni.Common || {};
         whoStageConceptName: 'HTC, WHO Staging',
         dosageInstructionConceptName: 'Dosage Instructions',
         stoppedOrderReasonConceptName: 'Stopped Order Reason',
-        consultationNoteConceptName: 'Consultation Note',
+        consultationNoteConceptName: 'Consultation_Note',
         diagnosisConceptSet: 'Diagnosis Concept Set',
         radiologyOrderType: 'Radiology Order',
         radiologyResultConceptName: "Radiology Result",
