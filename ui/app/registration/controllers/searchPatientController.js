@@ -148,6 +148,14 @@ angular.module('bahmni.registration')
                     searchPromise.then(function (data) {
                         $scope.results = data.pageOfResults;
                         $scope.noResultsMessage = $scope.results.length === 0 ? 'REGISTRATION_NO_RESULTS_FOUND' : null;
+                    }).then(function () {
+                        angular.forEach($scope.results, function(value, key) {
+                            patientService.getPatientStatusState(value.uuid).then(function (patientstate) {
+                                if (patientstate.data.length > 0) {
+                                    $scope.results[key].patient_state = patientstate.data[0].patient_status;
+                                }
+                            })
+                        });
                     });
                 }
             };
@@ -282,6 +290,13 @@ angular.module('bahmni.registration')
                         } else if (data.pageOfResults.length > 1) {
                             $scope.results = data.pageOfResults;
                             $scope.noResultsMessage = null;
+                            angular.forEach($scope.results, function(value, key) {
+                                patientService.getPatientStatusState(value.uuid).then(function (patientstate) {
+                                    if (patientstate.data.length > 0) {
+                                        $scope.results[key].patient_state = patientstate.data[0].patient_status;
+                                    }
+                                })
+                            });
                         } else {
                             $scope.patientIdentifier = { 'patientIdentifier': patientIdentifier };
                             $scope.noResultsMessage = 'REGISTRATION_LABEL_COULD_NOT_FIND_PATIENT';
