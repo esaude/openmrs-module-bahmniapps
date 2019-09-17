@@ -138,6 +138,9 @@ angular.module('authentication')
             userService.getUser(currentUser).then(function (data) {
                 userService.getProviderForUser(data.results[0].uuid).then(function (providers) {
                     if (!_.isEmpty(providers.results) && hasAnyActiveProvider(providers.results)) {
+                        // append providerAttributes to data object
+                        data.results[0].attributes = providers.results[0].attributes;
+
                         $rootScope.currentUser = new Bahmni.Auth.User(data.results[0]);
                         $rootScope.currentUser.currentLocation = $bahmniCookieStore.get(Bahmni.Common.Constants.locationCookieName).name;
                         $rootScope.$broadcast('event:user-credentialsLoaded', data.results[0]);

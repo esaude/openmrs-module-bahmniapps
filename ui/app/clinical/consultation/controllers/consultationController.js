@@ -5,11 +5,11 @@ angular.module('bahmni.clinical').controller('ConsultationController',
         'spinner', 'encounterService', 'messagingService', 'sessionService', 'retrospectiveEntryService', 'patientContext', '$q',
         'patientVisitHistoryService', '$stateParams', '$window', 'visitHistory', 'clinicalDashboardConfig', 'appService',
 
-        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService', 'printer', 'printPrescriptionReportService', 'providerTypeService', '$http', 'patientService', 'transferOutService',
+        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService', 'printer', 'printPrescriptionReportService', 'providerService', 'providerTypeService', '$http', 'patientService', 'transferOutService',
         function ($scope, $rootScope, $state, $location, $translate, clinicalAppConfigService, diagnosisService, urlHelper, contextChangeHandler,
             spinner, encounterService, messagingService, sessionService, retrospectiveEntryService, patientContext, $q,
             patientVisitHistoryService, $stateParams, $window, visitHistory, clinicalDashboardConfig, appService,
-            ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerTypeService, $http, patientService, transferOutService) {
+            ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerService, providerTypeService, $http, patientService, transferOutService) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var getPreviousActiveCondition = Bahmni.Common.Domain.Conditions.getPreviousActiveCondition;
             var currentProviderType;
@@ -186,7 +186,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                         return _.includes(currentPath, board.extensionParams ? board.extensionParams.tabConfigName : board.url);
                     }
                     return _.includes(currentPath, board.url);
-                });
+                });8989
                 if (board) {
                     $scope.currentBoard = board;
                     $scope.currentBoard.isSelectedTab = true;
@@ -205,10 +205,10 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 var adtNavigationConfig = appService.getAppDescriptor().getConfigValue('adtNavigationConfig');
                 Object.assign($scope.adtNavigationConfig, adtNavigationConfig);
                 setCurrentBoardBasedOnPath();
-                return $q.all([providerTypeService.getAllProviders()]).then(function (results) {
-                    var allProviders = results[0];
-                    var currentProvider = $rootScope.currentProvider;
-                    currentProviderType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
+                var currentProvider = $rootScope.currentProvider;
+                return $q.all([providerService.getProviderAttributes(currentProvider.uuid)]).then(function (response) {
+                    var providerAttributes = response[0].data.results;
+                    currentProviderType = providerTypeService.getProviderType(providerAttributes)[0];
                 });
             };
 

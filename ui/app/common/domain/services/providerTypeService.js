@@ -2,22 +2,22 @@
 
 angular.module('bahmni.common.domain')
     .factory('providerTypeService', ['$http', 'providerService', function ($http, providerService) {
-        var getProviderType = function (allProviders, currentProvider) {
-            return _.filter(_.map(allProviders, function (current) {
-                if (current.uuid == currentProvider.uuid) {
-                    return _.map(current.attributes, function (obj) {
-                        if (obj.attributeType.display == 'APSS') {
-                            if (obj.value === true && obj.voided === false) {
-                                return obj.attributeType.display;
-                            }
-                        } else if (obj.attributeType.display == 'Clinical') {
-                            if (obj.value === true && obj.voided === false) {
-                                return obj.attributeType.display;
-                            }
-                        }
-                    });
+        var getProviderType = function (providerAttributes) {
+            var providerTypes = _.map(providerAttributes, function (obj) {
+                if (obj.attributeType.display == 'APSS') {
+                    if (obj.value === true && obj.voided === false) {
+                        return obj.attributeType.display;
+                    }
+                } else if (obj.attributeType.display == 'Clinical') {
+                    if (obj.value === true && obj.voided === false) {
+                        return obj.attributeType.display;
+                    }
                 }
-            }));
+            });
+
+            return _.filter(providerTypes, function(type) {
+                return type != undefined; 
+            });
         };
 
         var getAllProviders = function () {

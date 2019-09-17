@@ -51,23 +51,25 @@ angular.module('bahmni.common.displaycontrol.forms')
                 var init = function () {
                     $scope.noFormFoundMessage = "No Form found for this patient";
                     $scope.isFormFound = false;
-                    return $q.all([getAllObservationTemplates(), obsFormData(), providerTypeService.getAllProviders()]).then(function (results) {
+                    var currentProvider = $rootScope.currentProvider;
+                    return $q.all([getAllObservationTemplates(), obsFormData(), providerService.getProviderAttributes(currentProvider.uuid)]).then(function (results) {
                         $scope.observationTemplates = results[0].data.results[0].setMembers;
-                        allProviders = results[2];
-                        var currentProvider = $rootScope.currentProvider;
-                        var providerType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
-
-                        if (providerType == "APSS") {
-                            finalFormsToDisplay = APSSProviderForms;
-                        } else if (providerType == "Clinical") {
-                            finalFormsToDisplay = clinicalProviderForms;
-                        }
+                        
                         var sortedFormDataByDate = sortedFormDataByLatestDate(results[1].data.results);
                         /* sortedFormDataByDate = _.filter(_.map(sortedFormDataByDate, function (currentForm) {
                             if (_.includes(finalFormsToDisplay, currentForm.concept.name.name)) {
                                 return currentForm;
                             }
                         })); */
+
+                        var providerAttributes = results[2].data.results;                
+                        var providerType = providerTypeService.getProviderType(providerAttributes)[0];
+
+                        if (providerType == "APSS") {
+                            finalFormsToDisplay = APSSProviderForms;
+                        } else if (providerType == "Clinical") {
+                            finalFormsToDisplay = clinicalProviderForms;
+                        }
 
                         if ($scope.isOnDashboard) {
                             $scope.formData = filterFormData(sortedFormDataByDate);
