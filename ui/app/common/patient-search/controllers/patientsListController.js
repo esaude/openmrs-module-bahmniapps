@@ -23,6 +23,17 @@ angular.module('bahmni.common.patientSearch')
             });
         };
 
+        var fetchPatientState = function () {
+            angular.forEach($scope.search.searchResults, function (value, key) {
+                patientService.getPatientStatusState(value.uuid).then(function (patientstate) {
+                    if (patientstate.data.length > 0) {
+                        $scope.search.searchResults[key].patient_state = patientstate.data[0].patient_state;
+                        $scope.search.searchResults[key].patient_status = patientstate.data[0].patient_status;
+                    }
+                });
+            });
+        };
+
         var mapCustomAttributesSearchResults = function (data) {
             if ($scope.personSearchResultsConfig) {
                 _.map(data.pageOfResults, function (result) {
@@ -35,6 +46,7 @@ angular.module('bahmni.common.patientSearch')
             return spinner.forPromise(patientService.search($scope.search.searchParameter)).then(function (response) {
                 mapCustomAttributesSearchResults(response.data);
                 $scope.search.updateSearchResults(response.data.pageOfResults);
+                fetchPatientState();
                 if ($scope.search.hasSingleActivePatient()) {
                     $scope.forwardPatient($scope.search.activePatients[0]);
                 }
@@ -59,6 +71,10 @@ angular.module('bahmni.common.patientSearch')
                     if ($scope.search.isSelectedSearch(searchType)) {
                         $scope.search.updatePatientList(response.data);
                     }
+                }).then(function () {
+                    angular.forEach($scope.search.searchResults, function (value, key) {
+                        fetchPatientState();
+                    });
                 });
             }
         };
