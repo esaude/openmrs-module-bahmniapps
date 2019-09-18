@@ -466,7 +466,7 @@
   "CLINICAL_PATIENT_STATUS": "Activo em",
   "INACTIVE_TRANSFERRED_OUT": "Inactivo Transferir para",
   "INACTIVE_SUSPENDED": "Inactivo Paciente Suspensão",
-  "INACTIVE_DEATH": "Inactive Óbito",
+  "INACTIVE_DEATH": "Inactivo Óbito",
   "TREATMENT_START_DATE_LIST_DISPLAY_CONTROL_TITLE": "Data Início TARV",
   "TREATMENT_START_DATE": "Data Início TARV",
   "PRINT_CLINICAL_DASHBOARD_LABEL": "Imprimir",
@@ -498,6 +498,9 @@
   "ITS_KEY" : "Tratamento de ITS",
   "ANTI_TB_KEY" : "Medicamentos Anti-Tuberculose",
   "OTHER_CATEGORY" : "Outros Medicamentos",
+  "Panels": "Grupo",
+  "Lab Tests": "Exames",
+  "Terms which don't fit other categories": "Termos que não se enquadram em outras categorias",
   "TRANSFER_OUT_FORM":"Guia de Transferência",
   "TRANSFER_FROM": "Transferido de",
   "PROVINCE": "Província",
@@ -545,5 +548,8 @@
   "LO_AST":"AST",
   "LO_HB":"Hemoglobina",
   "LO_Other:":"Outra",
-  "LO_DATE":"Data"
+  "LO_DATE":"Data",
+  "CONSULTATION_TAB_REVISED_DIAGNOSES_LABEL_DIAGNOSES_LABEL":"Detalhes",
+  "CONFIRMED":"CONFIRMADO",
+  "PRESUMED":"PRESUMIDO"
 }

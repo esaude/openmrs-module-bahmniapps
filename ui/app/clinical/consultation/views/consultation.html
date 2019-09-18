@@ -24,7 +24,7 @@
                             </div>
                             <div class="col col2">
                                 <div class="view">
-                                    <span class="certainty">{{diagnosis.certainty}}</span>
+                                    <span class="certainty">{{diagnosis.certainty | translate}}</span>
                                     <span class="order">
                                         <span ng-show="diagnosis.isPrimary()">{{ 'CLINICAL_DIAGNOSIS_ORDER_PRIMARY'|translate }}</span>
                                         <span ng-hide="diagnosis.isPrimary()">{{ 'CLINICAL_DIAGNOSIS_ORDER_SECONDARY'|translate }}</span>
@@ -82,7 +82,7 @@
                             </div>
                             <div class="col col2">
                                 <div class="view">
-                                    <span class="certainty">{{diagnosis.certainty}}</span>
+                                    <span class="certainty">{{diagnosis.certainty | translate}}</span>
                                     <span class="order">
                                         <span ng-show="diagnosis.isPrimary()">{{ 'CLINICAL_DIAGNOSIS_ORDER_PRIMARY'|translate }}</span>
                                         <span ng-hide="diagnosis.isPrimary()">{{ 'CLINICAL_DIAGNOSIS_ORDER_SECONDARY'|translate }}</span>
@@ -139,7 +139,7 @@
                             </div>
                             <div class="col col2">
                                 <div class="view">
-                                    <span class="certainty">{{diagnosis.certainty}}</span>
+                                    <span class="certainty">{{diagnosis.certainty | translate}}</span>
                                     <span class="order">
                                         <span ng-show="diagnosis.isPrimary()" class="order">{{ 'CLINICAL_DIAGNOSIS_ORDER_PRIMARY'|translate }}</span>
                                         <span ng-hide="diagnosis.isPrimary()" class="order">{{ 'CLINICAL_DIAGNOSIS_ORDER_SECONDARY'|translate }}</span>
