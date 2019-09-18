@@ -6,7 +6,7 @@ angular.module('bahmni.common.displaycontrol.chronicTreatmentChart').directive('
             $scope.config = $scope.isOnDashboard ? $scope.section.dashboardConfig : $scope.section.expandedViewConfig;
             var patient = $scope.patient;
             $scope.allARVDrugs = [];
-            $scope.arvDrugsChecked =[];
+            $scope.arvDrugsChecked = [];
 
             var init = function () {
                 return drugService.getRegimen(patient.uuid, $scope.enrollment, $scope.config.drugs).success(function (data) {
