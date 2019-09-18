@@ -70,7 +70,7 @@
                         <td ng-if="!patient.birthdateEstimated">{{::patient.birthDate | date:'dd-MM-y'}}</td>
                         <td ng-if="patient.birthdateEstimated">{{::patient.birthDate | date:'dd-MM-y'}}&nbsp;&nbsp;&nbsp;({{::'BIRTHDATE_ESTIMATED' | translate}})</td>
                         <td ng-repeat = "field in ::personSearchResultsConfig track by $index" ng-if="field=='PRIMARY_CONTACT_NUMBER_1'">{{::patient.customAttribute[field] || "" | bahmniDateInStrictMode}}</td>
-                        <td ng-repeat = "field in ::personSearchResultsConfig track by $index" ng-if="field=='PATIENT_STATUS'">{{::patient.customAttribute[field] || "" | bahmniDateInStrictMode}}</td>
+                        <td>{{::patient.patientStatus}}</td>
                         <td>{{::patient.dateCreated | date:'dd-MM-y'}}</td>
                     </tr>
                     </tbody>
