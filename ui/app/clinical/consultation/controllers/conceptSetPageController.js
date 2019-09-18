@@ -28,7 +28,10 @@ angular.module('bahmni.clinical')
                         v: "custom:" + customRepresentation
                     }), providerService.getProviderAttributes(currentProvider.uuid)]).then(function (response) {
                         var allTemplates = response[0].data.results[0].setMembers;
-                        var providerAttributes = response[1].data.results;
+
+                        if (response[1].data) {
+                            var providerAttributes = response[1].data.results;
+                        }
 
                         createConceptSections(allTemplates, providerAttributes);
 
@@ -157,12 +160,12 @@ angular.module('bahmni.clinical')
 
             var createConceptSections = function (allTemplates, allProviderAttributes) {
                 var providerType = providerTypeService.getProviderType(allProviderAttributes)[0];
-                
+
                 if (providerType == "APSS") {
                     finalFormsToDisplay = APSSProviderForms;
                 } else if (providerType == "Clinical") {
                     finalFormsToDisplay = clinicalProviderForms;
-                }                
+                }
 
                 allTemplates = _.filter(_.map(allTemplates, function (template) {
                     if (_.includes(finalFormsToDisplay, template.name.name)) {

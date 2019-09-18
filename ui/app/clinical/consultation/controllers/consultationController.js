@@ -186,7 +186,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                         return _.includes(currentPath, board.extensionParams ? board.extensionParams.tabConfigName : board.url);
                     }
                     return _.includes(currentPath, board.url);
-                });8989
+                });
                 if (board) {
                     $scope.currentBoard = board;
                     $scope.currentBoard.isSelectedTab = true;
@@ -207,8 +207,10 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 setCurrentBoardBasedOnPath();
                 var currentProvider = $rootScope.currentProvider;
                 return $q.all([providerService.getProviderAttributes(currentProvider.uuid)]).then(function (response) {
-                    var providerAttributes = response[0].data.results;
-                    currentProviderType = providerTypeService.getProviderType(providerAttributes)[0];
+                    if (response[0].data) {
+                        var providerAttributes = response[0].data.results;
+                        currentProviderType = providerTypeService.getProviderType(providerAttributes)[0];
+                    }
                 });
             };
 
