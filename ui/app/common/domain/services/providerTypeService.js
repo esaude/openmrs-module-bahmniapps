@@ -15,8 +15,8 @@ angular.module('bahmni.common.domain')
                 }
             });
 
-            return _.filter(providerTypes, function(type) {
-                return type != undefined; 
+            return _.filter(providerTypes, function (type) {
+                return type != undefined;
             });
         };
 

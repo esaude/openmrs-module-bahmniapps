@@ -186,7 +186,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                         return _.includes(currentPath, board.extensionParams ? board.extensionParams.tabConfigName : board.url);
                     }
                     return _.includes(currentPath, board.url);
-                });8989
+                });
                 if (board) {
                     $scope.currentBoard = board;
                     $scope.currentBoard.isSelectedTab = true;

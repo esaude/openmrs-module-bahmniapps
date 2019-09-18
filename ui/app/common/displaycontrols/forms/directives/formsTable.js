@@ -54,7 +54,7 @@ angular.module('bahmni.common.displaycontrol.forms')
                     var currentProvider = $rootScope.currentProvider;
                     return $q.all([getAllObservationTemplates(), obsFormData(), providerService.getProviderAttributes(currentProvider.uuid)]).then(function (results) {
                         $scope.observationTemplates = results[0].data.results[0].setMembers;
-                        
+
                         var sortedFormDataByDate = sortedFormDataByLatestDate(results[1].data.results);
                         /* sortedFormDataByDate = _.filter(_.map(sortedFormDataByDate, function (currentForm) {
                             if (_.includes(finalFormsToDisplay, currentForm.concept.name.name)) {
@@ -62,7 +62,7 @@ angular.module('bahmni.common.displaycontrol.forms')
                             }
                         })); */
 
-                        var providerAttributes = results[2].data.results;                
+                        var providerAttributes = results[2].data.results;
                         var providerType = providerTypeService.getProviderType(providerAttributes)[0];
 
                         if (providerType == "APSS") {

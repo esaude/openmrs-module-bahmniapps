@@ -157,12 +157,12 @@ angular.module('bahmni.clinical')
 
             var createConceptSections = function (allTemplates, allProviderAttributes) {
                 var providerType = providerTypeService.getProviderType(allProviderAttributes)[0];
-                
+
                 if (providerType == "APSS") {
                     finalFormsToDisplay = APSSProviderForms;
                 } else if (providerType == "Clinical") {
                     finalFormsToDisplay = clinicalProviderForms;
-                }                
+                }
 
                 allTemplates = _.filter(_.map(allTemplates, function (template) {
                     if (_.includes(finalFormsToDisplay, template.name.name)) {

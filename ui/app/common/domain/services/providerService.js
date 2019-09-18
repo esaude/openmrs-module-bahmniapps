@@ -28,10 +28,10 @@ angular.module('bahmni.common.domain')
             });
         };
 
-        var getProviderAttributes = function(providerUuid) {
-            var url = Bahmni.Common.Constants.providerUrl + "/"+ providerUuid + "/attribute";
+        var getProviderAttributes = function (providerUuid) {
+            var url = Bahmni.Common.Constants.providerUrl + "/" + providerUuid + "/attribute";
             return $http.get(url, {
-                method: "GET",  
+                method: "GET",
                 cache: false
             });
         };
