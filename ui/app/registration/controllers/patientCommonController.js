@@ -32,15 +32,19 @@ angular.module('bahmni.registration')
             $scope.hasClinicalProfile = false;
 
             $scope.getProfile = function () {
-                return providerService.getProviderAttributes(currentProvider.uuid).then(function (response) {
-                    if (response.data) {
-                        var providerAttributes = response.data.results;
+                return providerTypeService.getAllProviders().then(function (results) {
+                    var currentProvider = $rootScope.currentProvider;
+                    providerService.getProviderAttributes(currentProvider.uuid).then(function (response) {
+                        if (response.data) {
+                            var providerAttributes = response.data.results;
+                        }
 
                         var providerType = providerTypeService.getProviderType(providerAttributes)[0];
+
                         if (providerType === 'Clinical') {
                             $scope.hasClinicalProfile = true;
                         }
-                    }
+                    });
                 });
             };
 
