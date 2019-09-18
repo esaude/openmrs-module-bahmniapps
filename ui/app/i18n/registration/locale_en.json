@@ -219,5 +219,9 @@
   "Patient_Start_Visit_A" : "Clinical Consultation",
   "SUSPENSION_REASONS":"Suspension Reasons",
   "PRESUMPTIVE_DIAGNOSIS":"Presumptive Diagnosis",
-  "FALSE_POSITIVE":"False Positive"
+  "FALSE_POSITIVE":"False Positive",
+  "ACTIVE": "Active in",
+  "INACTIVE_TRANSFERRED_OUT": "Inactive Transferred-out",
+  "INACTIVE_SUSPENDED": "Inactive Patient Suspension ",
+  "INACTIVE_DEATH": "Inactive Death"
 }

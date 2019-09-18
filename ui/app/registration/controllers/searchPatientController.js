@@ -152,7 +152,8 @@ angular.module('bahmni.registration')
                         angular.forEach($scope.results, function (value, key) {
                             patientService.getPatientStatusState(value.uuid).then(function (patientstate) {
                                 if (patientstate.data.length > 0) {
-                                    $scope.results[key].patient_state = patientstate.data[0].patient_status;
+                                    var patientSate = $translate.instant(patientstate.data[0].patient_state);
+                                    $scope.results[key].patient_state = patientSate + " - " + $translate.instant(patientstate.data[0].patient_status);
                                 }
                             });
                         });
@@ -293,7 +294,9 @@ angular.module('bahmni.registration')
                             angular.forEach($scope.results, function (value, key) {
                                 patientService.getPatientStatusState(value.uuid).then(function (patientstate) {
                                     if (patientstate.data.length > 0) {
-                                        $scope.results[key].patient_state = patientstate.data[0].patient_status;
+                                        console.log(patientstate.data);
+                                        var patientState = $translate.instant(patientstate.data[0].patient_state);
+                                        $scope.results[key].patient_state = patientState + " - " + $translate.instant(patientstate.data[0].patient_status);
                                     }
                                 });
                             });
