@@ -548,5 +548,8 @@
   "LO_AST":"AST",
   "LO_HB":"Hemoglobina",
   "LO_Other:":"Outra",
-  "LO_DATE":"Data"
+  "LO_DATE":"Data",
+  "CONSULTATION_TAB_REVISED_DIAGNOSES_LABEL_DIAGNOSES_LABEL":"Detalhes",
+  "CONFIRMED":"CONFIRMADO",
+  "PRESUMED":"PRESUMIDO"
 }
