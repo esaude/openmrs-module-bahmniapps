@@ -79,6 +79,9 @@ angular.module('bahmni.clinical')
                         $scope.disableMedication = false;
                         $scope.fetchTreatmentLines($scope.selectedTreatmentLineCategory);
                         $scope.isARV = true;
+                    } else if ($scope.selectedCategory.display === getTranslatedMessage("PROPHYLAXIS_KEY")) {
+                        $scope.disableMedication = false;
+                        $scope.disableTreatmentLine = true;
                     } else if ($scope.selectedCategory.display === getTranslatedMessage("ANTI_TB_KEY")) {
                         $scope.selectedTreatmentLineCategory = "treatment_line_tb";
                         $scope.fetchTreatmentLines($scope.selectedTreatmentLineCategory);
