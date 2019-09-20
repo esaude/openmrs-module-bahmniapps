@@ -1,13 +1,37 @@
 'use strict';
 
-angular.module('bahmni.common.displaycontrol.chronicTreatmentChart').directive('chronicTreatmentChart', ['$translate', 'spinner', 'drugService',
-    function ($translate, spinner, drugService) {
+angular.module('bahmni.common.displaycontrol.chronicTreatmentChart').directive('chronicTreatmentChart', ['$translate', 'spinner', 'drugService', 'conceptSetService',
+    function ($translate, spinner, drugService, conceptSetService) {
         var link = function ($scope, element) {
             $scope.config = $scope.isOnDashboard ? $scope.section.dashboardConfig : $scope.section.expandedViewConfig;
             var patient = $scope.patient;
+            $scope.allARVDrugs = [];
+            $scope.arvDrugsChecked = [];
 
             var init = function () {
                 return drugService.getRegimen(patient.uuid, $scope.enrollment, $scope.config.drugs).success(function (data) {
+                    var fetchAllARVDrugs = function () {
+                        conceptSetService.getAllDrugs().then(function (response) {
+                            var allDrugs = response.data.results;
+                            for (var i = 0; i < allDrugs.length; i++) {
+                                if (allDrugs[i].dosageForm.display === 'ARV') {
+                                    $scope.allARVDrugs.push(allDrugs[i].name);
+                                }
+                            }
+                            checkForARVDrugs();
+                        });
+                    };
+
+                    var checkForARVDrugs = function () {
+                        for (var i = 0; i < data.headers.length; i++) {
+                            for (var j = 0; j < $scope.allARVDrugs.length; j++) {
+                                if (data.headers[i].name === $scope.allARVDrugs[j]) {
+                                    $scope.arvDrugsChecked.push(data.headers[i]);
+                                }
+                            }
+                        }
+                    };
+
                     var filterNullRow = function () {
                         for (var row in $scope.regimen.rows) {
                             var nullFlag = true;
@@ -26,6 +50,9 @@ angular.module('bahmni.common.displaycontrol.chronicTreatmentChart').directive('
                     if (_.isEmpty($scope.regimen.rows)) {
                         $scope.$emit("no-data-present-event");
                     }
+
+                    fetchAllARVDrugs();
+                    checkForARVDrugs();
                     filterNullRow();
                 });
             };
