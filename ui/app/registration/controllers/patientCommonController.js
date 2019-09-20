@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.registration')
-    .controller('PatientCommonController', ['$scope', '$rootScope', '$http', 'patientAttributeService', 'appService', 'spinner', '$location', 'ngDialog', '$window', '$state', 'patientService', 'providerTypeService',
-        function ($scope, $rootScope, $http, patientAttributeService, appService, spinner, $location, ngDialog, $window, $state, patientService, providerTypeService) {
+    .controller('PatientCommonController', ['$scope', '$rootScope', '$http', 'patientAttributeService', 'appService', 'spinner', '$location', 'ngDialog', '$window', '$state', 'patientService', 'providerService', 'providerTypeService',
+        function ($scope, $rootScope, $http, patientAttributeService, appService, spinner, $location, ngDialog, $window, $state, patientService, providerService, providerTypeService) {
             var autoCompleteFields = appService.getAppDescriptor().getConfigValue("autoCompleteFields", []);
             var showCasteSameAsLastNameCheckbox = appService.getAppDescriptor().getConfigValue("showCasteSameAsLastNameCheckbox");
             var personAttributes = [];
@@ -20,6 +20,7 @@ angular.module('bahmni.registration')
             $scope.showSaveAndContinueButton = false;
             var dontSaveButtonClicked = false;
             var isHref = false;
+            var currentProvider = $rootScope.currentProvider;
             $rootScope.duplicatePatients;
             $rootScope.duplicatePatientCount = 0;
             $scope.isAddressRequired = "false";
@@ -33,10 +34,17 @@ angular.module('bahmni.registration')
             $scope.getProfile = function () {
                 return providerTypeService.getAllProviders().then(function (results) {
                     var currentProvider = $rootScope.currentProvider;
-                    var providerType = _.filter(providerTypeService.getProviderType(results, currentProvider)[0])[0];
-                    if (providerType === 'Clinical') {
-                        $scope.hasClinicalProfile = true;
-                    }
+                    providerService.getProviderAttributes(currentProvider.uuid).then(function (response) {
+                        if (response.data) {
+                            var providerAttributes = response.data.results;
+                        }
+
+                        var providerType = providerTypeService.getProviderType(providerAttributes)[0];
+
+                        if (providerType === 'Clinical') {
+                            $scope.hasClinicalProfile = true;
+                        }
+                    });
                 });
             };
 

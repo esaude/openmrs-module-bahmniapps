@@ -2,11 +2,9 @@
 
 angular.module('bahmni.clinical')
     .controller('ConceptSetPageController', ['$scope', '$rootScope', '$stateParams', 'conceptSetService',
-        'clinicalAppConfigService', 'messagingService', 'configurations', '$state', 'spinner',
-        'contextChangeHandler', '$q', '$translate', 'formService', 'appService', 'providerService', 'providerTypeService',
+        'clinicalAppConfigService', 'messagingService', 'configurations', '$state', 'spinner', '$q', '$translate', 'formService', 'appService', 'providerService', 'providerTypeService',
         function ($scope, $rootScope, $stateParams, conceptSetService,
-                  clinicalAppConfigService, messagingService, configurations, $state, spinner,
-                  contextChangeHandler, $q, $translate, formService, appService, providerService, providerTypeService) {
+                  clinicalAppConfigService, messagingService, configurations, $state, spinner, $q, $translate, formService, appService, providerService, providerTypeService) {
             $scope.consultation.selectedObsTemplate = $scope.consultation.selectedObsTemplate || [];
             $scope.allTemplates = $scope.allTemplates || [];
             $scope.scrollingEnabled = false;
@@ -21,16 +19,22 @@ angular.module('bahmni.clinical')
             var fields = ['uuid', 'name:(name,display)', 'names:(uuid,conceptNameType,name)'];
             var customRepresentation = Bahmni.ConceptSet.CustomRepresentationBuilder.build(fields, 'setMembers', numberOfLevels);
             var allConceptSections = [];
+            var currentProvider = $rootScope.currentProvider;
 
             var init = function () {
                 if (!($scope.allTemplates !== undefined && $scope.allTemplates.length > 0)) {
                     spinner.forPromise($q.all([conceptSetService.getConcept({
                         name: "All Observation Templates",
                         v: "custom:" + customRepresentation
-                    }), providerTypeService.getAllProviders()]).then(function (response) {
+                    }), providerService.getProviderAttributes(currentProvider.uuid)]).then(function (response) {
                         var allTemplates = response[0].data.results[0].setMembers;
-                        var allProviders = response[1];
-                        createConceptSections(allTemplates, allProviders);
+
+                        if (response[1].data) {
+                            var providerAttributes = response[1].data.results;
+                        }
+
+                        createConceptSections(allTemplates, providerAttributes);
+
                         if ($state.params.programUuid) {
                             showOnlyTemplatesFilledInProgram();
                         }
@@ -154,9 +158,8 @@ angular.module('bahmni.clinical')
                 }));
             };
 
-            var createConceptSections = function (allTemplates, allProviders) {
-                var currentProvider = $rootScope.currentProvider;
-                var providerType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
+            var createConceptSections = function (allTemplates, allProviderAttributes) {
+                var providerType = providerTypeService.getProviderType(allProviderAttributes)[0];
 
                 if (providerType == "APSS") {
                     finalFormsToDisplay = APSSProviderForms;

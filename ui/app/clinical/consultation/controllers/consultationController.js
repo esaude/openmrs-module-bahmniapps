@@ -5,11 +5,11 @@ angular.module('bahmni.clinical').controller('ConsultationController',
         'spinner', 'encounterService', 'messagingService', 'sessionService', 'retrospectiveEntryService', 'patientContext', '$q',
         'patientVisitHistoryService', '$stateParams', '$window', 'visitHistory', 'clinicalDashboardConfig', 'appService',
 
-        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService', 'printer', 'printPrescriptionReportService', 'providerTypeService', '$http', 'patientService', 'transferOutService',
+        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService', 'printer', 'printPrescriptionReportService', 'providerService', 'providerTypeService', '$http', 'patientService', 'transferOutService',
         function ($scope, $rootScope, $state, $location, $translate, clinicalAppConfigService, diagnosisService, urlHelper, contextChangeHandler,
             spinner, encounterService, messagingService, sessionService, retrospectiveEntryService, patientContext, $q,
             patientVisitHistoryService, $stateParams, $window, visitHistory, clinicalDashboardConfig, appService,
-            ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerTypeService, $http, patientService, transferOutService) {
+            ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerService, providerTypeService, $http, patientService, transferOutService) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var getPreviousActiveCondition = Bahmni.Common.Domain.Conditions.getPreviousActiveCondition;
             var currentProviderType;
@@ -205,10 +205,12 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 var adtNavigationConfig = appService.getAppDescriptor().getConfigValue('adtNavigationConfig');
                 Object.assign($scope.adtNavigationConfig, adtNavigationConfig);
                 setCurrentBoardBasedOnPath();
-                return $q.all([providerTypeService.getAllProviders()]).then(function (results) {
-                    var allProviders = results[0];
-                    var currentProvider = $rootScope.currentProvider;
-                    currentProviderType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
+                var currentProvider = $rootScope.currentProvider;
+                return $q.all([providerService.getProviderAttributes(currentProvider.uuid)]).then(function (response) {
+                    if (response[0].data) {
+                        var providerAttributes = response[0].data.results;
+                        currentProviderType = providerTypeService.getProviderType(providerAttributes)[0];
+                    }
                 });
             };
 
@@ -569,12 +571,19 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     var params = angular.copy($state.params);
                     params.cachebuster = Math.random();
                     _.map(encounterData.drugOrders, function (currentObj) {
-                        if (currentObj.drug.form == 'ARV') {
-                            if (currentObj.action == 'DISCONTINUE') {
-                                if (!($scope.patient.patientStatus.toUpperCase() === "Pre TARV".toUpperCase() && currentObj.orderAttributes !== undefined)) {
-                                    patientService.savePatientStatusState('TARV_TREATMENT_SUSPENDED', $scope.patient.uuid, $rootScope.currentUser.uuid, $scope.patient.patientState);
+                        if (currentObj.orderAttributes && currentObj.orderAttributes.length) {
+                            currentObj.orderAttributes.forEach(attribute => {
+                                if (attribute.name.toUpperCase() === "Dispensed".toUpperCase() && attribute.value) {
+                                    if (currentObj.drug.form == 'ARV') {
+                                        if (currentObj.action == 'DISCONTINUE') {
+                                            if (!($scope.patient.patientStatus.toUpperCase() === "Pre TARV".toUpperCase())) {
+                                                patientService.savePatientStatusState('TARV_TREATMENT_SUSPENDED', $scope.patient.uuid, $rootScope.currentUser.uuid, $scope.patient.patientState);
+                                                return;
+                                            }
+                                        }
+                                    }
                                 }
-                            }
+                            });
                         }
                     });
                     return encounterService.create(encounterData)

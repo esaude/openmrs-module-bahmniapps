@@ -13,7 +13,11 @@ angular.module('bahmni.home')
                 return $q.all([providerTypeService.getAllProviders()]).then(function (results) {
                     allProviders = results[0];
                     var currentProvider = $rootScope.currentProvider;
-                    $rootScope.providerType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
+                    providerService.getProviderAttributes(currentProvider.uuid).then(function (response) {
+                        if (response.data) {
+                            $rootScope.providerType = providerTypeService.getProviderType(response.data.results)[0];
+                        }
+                    });
                 });
             };
 
