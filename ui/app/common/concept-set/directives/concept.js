@@ -60,17 +60,19 @@ angular.module('bahmni.common.conceptSet')
                         answer = null;
                         $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                     }
-                    if (startDateProphylaxis === scope.today) {
-                        answer = prophylaxisData[0];
-                        $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
-                    }
-                    if (startDateProphylaxis < scope.today && startDateProphylaxis !== '') {
-                        answer = prophylaxisData[1];
-                        $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
-                    }
-                    if ((enDateProphylaxis <= scope.today) && (enDateProphylaxis >= startDateProphylaxis) && (enDateProphylaxis !== '')) {
-                        answer = prophylaxisData[2];
-                        $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                    if(prophylaxisData !== undefined) {
+                        if (startDateProphylaxis === scope.today) {
+                            answer = prophylaxisData[0];
+                            $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
+                        if (startDateProphylaxis < scope.today && startDateProphylaxis !== '') {
+                            answer = prophylaxisData[1];
+                            $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
+                        if ((enDateProphylaxis <= scope.today) && (enDateProphylaxis >= startDateProphylaxis) && (enDateProphylaxis !== '')) {
+                            answer = prophylaxisData[2];
+                            $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
                     }
 
                     if (treatmentStartDate > treatmentEndDate && treatmentEndDate !== '') {
