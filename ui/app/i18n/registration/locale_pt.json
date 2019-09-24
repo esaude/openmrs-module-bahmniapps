@@ -193,5 +193,18 @@
     "Patient_Start_Visit_A" : "Consulta Clinica",
     "SUSPENSION_REASONS":"Motivo da Suspensão",
     "PRESUMPTIVE_DIAGNOSIS":"Diagnóstico Presuntivo",
-    "FALSE_POSITIVE":"Falso Positivo"
+    "FALSE_POSITIVE":"Falso Positivo",
+    "CLINICAL_PATIENT_STATUS": "Activo em",
+    "INACTIVE_TRANSFERRED_OUT": "Inactivo Transferir para",
+    "INACTIVE_SUSPENDED": "Inactivo Paciente Suspensão",
+    "INACTIVE_DEATH": "Inactivo Óbito",
+    "PA_DEATH": "Óbito",
+    "PA_SUSPENDED": "Suspenso",
+    "PA_TRANSFERRED": "Transferido Para",
+    "PAS_PRE_TARV": "Pré-TARV",
+    "PAS_TARV": "TARV",
+    "ACTIVE": "Activo em",
+    "TARV_ABANDONED": "TARV - Abandono",
+    "TARV_RESTART": "TARV - Reinício",
+    "Pre TARV":"Pré-TARV"
 }
