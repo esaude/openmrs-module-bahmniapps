@@ -153,7 +153,7 @@ angular.module('bahmni.clinical')
             var populateLocationAndDrugOrders = function (lastVisit) {
                 return new Promise(function (resolve, reject) {
                     patientVisitHistoryService.getVisitHistory(patientUuid, null).then(function (response) {
-                        if (response.visits && response.visits.length > 0) {
+                        if (response.visits && response.visits.length > 0 && response.visits[lastVisit]) {
                             reportModel.location = response.visits[lastVisit].location.display;
                             populateDrugOrders(response.visits[lastVisit].uuid);
                         }
