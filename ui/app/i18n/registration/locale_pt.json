@@ -195,8 +195,8 @@
     "PRESUMPTIVE_DIAGNOSIS":"Diagnóstico Presuntivo",
     "FALSE_POSITIVE":"Falso Positivo",
     "CLINICAL_PATIENT_STATUS": "Activo em",
-    "INACTIVE_TRANSFERRED_OUT": "Inactivo Transferir para",
-    "INACTIVE_SUSPENDED": "Inactivo Paciente Suspensão",
+    "INACTIVE_TRANSFERRED_OUT": "Inactivo Transferido Para",
+    "INACTIVE_SUSPENDED": "Inactivo Suspenso",
     "INACTIVE_DEATH": "Inactivo Óbito",
     "PA_DEATH": "Óbito",
     "PA_SUSPENDED": "Suspenso",
@@ -206,5 +206,6 @@
     "ACTIVE": "Activo em",
     "TARV_ABANDONED": "TARV - Abandono",
     "TARV_RESTART": "TARV - Reinício",
-    "Pre TARV":"Pré-TARV"
+    "Pre TARV":"Pré-TARV",
+    "TARV_TREATMENT_SUSPENDED": "TARV-Tratamento Suspenso"
 }

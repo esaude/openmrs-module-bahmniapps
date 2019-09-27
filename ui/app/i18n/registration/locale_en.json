@@ -232,5 +232,6 @@
   "Pre TARV":"Pre-TARV",
   "PA_DEATH": "Death",
   "PA_SUSPENDED": "Suspended",
-  "PA_TRANSFERRED": "Transferred Out"
+  "PA_TRANSFERRED": "Transferred Out",
+  "TARV_TREATMENT_SUSPENDED": "TARV - Suspensed"
 }
