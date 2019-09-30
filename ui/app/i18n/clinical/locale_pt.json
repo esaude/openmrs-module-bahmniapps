@@ -426,6 +426,7 @@
   "CONFIDENT_FORM": "Situação da Familia",
   "DI_Death Information Form": "Fechar Processo",
   "Apss_obs_form": "APSS",
+  "Clinical_History_Obs_Form": "Guia de Referência",
   "MEDICATION_ERROR_CAN_NOT_HAVE_MORE_THAN":"Não é possível ter mais de um pedido activo para o mesmo pedido e esquema de tratamento ao mesmo tempo",
   "MEDICATION_ERROR_ONE_OR_MORE": "O (s) medicamento (s) que pretende prescrever já estão activos. Por favor, altere a data de início do medicamento em conflito ou retire da nova prescrição",
   "MEDICATION_ERROR_CONFLICTING_WITH_DRUG_ORDER_YOU_CAN_REVISE": "está em conflito com o medicamento que pretende adicionar. Pode rever ou reabastecer.",

@@ -403,6 +403,7 @@
     "Reference_Form": "Reference",
     "CONFIDENT_FORM": "Family Situation",
     "DI_Death Information Form": "Death Information Form",
+    "Clinical_History_Obs_Form": "Reference Guide",
     "Apss_obs_form": "APSS",
     "MEDICATION_ERROR_CAN_NOT_HAVE_MORE_THAN": "Cannot have more than one active order for the same orderable and care setting at same time",
     "MEDICATION_ERROR_ONE_OR_MORE": "One or more drugs you are trying to order are already active. Please change the start date of the conflicting drug or remove them from the new prescription.",
