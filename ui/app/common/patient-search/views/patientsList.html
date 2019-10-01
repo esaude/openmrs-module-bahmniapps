@@ -70,7 +70,8 @@
                         <td ng-if="!patient.birthdateEstimated">{{::patient.birthDate | date:'dd-MM-y'}}</td>
                         <td ng-if="patient.birthdateEstimated">{{::patient.birthDate | date:'dd-MM-y'}}&nbsp;&nbsp;&nbsp;({{::'BIRTHDATE_ESTIMATED' | translate}})</td>
                         <td ng-repeat = "field in ::personSearchResultsConfig track by $index" ng-if="field=='PRIMARY_CONTACT_NUMBER_1'">{{::patient.customAttribute[field] || "" | bahmniDateInStrictMode}}</td>
-                        <td>{{::patient.patientState | translate}}  {{::patient.patientStatus | translate}}</td>
+                        <td ng-if="patient.patientState === 'ACTIVE'">{{::patient.patientState | translate}}  {{::patient.patientStatus |translate}}</td>
+                        <td ng-if="patient.patientState !== 'ACTIVE'">{{::patient.patientState | translate}} ({{::patient.patientStatus |translate}})</td>
                         <td>{{::patient.dateCreated | date:'dd-MM-y'}}</td>
                     </tr>
                     </tbody>
@@ -107,7 +108,8 @@
                         <td ng-if="!patient.birthdateEstimated">{{::patient.birthDate | date:'dd-MM-y'}}</td>
                         <td ng-if="patient.birthdateEstimated">{{::patient.birthDate | date:'dd-MM-y'}}&nbsp;&nbsp;&nbsp;({{::'BIRTHDATE_ESTIMATED' | translate}})</td>
                         <td>{{::patient.mainContact}}</td>
-                        <td>{{::patient.patientState | translate}}  {{::patient.patientStatus | translate}}</td>
+                        <td ng-if="patient.patientState === 'ACTIVE'">{{::patient.patientState | translate}}  {{::patient.patientStatus |translate}}</td>
+                        <td ng-if="patient.patientState !== 'ACTIVE'">{{::patient.patientState | translate}} ({{::patient.patientStatus |translate}})</td>
                         <td>{{::patient.registrationDate | date:'dd-MM-y'}}</td>
                     </tr>
                     </tbody>
