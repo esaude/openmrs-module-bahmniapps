@@ -20,12 +20,12 @@ angular.module('bahmni.common.conceptSet')
                 var ageToMonths = (patientAgeYears * 12) + patientAgeMonths;
                 var hideAbnormalbuttonConfig = scope.observation && scope.observation.conceptUIConfig && scope.observation.conceptUIConfig['hideAbnormalButton'];
                 var currentUrl = window.location.href;
-                scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
                 scope.currentDate = $filter("date")(dateUtil.now(), 'yyyy-MM-dd');
                 weight = scope.patient.weight;
                 height = scope.patient.height;
 
                 scope.onDateChange = function () {
+                    scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
                     if (scope.observation.concept.name === "SP_Treatment Start Date") {
                         treatmentStartDate = scope.observation.value;
                     }
