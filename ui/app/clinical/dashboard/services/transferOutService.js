@@ -209,7 +209,7 @@ angular.module('bahmni.clinical')
 
             var populatePatientLabResults = function () {
                 reportModel.labOrderResult = {};
-                var labResultsToShow = ['LO_CD4', 'LO_ViralLoad', 'LO_ALT', 'LO_AST', 'LO_HB', 'LO_Other:'];
+                var labResultsToShow = ['CD4', 'Viral', 'ALT', 'AST', 'HB', 'Other', 'Outros'];
                 return new Promise(function (resolve, reject) {
                     labOrderResultService.getAllForPatient({patientUuid: patientUuid}).then(function (response) {
                         if (response.labAccessions) {
