@@ -1,7 +1,6 @@
 <li ng-class="::{'is-text': observation.type == 'Text', 'has-child' : observation.groupMembers.length > 0 ,'video-concept':observation.isVideoConcept(), 'image-preview': observation.isImageConcept()}" >
     <div ng-class="::{'is-abnormal': (observation.abnormal ==  true || observation.interpretation === 'ABNORMAL')}" class="tree-list-item clearfix" bm-gallery patient="patient">
         <span ng-hide="observation.isImageConcept()" ng-if="::(!observation.isImageConcept() || (observation.isImageConcept() && !print))" class="testUnderPanel left">
-          {{observation.concept.name}}
             <label ng-if="observation.concept.set && observation.concept.name !== 'BMI Data' && observation.concept.name !== 'BMI Status Data'"><b>{{::observation.concept.shortName|titleTranslate}} </b></label>
             <label ng-if="!observation.concept.set || observation.concept.name === 'BMI Data' || observation.concept.name === 'BMI Status Data'">{{::observation.concept.shortName|titleTranslate}} </label>
             <hint concept-details="::{
