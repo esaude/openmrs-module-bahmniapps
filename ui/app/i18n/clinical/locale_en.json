@@ -539,5 +539,6 @@
     "CONSULTATION_TAB_REVISED_DIAGNOSES_LABEL_DIAGNOSES_LABEL":"Details",
     "CONFIRMED":"CONFIRMED",
     "PRESUMED":"PRESUMED",
-    "INACTIVE":"Inactive"
+    "INACTIVE":"Inactive",
+    "Assintomático" : "Asymptomatic"
 }
