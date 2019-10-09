@@ -20,7 +20,7 @@
                             </li>
                             <li class="table-body" ng-repeat="condition in conditions | filter:{status:status}:true">
                                 <div>
-                                    <span class="testUnderPanel left" style="color: #363463;"><label>{{ condition.displayString() }}</label></span>
+                                    <span class="testUnderPanel left" style="color: #363463;"><label>{{ condition.displayString() | translate}}</label></span>
                                     <div class="activeSince">
 
                                     <span style="position: absolute;right: 8%;font-size: 11px;color: #666;" ng-if="condition.activeSince">
