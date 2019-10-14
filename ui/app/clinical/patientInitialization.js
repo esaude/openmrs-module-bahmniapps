@@ -16,6 +16,14 @@ angular.module('bahmni.clinical').factory('patientInitialization',
                         } else {
                             patient.isReadOnly = false;
                         }
+                        if (patient["OLD PERSON ID"] !== undefined && patient["OLD PERSON ID"] !== null) {
+                            patient.isMigrated = true;
+                        } else {
+                            patient.isMigrated = false;
+                        }
+
+                        console.log('El Patient',patient);
+
                         return {"patient": patient};
                     });
                 };
