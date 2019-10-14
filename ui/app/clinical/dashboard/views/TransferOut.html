@@ -67,10 +67,13 @@ fieldset {
                 <span> 
                     <input type="checkbox" ng-checked="s !== 'TARV' " />Pr&eacute TARV
                     (<b>{{ 'REGISTRATION_DATE' | translate }}</b>:&nbsp{{data.patientInfo.regDate | date:'dd/MM/yyyy'}})&nbsp&nbsp
-                    <input type="checkbox" ng-checked="s === 'TARV' " />TARV
-                    (<b>{{ 'START_DATE' | translate }}</b>:&nbsp<!--{{data.patientInfo.regDate | date:'dd/MM/yyyy'}})&nbsp&nbsp-->
+                </span>
+                <span>
+                    <input type="checkbox" ng-checked="data.patientInfo.isTARV === 'TARV'" />TARV
+                    (<b>{{ 'START_DATE' | translate }}</b>:&nbsp{{data.patientInfo.treatmentStartDate | date:'dd/MM/yyyy'}})&nbsp&nbsp
                 </span>
             </div>
+
 
             <b>{{ 'ART_REGIME' | translate }}</b>:&nbsp{{data.patientInfo.currRegARV}}<br>
             <b>{{ 'REGIME_CHANGE_TO' | translate }}</b>:&nbsp{{data.patientInfo.secLast}}&nbsp

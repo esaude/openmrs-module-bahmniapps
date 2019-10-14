@@ -44,7 +44,9 @@ angular.module('bahmni.clinical')
                     modelDate: '',
                     hivDate: '',
                     patientStatus: '',
+                    isTARV: '',
                     regDate: '',
+                    treatmentStartDate: '',
                     labName: '',
                     labOrderResult: '',
                     mdsYes: '',
@@ -168,6 +170,7 @@ angular.module('bahmni.clinical')
                             reportModel.patientInfo.diagnosisPastName = null;
                         }
                         reportModel.patientInfo.regDate = $rootScope.patient.US_REG_DATE.value;
+                        reportModel.patientInfo.treatmentStartDate = $rootScope.arvdispenseddate;
 
                         var statusArray = [{ name: "Pre TARV" }, { name: "TARV" }];
                         var arrStatus = [];
@@ -178,6 +181,9 @@ angular.module('bahmni.clinical')
                         }
                         reportModel.patientInfo.patientStatus = arrStatus;
                         reportModel.patientInfo.patientStatus = arrStatus;
+                        if($rootScope.patient && $rootScope.patient.patientStatus) {
+                            reportModel.patientInfo.isTARV = $rootScope.patient.patientStatus;
+                        }
                         var addressMap = patient.address;
                         reportModel.address1 = addressMap.address1;
                         reportModel.address2 = addressMap.address2;
