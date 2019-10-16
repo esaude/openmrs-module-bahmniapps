@@ -174,13 +174,13 @@ angular.module('bahmni.clinical')
             var mapConcept = function (result) {
                 return _.map(result.data, function (concept) {
                     var response = {
-                        value: concept.matchedName || concept.conceptName,
+                        value: $translate.instant(concept.matchedName) || $translate.instant(concept.conceptName),
                         concept: {
-                            name: concept.conceptName,
+                            name: $translate.instant(concept.conceptName),
                             uuid: concept.conceptUuid
                         },
                         lookup: {
-                            name: concept.matchedName || concept.conceptName,
+                            name: $translate.instant(concept.matchedName) || $translate.instant(concept.conceptName),
                             uuid: concept.conceptUuid
                         }
                     };
