@@ -215,14 +215,24 @@ angular.module('bahmni.clinical')
 
             var populatePatientLabResults = function () {
                 reportModel.labOrderResult = {};
-                var labResultsToShow = ['CD4', 'Viral', 'ALT', 'AST', 'HB', 'Other', 'Outros'];
+                var labResultsToShow = ['ALT', 'AST', 'CD 4', 'CD4 %', 'CD4 Abs', 'HGB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outros'];
                 return new Promise(function (resolve, reject) {
                     labOrderResultService.getAllForPatient({patientUuid: patientUuid}).then(function (response) {
                         if (response.labAccessions) {
                             if (response.labAccessions.length > 0) {
                                 _.map(response.labAccessions[0], function (currentObj) {
                                     if (_.includes(labResultsToShow, currentObj.testName)) {
-                                        reportModel.labOrderResult[currentObj.testName] = {testDate: currentObj.resultDateTime, testResult: currentObj.result};
+                                        var LO_Name;
+                                        if (currentObj.testName == 'ALT'){ LO_Name = 'LO_ALT'; }
+                                        else if (currentObj.testName == 'AST'){ LO_Name = 'LO_AST'; }
+                                        else if (currentObj.testName == 'CD 4'){ LO_Name = 'LO_CD4'; }
+                                        else if (currentObj.testName == 'CD4 %'){ LO_Name = 'LO_CD4'; }
+                                        else if (currentObj.testName == 'CD4 Abs'){ LO_Name = 'LO_CD4'; }
+                                        else if (currentObj.testName == 'HGB'){ LO_Name = 'LO_HGB'; }
+                                        else if (currentObj.testName == 'CARGA VIRAL (Absoluto-Rotina)'){ LO_Name = 'LO_ViralLoad'; }
+                                        else if (currentObj.testName == 'CARGA VIRAL(Qualitativo-Rotina)'){ LO_Name = 'LO_ViralLoad'; }
+                                        else { LO_Name = currentObj.testName; }
+                                        reportModel.labOrderResult[LO_Name] = {testDate: currentObj.resultDateTime, testResult: currentObj.result};
                                     }
                                 });
                             }
