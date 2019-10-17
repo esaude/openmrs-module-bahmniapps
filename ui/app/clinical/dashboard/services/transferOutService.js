@@ -181,7 +181,7 @@ angular.module('bahmni.clinical')
                         }
                         reportModel.patientInfo.patientStatus = arrStatus;
                         reportModel.patientInfo.patientStatus = arrStatus;
-                        if($rootScope.patient && $rootScope.patient.patientStatus) {
+                        if ($rootScope.patient && $rootScope.patient.patientStatus) {
                             reportModel.patientInfo.isTARV = $rootScope.patient.patientStatus;
                         }
                         var addressMap = patient.address;
@@ -222,17 +222,17 @@ angular.module('bahmni.clinical')
                             if (response.labAccessions.length > 0) {
                                 _.map(response.labAccessions[0], function (currentObj) {
                                     if (_.includes(labResultsToShow, currentObj.testName)) {
-                                        var LO_Name;
-                                        if (currentObj.testName == 'ALT'){ LO_Name = 'LO_ALT'; }
-                                        else if (currentObj.testName == 'AST'){ LO_Name = 'LO_AST'; }
-                                        else if (currentObj.testName == 'CD 4'){ LO_Name = 'LO_CD4'; }
-                                        else if (currentObj.testName == 'CD4 %'){ LO_Name = 'LO_CD4'; }
-                                        else if (currentObj.testName == 'CD4 Abs'){ LO_Name = 'LO_CD4'; }
-                                        else if (currentObj.testName == 'HGB'){ LO_Name = 'LO_HGB'; }
-                                        else if (currentObj.testName == 'CARGA VIRAL (Absoluto-Rotina)'){ LO_Name = 'LO_ViralLoad'; }
-                                        else if (currentObj.testName == 'CARGA VIRAL(Qualitativo-Rotina)'){ LO_Name = 'LO_ViralLoad'; }
-                                        else { LO_Name = currentObj.testName; }
-                                        reportModel.labOrderResult[LO_Name] = {testDate: currentObj.resultDateTime, testResult: currentObj.result};
+                                        var loName;
+                                        if (currentObj.testName == 'ALT') { loName = 'LO_ALT'; }
+                                        else if (currentObj.testName == 'AST') { loName = 'LO_AST'; }
+                                        else if (currentObj.testName == 'CD 4') { loName = 'LO_CD4'; }
+                                        else if (currentObj.testName == 'CD4 %') { loName = 'LO_CD4'; }
+                                        else if (currentObj.testName == 'CD4 Abs') { loName = 'LO_CD4'; }
+                                        else if (currentObj.testName == 'HGB') { loName = 'LO_HGB'; }
+                                        else if (currentObj.testName == 'CARGA VIRAL (Absoluto-Rotina)') { loName = 'LO_ViralLoad'; }
+                                        else if (currentObj.testName == 'CARGA VIRAL(Qualitativo-Rotina)') { loName = 'LO_ViralLoad'; }
+                                        else { loName = currentObj.testName; }
+                                        reportModel.labOrderResult[loName] = {testDate: currentObj.resultDateTime, testResult: currentObj.result};
                                     }
                                 });
                             }
