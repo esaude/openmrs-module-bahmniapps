@@ -21,9 +21,6 @@ angular.module('bahmni.clinical').factory('patientInitialization',
                         } else {
                             patient.isMigrated = false;
                         }
-
-                        console.log('El Patient',patient);
-
                         return {"patient": patient};
                     });
                 };
