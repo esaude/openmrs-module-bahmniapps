@@ -21,7 +21,7 @@ angular.module('bahmni.registration')
                     var patientNID = response.patient.identifiers[0].identifier;
                     var NIDResult = patientNID.split("/");
                     $scope.codeOfHealthFacility = NIDResult[0];
-                    $scope.NIDYear = parseInt(NIDResult[2]);
+                    $scope.NIDYear = parseInt(NIDResult[2], 10);
                     $scope.NIDsequence = NIDResult[3];
                 });
             };
