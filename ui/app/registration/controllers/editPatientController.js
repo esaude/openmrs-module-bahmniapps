@@ -11,6 +11,7 @@ angular.module('bahmni.registration')
             $scope.actions = {};
             $scope.myForms = {};
             $scope.NID = {};
+            $scope.formFieldsDisabled = false;
             $scope.addressHierarchyConfigs = appService.getAppDescriptor().getConfigValue("addressHierarchy");
             $scope.disablePhotoCapture = appService.getAppDescriptor().getConfigValue("disablePhotoCapture");
             $scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
@@ -20,25 +21,27 @@ angular.module('bahmni.registration')
                 return patientService.get(uuid).then(function (response) {
                     var patientNID = response.patient.identifiers[0].identifier;
                     var NIDResult = patientNID.split("/");
-                    $scope.codeOfHealthFacility = NIDResult[0];
-                    $scope.NIDYear = parseInt(NIDResult[2], 10);
-                    $scope.NIDsequence = NIDResult[3];
+                    $scope.NID.healthFacilityCode = NIDResult[0];
+                    $scope.NID.year = parseInt(NIDResult[2], 10);
+                    $scope.NID.sequentialCode = NIDResult[3];
                 });
             };
             splitNID();
 
             $scope.buildFinalNID = function () {
-                if ($scope.NID.healthFacilityCode === undefined) {
-                    $scope.NID.healthFacilityCode = $scope.codeOfHealthFacility;
-                }
-                if ($scope.NID.sequentialCode === undefined) {
-                    $scope.NID.sequentialCode = $scope.NIDsequence;
-                }
-                if ($scope.NID.year === undefined) {
-                    $scope.NID.year = $scope.NIDYear;
+                if (!$scope.patient.primaryIdentifier) {
+                    return;
                 }
                 $scope.patient.primaryIdentifier.registrationNumber = $scope.NID.healthFacilityCode + '/' + $scope.NID.serviceCode + '/' + $scope.NID.year + '/' + $scope.NID.sequentialCode;
             };
+
+            $scope.$on('DisableRegistrationFields', function (ent, data) {
+                if (data) {
+                    $scope.formFieldsDisabled = data;
+                } else {
+                    $scope.formFieldsDisabled = false;
+                }
+            });
 
             var setReadOnlyFields = function () {
                 $scope.readOnlyFields = {};
