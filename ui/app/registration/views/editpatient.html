@@ -31,7 +31,6 @@
                                              get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                     </article>
                  </span>
-            <article class="form-field">
 
             <span class="form-field-inline clearfix" ng-repeat="attribute in ::patientConfiguration.attributeTypes">
                 <article class="form-field" ng-if="attribute.name == 'US_REG_DATE'" 
@@ -41,16 +40,68 @@
                             on-change="checkDuplicatePatients()"
                             get-data-results="getDataResults" is-read-only="isReadOnly"  handle-update="handleUpdate"></attribute-types>
                 </article>
-        </span>
-            <!--<article class="form-field">
+            </span>
+
+            <section>
+                <article class="form-field existing-patient">
                     <div class="field-attribute">
-                    <label class="control-label">{{::'REGISTRATION_LABEL_REGISTRATION_DATE' | translate}}</label>
+                        <label class="control-label"
+                               for="patientID">{{'REGISTRATION_LABEL_PATIENT_ENTER_ID' | translate}}
+                            <span
+                                    ng-show="::patient.primaryIdentifier.identifierType.required && !patient.primaryIdentifier.hasIdentifierSources()"
+                                    class="asterick">*</span>
+                        </label>
+                    </div>
+                    <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value === 'TRANSFERRED_PATIENT'">
+                        <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
+                        <input type="text" name="healthFacilityCode" id="healthFacilityCode"
+                               ng-model="NID.healthFacilityCode" ng-blur="buildFinalNID()" focus-me="true"
+                               placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_HEALTHFACILITY_CODE' | translate}}"
+                               minlength="8" ng-pattern="regexDigits" maxlength="8" size=8 required ng-disabled="formFieldsDisabled"
+                               ng-class="{'illegalValue' : submitted && this.myForms.myForm.healthFacilityCode.$invalid || this.myForms.myForm.healthFacilityCode.$invalid && !this.myForms.myForm.healthFacilityCode.$pristine || this.myForms.myForm.healthFacilityCode.$error.pattern}">
+                        <p class="help-block"
+                           ng-show="this.myForms.myForm.healthFacilityCode.$error.minlength && !this.myForms.myForm.healthFacilityCode.$error.pattern">
+                            {{::'MINLENGTH_HEALTH_FACILITY_CODE' | translate}}</p>
                     </div>
 
-                    <div class="field-value">
-                        <span class="uneditable-input text-only">{{patient.registrationDate | bahmniDate}}</span>
-                   </div>
-            </article>-->
+                    <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value == 'NEW_PATIENT'">
+                        <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
+                        <input type="text" name="healthFacilityCode" ng-model="NID.healthFacilityCode"
+                               minlength="8" maxlength="8" size=8
+                               focus-me="true" required readonly
+                               ng-focus="NID.healthFacilityCode = healthFacility.code" >
+                    </div>
+
+                    <div class="input-prepend">
+                        <span class="add-on">{{ ::'REGISTRATION_SERVICE_CODE' | translate}}</span>
+                        <input type="text" name="serviceCode" id="serviceCode" ng-model="NID.serviceCode"
+                               pattern-validate focus-on="patient.primaryIdentifier.hasOldIdentifier" disabled size="2"
+                               ng-init="NID.serviceCode='01'">
+                    </div>
+
+                    <div class="input-prepend">
+                        <span class="add-on">{{ ::'REGISTRATION_NID_YEAR' | translate}}</span>
+                        <input type="number" id="nidYear" name="nidYear" ng-model="NID.year" pattern-validate
+                               min="1900" size="4" max="{{currentYear}}" minlength="1" maxlength="4" focus-me="true" required
+                               placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_YEAR' | translate}}"
+                                ng-blur="buildFinalNID()" ng-disabled="formFieldsDisabled"
+                               ng-class="{'illegalValue' : submitted && this.myForms.myForm.nidYear.$invalid || this.myForms.myForm.nidYear.$invalid && !this.myForms.myForm.nidYear.$pristine}">
+                    </div>
+
+                    <div class="input-prepend">
+                        <span class="add-on">{{ ::'REGISTRATION_SEQUENTIAL_CODE' | translate}}</span>
+                        <input type="text" name="sequentialCode" id="sequentialCode" ng-model="NID.sequentialCode"
+                               pattern-validate focus-on="patient.primaryIdentifier.hasOldIdentifier"
+                               minlength="5" ng-pattern="regexDigits" maxlength="5" size="8"
+                               ng-blur="buildFinalNID()" ng-disabled="formFieldsDisabled"
+                               placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_SEQUENCIAL_CODE' | translate}}"
+                               ng-class="{'illegalValue' : submitted && this.myForms.myForm.sequentialCode.$invalid || !this.myForms.myForm.sequentialCode.$pristine && this.myForms.myForm.sequentialCode.$invalid || this.myForms.myForm.sequentialCode.$error.pattern || this.myForms.myForm.sequentialCode.$error.minlength}">
+                        <p class="help-block"
+                           ng-show="this.myForms.myForm.sequentialCode.$error.minlength && !this.myForms.myForm.sequentialCode.$error.pattern">
+                            {{::'MINLENGTH_REGISTRATION_SEQUENTIAL_CODE' | translate}}</p>
+                    </div>
+                </article>
+            </section>
         </div>
         <ng-include src="'views/patientcommon.html'"></ng-include>
         <patient-action></patient-action>
