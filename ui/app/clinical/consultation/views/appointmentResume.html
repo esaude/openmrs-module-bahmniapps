@@ -1,0 +1,61 @@
+<section class="app-dashboard-integration">
+    <h2 class="section-title">{{ 'CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL'|translate }}</h2>
+
+    <ul style="font-size: 14px;color: #333;background: #eee; font-weight: bold;">
+        <li style="background-color:#ddd;padding-top:3px;padding-bottom:3px">
+            <span style="padding-left: 10px"> {{::"DASHBOARD_UPCOMING_APPOINTMENTS_KEY" | translate}} </span>
+        </li>
+
+        <ul ng-if="upcomingApss_ClinicalAppointment.length === 0" class="form-field">
+            <li>{{::"DASHBOARD_NO_UPCOMING_APPOINTMENTS_KEY" | translate}}</li>
+        </ul>
+
+        <ul ng-if="upcomingApss_ClinicalAppointment.length !== 0">
+            <table class="table-header">
+                <thead>
+                <tr>
+                    <th ng-repeat="heading in upcomingApss_ClinicalAppointmentsHeadings">
+                        {{heading | translate}}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="appointment in upcomingApss_ClinicalAppointment">
+                    <td ng-repeat="detail in appointment">
+                        {{detail | translate}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </ul>
+    </ul>
+
+    <ul style="font-size: 14px;color: #333;background: #eee; font-weight: bold;">
+        <li style="background-color:#ddd;padding-top:3px;padding-bottom:3px">
+            <span style="padding-left: 10px"> {{::"DASHBOARD_PAST_APPOINTMENTS_KEY" | translate}} </span>
+        </li>
+
+        <ul style="background-color: #eee;margin-left: 10px;font-weight: normal;margin-top: 4px;margin-bottom: 3px;" ng-if="pastApss_ClinicalAppointments.length === 0">
+            <li>{{::"DASHBOARD_NO_PAST_APPOINTMENTS_KEY" | translate}}</li>
+        </ul>
+
+        <ul ng-if="pastApss_ClinicalAppointments.length !== 0">
+            <table class="table-header">
+                <thead>
+                <tr>
+                    <th ng-repeat="heading in pastApss_ClinicalAppointments">
+                        {{heading | translate}}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="appointment in pastApss_ClinicalAppointments">
+                    <td ng-repeat="detail in appointment">
+                        {{detail | translate}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </ul>
+    </ul>
+</section>
