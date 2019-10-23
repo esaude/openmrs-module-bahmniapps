@@ -42,7 +42,7 @@ angular.module('bahmni.clinical').directive('appointmentResume', ['$http', '$q',
                 delete $scope.upcomingApss_ClinicalAppointment[i].DASHBOARD_APPOINTMENTS_SERVICE_TYPE_KEY;
                 $scope.upcomingApss_ClinicalAppointment[i].DASHBOARD_APPOINTMENTS_SLOT_KEY = $scope.setBlock($scope.upcomingApss_ClinicalAppointment[i].DASHBOARD_APPOINTMENTS_SLOT_KEY);
             }
-            $scope.upcomingApss_ClinicalAppointmentsHeadings = _.keys(upcomingAppointments[0]);
+            $scope.upcomingApss_ClinicalAppointmentsHeadings = _.keys($scope.upcomingApss_ClinicalAppointment[0]);
 
             var pastAppointments = response[1].data;
             $scope.pastApss_ClinicalAppointments = [];
@@ -53,28 +53,28 @@ angular.module('bahmni.clinical').directive('appointmentResume', ['$http', '$q',
                 }
             }
 
-            for(let i=0; i < $scope.pastApss_ClinicalAppointments.length; i++) {
+            for (let i = 0; i < $scope.pastApss_ClinicalAppointments.length; i++) {
                 delete $scope.pastApss_ClinicalAppointments[i].DASHBOARD_APPOINTMENTS_PROVIDER_KEY;
                 delete $scope.pastApss_ClinicalAppointments[i].DASHBOARD_APPOINTMENTS_STATUS_KEY;
                 delete $scope.pastApss_ClinicalAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_TYPE_KEY;
-                $scope.pastApss_ClinicalAppointments[i].DASHBOARD_APPOINTMENTS_SLOT_KEY = $scope.setBlock($scope.pastApss_ClinicalAppointments[i].DASHBOARD_APPOINTMENTS_SLOT_KEY)
+                $scope.pastApss_ClinicalAppointments[i].DASHBOARD_APPOINTMENTS_SLOT_KEY = $scope.setBlock($scope.pastApss_ClinicalAppointments[i].DASHBOARD_APPOINTMENTS_SLOT_KEY);
             }
             $scope.pastApss_ClinicalAppointmentsHeadings = _.keys($scope.pastApss_ClinicalAppointments[0]);
         });
 
         $scope.setBlock = function (timeInterval) {
-            if(timeInterval === "12:00 AM - 8:59 AM"){
-                return "APP_BLOCK_1"
+            if (timeInterval === "12:00 AM - 8:59 AM") {
+                return "APP_BLOCK_1";
             } else
-            if(timeInterval === "9:00 AM - 11:59 AM" ){
-                return "APP_BLOCK_2"
+            if (timeInterval === "9:00 AM - 11:59 AM") {
+                return "APP_BLOCK_2";
             } else
-            if(timeInterval === "12:00 PM - 3:29 PM" ){
-                return "APP_BLOCK_3"
+            if (timeInterval === "12:00 PM - 3:29 PM") {
+                return "APP_BLOCK_3";
             } else {
-                return "APP_BLOCK_4"
+                return "APP_BLOCK_4";
             }
-        }
+        };
     };
 
     return {
