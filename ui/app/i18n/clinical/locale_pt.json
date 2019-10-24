@@ -554,5 +554,6 @@
   "CONFIRMED":"CONFIRMADO",
   "PRESUMED":"PRESUMIDO",
   "INACTIVE":"Inactivo",
-  "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Outras Marcações"
+  "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Outras Marcações",
+  "Vitals Flowsheet": "Dados Antropométricos"
 }

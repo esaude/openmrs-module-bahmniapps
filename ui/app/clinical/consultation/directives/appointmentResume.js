@@ -6,7 +6,7 @@ angular.module('bahmni.clinical').directive('appointmentResume', ['$http', '$q',
             var params = {
                 q: "bahmni.sqlGet.upComingAppointments",
                 v: "full",
-                patientUuid: $scope.$root.patient.uuid
+                patientUuid: $scope.patient.uuid
             };
             return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
                 method: "GET",
@@ -18,7 +18,7 @@ angular.module('bahmni.clinical').directive('appointmentResume', ['$http', '$q',
             var params = {
                 q: "bahmni.sqlGet.pastAppointments",
                 v: "full",
-                patientUuid: $scope.$root.patient.uuid
+                patientUuid: $scope.patient.uuid
             };
             return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
                 method: "GET",
@@ -31,7 +31,7 @@ angular.module('bahmni.clinical').directive('appointmentResume', ['$http', '$q',
             $scope.upcomingApss_ClinicalAppointment = [];
 
             for (let i = 0; i < upcomingAppointments.length; i++) {
-                if (upcomingAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'APSS&PP' || upcomingAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Consulta Clínica') {
+                if (upcomingAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'APSS&PP' || upcomingAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Consulta Clínica' || upcomingAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Farmácia') {
                     $scope.upcomingApss_ClinicalAppointment.push(upcomingAppointments[i]);
                 }
             }
@@ -48,7 +48,7 @@ angular.module('bahmni.clinical').directive('appointmentResume', ['$http', '$q',
             $scope.pastApss_ClinicalAppointments = [];
 
             for (let i = 0; i < pastAppointments.length; i++) {
-                if (pastAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'APSS&PP' || pastAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Consulta Clínica') {
+                if (pastAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'APSS&PP' || pastAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Consulta Clínica' || pastAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Farmácia') {
                     $scope.pastApss_ClinicalAppointments.push(pastAppointments[i]);
                 }
             }
