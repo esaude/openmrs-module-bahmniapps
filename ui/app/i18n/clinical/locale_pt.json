@@ -553,5 +553,7 @@
   "CONSULTATION_TAB_REVISED_DIAGNOSES_LABEL_DIAGNOSES_LABEL":"Detalhes",
   "CONFIRMED":"CONFIRMADO",
   "PRESUMED":"PRESUMIDO",
-  "INACTIVE":"Inactivo"
+  "INACTIVE":"Inactivo",
+  "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Outras Marcações",
+  "Vitals Flowsheet": "Dados Antropométricos"
 }
