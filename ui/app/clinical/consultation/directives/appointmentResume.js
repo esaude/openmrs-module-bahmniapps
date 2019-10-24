@@ -76,10 +76,10 @@ angular.module('bahmni.clinical').directive('appointmentResume', ['$http', '$q',
             }
         };
     };
-
     return {
         restrict: 'E',
         link: link,
         templateUrl: './consultation/views/appointmentResume.html'
     };
 }]);
+
