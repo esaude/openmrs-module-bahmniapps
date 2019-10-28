@@ -12,23 +12,45 @@ angular.module('bahmni.registration')
             $scope.myForms = {};
             $scope.NID = {};
             $scope.formFieldsDisabled = false;
+            $scope.fieldOfHFCode = true;
             $scope.addressHierarchyConfigs = appService.getAppDescriptor().getConfigValue("addressHierarchy");
             $scope.disablePhotoCapture = appService.getAppDescriptor().getConfigValue("disablePhotoCapture");
             $scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
             $rootScope.isEligibleForVisit = true;
+            var completeNIDLength = 22;
+            var patientNID;
+
+            $scope.onBirthDateChange = function () {
+                $scope.dateValue = angular.element("#birthdate")[0].value;
+                if ($scope.dateValue <= $scope.today) {
+                    angular.element("#birthdate").css("border", "1px solid #DDD");
+                    angular.element("#birthdate").css("background", "#fff");
+                    angular.element("#birthdate").css("outline", "0");
+                } else {
+                    angular.element("#birthdate").css("border", "1px solid red");
+                    angular.element("#birthdate").css("background", "#ffcdcd");
+                    angular.element("#birthdate").css("outline", "0");
+                    messagingService.showMessage('error', "US_REG_DATE_MESSAGE");
+                }
+            };
 
             var splitNID = function () {
                 return patientService.get(uuid).then(function (response) {
-                    var patientNID = response.patient.identifiers[0].identifier;
-                    var NIDResult = patientNID.split("/");
-                    $scope.NID.healthFacilityCode = NIDResult[0];
-                    $scope.NID.year = parseInt(NIDResult[2], 10);
-                    $scope.NID.sequentialCode = NIDResult[3];
+                    patientNID = response.patient.identifiers[0].identifier;
+                    if (patientNID.length === completeNIDLength) {
+                        $scope.completeNIDFormat = true;
+                        var NIDResult = patientNID.split("/");
+                        $scope.NID.healthFacilityCode = NIDResult[0];
+                        $scope.NID.year = parseInt(NIDResult[2], 10);
+                        $scope.NID.sequentialCode = NIDResult[3];
+                    } else {
+                        $scope.completeNIDFormat = false;
+                    }
                 });
             };
             splitNID();
 
-            $scope.buildFinalNID = function () {
+            $rootScope.buildFinalNID = function () {
                 if (!$scope.patient.primaryIdentifier) {
                     return;
                 }
@@ -53,9 +75,11 @@ angular.module('bahmni.registration')
                 });
             };
             var successCallBack = function (openmrsPatient) {
-                $scope.$watch('patient.primaryIdentifier.registrationNumber', function () {
-                    $scope.patient.primaryIdentifier.generate();
-                });
+                if (patientNID.length === completeNIDLength) {
+                    $scope.$watch('patient.primaryIdentifier.registrationNumber', function () {
+                        $scope.patient.primaryIdentifier.generate();
+                    });
+                }
                 $scope.openMRSPatient = openmrsPatient["patient"];
                 $scope.patient = openmrsPatientMapper.map(openmrsPatient);
                 patientService.getPatientStatusState(uuid).then(function (response) {
@@ -233,34 +257,50 @@ angular.module('bahmni.registration')
                 $scope.patient.patientStateChange = data;
             });
 
+            var validFields = function () {
+                if ($scope.myForms.myForm.healthFacilityCode.$invalid || $scope.myForms.myForm.nidYear.$invalid || $scope.myForms.myForm.sequentialCode.$invalid || $scope.myForms.myForm.givenName.$invalid
+                    || $scope.myForms.myForm.familyName.$invalid || $scope.myForms.myForm.gender.$invalid || $scope.myForms.myForm.ageYear.$invalid
+                    || $scope.myForms.myForm.birthdate.$invalid) {
+                    return false;
+                }
+                return true;
+            };
+
             $scope.update = function () {
-                var patientStatus = $scope.patient.patientStatus;
-                var patientUuid = $scope.patient.uuid;
-                var creatorUuid = $rootScope.currentUser.uuid;
-                var patientState = $scope.patient.patientStateChange || $scope.patient.patientState;
-
-                if ($scope.patient.patientState == 'INACTIVE_TRANSFERRED_OUT') {
-                    if ($scope.patient['TRANSFERENCE_HF_NAME']) {
-                        $scope.patient['PATIENT_STATE_CHANGE'] = '';
-                        $scope.patient['TRANSFER_OUT_DISTRICT'] = '';
-                        $scope.patient['TRANSFER_OUT_NAME'] = '';
-                        $scope.patient['TRANSFER_OUT_PROVINCE'] = '';
-                        $scope.patient['Transfer_Date'] = '';
-                        $scope.patient['Observations'] = '';
-                        patientState = $scope.patient.lastActiveState;
+                if (!validFields() || !$rootScope.isValidFields) {
+                    messagingService.showMessage("error", "REGISTRATION_REQUIRED_INVALID_FIELD");
+                } else {
+                    if ($rootScope.buttonSubmitted && $scope.NID.healthFacilityCode && $scope.NID.serviceCode && $scope.NID.year && $scope.NID.sequentialCode) {
+                        $scope.patient.primaryIdentifier.registrationNumber = $scope.NID.healthFacilityCode + '/' + $scope.NID.serviceCode + '/' + $scope.NID.year + '/' + $scope.NID.sequentialCode;
+                        $scope.patient.primaryIdentifier.generate();
                     }
-                }
-                addNewRelationships();
-                var errorMessages = Bahmni.Common.Util.ValidationUtil.validate($scope.patient, $scope.patientConfiguration.attributeTypes);
-                if (errorMessages.length > 0) {
-                    errorMessages.forEach(function (errorMessage) {
-                        messagingService.showMessage('error', errorMessage);
-                    });
-                    return $q.when({});
-                }
 
-                return spinner.forPromise($q.all([patientService.update($scope.patient, $scope.openMRSPatient),
-                    patientService.savePatientStatusState(patientStatus, patientUuid, creatorUuid, patientState)]).then(function (result) {
+                    var patientStatus = $scope.patient.patientStatus;
+                    var patientUuid = $scope.patient.uuid;
+                    var creatorUuid = $rootScope.currentUser.uuid;
+                    var patientState = $scope.patient.patientStateChange || $scope.patient.patientState;
+
+                    if ($scope.patient.patientState == 'INACTIVE_TRANSFERRED_OUT') {
+                        if ($scope.patient['TRANSFERENCE_HF_NAME']) {
+                            $scope.patient['PATIENT_STATE_CHANGE'] = '';
+                            $scope.patient['TRANSFER_OUT_DISTRICT'] = '';
+                            $scope.patient['TRANSFER_OUT_NAME'] = '';
+                            $scope.patient['TRANSFER_OUT_PROVINCE'] = '';
+                            $scope.patient['Transfer_Date'] = '';
+                            $scope.patient['Observations'] = '';
+                            patientState = $scope.patient.lastActiveState;
+                        }
+                    }
+                    addNewRelationships();
+                    var errorMessages = Bahmni.Common.Util.ValidationUtil.validate($scope.patient, $scope.patientConfiguration.attributeTypes);
+                    if (errorMessages.length > 0) {
+                        errorMessages.forEach(function (errorMessage) {
+                            messagingService.showMessage('error', errorMessage);
+                        });
+                        return $q.when({});
+                    }
+
+                    return spinner.forPromise($q.all([patientService.update($scope.patient, $scope.openMRSPatient), patientService.savePatientStatusState(patientStatus, patientUuid, creatorUuid, patientState)]).then(function (result) {
                         var patientProfileData = result[0].data;
                         if (!patientProfileData.error) {
                             successCallBack(patientProfileData);
@@ -268,6 +308,7 @@ angular.module('bahmni.registration')
                             $scope.actions.followUpAction(patientProfileData);
                         }
                     }));
+                }
             };
 
             var addNewRelationships = function () {

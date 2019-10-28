@@ -167,7 +167,7 @@
     "INVALID_AGE_MONTH": "Meses inválidos",
     "INVALID_AGE_DAY": "Dias inválidos",
     "REGISTRATION_REQUIRED_FIELD": "Corrija os dados do campo NID.",
-    "REGISTRATION_DUPLICATE_ENTRY_ERROR": "O NID introduzido está sendo usado por um outro paciente.",
+    "REGISTRATION_DUPLICATE_ENTRY_ERROR": "O NID introduzido já está registado para um outro Paciente.",
     "BMI STATUS": "Estado Nutricional",
     "BMI": "IMC",
     "REGISTRATION_STATE_INFO_KEY": "Estado de Permanência",
