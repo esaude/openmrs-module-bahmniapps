@@ -12,7 +12,6 @@ angular.module('bahmni.registration')
             $scope.myForms = {};
             $scope.NID = {};
             $scope.formFieldsDisabled = false;
-            $scope.fieldOfHFCode = true;
             $scope.addressHierarchyConfigs = appService.getAppDescriptor().getConfigValue("addressHierarchy");
             $scope.disablePhotoCapture = appService.getAppDescriptor().getConfigValue("disablePhotoCapture");
             $scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
@@ -50,7 +49,7 @@ angular.module('bahmni.registration')
             };
             splitNID();
 
-            $rootScope.buildFinalNID = function () {
+            $scope.buildFinalNID = function () {
                 if (!$scope.patient.primaryIdentifier) {
                     return;
                 }

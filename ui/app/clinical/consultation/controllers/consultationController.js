@@ -649,7 +649,6 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     withCredentials: true
                 }).then(function (results) {
                     $rootScope.dispenseData = results.data;
-
                     if (isEmpty(results.data)) {
                         $rootScope.arvdispenseddate = null;
                     } else {
@@ -658,7 +657,11 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 });
             };
 
-            $scope.dispenseddrug();
+            if ($scope.patient.arvdispenseddate === undefined || $scope.patient.arvdispenseddate === null) {
+                $scope.dispenseddrug();
+            } else {
+                $rootScope.arvdispenseddate = $scope.patient.arvdispenseddate;
+            }
 
             $scope.filterTabByProviderType = function (boardIndex) {
                 if (currentProviderType == "APSS") {

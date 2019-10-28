@@ -44,7 +44,9 @@ angular.module('bahmni.clinical')
                     modelDate: '',
                     hivDate: '',
                     patientStatus: '',
+                    isTARV: '',
                     regDate: '',
+                    treatmentStartDate: '',
                     labName: '',
                     labOrderResult: '',
                     mdsYes: '',
@@ -168,6 +170,7 @@ angular.module('bahmni.clinical')
                             reportModel.patientInfo.diagnosisPastName = null;
                         }
                         reportModel.patientInfo.regDate = $rootScope.patient.US_REG_DATE.value;
+                        reportModel.patientInfo.treatmentStartDate = $rootScope.arvdispenseddate;
 
                         var statusArray = [{ name: "Pre TARV" }, { name: "TARV" }];
                         var arrStatus = [];
@@ -178,6 +181,9 @@ angular.module('bahmni.clinical')
                         }
                         reportModel.patientInfo.patientStatus = arrStatus;
                         reportModel.patientInfo.patientStatus = arrStatus;
+                        if ($rootScope.patient && $rootScope.patient.patientStatus) {
+                            reportModel.patientInfo.isTARV = $rootScope.patient.patientStatus;
+                        }
                         var addressMap = patient.address;
                         reportModel.address1 = addressMap.address1;
                         reportModel.address2 = addressMap.address2;
@@ -209,14 +215,24 @@ angular.module('bahmni.clinical')
 
             var populatePatientLabResults = function () {
                 reportModel.labOrderResult = {};
-                var labResultsToShow = ['LO_CD4', 'LO_ViralLoad', 'LO_ALT', 'LO_AST', 'LO_HB', 'LO_Other:'];
+                var labResultsToShow = ['ALT', 'AST', 'CD 4', 'CD4 %', 'CD4 Abs', 'HGB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outros'];
                 return new Promise(function (resolve, reject) {
                     labOrderResultService.getAllForPatient({patientUuid: patientUuid}).then(function (response) {
                         if (response.labAccessions) {
                             if (response.labAccessions.length > 0) {
                                 _.map(response.labAccessions[0], function (currentObj) {
                                     if (_.includes(labResultsToShow, currentObj.testName)) {
-                                        reportModel.labOrderResult[currentObj.testName] = {testDate: currentObj.resultDateTime, testResult: currentObj.result};
+                                        var loName;
+                                        if (currentObj.testName == 'ALT') { loName = 'LO_ALT'; }
+                                        else if (currentObj.testName == 'AST') { loName = 'LO_AST'; }
+                                        else if (currentObj.testName == 'CD 4') { loName = 'LO_CD4'; }
+                                        else if (currentObj.testName == 'CD4 %') { loName = 'LO_CD4'; }
+                                        else if (currentObj.testName == 'CD4 Abs') { loName = 'LO_CD4'; }
+                                        else if (currentObj.testName == 'HGB') { loName = 'LO_HGB'; }
+                                        else if (currentObj.testName == 'CARGA VIRAL (Absoluto-Rotina)') { loName = 'LO_ViralLoad'; }
+                                        else if (currentObj.testName == 'CARGA VIRAL(Qualitativo-Rotina)') { loName = 'LO_ViralLoad'; }
+                                        else { loName = currentObj.testName; }
+                                        reportModel.labOrderResult[loName] = {testDate: currentObj.resultDateTime, testResult: currentObj.result};
                                     }
                                 });
                             }

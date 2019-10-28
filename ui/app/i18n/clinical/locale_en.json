@@ -533,12 +533,14 @@
     "LO_ViralLoad":"Viral Load",
     "LO_ALT":"ALT",
     "LO_AST":"AST",
-    "LO_HB":"Hemoglobin",
-    "LO_Other:":"Other",
+    "LO_HGB":"Hemoglobin",
+    "LO_Other":"Other",
     "LO_DATE":"Date",
     "CONSULTATION_TAB_REVISED_DIAGNOSES_LABEL_DIAGNOSES_LABEL":"Details",
     "CONFIRMED":"CONFIRMED",
     "PRESUMED":"PRESUMED",
     "INACTIVE":"Inactive",
-    "Assintomático" : "Asymptomatic"
+    "Assintomático" : "Asymptomatic",
+    "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Appointments",
+    "Vitals Flowsheet": "Nutritional Values"
 }
