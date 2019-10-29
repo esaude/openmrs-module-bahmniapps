@@ -10,39 +10,10 @@ angular.module('bahmni.registration')
             $scope.patient = {};
             $scope.actions = {};
             $scope.myForms = {};
-            $scope.NID = {};
-            $scope.formFieldsDisabled = false;
             $scope.addressHierarchyConfigs = appService.getAppDescriptor().getConfigValue("addressHierarchy");
             $scope.disablePhotoCapture = appService.getAppDescriptor().getConfigValue("disablePhotoCapture");
             $scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
             $rootScope.isEligibleForVisit = true;
-
-            var splitNID = function () {
-                return patientService.get(uuid).then(function (response) {
-                    var patientNID = response.patient.identifiers[0].identifier;
-                    var NIDResult = patientNID.split("/");
-                    $scope.NID.healthFacilityCode = NIDResult[0];
-                    $scope.NID.year = parseInt(NIDResult[2], 10);
-                    $scope.NID.sequentialCode = NIDResult[3];
-                });
-            };
-            splitNID();
-
-            $scope.buildFinalNID = function () {
-                if (!$scope.patient.primaryIdentifier) {
-                    return;
-                }
-                $scope.patient.primaryIdentifier.registrationNumber = $scope.NID.healthFacilityCode + '/' + $scope.NID.serviceCode + '/' + $scope.NID.year + '/' + $scope.NID.sequentialCode;
-            };
-
-            $scope.$on('DisableRegistrationFields', function (ent, data) {
-                if (data) {
-                    $scope.formFieldsDisabled = data;
-                } else {
-                    $scope.formFieldsDisabled = false;
-                }
-            });
-
             var setReadOnlyFields = function () {
                 $scope.readOnlyFields = {};
                 var readOnlyFields = appService.getAppDescriptor().getConfigValue("readOnlyFields");
@@ -53,9 +24,6 @@ angular.module('bahmni.registration')
                 });
             };
             var successCallBack = function (openmrsPatient) {
-                $scope.$watch('patient.primaryIdentifier.registrationNumber', function () {
-                    $scope.patient.primaryIdentifier.generate();
-                });
                 $scope.openMRSPatient = openmrsPatient["patient"];
                 $scope.patient = openmrsPatientMapper.map(openmrsPatient);
                 patientService.getPatientStatusState(uuid).then(function (response) {
