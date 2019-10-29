@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.registration')
-    .controller('PatientCommonController', ['$scope', '$rootScope', '$http', 'patientAttributeService', 'appService', 'spinner', '$location', 'ngDialog', '$window', '$state', 'patientService',
-        function ($scope, $rootScope, $http, patientAttributeService, appService, spinner, $location, ngDialog, $window, $state, patientService) {
+    .controller('PatientCommonController', ['$scope', '$rootScope', '$http', 'patientAttributeService', 'appService', 'spinner', '$location', 'ngDialog', '$window', '$state', 'patientService', 'providerService', 'providerTypeService',
+        function ($scope, $rootScope, $http, patientAttributeService, appService, spinner, $location, ngDialog, $window, $state, patientService, providerService, providerTypeService) {
             var autoCompleteFields = appService.getAppDescriptor().getConfigValue("autoCompleteFields", []);
             var showCasteSameAsLastNameCheckbox = appService.getAppDescriptor().getConfigValue("showCasteSameAsLastNameCheckbox");
             var personAttributes = [];
@@ -20,6 +20,7 @@ angular.module('bahmni.registration')
             $scope.showSaveAndContinueButton = false;
             var dontSaveButtonClicked = false;
             var isHref = false;
+            var currentProvider = $rootScope.currentProvider;
             $rootScope.duplicatePatients;
             $rootScope.duplicatePatientCount = 0;
             $scope.isAddressRequired = "false";
@@ -28,7 +29,26 @@ angular.module('bahmni.registration')
             $scope.showDeathSection = false;
             $scope.formFieldsDisabled = false;
             $scope.hasClinical = "false";
+            $scope.hasClinicalProfile = false;
 
+            $scope.getProfile = function () {
+                return providerTypeService.getAllProviders().then(function (results) {
+                    var currentProvider = $rootScope.currentProvider;
+                    providerService.getProviderAttributes(currentProvider.uuid).then(function (response) {
+                        if (response.data) {
+                            var providerAttributes = response.data.results;
+                        }
+
+                        var providerType = providerTypeService.getProviderType(providerAttributes)[0];
+
+                        if (providerType === 'Clinical') {
+                            $scope.hasClinicalProfile = true;
+                        }
+                    });
+                });
+            };
+
+            spinner.forPromise($scope.getProfile());
             var findPrivilege = function (privilegeName) {
                 return _.find($rootScope.currentUser.privileges, function (privilege) {
                     $scope.hasCLinical = privilegeName === privilege.name;
@@ -93,7 +113,7 @@ angular.module('bahmni.registration')
             };
 
             $rootScope.doExtensionAction = function (extension) {
-                var forwardTo = appService.getAppDescriptor().formatUrl(extension.url, { 'patientUuid': $scope.selectedPatient.uuid });
+                var forwardTo = appService.getAppDescriptor().formatUrl(extension.url, {'patientUuid': $scope.selectedPatient.uuid});
                 $location.url(forwardTo);
             };
 
@@ -150,7 +170,7 @@ angular.module('bahmni.registration')
                     if (event) {
                         event.preventDefault();
                     }
-                    ngDialog.openConfirm({ template: "../common/ui-helper/views/saveConfirmation.html", scope: $scope });
+                    ngDialog.openConfirm({template: "../common/ui-helper/views/saveConfirmation.html", scope: $scope});
                 }
             };
 

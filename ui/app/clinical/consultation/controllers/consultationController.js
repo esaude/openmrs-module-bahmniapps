@@ -4,16 +4,17 @@ angular.module('bahmni.clinical').controller('ConsultationController',
     ['$scope', '$rootScope', '$state', '$location', '$translate', 'clinicalAppConfigService', 'diagnosisService', 'urlHelper', 'contextChangeHandler',
         'spinner', 'encounterService', 'messagingService', 'sessionService', 'retrospectiveEntryService', 'patientContext', '$q',
         'patientVisitHistoryService', '$stateParams', '$window', 'visitHistory', 'clinicalDashboardConfig', 'appService',
-        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService', 'printer', 'printPrescriptionReportService', 'providerTypeService', '$http', 'patientService',
+
+        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService', 'printer', 'printPrescriptionReportService', 'providerService', 'providerTypeService', '$http', 'patientService', 'transferOutService',
         function ($scope, $rootScope, $state, $location, $translate, clinicalAppConfigService, diagnosisService, urlHelper, contextChangeHandler,
             spinner, encounterService, messagingService, sessionService, retrospectiveEntryService, patientContext, $q,
             patientVisitHistoryService, $stateParams, $window, visitHistory, clinicalDashboardConfig, appService,
-            ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerTypeService, $http, patientService) {
+            ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerService, providerTypeService, $http, patientService, transferOutService) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var getPreviousActiveCondition = Bahmni.Common.Domain.Conditions.getPreviousActiveCondition;
             var currentProviderType;
             $scope.togglePrintList = false;
-            $scope.patient = patientContext.patient;
+            $rootScope.patient = patientContext.patient;
             $scope.showDashboardMenu = false;
             $scope.stateChange = function () {
                 return $state.current.name === 'patient.dashboard.show';
@@ -65,6 +66,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
             clinicalDashboardConfig.quickPrints = appService.getAppDescriptor().getConfigValue('quickPrints');
             var clinicalDashboardUuid = '0623e3b6-8701-4c07-8493-2930bd67f11a';
             var prescriptionReportUuid = '2c6c27b0-3eef-4010-bfbb-9133d0016d25';
+            var transferReportUuid = '2c6c27b0-3eef-4010-bfbb-9133d0017d45';
             $scope.printButtonDropdownOptions = [{
                 name: $translate.instant('PRINT_CLINICAL_DASHBOARD_LABEL'),
                 uuid: clinicalDashboardUuid
@@ -73,42 +75,64 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 name: $translate.instant('PRESCRIPTION_REPORT_PRINT_PRESCRIPTION_LABEL'),
                 uuid: prescriptionReportUuid
             }
-
             ];
+
+            if ($scope.patient['PATIENT_STATE_CHANGE']) {
+                if ($scope.patient['PATIENT_STATE_CHANGE'].value.display == 'Patient_Transferred_Out') {
+                    $scope.printButtonDropdownOptions.push({
+                        name: $translate.instant('TRANSFER_OUT_FORM'),
+                        uuid: transferReportUuid
+                    });
+                }
+            }
 
             $scope.optionText = function (value) {
                 return value.name;
             };
 
-            $scope.printDashboardOrPrescription = function (option) {
-                if (option.uuid === clinicalDashboardUuid) {
+            $scope.printDashboardOrPrescription = function (option)
+            {
+                if (option.uuid === clinicalDashboardUuid)
+                {
                     clinicalDashboardConfig.currentTab.print();
-                } else {
-                    if (option.uuid === prescriptionReportUuid) {
-                        $rootScope.isTarvReport = false;
-                    }
+                }
+                else if (option.uuid === prescriptionReportUuid)
+                {
+                    $rootScope.isTarvReport = false;
                     printPrescriptionReportService.getReportModel($stateParams.patientUuid, $rootScope.isTarvReport)
-                        .then(function (reportData) {
+                        .then(function (reportData)
+                        {
                             $rootScope.prescriptionReportData = reportData;
-
-                            printer.printFromScope("dashboard/views/printPrescriptionReport.html", $rootScope, function () {});
+                            printer.printFromScope("dashboard/views/printPrescriptionReport.html", $rootScope, function () { });
                         });
                 }
+                else
+                {
+                    if (option.uuid === transferReportUuid)
+                    {
+                        $rootScope.isTarvReport = false;
+                    }
+                    transferOutService.getReportModel($stateParams.patientUuid, $rootScope.isTarvReport)
+                            .then(function (reportData)
+                            {
+                                $rootScope.transferReportData = reportData;
+                                printer.printFromScope("dashboard/views/TransferOut.html", $rootScope, function () { });
+                            });
+                }
             };
-
-            $scope.allowConsultation = function () {
+            $scope.allowConsultation = function ()
+            {
                 return appService.getAppDescriptor().getConfigValue('allowConsultationWhenNoOpenVisit');
             };
-
-            $scope.closeDashboard = function (dashboard) {
+            $scope.closeDashboard = function (dashboard)
+            {
                 clinicalDashboardConfig.closeTab(dashboard);
                 $scope.$parent.$parent.$broadcast("event:switchDashboard", clinicalDashboardConfig.currentTab);
             };
-
-            $scope.closeAllDialogs = function () {
+            $scope.closeAllDialogs = function ()
+            {
                 ngDialog.closeAll();
             };
-
             $scope.availableBoards = [];
             $scope.configName = $stateParams.configName;
 
@@ -181,10 +205,12 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 var adtNavigationConfig = appService.getAppDescriptor().getConfigValue('adtNavigationConfig');
                 Object.assign($scope.adtNavigationConfig, adtNavigationConfig);
                 setCurrentBoardBasedOnPath();
-                return $q.all([providerTypeService.getAllProviders()]).then(function (results) {
-                    var allProviders = results[0];
-                    var currentProvider = $rootScope.currentProvider;
-                    currentProviderType = _.filter(providerTypeService.getProviderType(allProviders, currentProvider)[0])[0];
+                var currentProvider = $rootScope.currentProvider;
+                return $q.all([providerService.getProviderAttributes(currentProvider.uuid)]).then(function (response) {
+                    if (response[0].data) {
+                        var providerAttributes = response[0].data.results;
+                        currentProviderType = providerTypeService.getProviderType(providerAttributes)[0];
+                    }
                 });
             };
 
@@ -545,12 +571,19 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     var params = angular.copy($state.params);
                     params.cachebuster = Math.random();
                     _.map(encounterData.drugOrders, function (currentObj) {
-                        if (currentObj.drug.form == 'ARV') {
-                            if (currentObj.action == 'DISCONTINUE') {
-                                if (!($scope.patient.patientStatus.toUpperCase() === "Pre TARV".toUpperCase() && currentObj.orderAttributes !== undefined)) {
-                                    patientService.savePatientStatusState('TARV_TREATMENT_SUSPENDED', $scope.patient.uuid, $rootScope.currentUser.uuid, $scope.patient.patientState);
+                        if (currentObj.orderAttributes && currentObj.orderAttributes.length) {
+                            currentObj.orderAttributes.forEach(attribute => {
+                                if (attribute.name.toUpperCase() === "Dispensed".toUpperCase() && attribute.value) {
+                                    if (currentObj.drug.form == 'ARV') {
+                                        if (currentObj.action == 'DISCONTINUE') {
+                                            if (!($scope.patient.patientStatus.toUpperCase() === "Pre TARV".toUpperCase())) {
+                                                patientService.savePatientStatusState('TARV_TREATMENT_SUSPENDED', $scope.patient.uuid, $rootScope.currentUser.uuid, $scope.patient.patientState);
+                                                return;
+                                            }
+                                        }
+                                    }
                                 }
-                            }
+                            });
                         }
                     });
                     return encounterService.create(encounterData)
@@ -616,7 +649,6 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     withCredentials: true
                 }).then(function (results) {
                     $rootScope.dispenseData = results.data;
-
                     if (isEmpty(results.data)) {
                         $rootScope.arvdispenseddate = null;
                     } else {
@@ -625,7 +657,11 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 });
             };
 
-            $scope.dispenseddrug();
+            if ($scope.patient.arvdispenseddate === undefined || $scope.patient.arvdispenseddate === null) {
+                $scope.dispenseddrug();
+            } else {
+                $rootScope.arvdispenseddate = $scope.patient.arvdispenseddate;
+            }
 
             $scope.filterTabByProviderType = function (boardIndex) {
                 if (currentProviderType == "APSS") {

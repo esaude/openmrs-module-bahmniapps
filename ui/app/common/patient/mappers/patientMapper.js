@@ -86,6 +86,7 @@ Bahmni.PatientMapper = function (patientConfig, $rootScope, $translate) {
             "address1": preferredAddress.address1,
             "address2": preferredAddress.address2,
             "address3": preferredAddress.address3,
+            "address4": preferredAddress.address4,
             "cityVillage": preferredAddress.cityVillage,
             "countyDistrict": preferredAddress.countyDistrict === null ? '' : preferredAddress.countyDistrict,
             "stateProvince": preferredAddress.stateProvince

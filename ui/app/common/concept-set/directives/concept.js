@@ -20,12 +20,12 @@ angular.module('bahmni.common.conceptSet')
                 var ageToMonths = (patientAgeYears * 12) + patientAgeMonths;
                 var hideAbnormalbuttonConfig = scope.observation && scope.observation.conceptUIConfig && scope.observation.conceptUIConfig['hideAbnormalButton'];
                 var currentUrl = window.location.href;
-                scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
                 scope.currentDate = $filter("date")(dateUtil.now(), 'yyyy-MM-dd');
                 weight = scope.patient.weight;
                 height = scope.patient.height;
 
                 scope.onDateChange = function () {
+                    scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
                     if (scope.observation.concept.name === "SP_Treatment Start Date") {
                         treatmentStartDate = scope.observation.value;
                     }
@@ -60,17 +60,19 @@ angular.module('bahmni.common.conceptSet')
                         answer = null;
                         $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                     }
-                    if (startDateProphylaxis === scope.today) {
-                        answer = prophylaxisData[0];
-                        $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
-                    }
-                    if (startDateProphylaxis < scope.today && startDateProphylaxis !== '') {
-                        answer = prophylaxisData[1];
-                        $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
-                    }
-                    if ((enDateProphylaxis <= scope.today) && (enDateProphylaxis >= startDateProphylaxis) && (enDateProphylaxis !== '')) {
-                        answer = prophylaxisData[2];
-                        $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                    if (prophylaxisData !== undefined) {
+                        if (startDateProphylaxis === scope.today) {
+                            answer = prophylaxisData[0];
+                            $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
+                        if (startDateProphylaxis < scope.today && startDateProphylaxis !== '') {
+                            answer = prophylaxisData[1];
+                            $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
+                        if ((enDateProphylaxis <= scope.today) && (enDateProphylaxis >= startDateProphylaxis) && (enDateProphylaxis !== '')) {
+                            answer = prophylaxisData[2];
+                            $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
                     }
 
                     if (treatmentStartDate > treatmentEndDate && treatmentEndDate !== '') {
@@ -528,6 +530,16 @@ angular.module('bahmni.common.conceptSet')
 
                 scope.getBooleanResult = function (value) {
                     return !!value;
+                };
+
+                scope.hideField = function (conceptName) {
+                    if (scope.patient.gender === 'M' && conceptName === 'Gynecology/Obstetrics') {
+                        return true;
+                    }
+                    if (scope.patient.patientStatus != 'Pre TARV' && conceptName === 'Apss_Prepared_start_ARV_treatment') {
+                        return true;
+                    }
+                    return false;
                 };
             };
 

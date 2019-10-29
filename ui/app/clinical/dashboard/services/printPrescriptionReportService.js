@@ -22,7 +22,8 @@ angular.module('bahmni.clinical')
                 prescriber: '',
                 prescriptionDate: '',
                 location: '',
-                orders: []
+                orders: [],
+                differentiatedCareModel: []
             };
 
             var patientUuid = '';
@@ -38,7 +39,8 @@ angular.module('bahmni.clinical')
                     var p2 = populatePatientWeightAndHeight();
                     var p4 = populateLocationAndDrugOrders(0);
                     var p5 = populateHospitalNameAndLogo();
-                    Promise.all([p1, p2, p4, p5]).then(function () {
+                    var p6 = populateDifferentiatedCareModel();
+                    Promise.all([p1, p2, p4, p5, p6]).then(function () {
                         resolve(reportModel);
                     }).catch(function (error) {
                         reject(error);
@@ -151,7 +153,7 @@ angular.module('bahmni.clinical')
             var populateLocationAndDrugOrders = function (lastVisit) {
                 return new Promise(function (resolve, reject) {
                     patientVisitHistoryService.getVisitHistory(patientUuid, null).then(function (response) {
-                        if (response.visits && response.visits.length > 0) {
+                        if (response.visits && response.visits.length > 0 && response.visits[lastVisit]) {
                             reportModel.location = response.visits[lastVisit].location.display;
                             populateDrugOrders(response.visits[lastVisit].uuid);
                         }
@@ -167,6 +169,26 @@ angular.module('bahmni.clinical')
                     localeService.getLoginText().then(function (response) {
                         reportModel.hospitalName = response.data.loginPage.hospitalName;
                         reportModel.hospitalLogo = response.data.homePage.logo;
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+                });
+            };
+
+            var populateDifferentiatedCareModel = function () {
+                return new Promise(function (resolve, reject) {
+                    observationsService.fetch(patientUuid, 'Reference_MDC_Section', undefined, 0, undefined, undefined, undefined, undefined).then(function (response) {
+                        if (reportModel.differentiatedCareModel.length) {
+                            reportModel.differentiatedCareModel = [];
+                        }
+                        if (response.data && response.data.length > 0 && response.data[0].groupMembers) {
+                            response.data[0].groupMembers.forEach(member => {
+                                if (member.concept.name != "Reference_Eligible" && member.value.name != "Reference_End") {
+                                    reportModel.differentiatedCareModel.push(member.concept.shortName);
+                                }
+                            });
+                        }
                         resolve();
                     }).catch(function (error) {
                         reject(error);

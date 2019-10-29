@@ -96,7 +96,6 @@ angular.module('bahmni.clinical')
                     paramsToBeSent.numberOfVisits = params.numberOfVisits;
                 }
             }
-
             $http.get(Bahmni.Common.Constants.bahmniLabOrderResultsUrl, {
                 method: "GET",
                 params: paramsToBeSent,

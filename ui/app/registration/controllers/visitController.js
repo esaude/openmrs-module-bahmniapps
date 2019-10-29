@@ -7,6 +7,9 @@ angular.module('bahmni.registration')
             var vm = this;
             var patientUuid = $stateParams.patientUuid;
             var extensions = appService.getAppDescriptor().getExtensions("org.bahmni.registration.conceptSetGroup.observations", "config");
+            if (extensions[0] === undefined || (extensions[0] !== undefined && extensions[0].extensionPointId !== "org.bahmni.registration.conceptSetGroup.observations")) {
+                $window.location.reload();
+            }
             var formExtensions = appService.getAppDescriptor().getExtensions("org.bahmni.registration.conceptSetGroup.observations", "forms");
             var locationUuid = sessionService.getLoginLocationUuid();
             var selectedProvider = $rootScope.currentProvider;

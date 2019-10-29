@@ -490,7 +490,7 @@
                     </article>
                     <section transference-health-facility-address-fields data-address-levels="::addressLevels" data-address="patient.address"
                              field-validation="::fieldValidation" ng-if="::addressHierarchyConfigs.showAddressFieldsTopDown"
-                             strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel"></section>
+                             strict-autocomplete-from-level="::addressHierarchyConfigs.strictAutocompleteFromLevel" data-patient="patient.patientState"></section>
                 </section>
             </div>
         </div>
@@ -501,7 +501,7 @@
          &&  section.title!='patientProfessionInformation'">
 
 
-        <div>
+        <div ng-show="hasClinicalProfile">
             <div class="box-container form">
                 <legend class="additional-attribute" toggle="section.expand">
                     <span>
@@ -515,7 +515,7 @@
                     </span>
                 </legend>
 
-                <section class="form-field-inline clearfix">
+                <section class="form-field-inline clearfix" style="font-size: 1em;">
                     <section ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">
                         <article class="form-field" ng-repeat="attribute in ::attributeRow" 
                                  ng-class="::{'right-form-field' : $index%2 != 0}">
@@ -572,6 +572,10 @@
                                 <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
                                                  is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
                                                  get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate" ng-if="attribute.name == 'DATE_OF_SUSPENSION'"></attribute-types>
+
+                                <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
+                                                 is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
+                                                 get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate" ng-if="attribute.name == 'SUSPENSION_REASONS'"></attribute-types>
                             
                                 <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
                                                  is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"

@@ -38,11 +38,22 @@ angular.module('bahmni.common.conceptSet')
             });
         };
 
+        var getAllDrugs = function () {
+            var url = Bahmni.Common.Constants.drugUrl;
+            return $http.get(url, {
+                params: {
+                    v: "full",
+                    limit: 150
+                }
+            });
+        };
+
         return {
             getConcept: getConcept,
             getComputedValue: getComputedValue,
             getObsTemplatesForProgram: getObsTemplatesForProgram,
-            getDrugOrderRelationship: getDrugOrderRelationship
+            getDrugOrderRelationship: getDrugOrderRelationship,
+            getAllDrugs: getAllDrugs
         };
     }]);
 

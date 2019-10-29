@@ -9,6 +9,7 @@ angular.module('bahmni.registration')
                 address: '=',
                 addressLevels: '=',
                 fieldValidation: '=',
+                patient: '=',
                 strictAutocompleteFromLevel: '='
             }
         };
@@ -199,5 +200,16 @@ angular.module('bahmni.registration')
                 }
             });
         };
+
+        var deregisterAddressWatchForPatientState = $scope.$watch('patient', function (newValue) {
+            if (newValue !== undefined) {
+                if (newValue == "INACTIVE_SUSPENDED" || newValue === "INACTIVE_DEATH") {
+                    $scope.isAddressDisabled = true;
+                } else {
+                    $scope.isAddressDisabled = false;
+                }
+                deregisterAddressWatchForPatientState();
+            }
+        });
         init();
     }]);
