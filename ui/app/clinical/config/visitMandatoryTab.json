@@ -42,6 +42,24 @@
                 "showDetailsButton": true
             }
         },
+        "Disposition": {
+            "type": "disposition",
+            "translationKey": "VISIT_TITLE_DISPOSITIONS_KEY",
+            "displayOrder": 3,
+            "config": {
+                "translationKey":"VISIT_TITLE_DISPOSITION_KEY",
+                "numberOfVisits": 1,
+                "showDetailsButton": true
+            }
+        },
+        "Admission Details": {
+            "type": "admissionDetails",
+            "displayOrder": 4,
+            "config": {
+                "translationKey": "VISIT_TITLE_ADMISSION_DETAILS_KEY",
+                "showDetailsButton": true
+            }
+        },
         "Investigation Result": {
             "type": "investigationResult",
             "title": "Investigation Result",
@@ -71,12 +89,18 @@
                 "showProvider" : true
             }
         },
-        "Appointments": {
-            "type": "appointment",
-            "title": "Appointments",
+        "Radiology": {
+            "type": "radiology",
             "displayOrder": 7,
             "config": {
-                "translationKey": "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL"
+                "translationKey": "VISIT_TITLE_RADIOLOGY_KEY"
+            }
+        },
+        "Patient Files": {
+            "type": "patientFiles",
+            "displayOrder": 8,
+            "config": {
+                "translationKey": "VISIT_TITLE_PATIENT_FILES_KEY"
             }
         }
     }
