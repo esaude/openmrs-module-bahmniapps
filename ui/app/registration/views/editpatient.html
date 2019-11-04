@@ -30,7 +30,7 @@
                                              on-change="checkDuplicatePatients()"
                                              get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                     </article>
-                 </span>
+             </span>
 
             <span class="form-field-inline clearfix" ng-repeat="attribute in ::patientConfiguration.attributeTypes">
                 <article class="form-field" ng-if="attribute.name == 'US_REG_DATE'" 
@@ -68,7 +68,7 @@
                         <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
                         <input type="text" name="healthFacilityCode" ng-model="NID.healthFacilityCode"
                                minlength="8" maxlength="8" size=8 required focus-me="true" readonly
-                               ng-focus="NID.healthFacilityCode = healthFacility.code" >
+                               ng-focus="NID.healthFacilityCode = healthFacility.code">
                     </div>
 
                     <div class="input-prepend">

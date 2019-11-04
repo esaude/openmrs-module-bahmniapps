@@ -10,6 +10,7 @@ angular.module('bahmni.registration')
             $scope.patient = {};
             $scope.actions = {};
             $scope.myForms = {};
+            $scope.NID = {};
             $scope.addressHierarchyConfigs = appService.getAppDescriptor().getConfigValue("addressHierarchy");
             $scope.disablePhotoCapture = appService.getAppDescriptor().getConfigValue("disablePhotoCapture");
             $scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
