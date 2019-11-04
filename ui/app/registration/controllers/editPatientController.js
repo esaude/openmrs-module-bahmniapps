@@ -11,6 +11,7 @@ angular.module('bahmni.registration')
             $scope.actions = {};
             $scope.myForms = {};
             $scope.NID = {};
+            $scope.currentYear = new Date().getFullYear();
             $scope.addressHierarchyConfigs = appService.getAppDescriptor().getConfigValue("addressHierarchy");
             $scope.disablePhotoCapture = appService.getAppDescriptor().getConfigValue("disablePhotoCapture");
             $scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
