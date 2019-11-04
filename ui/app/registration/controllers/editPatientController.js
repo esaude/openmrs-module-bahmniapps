@@ -37,13 +37,10 @@ angular.module('bahmni.registration')
                 return patientService.get(uuid).then(function (response) {
                     patientNID = response.patient.identifiers[0].identifier;
                     if (patientNID.length === completeNIDLength) {
-                        $scope.completeNIDFormat = true;
                         var NIDResult = patientNID.split("/");
                         $scope.NID.healthFacilityCode = NIDResult[0];
                         $scope.NID.year = parseInt(NIDResult[2], 10);
                         $scope.NID.sequentialCode = NIDResult[3];
-                    } else {
-                        $scope.completeNIDFormat = false;
                     }
                 });
             };
