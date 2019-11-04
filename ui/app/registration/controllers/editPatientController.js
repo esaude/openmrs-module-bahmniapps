@@ -10,8 +10,6 @@ angular.module('bahmni.registration')
             $scope.patient = {};
             $scope.actions = {};
             $scope.myForms = {};
-            $scope.NID = {};
-            $scope.formFieldsDisabled = false;
             $scope.addressHierarchyConfigs = appService.getAppDescriptor().getConfigValue("addressHierarchy");
             $scope.disablePhotoCapture = appService.getAppDescriptor().getConfigValue("disablePhotoCapture");
             $scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
@@ -76,6 +74,7 @@ angular.module('bahmni.registration')
                         $scope.patient.primaryIdentifier.generate();
                     });
                 }
+
                 $scope.openMRSPatient = openmrsPatient["patient"];
                 $scope.patient = openmrsPatientMapper.map(openmrsPatient);
                 patientService.getPatientStatusState(uuid).then(function (response) {

@@ -166,7 +166,7 @@ angular.module('bahmni.clinical')
 
                         $scope.visits = _.map($scope.visits, function (current) {
                             if (current.stopDatetime) {
-                                if (current.encounters.length > 1) {
+                                if (current.encounters.length >= 1) {
                                     current.visitStatus = "VISIT_STATUS_FINISHED";
                                     return current;
                                 }
