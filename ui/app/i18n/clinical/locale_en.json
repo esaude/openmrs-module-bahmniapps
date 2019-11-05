@@ -358,6 +358,7 @@
     "INVESTIGATIONS_PANELS_HEADER_LABEL": "Panels",
     "INVESTIGATIONS_SELECTIONS_HEADER_LABEL": "Selection",
     "CLINICAL_GO_TO_DASHBOARD_LABEL": "Go to IPD dashboard",
+    "GENDER_LABEL": "Gender",
     "GENDER_MALE":"Male",
     "GENDER_FEMALE":"Female",
     "VISIT_STATUS_FINISHED":"Finished",
@@ -540,5 +541,8 @@
     "CONFIRMED":"CONFIRMED",
     "PRESUMED":"PRESUMED",
     "INACTIVE":"Inactive",
-    "Assintomático" : "Asymptomatic"
+    "Assintomático" : "Asymptomatic",
+    "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Appointments",
+    "Vitals Flowsheet": "Nutritional Values",
+    "MASTER_CARD_LABEL":"Master Card"
 }
