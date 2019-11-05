@@ -165,6 +165,7 @@ angular.module('bahmni.registration')
                         $rootScope.isValidFields = true;
                     }
                     $scope.submitted = true;
+                    $rootScope.buttonSubmitted = true;
                     validFields();
                     checkEmptyFields();
                     $scope.actions.submitSource = source;
