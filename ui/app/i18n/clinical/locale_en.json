@@ -540,5 +540,7 @@
     "CONFIRMED":"CONFIRMED",
     "PRESUMED":"PRESUMED",
     "INACTIVE":"Inactive",
-    "Assintomático" : "Asymptomatic"
+    "Assintomático" : "Asymptomatic",
+    "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Appointments",
+    "Vitals Flowsheet": "Nutritional Values"
 }
