@@ -1,0 +1,861 @@
+<style>
+	@media print and (orientation: landscape) {
+		.page-break {
+			display: block;
+			page-break-before: always;
+		}
+	}
+
+	table {
+		width: 100%
+	}
+
+	table,
+	td,
+	th {
+		border: 1px solid #595959;
+		border-collapse: collapse;
+		font-family: arial;
+		font-size: 10px;
+	}
+
+	td,
+	th {
+		padding: 0 1px 0 1px;
+	}
+
+	.center {
+		text-align: center;
+	}
+
+	.text-sideways {
+		writing-mode: vertical-rl;
+		text-orientation: sideways;
+	}
+
+	.text-upright {
+		writing-mode: vertical-rl;
+		text-orientation: upright;
+	}
+
+	.text-small {
+		font-size: 7px;
+	}
+
+	.title {
+		font-weight: bold;
+		font-size: 1em
+	}
+
+	.align-right {
+		float: right;
+	}
+</style>
+
+
+<body>
+	<table>
+		<tbody>
+			<tr>
+				<td class="title" colspan="30"><b>{{ 'APSS_PP_SHEET_LABEL' | translate }}</b></td>
+				<td class="center" rowspan="2">2</td>
+				<td colspan="13">
+					{{ 'PP_KEY_POPULATION_LABEL' | translate }}: 
+					<input type="checkbox" ng-checked="data.keyPopulation == 'PP_Key_population_HSH'">HSH
+					<input type="checkbox" ng-checked="data.keyPopulation == 'PP_Key_population_PID'">PID
+					<input type="checkbox" ng-checked="data.keyPopulation == 'PP_Key_population_REC'">REC
+					<input type="checkbox" ng-checked="data.keyPopulation == 'PP_Key_population_MTS'">MTS
+					<input type="checkbox">Outro:
+				</td>
+			</tr>
+			<tr>
+				<td class="center">1</td>
+				<td colspan="29">
+					<div>
+						<div>
+							<b>{{ 'PRESCRIPTION_REPORT_PATIENT_ID' | translate }}</b>:&nbsp{{data.patientInfo.patientId}}</span>
+							<span class="align-right">
+								<b>{{ 'APSS_PP_BOOK_LABEL' | translate }}:</b> <span>10</span>&nbsp;&nbsp;&nbsp;
+								Pág: <span><b>89</b></span>&nbsp;&nbsp;&nbsp;
+								Linha: <span><b>17</b></span>
+							</span>
+						</div>
+					</div>
+					<div>
+						<b> {{ 'PRESCRIPTION_REPORT_PATIENT_NAME' | translate }}</b>:&nbsp
+						{{ data.patientInfo.firstName }}&nbsp&nbsp{{ data.patientInfo.lastName }}
+						<span class="align-right">{{ 'GENDER_LABEL' | translate }}:
+							<input type="checkbox" ng-checked="data.patientInfo.gender == 'M'">M
+							<input type="checkbox" ng-checked="data.patientInfo.gender == 'F'">F&nbsp;&nbsp;&nbsp;
+							{{ 'AGE' | translate }} <span><b>{{ data.patientInfo.age }}</b></span>&nbsp;
+						</span>
+					</div>
+				</td>
+				<td colspan="13">População Vulnerável (Especifique)</td>
+			</tr>
+			<tr>
+				<td rowspan="2"></td>
+				<td colspan="13" rowspan="2"></td>
+				<td class="center" rowspan="2">3</td>
+				<td colspan="3" rowspan="2" style="width: 100px;">Consultas (Datas)</td>
+				<td colspan="2">Actual</td>
+				<td colspan="2">02/05/18</td>
+				<td colspan="2">02/06/18</td>
+				<td colspan="2">02/08/18</td>
+				<td colspan="2">02/11/18</td>
+				<td colspan="2">02/12/18</td>
+				<td colspan="2">02/01/19</td>
+				<td colspan="2">02/04/19</td>
+				<td colspan="2">__/__/__</td>
+				<td colspan="2">__/__/__</td>
+				<td colspan="2">__/__/__</td>
+				<td colspan="2">__/__/__</td>
+				<td colspan="2">__/__/__</td>
+			</tr>
+			<tr>
+				<td colspan="2">Próxima</td>
+				<td colspan="2">02/06/18</td>
+				<td colspan="2">02/08/18</td>
+				<td colspan="2">02/11/18</td>
+				<td colspan="2">02/12/18</td>
+				<td colspan="2">02/01/19</td>
+				<td colspan="2">02/04/19</td>
+				<td colspan="2">02/07/19</td>
+				<td colspan="2">__/__/__</td>
+				<td colspan="2">__/__/__</td>
+				<td colspan="2">__/__/__</td>
+				<td colspan="2">__/__/__</td>
+				<td colspan="2">__/__/__</td>
+			</tr>
+			<tr>
+				<td class="center">4</td>
+				<td colspan="19">ESTADO DA REVELAÇÃO DO DIAGNÓSTICO à Criança/Adolescente? Não/Parcial/Total (N/P/T)
+				</td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>P&nbsp;&nbsp;</span><span>T&nbsp;&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td class="center">5</td>
+				<td class="center" colspan="4">ACONSELHA-<br>MENTO<br>PRÉ-TARV</td>
+				<td colspan="15">Educação básica sobre HIV (Prevenção: Transmissão; Progressão<br>da doença) e ADESÃO
+					(Preparação; Necessidade de adesão; Plano<br>de Tratamento) (S / N)</td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td colspan="18">Comentários;&nbsp;<span></span></td>
+			</tr>
+			<tr>
+				<td class="center" rowspan="9">6</td>
+				<td class="center" colspan="4" rowspan="9">FACTORES<br>PSICO-<br>SOCIAIS<br>que<br>afectam
+					a<br>adesão<br>(A / B / C / D /<br>E / F /...Q /<br>outro)</td>
+				<td class="center">A</td>
+				<td colspan="6">Recusa resultado positivo</td>
+				<td class="center" style="width: 9px;">I</td>
+				<td colspan="7">Dificuldade para revelar a parceira / família</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+				<td class="center">A</td>
+				<td class="center">I</td>
+			</tr>
+			<tr>
+				<td class="center">B</td>
+				<td colspan="6">Sente-se doente demais</td>
+				<td class="center">J</td>
+				<td colspan="7">Toxicidade / Medo de efeitos secundários</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+				<td class="center">B</td>
+				<td class="center">J</td>
+			</tr>
+			<tr>
+				<td class="center">C</td>
+				<td colspan="6">Não acredita no TARV</td>
+				<td class="center">L</td>
+				<td colspan="7">Perdeu / Esqueceu / Partilhou comprimidos</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+				<td class="center">C</td>
+				<td class="center">L</td>
+			</tr>
+			<tr>
+				<td class="center">D</td>
+				<td colspan="6">São muitos comprimidos</td>
+				<td class="center">M</td>
+				<td colspan="7">Estigma / Descriminação</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+				<td class="center">D</td>
+				<td class="center">M</td>
+			</tr>
+			<tr>
+				<td class="center">E</td>
+				<td colspan="6">Sente-se melhor</td>
+				<td class="center">N</td>
+				<td colspan="7">Problemas de transporte</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+				<td class="center">E</td>
+				<td class="center">N</td>
+			</tr>
+			<tr>
+				<td class="center">F</td>
+				<td colspan="6">Falta de alimentação</td>
+				<td class="center">O</td>
+				<td colspan="7">Violência baseada no género</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+				<td class="center">F</td>
+				<td class="center">O</td>
+			</tr>
+			<tr>
+				<td class="center">G</td>
+				<td colspan="6">Falta de apoio familiar</td>
+				<td class="center">P</td>
+				<td colspan="7">Aspectos culturais ou tradicionais</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+				<td class="center">G</td>
+				<td class="center">P</td>
+			</tr>
+			<tr>
+				<td class="center">H</td>
+				<td colspan="6">Depressão / ansiedade</td>
+				<td class="center">Q</td>
+				<td colspan="7">Uso abusivo de álcool ou drogas</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+				<td class="center">H</td>
+				<td class="center">Q</td>
+			</tr>
+			<tr>
+				<td colspan="15">Outro - Especifique</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td class="center" rowspan="7">7</td>
+				<td rowspan="7"><span class="center text-sideways" style="font-size: 0.7em; width: 6px;">PREVENÇÃO
+						POSITIVA</span></td>
+				<td style="width: 10px;">PP1</td>
+				<td colspan="17">Comportamento sexual - sexo seguro e oferta de preservativos (S/N)</td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+			</tr>
+			<tr>
+				<td>PP2</td>
+				<td colspan="17">Revelação do seroestado a parceiro / a e convite para testagem (S/N)</td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+			</tr>
+			<tr>
+				<td>PP3</td>
+				<td colspan="17">Importância da adesão aos cuidados Pré-TARV e TARV (S/N)</td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+			</tr>
+			<tr>
+				<td>PP4</td>
+				<td colspan="17">Infecções de Transmissão Sexual (S/N)</td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+			</tr>
+			<tr>
+				<td>PP5</td>
+				<td colspan="17">Planeamento Familiar - PF (S/N); Grávida - Gravidez Segura - GS (S/N); PTV (S/N)</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td>PP6</td>
+				<td colspan="17">Consumo de álcool e outras drogas</td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+			</tr>
+			<tr>
+				<td>PP7</td>
+				<td colspan="17">Necessidade de apoio comunitário (S/N)</td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+			</tr>
+			<tr>
+				<td class="center">8</td>
+				<td colspan="19">POPULAÇÕES CHAVE - oferta de lubrificantes (S/N)</td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+			</tr>
+			<tr>
+				<td class="center" rowspan="7">9</td>
+				<td rowspan="7"><span class="center text-sideways" style="font-size: 0.7em">SEGUIMENTO DA
+						ADESÃO<br>(APÓS O INÍCIO TARV)</span></td>
+				<td colspan="15" rowspan="2">Informou alguém sobre o seu seroestado?</td>
+				<td class="center" colspan="3">
+					<span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span>
+				</td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+			</tr>
+			<tr>
+				<td class="center" colspan="3">(Parentesco)</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td colspan="15" rowspan="2">Se criança, adolescente, idoso, se tem deficiência física -
+					Quem<br>administra os ARVs?</td>
+				<td class="center" colspan="3">(Nome / Próprio)</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td class="center" colspan="3">(Parentesco)</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td colspan="18">PLANO DE ADESÃO - Horário; Esquecimento da dose; Viagem - (S / N)</td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+			</tr>
+			<tr>
+				<td colspan="18">EFEITOS SECUNDÁRIOS - O que pode correr; Como manejar efeitos secundários - (S / N)
+				</td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+				<td class="center" colspan="2"><span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span></td>
+			</tr>
+			<tr>
+				<td colspan="18">ADESÃO ao TARV - Boa; Risco; Má; Dias de atraso no levantamento ARVs? (B/R/M - N&deg;
+					dias)</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td class="center">10</td>
+				<td colspan="19">MOTIVO da consulta - Normal / Faltoso / Abandono (N / F / A)</td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+				<td class="center" colspan="2">
+					<span>N&nbsp;&nbsp;</span><span>F&nbsp;&nbsp;</span><span>A&nbsp;&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td class="center" rowspan="3">11</td>
+				<td class="center" colspan="5" rowspan="3">GRUPOS<br>DE APOIO<br>Início/Continua/Fim<br>(Código - I/C/F)
+				</td>
+				<td>CR</td>
+				<td colspan="6">Crianças Reveladas</td>
+				<td>AR</td>
+				<td colspan="6">Adolescentes reveladas/os</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td>PC</td>
+				<td colspan="6">Pais e cuidadores</td>
+				<td>MPM</td>
+				<td colspan="6">Mãe para Mãe</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td colspan="7">Outro, especifique o grupo</td>
+				<td colspan="7"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td class="center" rowspan="4">12</td>
+				<td class="center" colspan="5" rowspan="4">Modelos<br>Diferenciados de<br>Cuidados
+					(MDC)<br>Início/Continua/Fim<br>(código - I/C/F)</td>
+				<td>GA</td>
+				<td colspan="6">GAAC</td>
+				<td>FR</td>
+				<td colspan="6">Fluxo rápido</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td>AF</td>
+				<td colspan="6">Abordagem familiar</td>
+				<td>DT</td>
+				<td colspan="6">Dispensa Trimestral</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td>CA</td>
+				<td colspan="6">Clube de adesão</td>
+				<td>DC</td>
+				<td colspan="6">Dispensa Comunitária</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td>PU</td>
+				<td colspan="6">Paragem Única</td>
+				<td colspan="7">Outro, especifique o grupo</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td rowspan="3">13</td>
+				<td class="center" colspan="12">Está preparado para iniciar o TARV</td>
+				<td class="center" rowspan="3">14</td>
+				<td class="center" colspan="28">TERMOS de CONSENTIMENTO</td>
+				<!--<td class="center" colspan="3">Assinaturas</td>-->
+				<td class="center" colspan="2">Datas</td>
+			</tr>
+			<tr>
+				<td class="center" colspan="12" rowspan="2">Data __/__/__</td>
+				<td colspan="17">
+					<div>O paciente / cuidador concorda em ser contactado, se necessário? <span
+							class="align-right"><input type="checkbox" checked>Não <input type="checkbox">Sim</span>
+					</div>
+				</td>
+				<td colspan="11">Contacto: <input type="checkbox"> Telefone: <input type="checkbox" checked> SMS: <input
+						type="checkbox"> Domiciliar</td>
+				<!--<td colspan="3"></td>-->
+				<td colspan="2">__/__/__</td>
+			</tr>
+			<tr>
+				<td colspan="17">O confidente concorda em ser contactado, se necessário? <span
+						class="align-right"><input type="checkbox">Não <input type="checkbox" checked>Sim</span></div>
+				</td>
+				<td colspan="11">Contacto: <input type="checkbox"> Telefone: <input type="checkbox" checked> SMS: <input
+						type="checkbox"> Domiciliar</td>
+				<!--<td colspan="3"></td>-->
+				<td colspan="2">__/__/__</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
