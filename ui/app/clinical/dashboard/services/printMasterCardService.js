@@ -3,7 +3,7 @@
 angular.module('bahmni.clinical')
     .service('printMasterCardService', ['$rootScope', '$translate', 'patientService', 'observationsService', 'programService', 'treatmentService', 'localeService', 'patientVisitHistoryService', 'conceptSetService', 'labOrderResultService',
         function ($rootScope, $translate, patientService, observationsService, programService, treatmentService, localeService, patientVisitHistoryService, conceptSetService, labOrderResultService) {
-            var reportModel = {
+            var masterCardModel = {
 
                 hospitalLogo: '',
                 keyPopulation: '',
@@ -75,15 +75,15 @@ angular.module('bahmni.clinical')
             this.getReportModel = function (_patientUuid) {
                 patientUuid = _patientUuid;
                 return new Promise(function (resolve, reject) {
-                    var p1  = populatePatientDemographics();
-                    var p2  = populatePatientWeightAndHeight();
-                    var p3  = populateLocationAndDrugOrders(0);
-                    var p4  = populateHospitalNameAndLogo();
-                    var p5  = populatePatientHeight();
-                    var p6  = populateBMI();
-                    var p7  = populateKeyPopulation();
-                    var p8  = populateTbDetails();
-                    var p9  = populateTbEndDate();
+                    var p1 = populatePatientDemographics();
+                    var p2 = populatePatientWeightAndHeight();
+                    var p3 = populateLocationAndDrugOrders(0);
+                    var p4 = populateHospitalNameAndLogo();
+                    var p5 = populatePatientHeight();
+                    var p6 = populateBMI();
+                    var p7 = populatePriorityPopulation();
+                    var p8 = populateTbDetails();
+                    var p9 = populateTbEndDate();
                     var p10 = populateTbBackground();
                     var p11 = populatePreg();
                     var p12 = populateBrestFeeding();
@@ -96,23 +96,25 @@ angular.module('bahmni.clinical')
                     var p19 = populatePatientLabResults();
 
                     Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19]).then(function () {
-                        resolve(reportModel);
+                        resolve(masterCardModel);
                     }).catch(function (error) {
                         reject(error);
                     });
                 });
             };
 
-            var populateKeyPopulation = function () {
-                //reportModel.keyPopulation = $rootScope.healthFacility.name;
-                var PpKP = 'PP_Key_population';
-                var PpKPYes = 'PP_Key_population_Yes';
-                var PpKPNo = 'PP_Key_population_No';
-var patientWeightConceptName = 'Weight';
-                observationsService.fetch(patientUuid, [PpKP, PpKPYes, PpKPNo, patientWeightConceptName]).then(function (response) {
-console.info(response);
+            var populatePriorityPopulation = function () {
+                var pP = 'Group_Priority_Population_obs_form';
+                observationsService.fetch(patientUuid, [pP]).then(function (response) {
                     if (response.data && response.data.length > 0) {
-                        reportModel.keyPopulation = response.data[0].value;
+                        var pPValues = response.data[0].value.split(',');
+                        var pPValues = response.data[0].value.split(',');
+                        pPValues.forEach(function (value) {
+                            value = value.trim();
+                            if (value == 'PP_Key_population_PID') {
+                                masterCardModel.keyPopulation = value;
+                            }
+                        });
                     }
                 });
             };
@@ -122,24 +124,24 @@ console.info(response);
                     patientService.getPatient(patientUuid).then(function (response) {
                         var patientMapper = new Bahmni.PatientMapper($rootScope.patientConfig, $rootScope, $translate);
                         var contact = response.data.person.attributes[0].value;
-                        reportModel.patientInfo.mainContact = $rootScope.patient.PRIMARY_CONTACT_NUMBER_1.value;
+                        masterCardModel.patientInfo.mainContact = $rootScope.patient.PRIMARY_CONTACT_NUMBER_1.value;
                         var patient = patientMapper.map(response.data);
-                        reportModel.patientInfo.firstName = patient.givenName;
-                        reportModel.patientInfo.lastName = patient.familyName;
-                        reportModel.patientInfo.gender = patient.gender;
-                        reportModel.patientInfo.age = patient.age;
-                        reportModel.patientInfo.patientId = patient.identifier;
-                        reportModel.patientInfo.birth_date = patient.birthdate;
-                        reportModel.patientInfo.stageConditionName = $rootScope.stageConditionName;
-                        reportModel.patientInfo.username = $rootScope.currentUser.username;
+                        masterCardModel.patientInfo.firstName = patient.givenName;
+                        masterCardModel.patientInfo.lastName = patient.familyName;
+                        masterCardModel.patientInfo.gender = patient.gender;
+                        masterCardModel.patientInfo.age = patient.age;
+                        masterCardModel.patientInfo.patientId = patient.identifier;
+                        masterCardModel.patientInfo.birth_date = patient.birthdate;
+                        masterCardModel.patientInfo.stageConditionName = $rootScope.stageConditionName;
+                        masterCardModel.patientInfo.username = $rootScope.currentUser.username;
 
                         if ($rootScope.patient.DateofHIVDiagnosis === undefined) {
-                            reportModel.patientInfo.hivDate = null;
+                            masterCardModel.patientInfo.hivDate = null;
                         }
                         else {
-                            reportModel.patientInfo.hivDate = $rootScope.patient.DateofHIVDiagnosis.value;
+                            masterCardModel.patientInfo.hivDate = $rootScope.patient.DateofHIVDiagnosis.value;
                         }
-                        reportModel.patientInfo.condName = $rootScope.conditionName;
+                        masterCardModel.patientInfo.condName = $rootScope.conditionName;
 
                         var arrDiagc = [];
                         if ($rootScope.diagName == null && $rootScope.diagPastName == null) {
@@ -149,17 +151,17 @@ console.info(response);
                             for (var j = 0; j < $rootScope.diagPastName.length; j++) {
                                 arrDiagc.push($rootScope.diagPastName[j]);
                                 var arr = arrDiagc.join('');
-                            } reportModel.patientInfo.diagnosisPastName = arr;
+                            } masterCardModel.patientInfo.diagnosisPastName = arr;
                         }
                         else if ($rootScope.diagName !== null && $rootScope.diagPastName !== null) {
                             for (var j = 0; j < $rootScope.diagName.length; j++) {
                                 arrDiagc.push($rootScope.diagName[j]);
                             }
-                            reportModel.patientInfo.diagnosisName = arrDiagc;
-                            reportModel.patientInfo.diagnosisPastName = null;
+                            masterCardModel.patientInfo.diagnosisName = arrDiagc;
+                            masterCardModel.patientInfo.diagnosisPastName = null;
                         }
-                        reportModel.patientInfo.regDate = $rootScope.patient.US_REG_DATE.value;
-                        reportModel.patientInfo.treatmentStartDate = $rootScope.arvdispenseddate;
+                        masterCardModel.patientInfo.regDate = $rootScope.patient.US_REG_DATE.value;
+                        masterCardModel.patientInfo.treatmentStartDate = $rootScope.arvdispenseddate;
 
                         var statusArray = [{ name: "Pre TARV" }, { name: "TARV" }];
                         var arrStatus = [];
@@ -168,19 +170,19 @@ console.info(response);
                                 arrStatus.push(statusArray[k].name);
                             }
                         }
-                        reportModel.patientInfo.patientStatus = arrStatus;
-                        reportModel.patientInfo.patientStatus = arrStatus;
+                        masterCardModel.patientInfo.patientStatus = arrStatus;
+                        masterCardModel.patientInfo.patientStatus = arrStatus;
                         if ($rootScope.patient && $rootScope.patient.patientStatus) {
-                            reportModel.patientInfo.isTARV = $rootScope.patient.patientStatus;
+                            masterCardModel.patientInfo.isTARV = $rootScope.patient.patientStatus;
                         }
                         var addressMap = patient.address;
-                        reportModel.address1 = addressMap.address1;
-                        reportModel.address2 = addressMap.address2;
-                        reportModel.address3 = addressMap.address3;
-                        reportModel.address4 = addressMap.address4;
-                        reportModel.District = addressMap.cityVillage;
-                        reportModel.close = addressMap.closeof;
-                        reportModel.province = addressMap.stateProvince;
+                        masterCardModel.address1 = addressMap.address1;
+                        masterCardModel.address2 = addressMap.address2;
+                        masterCardModel.address3 = addressMap.address3;
+                        masterCardModel.address4 = addressMap.address4;
+                        masterCardModel.District = addressMap.cityVillage;
+                        masterCardModel.close = addressMap.closeof;
+                        masterCardModel.province = addressMap.stateProvince;
                         resolve();
                     }).catch(function (error) {
                         reject(error);
@@ -193,7 +195,7 @@ console.info(response);
                     var patientWeightConceptName = 'Weight';
                     observationsService.fetch(patientUuid, [patientWeightConceptName]).then(function (response) {
                         if (response.data && response.data.length > 0) {
-                            reportModel.patientInfo.weight = response.data[0].value;
+                            masterCardModel.patientInfo.weight = response.data[0].value;
                         }
                         resolve();
                     }).catch(function (error) {
@@ -203,7 +205,7 @@ console.info(response);
             };
 
             var populatePatientLabResults = function () {
-                reportModel.labOrderResult = {};
+                masterCardModel.labOrderResult = {};
                 var labResultsToShow = ['ALT', 'AST', 'CD 4', 'CD4 %', 'CD4 Abs', 'HGB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outros'];
                 return new Promise(function (resolve, reject) {
                     labOrderResultService.getAllForPatient({patientUuid: patientUuid}).then(function (response) {
@@ -221,7 +223,7 @@ console.info(response);
                                         else if (currentObj.testName == 'CARGA VIRAL (Absoluto-Rotina)') { loName = 'LO_ViralLoad'; }
                                         else if (currentObj.testName == 'CARGA VIRAL(Qualitativo-Rotina)') { loName = 'LO_ViralLoad'; }
                                         else { loName = currentObj.testName; }
-                                        reportModel.labOrderResult[loName] = {testDate: currentObj.resultDateTime, testResult: currentObj.result};
+                                        masterCardModel.labOrderResult[loName] = {testDate: currentObj.resultDateTime, testResult: currentObj.result};
                                     }
                                 });
                             }
@@ -243,20 +245,20 @@ console.info(response);
 
                         if ((response.data.length === 0)) {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-                                reportModel.patientInfo.INH_end = null;
-                                reportModel.patientInfo.INH_start = null;
+                                masterCardModel.patientInfo.INH_end = null;
+                                masterCardModel.patientInfo.INH_start = null;
                             });
                         }
                         else if (response.data[0].concept.name == "CTZ_Details") {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-                                reportModel.patientInfo.CTZ_end = response.data[1].value;
-                                reportModel.patientInfo.CTZ_start = response.data[0].value;
+                                masterCardModel.patientInfo.CTZ_end = response.data[1].value;
+                                masterCardModel.patientInfo.CTZ_start = response.data[0].value;
                             });
                         }
                         else if ((response.data[0].concept.name == "INH_Details")) {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-                                reportModel.patientInfo.INH_end = response.data[1].value;
-                                reportModel.patientInfo.INH_start = response.data[0].value;
+                                masterCardModel.patientInfo.INH_end = response.data[1].value;
+                                masterCardModel.patientInfo.INH_start = response.data[0].value;
                             });
                         }
                         resolve();
@@ -281,7 +283,7 @@ console.info(response);
                     var patientHeightConceptName = 'Height';
                     observationsService.fetch(patientUuid, [patientHeightConceptName]).then(function (response) {
                         if (response.data && response.data.length > 0) {
-                            reportModel.patientInfo.height = response.data[0].value;
+                            masterCardModel.patientInfo.height = response.data[0].value;
                         }
                         resolve();
                     }).catch(function (error) {
@@ -295,7 +297,7 @@ console.info(response);
                     var TbStart = "SP_Treatment Start Date";
                     observationsService.fetch(patientUuid, [TbStart]).then(function (response) {
                         if (response.data && response.data.length > 0) {
-                            reportModel.patientInfo.Tb_start = response.data[0].value;
+                            masterCardModel.patientInfo.Tb_start = response.data[0].value;
                         }
                         resolve();
                     }).catch(function (error) {
@@ -309,7 +311,7 @@ console.info(response);
                     var TbEnd = "SP_Treatment End Date";
                     observationsService.fetch(patientUuid, [TbEnd]).then(function (response) {
                         if (response.data && response.data.length > 0) {
-                            reportModel.patientInfo.Tb_end = response.data[0].value;
+                            masterCardModel.patientInfo.Tb_end = response.data[0].value;
                         }
                         resolve();
                     }).catch(function (error) {
@@ -324,10 +326,10 @@ console.info(response);
                         if (response.data && response.data.length > 0) {
                             var a = response.data[0].value;
                             if (a === true) {
-                                reportModel.patientInfo.Tb_back = "Sim";
+                                masterCardModel.patientInfo.Tb_back = "Sim";
                             }
                             else {
-                                reportModel.patientInfo.Tb_back = "Não";
+                                masterCardModel.patientInfo.Tb_back = "Não";
                             }
                         }
                         resolve();
@@ -342,7 +344,7 @@ console.info(response);
                     var preg = "Pregnancy_Yes_No";
                     observationsService.fetch(patientUuid, [preg]).then(function (response) {
                         if (response.data && response.data.length > 0) {
-                            reportModel.patientInfo.pregStatus = response.data[0].valueAsString;
+                            masterCardModel.patientInfo.pregStatus = response.data[0].valueAsString;
                         }
                         resolve();
                     }).catch(function (error) {
@@ -358,10 +360,10 @@ console.info(response);
                         if (response.data && response.data.length > 0) {
                             var status = response.data[0].valueAsString;
                             if (status == "No") {
-                                reportModel.patientInfo.breastFeedingStatus = "ANSWER_NO";
+                                masterCardModel.patientInfo.breastFeedingStatus = "ANSWER_NO";
                             }
                             else {
-                                reportModel.patientInfo.breastFeedingStatus = "ANSWER_YES";
+                                masterCardModel.patientInfo.breastFeedingStatus = "ANSWER_YES";
                             }
                         }
                         resolve();
@@ -376,7 +378,7 @@ console.info(response);
                     var WhoStage = "HTC, WHO Staging";
                     observationsService.fetch(patientUuid, [WhoStage]).then(function (response) {
                         if (response.data && response.data.length > 0) {
-                            reportModel.patientInfo.whoStaging = response.data[0].valueAsString;
+                            masterCardModel.patientInfo.whoStaging = response.data[0].valueAsString;
                         }
                         resolve();
                     }).catch(function (error) {
@@ -399,17 +401,17 @@ console.info(response);
                     for (var i = 0; i < Resultarray.length; i++) {
                         temp.push(Resultarray[i].orderName);
                         temp1.push(Resultarray[i].result);
-                        reportModel.patientInfo.labName = temp[i];
+                        masterCardModel.patientInfo.labName = temp[i];
 
                         if (temp[i] == "LO_HB)")
                          {
                             if (temp[i] === null)
                              {
-                                reportModel.patientInfo.resultHb = null;
+                                masterCardModel.patientInfo.resultHb = null;
                             }
                             else
                             {
-                                reportModel.patientInfo.resultHb = temp1[i];
+                                masterCardModel.patientInfo.resultHb = temp1[i];
                             }
                         }
 
@@ -417,11 +419,11 @@ console.info(response);
                          {
                             if (temp[i] === null)
                             {
-                                reportModel.patientInfo.resultVl = null;
+                                masterCardModel.patientInfo.resultVl = null;
                             }
                             else
                             {
-                                reportModel.patientInfo.resultVl = temp1[i];
+                                masterCardModel.patientInfo.resultVl = temp1[i];
                             }
                         }
 
@@ -429,11 +431,11 @@ console.info(response);
                          {
                             if (temp[i] === null)
                             {
-                                reportModel.patientInfo.resultcd = null;
+                                masterCardModel.patientInfo.resultcd = null;
                             }
                             else
                             {
-                                reportModel.patientInfo.resultcd = temp1[i];
+                                masterCardModel.patientInfo.resultcd = temp1[i];
                             }
                         }
 
@@ -441,11 +443,11 @@ console.info(response);
                          {
                             if (temp[i] === null)
                             {
-                                reportModel.patientInfo.resultAlt = null;
+                                masterCardModel.patientInfo.resultAlt = null;
                             }
                             else
                             {
-                                reportModel.patientInfo.resultAlt = temp1[i];
+                                masterCardModel.patientInfo.resultAlt = temp1[i];
                             }
                         }
 
@@ -453,11 +455,11 @@ console.info(response);
                         {
                             if (temp[i] === null)
                              {
-                                reportModel.patientInfo.resultAst = null;
+                                masterCardModel.patientInfo.resultAst = null;
                             }
                             else
                             {
-                                reportModel.patientInfo.resultAst = temp1[i];
+                                masterCardModel.patientInfo.resultAst = temp1[i];
                             }
                         }
                     }
@@ -481,11 +483,11 @@ console.info(response);
                         for (var i = drugarr.length; i > 0; i--) {
                             for (var j = 1; j < i; j++) {
                                 if (j % 2 !== 0) {
-                                    reportModel.regimeName = drugarr[i - 1][j];
-                                    reportModel.regimeChangeName = drugarr[i - 2][j];
+                                    masterCardModel.regimeName = drugarr[i - 1][j];
+                                    masterCardModel.regimeChangeName = drugarr[i - 2][j];
                                 }
-                                reportModel.regimeStartDate = drugarr[i - 1][j - 1];
-                                reportModel.regimeChangeDate = drugarr[i - 2][j - 1];
+                                masterCardModel.regimeStartDate = drugarr[i - 1][j - 1];
+                                masterCardModel.regimeChangeDate = drugarr[i - 2][j - 1];
                             }
                         }
                         resolve();
@@ -512,12 +514,12 @@ console.info(response);
                         }
 
                         if (modelarray.length !== 0) {
-                            reportModel.patientInfo.mdsYes = "ANSWER_YES";
+                            masterCardModel.patientInfo.mdsYes = "ANSWER_YES";
                         }
                         if (modelarray.length === 0) {
-                            reportModel.patientInfo.mdsYes = "ANSWER_NO";
+                            masterCardModel.patientInfo.mdsYes = "ANSWER_NO";
                         }
-                        reportModel.patientInfo.modelTypes = temp;
+                        masterCardModel.patientInfo.modelTypes = temp;
 
                         var arrDate = [];
                         var arr = response.data.forEach(function (date) {
@@ -525,11 +527,11 @@ console.info(response);
                         });
 
                         if (arrDate === undefined || arrDate.length === 0) {
-                            reportModel.patientInfo.modelDate = null;
+                            masterCardModel.patientInfo.modelDate = null;
                         }
                         else if (arrDate.length >= 1) {
                             var ddate = arrDate.length - 1;
-                            reportModel.patientInfo.modelDate = arrDate[ddate].observationDateTime;
+                            masterCardModel.patientInfo.modelDate = arrDate[ddate].observationDateTime;
                         }
                         resolve();
                     }).catch(function (error) {
@@ -542,7 +544,7 @@ console.info(response);
                 var patientBMIConceptName = 'BMI';
                 observationsService.fetch(patientUuid, [patientBMIConceptName]).then(function (response) {
                     if (response.data && response.data.length > 0) {
-                        reportModel.patientInfo.BMI = response.data[0].value;
+                        masterCardModel.patientInfo.BMI = response.data[0].value;
                     }
                 });
             };
@@ -563,40 +565,40 @@ console.info(response);
                                 resarray[i].concept.name;
                                 arrNotARV.push(resarray[i].concept.name);
                                 dateNotARV.push(resarray[i].effectiveStartDate);
-                                reportModel.patientInfo.notARV = arrNotARV;
+                                masterCardModel.patientInfo.notARV = arrNotARV;
                             }
                             else {
                                 resarray[i].concept.name;
                                 arrARV.push(resarray[i].concept.name);
                                 dateARV.push(resarray[i].effectiveStartDate);
-                                reportModel.patientInfo.isARV = resarray[i].concept.name;
+                                masterCardModel.patientInfo.isARV = resarray[i].concept.name;
 
                                 for (var j = 0; j < arrARV.length; j++) {
                                     if (arrARV.length === 0) {
-                                        reportModel.patientInfo.currRegARV = null;
-                                        reportModel.patientInfo.secLast = null;
-                                        reportModel.patientInfo.thirdLast = null;
-                                        reportModel.patientInfo.secLastDate = null;
-                                        reportModel.patientInfo.thirdLastDate = null;
+                                        masterCardModel.patientInfo.currRegARV = null;
+                                        masterCardModel.patientInfo.secLast = null;
+                                        masterCardModel.patientInfo.thirdLast = null;
+                                        masterCardModel.patientInfo.secLastDate = null;
+                                        masterCardModel.patientInfo.thirdLastDate = null;
                                     }
 
                                     else if (arrARV.length === 1) {
-                                        reportModel.patientInfo.currRegARV = arrARV[j];
+                                        masterCardModel.patientInfo.currRegARV = arrARV[j];
                                     }
 
                                     else if (arrARV.length === 2) {
-                                        reportModel.patientInfo.currRegARV = arrARV[0];
-                                        reportModel.patientInfo.secLast = arrARV[1];
-                                        reportModel.patientInfo.thirdLast = null;
-                                        reportModel.patientInfo.secLastDate = dateARV[1];
-                                        reportModel.patientInfo.thirdLastDate = null;
+                                        masterCardModel.patientInfo.currRegARV = arrARV[0];
+                                        masterCardModel.patientInfo.secLast = arrARV[1];
+                                        masterCardModel.patientInfo.thirdLast = null;
+                                        masterCardModel.patientInfo.secLastDate = dateARV[1];
+                                        masterCardModel.patientInfo.thirdLastDate = null;
                                     }
                                     else if (arrARV.length >= 3) {
-                                        reportModel.patientInfo.currRegARV = arrARV[0];
-                                        reportModel.patientInfo.secLast = arrARV[1];
-                                        reportModel.patientInfo.thirdLast = arrARV[2];
-                                        reportModel.patientInfo.secLastDate = dateARV[1];
-                                        reportModel.patientInfo.thirdLastDate = dateARV[2];
+                                        masterCardModel.patientInfo.currRegARV = arrARV[0];
+                                        masterCardModel.patientInfo.secLast = arrARV[1];
+                                        masterCardModel.patientInfo.thirdLast = arrARV[2];
+                                        masterCardModel.patientInfo.secLastDate = dateARV[1];
+                                        masterCardModel.patientInfo.thirdLastDate = dateARV[2];
                                     }
                                 }
                             }
@@ -612,7 +614,7 @@ console.info(response);
                 return new Promise(function (resolve, reject) {
                     patientVisitHistoryService.getVisitHistory(patientUuid, null).then(function (response) {
                         if (response.visits && response.visits.length > 0) {
-                            reportModel.location = response.visits[lastVisit].location.display;
+                            masterCardModel.location = response.visits[lastVisit].location.display;
                             populateDrugOrders(response.visits[lastVisit].uuid);
                         }
                         resolve();
@@ -625,7 +627,7 @@ console.info(response);
             var populateHospitalNameAndLogo = function () {
                 return new Promise(function (resolve, reject) {
                     localeService.getLoginText().then(function (response) {
-                        reportModel.hospitalLogo = response.data.homePage.logo;
+                        masterCardModel.hospitalLogo = response.data.homePage.logo;
                         resolve();
                     }).catch(function (error) {
                         reject(error);
