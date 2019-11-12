@@ -5,11 +5,11 @@ angular.module('bahmni.clinical').controller('ConsultationController',
         'spinner', 'encounterService', 'messagingService', 'sessionService', 'retrospectiveEntryService', 'patientContext', '$q',
         'patientVisitHistoryService', '$stateParams', '$window', 'visitHistory', 'clinicalDashboardConfig', 'appService',
 
-        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService', 'printer', 'printPrescriptionReportService', 'providerService', 'providerTypeService', '$http', 'patientService', 'transferOutService',
+        'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService', 'printer', 'printPrescriptionReportService', 'providerService', 'providerTypeService', '$http', 'patientService', 'transferOutService', 'printMasterCardService',
         function ($scope, $rootScope, $state, $location, $translate, clinicalAppConfigService, diagnosisService, urlHelper, contextChangeHandler,
-            spinner, encounterService, messagingService, sessionService, retrospectiveEntryService, patientContext, $q,
-            patientVisitHistoryService, $stateParams, $window, visitHistory, clinicalDashboardConfig, appService,
-            ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerService, providerTypeService, $http, patientService, transferOutService) {
+                  spinner, encounterService, messagingService, sessionService, retrospectiveEntryService, patientContext, $q,
+                  patientVisitHistoryService, $stateParams, $window, visitHistory, clinicalDashboardConfig, appService,
+                  ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerService, providerTypeService, $http, patientService, transferOutService, printMasterCardService) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var getPreviousActiveCondition = Bahmni.Common.Domain.Conditions.getPreviousActiveCondition;
             var currentProviderType;
@@ -67,6 +67,7 @@ angular.module('bahmni.clinical').controller('ConsultationController',
             var clinicalDashboardUuid = '0623e3b6-8701-4c07-8493-2930bd67f11a';
             var prescriptionReportUuid = '2c6c27b0-3eef-4010-bfbb-9133d0016d25';
             var transferReportUuid = '2c6c27b0-3eef-4010-bfbb-9133d0017d45';
+            var printMasterCardUuid = '5b9d0bde-fb13-11e9-8f0b-362b9e155667';
             $scope.printButtonDropdownOptions = [{
                 name: $translate.instant('PRINT_CLINICAL_DASHBOARD_LABEL'),
                 uuid: clinicalDashboardUuid
@@ -74,6 +75,10 @@ angular.module('bahmni.clinical').controller('ConsultationController',
             {
                 name: $translate.instant('PRESCRIPTION_REPORT_PRINT_PRESCRIPTION_LABEL'),
                 uuid: prescriptionReportUuid
+            },
+            {
+                name: $translate.instant('MASTER_CARD_LABEL'),
+                uuid: printMasterCardUuid
             }
             ];
 
@@ -105,6 +110,13 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                             $rootScope.prescriptionReportData = reportData;
                             printer.printFromScope("dashboard/views/printPrescriptionReport.html", $rootScope, function () { });
                         });
+                }
+                else if (option.uuid === printMasterCardUuid) {
+                    $rootScope.isTarvReport = false;
+                    printMasterCardService.getReportModel($stateParams.patientUuid).then(function (reportData) {
+                        $rootScope.masterCardData = reportData;
+                        printer.printFromScope("dashboard/views/printMasterCard.html", $rootScope, function () { });
+                    });
                 }
                 else
                 {
