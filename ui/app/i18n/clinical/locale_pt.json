@@ -556,11 +556,11 @@
   "PRESUMED":"PRESUMIDO",
   "INACTIVE":"Inactivo",
   "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Outras Marcações",
-  "Vitals Flowsheet": "Dados Antropométricos",
   "MASTER_CARD_LABEL":"Mastercard",
   "APSS_PP_SHEET_LABEL":"Ficha APSS e PP",
   "APSS_PP_BOOK_LABEL":"Livro APSS & PP",
   "PP_KEY_POPULATION_LABEL":"População Chave",
   "PAGE":"Pág",
-  "AGE":"Idade"
+  "AGE":"Idade",
+  "Vitals Flowsheet": "Dados Antropométricos"
 }
