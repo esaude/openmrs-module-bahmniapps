@@ -18,6 +18,7 @@ angular.module('bahmni.registration')
             $rootScope.isEligibleForVisit = true;
             var completeNIDLength = 22;
             var patientNID;
+            $scope.hasTypeOfRegistration = false;
 
             $scope.onBirthDateChange = function () {
                 $scope.dateValue = angular.element("#birthdate")[0].value;
@@ -35,6 +36,12 @@ angular.module('bahmni.registration')
 
             var splitNID = function () {
                 return patientService.get(uuid).then(function (response) {
+                    var typeOfRegistrationValue = response.patient.person.attributes;
+                    for (var i = 0; i < typeOfRegistrationValue.length; i++) {
+                        if (typeOfRegistrationValue[i].attributeType.display === 'TYPE_OF_REGISTRATION') {
+                            $scope.hasTypeOfRegistration = true;
+                        }
+                    }
                     patientNID = response.patient.identifiers[0].identifier;
                     if (patientNID.length === completeNIDLength) {
                         var NIDResult = patientNID.split("/");
