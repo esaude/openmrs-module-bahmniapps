@@ -17,7 +17,7 @@ angular.module('bahmni.registration')
             $scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
             $rootScope.isEligibleForVisit = true;
             var completeNIDLength = 22;
-            var patientNID;
+            var patientNID, typeOfRegistrationValue;
             $scope.hasTypeOfRegistration = false;
 
             $scope.onBirthDateChange = function () {
@@ -36,18 +36,19 @@ angular.module('bahmni.registration')
 
             var splitNID = function () {
                 return patientService.get(uuid).then(function (response) {
-                    var typeOfRegistrationValue = response.patient.person.attributes;
-                    for (var i = 0; i < typeOfRegistrationValue.length; i++) {
-                        if (typeOfRegistrationValue[i].attributeType.display === 'TYPE_OF_REGISTRATION') {
-                            $scope.hasTypeOfRegistration = true;
-                        }
-                    }
                     patientNID = response.patient.identifiers[0].identifier;
+                    typeOfRegistrationValue = response.patient.person.attributes;
                     if (patientNID.length === completeNIDLength) {
                         var NIDResult = patientNID.split("/");
                         $scope.NID.healthFacilityCode = NIDResult[0];
                         $scope.NID.year = parseInt(NIDResult[2], 10);
                         $scope.NID.sequentialCode = NIDResult[3];
+                    }
+
+                    for (var i = 0; i < typeOfRegistrationValue.length; i++) {
+                        if (typeOfRegistrationValue[i].display === 'NEW_PATIENT' || typeOfRegistrationValue[i].display === 'TRANSFERRED_PATIENT') {
+                            $scope.hasTypeOfRegistration = true;
+                        }
                     }
                 });
             };
