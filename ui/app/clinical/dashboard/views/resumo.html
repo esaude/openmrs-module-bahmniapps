@@ -1,759 +1,410 @@
-<style>
-    @media all {
-        .page-break {
-            display: none;
+<head>
+    <style>
+        @media print and (orientation: landscape) {
+            .page-break {
+                display: block;
+                page-break-before: always;
+            }
         }
-    }
 
-    @media print and (orientation: landscape) {
-        .page-break {
-            display: block;
-            page-break-before: always;
+        table {
+            width: 100%
         }
-    }
 
-    .center {
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-    }
+        table,
+        td,
+        th {
+            border: 1px solid #595959;
+            border-collapse: collapse;
+            font-family: arial;
+            font-size: 10px;
+            line-height: 13.5px;
+        }
 
-    table {
-        width: 100%;
-        margin-right: 5px;
-        margin-left: 5px;
-        margin-bottom: auto;
-        margin-top: auto;
-    }
+        td,
+        th {
+            padding: 0 1px 0 1px;
+        }
 
-    table,
-    th,
-    td {
-        border: 1px solid;
-        border-collapse: collapse;
-        font-size: 10px;
-    }
+        input[type="checkbox"] {
+            vertical-align: middle;
+        }
 
-    th,
-    td {
-        padding: 5px;
-    }
+        .center {
+            text-align: center;
+        }
 
-    .title {
-        font-size: 14px;
-    }
+        .text-small {
+            font-size: 7px;
+        }
 
-    .circleSelect {
-        border-radius: 100%;
-        padding-left: 3px;
-        padding-right: 3px;
-        padding-top: 1px;
-        padding-bottom: 1px;
-        border: 2px solid #000;
-    }
+        .align-right {
+            float: right;
+        }
 
-    .text-right {
-        float: right;
-        text-align: right;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .text-orientation {
-        writing-mode: vertical-lr;
-        text-orientation: mixed;
-    }
-
-    .column {
-        float: left;
-        width: 50%;
-    }
-
-    /* Clear floats after the columns */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    .underline-text {
-        text-decoration: underline;
-    }
-
-    .padded-div {
-        padding-bottom: 5px;
-        padding-top: 5px;
-        display: flex;
-    }
-
-    .center-div {
-        margin-bottom: auto;
-        margin-top: auto;
-    }
-
-    .flex-div {
-        display: flex;
-    }
-
-    .vertical-text {
-        writing-mode: vertical-rl;
-    }
-</style>
+        .circleSelect {
+            border-radius: 100%;
+            border: 1px solid #000;
+            padding-left: 2px;
+            padding-right: 2px;
+            padding-top: 1px;
+            padding-bottom: 1px;
+        }
+    </style>
+</head>
 
 <body>
-<div class="row">
-    <!-- Coulumn 1 -->
-    <div class="column" style="width: 50%">
-        <table border="1">
-            <!-- Row 1 -->
-            <tr>
-                <td class="title" colspan="5"><b>Ficha Resumo</b></td>
-            </tr>
-            <!-- End Row 1 -->
+<table>
+    <tr>
+        <td colspan="20">&nbsp;&nbsp;<b>Ficha Resumo</b></td>
+        <td colspan="40"></td>
+        <td rowspan="40" style="width: 6px"></td>
+        <td colspan="40">
+            &nbsp;&nbsp;<b>ARVs</b> tomados anteriormente, antes do TARV actual
+            <span class="align-right">
+                    <input type="checkbox" class="text-right"/>SIM&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" class="text-right"/>NÃO
+                </span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="20" rowspan="2">
+            &nbsp;&nbsp;<b>Data Abertura da Ficha:</b> 22/10/2019
+        </td>
+        <td colspan="40" rowspan="2">
+            &nbsp;&nbsp;<b>NID (Código da US / Annual Individual):</b> 01234567/01/1904/19040
+            <br>
+            &nbsp;&nbsp;<b>LIVROS:</b> Pré-TARV:___ Pág:___ Linha: ___ TARV:___ Pág:___ Linha:___
+        </td>
+        <!--<td></td>-->
+        <td colspan="16">&nbsp;&nbsp;Se SIM:</td>
+        <td colspan="8" class="center">Data</td>
+        <td colspan="8" class="center">Onde?</td>
+        <td colspan="8" class="center">ARVs</td>
+    </tr>
+    <tr>
+        <td colspan="16">
+            <input type="checkbox"/>PTV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox"/>PPE
+        </td>
+        <td colspan="8" class="center">__/__/__</td>
+        <td colspan="8"></td>
+        <td colspan="8"></td>
+    </tr>
+    <tr>
+        <td colspan="60" rowspan="6">
+            &nbsp;&nbsp;<b>Província:</b> Maputo&nbsp;&nbsp;&nbsp;&nbsp;<b>Distrito:</b> Municipal Kanpfumo&nbsp;&nbsp;&nbsp;&nbsp;<b>Unidade
+            Sanitária:</b> Privado Maputo optica Serviços Lda
+            <br>
+            &nbsp;&nbsp;<b>Nome Completo:</b> Tessa Lynne Thmpson <span class="align-right"><b>N&deg; de B.I.:</b> MZ12345678&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <br>
+            &nbsp;&nbsp;<b>Sexo:</b> F&nbsp;&nbsp;&nbsp;&nbsp;<b>Data de nascimento:</b> 01/10/1992&nbsp;&nbsp;&nbsp;&nbsp;<b>Idade:</b>
+            22&nbsp;&nbsp;&nbsp;&nbsp;<b>Tel. Cel (1):</b> 82 345 6789
+            <br>
+            &nbsp;&nbsp;<b>Profissão:</b> Actriz&nbsp;&nbsp;&nbsp;&nbsp;<b>Nível de Escolaridade:</b> Universitário&nbsp;&nbsp;&nbsp;&nbsp;<b>Tel.
+            Cel (2):</b> 84 567 8900
+            <br>
+            &nbsp;&nbsp;<b>MORADA - Distrito / Cidade:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Localidade / Bairro:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Célula / Quarteirão:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+            &nbsp;&nbsp;<b>Avenida / Rua / Casa:</b> Av. Ho Chi Min, n400, 1&deg; andar <span class="align-right"><b>Perto de:</b> Praça da Independência&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </td>
+        <td colspan="16"><input type="checkbox"/>Outros, especifique</td>
+        <td colspan="8" class="center">__/__/__</td>
+        <td colspan="8"></td>
+        <td colspan="8"></td>
+    </tr>
+    <tr>
+        <td colspan="1" rowspan="9" class="center">
+            <div style="transform: translateX(0%) translateY(-100%) rotate(270deg);">1&ordf;<br>Linha</div>
+        </td>
+        <td colspan="39">&nbsp;&nbsp;<b>No início do TARV - TARV - Coorte (Mês/Ano):</b> Maio / 2018</td>
+    </tr>
+    <tr>
+        <td colspan="8" rowspan="2" class="center">
+            Data<br>
+            __/__/__
+        </td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Regime ARV inicial de 1&ordf; linha:</b> AZT 300mg/ 3TC 150mg NVP 200mg
+        </td>
+    </tr>
+    <tr>
+        <td colspan="31">&nbsp;&nbsp;<b>Unidade Sanitária:</b> CS 17 De Setembro - 1040106</td>
+    </tr>
+    <tr>
+        <td colspan="8" rowspan="2" class="center">No início<br>TARV</td>
+        <td colspan="31">
+            &nbsp;&nbsp;Gravidez: <input type="checkbox" class="text-right"/>
+            Sim <input type="checkbox" class="text-right"/>
+            Não <input type="checkbox" class="text-right"/>
+            Lactante <input type="checkbox" class="text-right"/>
+            Sim <input type="checkbox" class="text-right"/>
+            Não <input type="checkbox" class="text-right"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="31">&nbsp;&nbsp;<b>Estado de OMS:</b> <span>III</span> <b>CD4 (N° / %):</b> <span>250</span></td>
+    </tr>
+    <tr>
+        <td colspan="60" rowspan="4">
+            &nbsp;&nbsp;<u>CONFIDENTE</u> -
+            <span class="align-right"><b>Tel. Cel (1):</b> _________________</span>
+            <br>
+            &nbsp;&nbsp;<b>Nome e Parentesco:</b>
+            <span class="align-right"><b>Tel. Cel (1):</b> _________________</span>
+            <br>
+            &nbsp;&nbsp;<b>MORADA - Distrito / Cidade:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Localidade / Bairro:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Célula / Quarteirão:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+            &nbsp;&nbsp;<b>Avenida / Rua / Casa:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Perto de:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td colspan="39">&nbsp;&nbsp;Alternativas à 1&ordf; linha</td>
+    </tr>
+    <tr>
+        <td colspan="8" class="center">02/02/19</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Novo Regime:</b> TDF 300mg/ 3TC 300mg/ DTG 50mg
+            &nbsp;&nbsp;<b>Motivo:</b> Lorem ipsum dolor.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="8" class="center">21/03/19</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Novo Regime:</b> AZT 300mg/ 3TC 150mg NVP 200mg
+            &nbsp;&nbsp;<b>Motivo:</b> Lorem ipsum dolor.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="8" class="center">08/10/19</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Novo Regime:</b> ABC 60mg/ 3TC 30mg
+            &nbsp;&nbsp;<b>Motivo:</b> Lorem ipsum dolor.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="28" class="center">Situação da Família</td>
+        <td colspan="4" rowspan="9"></td>
+        <td colspan="28" class="center">Situação da Família</td>
+        <td colspan="1" rowspan="4" class="center">
+            <div style="transform: translateX(0%) translateY(0%) rotate(270deg);">2&ordf;<br>Linha</div>
+        </td>
+        <td colspan="39">&nbsp;&nbsp;Mudança para a 2&ordf; linha (ou substituição dentro da 2&ordf; linha)</td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center" style="height: 5px;">Nome</td>
+        <td colspan="2" rowspan="2" class="center" style="width: 10px;">Ida-<br>de</td>
+        <td colspan="2" rowspan="2" class="center text-small">Teste<br>HIV<br>(P/N/D)</td>
+        <td colspan="2" rowspan="2" class="center text-small">Cui-<br>dados<br>HIV<br>(S/N/A)</td>
+        <td colspan="2" rowspan="2" class="center text-small">Em<br>CCR<br>(S/N/A)</td>
+        <td colspan="6" rowspan="2" class="center" style="width: 10px;">NID</td>
+        <td colspan="14" class="center">Nome</td>
+        <td colspan="2" rowspan="2" class="center" style="width: 10px;">Ida-<br>de</td>
+        <td colspan="2" rowspan="2" class="center text-small">Teste<br>HIV<br>(P/N/D)</td>
+        <td colspan="2" rowspan="2" class="center text-small">Cui-<br>dados<br>HIV<br>(S/N/A)</td>
+        <td colspan="2" rowspan="2" class="center text-small">Em<br>CCR<br>(S/N/A)</td>
+        <td colspan="6" rowspan="2" class="center" style="width: 10px;">NID</td>
+        <td colspan="8" class="center">02/11/19</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Novo Regime:</b> AZT 300mg/ 3TC 150mg NVP 200mg
+            &nbsp;&nbsp;<b>Motivo:</b> Lorem ipsum dolor.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center" style="height: 5px;">Parentesco</td>
+        <td colspan="14" class="center">Parentesco</td>
+        <td colspan="8" class="center">__/__/__</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;<b>Motivo:</b>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">Rui Pinto</td>
+        <td colspan="2" rowspan="2" class="center">25</td>
+        <td colspan="2" rowspan="2" class="center"><span class="circleSelect">P</span> N D</td>
+        <td colspan="2" rowspan="2" class="center">S N</td>
+        <td colspan="2" rowspan="2" class="center">S N A</td>
+        <td colspan="6" rowspan="2" class="center"></td>
+        <td colspan="14" class="center"></td>
+        <td colspan="2" rowspan="2" class="center"></td>
+        <td colspan="2" rowspan="2" class="center">P N D</td>
+        <td colspan="2" rowspan="2" class="center">S N</td>
+        <td colspan="2" rowspan="2" class="center">S N A</td>
+        <td colspan="6" rowspan="2" class="center"></td>
+        <td colspan="8" class="center">__/__/__</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;<b>Motivo:</b>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">Namorado</td>
+        <td colspan="14" class="center"></td>
+        <td colspan="1" rowspan="3" class="center">
+            <div style="transform: translateX(0%) translateY(0%) rotate(270deg);">3&ordf;<br>Linha</div>
+        </td>
+        <td colspan="39">&nbsp;&nbsp;Mudança para a 3&ordf; linha</td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">Ana</td>
+        <td colspan="2" rowspan="2" class="center">3</td>
+        <td colspan="2" rowspan="2" class="center">P N D</td>
+        <td colspan="2" rowspan="2" class="center">S <span class="circleSelect">N</span></td>
+        <td colspan="2" rowspan="2" class="center">S N A</td>
+        <td rowspan="2" colspan="6" class="center"></td>
+        <td colspan="14"></td>
+        <td colspan="2" rowspan="2" class="center"></td>
+        <td colspan="2" rowspan="2" class="center">P N D</td>
+        <td colspan="2" rowspan="2" class="center">S N</td>
+        <td colspan="2" rowspan="2" class="center">S N A</td>
+        <td rowspan="2" colspan="6" class="center"></td>
+        <td colspan="8" rowspan="2" class="center">__/__/__</td>
+        <td colspan="31" rowspan="2">
+            &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;<b>Motivo:</b>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">Filha</td>
+        <td colspan="14" class="center"></td>
 
-            <!-- Row 2 -->
-            <tr>
-                <td rowspan="2">
-                    Data Abertura da Ficha : <span class="underline-text"> 22-10-2019 </span>
-                </td>
-                <td style="width: 60%" colspan="4">
-                    <div>
-                        <span class="title">NID </span> (Código da US/ Annual Individual): <span class="underline-text"> 88/2019</span>
-                    </div>
-
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="4">
-                    <div>
-                        <span class="title">LIVROS : </span> Pré-TARV:<span class="underline-text">  </span> Pág. <span
-                            class="underline-text">  </span>
-                        Linha: <span class="underline-text"> Ist Line</span> TARV:<span class="underline-text">  </span>
-                        Pág. <span class="underline-text">  </span> Linha: <span class="underline-text"> Ist Line</span>
-
-                    </div>
-                </td>
-            </tr>
-            <!-- End Row 2 -->
-
-
-            <!-- Start Row 3 -->
-            <tr>
-                <td colspan="5">
-                    <div class="padded-div">
-                        <div style="width: 30%"> Provincia : <span class="underline-text"></span></div>
-                        <div style="width: 30%"> Distrito : <span class="underline-text"></span></div>
-                        <div style="width: 30%"> Uninade Sanitaria : <span class="underline-text"></span></div>
-                    </div>
-                    <div class="padded-div">
-                        <div style="width: 70%"> Nome Completo : <span class="underline-text"></span></div>
-                        <div style="width: 30%"> N<sup>2</sup> de BI : <span class="underline-text"></span></div>
-                    </div>
-                    <div class="padded-div">
-                        <div style="width: 25%"> Sexo : <span class="underline-text"></span></div>
-                        <div style="width: 35%"> Data de Nacemento : <span class="underline-text"></span></div>
-                        <div style="width: 25%"> Idade : <span class="underline-text"></span></div>
-                        <div style="width: 25%"> Tel Cel(1) : <span class="underline-text"></span></div>
-                    </div>
-                    <div class="padded-div">
-                        <div style="width: 30%"> Profissão : <span class="underline-text"></span></div>
-                        <div style="width: 55%"> Nivel de Escolaridade : <span class="underline-text"></span></div>
-                        <div style="width: 25%"> Tel Cel(1) :<span class="underline-text"></span></div>
-                    </div>
-                    <div class="padded-div">
-                        <div style="width: 40%"> MORADA - Distrito/ Oidade : <span class="underline-text"></span></div>
-                        <div style="width: 35%"> Localidade/Bairro : <span class="underline-text"></span></div>
-                        <div style="width: 15%"> Celula/Quarterirão :<span class="underline-text"></span></div>
-                    </div>
-                    <div class="padded-div">
-                        <div style="width: 50%"> Avenida /Rua /Casa - Distrito/ Oidade : <span
-                                class="underline-text"></span></div>
-                        <div style="width: 50%"> Pero de : <span class="underline-text"></span></div>
-                    </div>
-                </td>
-            </tr>
-            <!-- End Row 3 -->
-
-            <!-- Start Row 4 -->
-            <tr>
-                <td colspan="5">
-                    <div class="padded-div">
-                        <div class="title" style="width: 70%">CONFIDENTE</div>
-                        <div> Tel Cel(1) :<span class="underline-text"> </span></div>
-                    </div>
-                    <div class="padded-div">
-                        <div style="width: 70%">Nome e Parentesco:</div>
-                        <div> Tel Cel(1) :<span class="underline-text"> </span></div>
-                    </div>
-                    <div class="padded-div">
-                        <div style="width: 40%"> MORADA - Distrito/ Oidade : <span class="underline-text"></span></div>
-                        <div style="width: 35%"> Localidade/Bairro : <span class="underline-text"></span></div>
-                        <div style="width: 15%"> Celula/Quarterirao :<span class="underline-text"></span></div>
-                    </div>
-                    <div class="padded-div">
-                        <div style="width: 50%"> Avenida /Rua /Casa - Distrito/ Oidade : <span
-                                class="underline-text"></span></div>
-                        <div style="width: 50%"> Pero de : <span class="underline-text"></span></div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-
-                            <table>
-                                <tr>
-                                    <td class="text-center" colspan="6">Situação da familia</td>
-                                </tr>
-                                <tr>
-                                    <td>Nome</td>
-                                    <td class="text-center" rowspan="2">Idade</td>
-                                    <td class="text-center" rowspan="2">Teste<br> HIV <br>PND</td>
-                                    <td class="text-center" rowspan="2">Cuidados<br> HIV<br>(SN)</td>
-                                    <td class="text-center" rowspan="2">Em<br> CCR<br>(S/N/A)</td>
-                                    <td class="text-center" rowspan="2">NID</td>
-                                </tr>
-                                <tr>
-                                    <td>Parentesco</td>
-                                </tr>
-                                <!-- for each here -->
-                                <tr>
-                                    <td></td>
-                                    <td class="text-center" rowspan="2"></td>
-                                    <td class="text-center" rowspan="2">P N<br> D</td>
-                                    <td class="text-center" rowspan="2">S <br> N</td>
-                                    <td class="text-center" rowspan="2">S N<br>A</td>
-                                    <td class="text-center" rowspan="2"></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td></td>
-                                    <td class="text-center" rowspan="2"></td>
-                                    <td class="text-center" rowspan="2">P N<br> D</td>
-                                    <td class="text-center" rowspan="2">S <br> N</td>
-                                    <td class="text-center" rowspan="2">S N<br>A</td>
-                                    <td class="text-center" rowspan="2"></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td></td>
-                                    <td class="text-center" rowspan="2"></td>
-                                    <td class="text-center" rowspan="2">P N<br> D</td>
-                                    <td class="text-center" rowspan="2">S <br> N</td>
-                                    <td class="text-center" rowspan="2">S N<br>A</td>
-                                    <td class="text-center" rowspan="2"></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                </tr>
-
-                                <!--end foreach -->
-                            </table>
-                        </div>
-                        <div class="column">
-
-                            <table>
-                                <tr>
-                                    <td class="text-center" colspan="6">Situação da familia</td>
-                                </tr>
-                                <tr>
-                                    <td>Nome</td>
-                                    <td class="text-center" rowspan="2">Idade</td>
-                                    <td class="text-center" rowspan="2">Teste<br> HIV <br>PND</td>
-                                    <td class="text-center" rowspan="2">Cuidados<br> HIV<br>(SN)</td>
-                                    <td class="text-center" rowspan="2">Em<br> CCR<br>(S/N/A)</td>
-                                    <td class="text-center" rowspan="2">NID</td>
-                                </tr>
-                                <tr>
-                                    <td>Parentesco</td>
-                                </tr>
-                                <!-- for each here -->
-                                <tr>
-                                    <td></td>
-                                    <td class="text-center" rowspan="2"></td>
-                                    <td class="text-center" rowspan="2">P N<br> D</td>
-                                    <td class="text-center" rowspan="2">S <br> N</td>
-                                    <td class="text-center" rowspan="2">S N<br>A</td>
-                                    <td class="text-center" rowspan="2"></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td></td>
-                                    <td class="text-center" rowspan="2"></td>
-                                    <td class="text-center" rowspan="2">P N<br> D</td>
-                                    <td class="text-center" rowspan="2">S <br> N</td>
-                                    <td class="text-center" rowspan="2">S N<br>A</td>
-                                    <td class="text-center" rowspan="2"></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td></td>
-                                    <td class="text-center" rowspan="2"></td>
-                                    <td class="text-center" rowspan="2">P N<br> D</td>
-                                    <td class="text-center" rowspan="2">S <br> N</td>
-                                    <td class="text-center" rowspan="2">S N<br>A</td>
-                                    <td class="text-center" rowspan="2"></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                </tr>
-
-                                <!--end foreach -->
-                            </table>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <!-- End Row 4 -->
-
-            <!-- Start Row 5 -->
-            <tr>
-                <td width="20%" class="text-center">Data</td>
-                <td class="text-center" colspan="4">Cuidados de HIV</td>
-            </tr>
-
-            <!-- Start Row 6 -->
-            <tr>
-                <td class="text-center">__/__/__</td>
-                <td colspan="4">
-                    <div class="padded-div">
-                        <div>
-                            Teste HIV+: <input type="checkbox"/><b>TR</b>
-                            <input type="checkbox" checked/><b>PCR</b>
-                        </div>
-                        <div class="center-div" style="width: 50%; margin-left: 10px">
-                            Uninade Sanitaria <span class="underline-text"></span>
-                        </div>
-                        <div class="center-div">
-                            <input type="checkbox"/><b>ATSC</b>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- Start Row 7 -->
-            <tr>
-                <td class="text-center">__/__/__</td>
-                <td colspan="4">
-                    <input type="checkbox"/>Diagnóstico presuntivo em criancas < 18 meses
-                </td>
-            </tr>
-
-            <!-- Start Row 8 -->
-            <tr>
-                <td class="text-center">__/__/__</td>
-                <td colspan="4">
-                    <div class="padded-div">
-
-                        <div class="center-div" style="width: 50%; margin-left: 10px">
-                            Início pré-TARV - U.Sanitária <span class="underline-text"></span>
-                        </div>
-                        <div>
-                            Sectot : <input type="checkbox"/><b>TB</b>
-                            <input type="checkbox"/><b>SAAJ</b>
-                            <input type="checkbox"/><b>CPN/G</b>
-                            <input type="checkbox" checked/><b>CCR/L</b>
-                            <input type="checkbox"/><b>Clínicia</b>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- Start Row 9 -->
-            <tr>
-                <td colspan="5">
-                    <div class="padded-div">
-                        <div class="center-div" style="width: 20%">
-                            <input type="checkbox"/><b>Transferido de outra US</b>
-                        </div>
-                        <div class="center-div" style="width: 20%">
-                            __/__/__
-                        </div>
-                        <div class="center-div" style="width: 40%; margin-left: 10px">
-                            Uninade Sanitária <span class="underline-text"></span>
-                        </div>
-                        <div class="center-div">
-                            <input type="checkbox"/><b>ATSC</b>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- Start Row 10 -->
-            <tr>
-                <td class="text-center">Allergias a medicamentos</td>
-                <td class="text-center" style="width: 15%">Data</td>
-                <td class="text-center" colspan="3">Condicoes medica importantes</td>
-            </tr>
-
-            <!-- Start Row 11 -->
-            <tr>
-                <td></td>
-                <td> __/__/__</td>
-                <td><input type="checkbox"/><b>Hepatite</b> __/__/__</td>
-                <td><input type="checkbox"/><b>TB</b> __/__/__</td>
-                <td><input type="checkbox"/><b>Criptococose</b> __/__/__</td>
-            </tr>
-
-            <!-- Start Row 12 -->
-            <tr>
-                <td></td>
-                <td> __/__/__</td>
-                <td><input type="checkbox"/><b>Diabetes</b> __/__/__</td>
-                <td><input type="checkbox"/><b>HTA</b> __/__/__</td>
-                <td><input type="checkbox"/><b>S.Kaposi</b> __/__/__</td>
-            </tr>
-
-            <!-- Start Row 13 -->
-            <tr>
-                <td></td>
-                <td> __/__/__</td>
-                <td colspan="3"><input type="checkbox"/><b>Outras (Especifique/Data)</b></td>
-            </tr>
-
-            <!-- Start Row 14 -->
-            <tr>
-                <td></td>
-                <td> __/__/__</td>
-                <td colspan="3"></td>
-            </tr>
-
-            <!-- Start Row 15 -->
-            <tr>
-                <td colspan="2">Ultimo CD4 (Valor/Data) <span class="underline-text"></span> __/__/__</td>
-                <td colspan="3">Ultimo Profillaxia Isoniazida (Data de início) <span class="underline-text"></span>
-                    __/__/__
-                </td>
-            </tr>
-
-            <!-- Start Row 16 -->
-            <tr>
-                <td colspan="2">Ultimo Carga viral (Valor/Data) <span class="underline-text"></span> __/__/__</td>
-                <td colspan="3">Ultimo Profillaxia Isoniazida (Data de fin) <span class="underline-text"></span>
-                    __/__/__
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="column" style="width: 40%">
-        <table border="1">
-            <!-- Row 1 -->
-            <tr>
-                <td class="title" colspan="6">
-                    <div class="padded-div">
-                        <div class="center-div" style="width: 60%">
-                            <span style="padding-right: 100px"><b>ARVs</b> tomados anteriomente, antes do TARV actual</span>
-                        </div>
-                        <div class="center-div text-right" style="width: 20%">
-                            <span style="padding-right: 20px"><input type="checkbox"/><b>SIM</b></span>
-                            <input type="checkbox"/><b>Não</b>
-                        </div>
-
-                    </div>
-                </td>
-            </tr>
-
-            <!--Start Row 2 -->
-            <tr>
-                <td colspan="3">Se SIM:</td>
-                <td class="text-center">Data</td>
-                <td class="text-center">Onde?</td>
-                <td class="text-center">ARVs</td>
-            </tr>
-
-            <!--Start Row 3 -->
-            <tr>
-                <td colspan="3">
-                    <div class="flex-div">
-                        <div style="width: 50%"><input type="checkbox"/><b>PTV</b></div>
-                        <div style="width: 50%"><input type="checkbox"/><b>PPE</b></div>
-                    </div>
-                </td>
-                <td class="text-center">__/__/__</td>
-                <td></td>
-                <td></td>
-            </tr>
-
-            <!--Start Row 4 -->
-            <tr>
-                <td colspan="3">
-                    <input type="checkbox"/>Outros, especifique
-                </td>
-                <td class="text-center">__/__/__</td>
-                <td></td>
-                <td></td>
-            </tr>
-
-            <!--Start Row 5 -->
-            <tr>
-                <td colspan="6"></td>
-            </tr>
-
-            <!--Start Row 6 -->
-            <tr>
-                <td rowspan="9"><span class="vertical-text text-center"> I<sup>a</sup> Linha</span></td>
-                <td colspan="5"><u>No início do TARV </u> - TARV - Coorte (Mes/Ano) ____/__</td>
-            </tr>
-
-            <!--Start Row 7 -->
-            <tr>
-                <td class="text-center" rowspan="2">
-                    Data <br>
-                    __/__/__
-                </td>
-                <td colspan="4"> Regimen ARV inicial de 1<sup>a</sup> linha</td>
-            </tr>
-
-            <!--Start Row 8 -->
-            <tr>
-                <td colspan="4">Unidade Sanitária</td>
-            </tr>
-
-            <!--Start Row 9 -->
-            <tr>
-                <td rowspan="2">No Início TARV</td>
-                <td colspan="4">
-                    <div>
-                        Gravidez :
-                        <input type="checkbox"/><b>Sim</b>
-                        <input type="checkbox"/><b>Não</b>
-
-                        <span style="padding-left: 20px">Lactante :</span>
-                        <input type="checkbox"/><b>Sim</b>
-                        <input type="checkbox"/><b>Não</b>
-                    </div>
-                </td>
-            </tr>
-            <!--Start Row 10 -->
-            <tr>
-                <td colspan="5">Estado de OMS CD4 (N0/%)</td>
-            </tr>
-
-            <!--Start Row 11 -->
-            <tr>
-                <td colspan="5">Alternativas a 1<sup>a</sup> linha</td>
-            </tr>
-
-            <!--Start Row 12 -->
-            <tr>
-                <td class="text-center"> __/__/__</td>
-                <td colspan="4">
-                    <div class="padded-div">
-                        <div style="width: 50%">
-                            Novo Regimen
-                        </div>
-                        <div style="width: 50%">
-                            Motivo
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <!--Start Row 13 -->
-            <tr>
-                <td class="text-center"> __/__/__</td>
-                <td colspan="4">
-                    <div class="padded-div">
-                        <div style="width: 50%">
-                            Novo Regimen
-                        </div>
-                        <div style="width: 50%">
-                            Motivo
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <!--Start Row 14 -->
-            <tr>
-                <td class="text-center"> __/__/__</td>
-                <td colspan="4">
-                    <div class="padded-div">
-                        <div style="width: 50%">
-                            Novo Regimen
-                        </div>
-                        <div style="width: 50%">
-                            Motivo
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <!--Start Row 15 -->
-            <tr>
-                <td colspan="6"></td>
-            </tr>
-
-            <!--Start Row 16 -->
-            <tr>
-                <td rowspan="3"><span class="vertical-text text-center"> 2<sup>a</sup> Linha</span></td>
-                <td colspan="5">Mundaca para a 2<sup>a</sup> linha (ou substituicao dentroda 2<sup>a</sup> linha)</td>
-            </tr>
-
-            <!--Start Row 17 -->
-            <tr>
-                <td class="text-center"> __/__/__</td>
-                <td colspan="4">
-                    <div class="padded-div">
-                        <div style="width: 50%">
-                            Novo Regimen
-                        </div>
-                        <div style="width: 50%">
-                            Motivo
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <!--Start Row 18 -->
-            <tr>
-                <td class="text-center"> __/__/__</td>
-                <td colspan="4">
-                    <div class="padded-div">
-                        <div style="width: 50%">
-                            Novo Regimen
-                        </div>
-                        <div style="width: 50%">
-                            Motivo
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <!--Start Row 19 -->
-            <tr>
-                <td rowspan="2"><span class="vertical-text text-center"> 3<sup>a</sup> Linha</span></td>
-                <td colspan="5">Mundaca para a 3<sup>a</sup> linha (ou substituicao dentroda 2<sup>a</sup> linha)</td>
-            </tr>
-
-            <!--Start Row 20 -->
-            <tr>
-                <td class="text-center"> __/__/__</td>
-                <td colspan="4">
-                    <div class="padded-div">
-                        <div style="width: 50%">
-                            Novo Regimen
-                        </div>
-                        <div style="width: 50%">
-                            Motivo
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="6"></td>
-            </tr>
-            <tr>
-                <td colspan="6" class="text-center">Mudancas no Estado de Permanecia TARV</td>
-            </tr>
-
-            <!--Start Row 23 -->
-            <tr>
-                <td class="text-center" colspan="2">
-                    Suspensoes ou <br>
-                    Abandonos
-                </td>
-                <td>
-                    <div style="display: block">
-                        <div><input type="checkbox"/>Suspensao</div>
-                        <div><input type="checkbox"/>Abandono</div>
-                    </div>
-                </td>
-                <td>
-                    <div style="display: block">
-                        <div><input type="checkbox"/>Suspensao</div>
-                        <div><input type="checkbox"/>Abandono</div>
-                    </div>
-                </td>
-                <td>
-                    <div style="display: block">
-                        <div><input type="checkbox"/>Suspensao</div>
-                        <div><input type="checkbox"/>Abandono</div>
-                    </div>
-                </td>
-                <td>
-                    <div style="display: block">
-                        <div><input type="checkbox"/>Suspensao</div>
-                        <div><input type="checkbox"/>Abandono</div>
-                    </div>
-                </td>
-            </tr>
-
-            <!--Start Row 24 -->
-            <tr>
-                <td colspan="2">Data</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-
-            <!--Start Row 25 -->
-            <tr>
-                <td colspan="2">Motivo</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-
-            <tr><td colspan="6"></td> </tr>
-
-            <!--Start Row 27 -->
-            <tr>
-                <td style="width: 5%">
-                    <input type="checkbox"/>
-                </td>
-                <td class="text-center">Rencio Data</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-
-            <tr><td colspan="6"></td></tr>
-
-            <!--Start Row 29 -->
-            <tr>
-                <td colspan="2"></td>
-                <td class="text-center">Data</td>
-                <td colspan="3"></td>
-            </tr>
-
-            <!--Start Row 30 -->
-            <tr>
-                <td style="width: 5%">
-                    <input type="checkbox"/>
-                </td>
-                <td class="text-center">Transferido para</td>
-                <td class="text-center"> __/__/__ </td>
-                <td colspan="3">Unidade Sanitária</td>
-            </tr>
-
-            <!--Start Row 31 -->
-            <tr>
-                <td style="width: 5%">
-                    <input type="checkbox"/>
-                </td>
-                <td class="text-center">Obito</td>
-                <td class="text-center"> __/__/__ </td>
-                <td colspan="3">Unidade Sanitária</td>
-            </tr>
-
-        </table>
-    </div>
-</div>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">Amélia</td>
+        <td colspan="2" rowspan="2" class="center">1</td>
+        <td colspan="2" rowspan="2" class="center">P N D</td>
+        <td colspan="2" rowspan="2" class="center">S N</td>
+        <td colspan="2" rowspan="2" class="center">S N A</td>
+        <td rowspan="2" colspan="6" class="center"></td>
+        <td colspan="14"></td>
+        <td colspan="2" rowspan="2" class="center"></td>
+        <td colspan="2" rowspan="2" class="center">P N D</td>
+        <td colspan="2" rowspan="2" class="center">S N</td>
+        <td colspan="2" rowspan="2" class="center">S N A</td>
+        <td rowspan="2" colspan="6" class="center"></td>
+        <td colspan="40" class="center">Mudanças no Estado de Permanência TARV</td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">Filha</td>
+        <td colspan="14" class="center"></td>
+        <td colspan="9" rowspan="2" class="center">Suspensões ou<br> Abandonos</td>
+        <td colspan="8" rowspan="2">
+            <div><input type="checkbox"/>Suspensão</div>
+            <div><input type="checkbox"/>Abandono</div>
+        </td>
+        <td colspan="8" rowspan="2">
+            <div><input type="checkbox"/>Suspensão</div>
+            <div><input type="checkbox"/>Abandono</div>
+        </td>
+        <td colspan="8" rowspan="2">
+            <div><input type="checkbox"/>Suspensão</div>
+            <div><input type="checkbox"/>Abandono</div>
+        </td>
+        <td colspan="8" rowspan="2">
+            <div><input type="checkbox"/>Suspensão</div>
+            <div><input type="checkbox"/>Abandono</div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="10" class="center">Data</td>
+        <td colspan="50" class="center">Cuidados de HIV</td>
+    </tr>
+    <tr>
+        <td colspan="10" class="center">24/05/19</td>
+        <td colspan="50">
+            &nbsp;&nbsp;<b>Teste HIV+:</b>
+            <input type="checkbox" checked/>TR
+            <input type="checkbox"/>PCR
+            &nbsp;&nbsp;&nbsp;<b>Unidade Sanitária:</b> CS 17 De Setembro - 1040106
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox"/><b>ATSC</b>
+        </td>
+        <td colspan="9" rowspan="2">&nbsp;&nbsp;Data</td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="10" class="center">__/__/__</td>
+        <td colspan="50">
+            <input type="checkbox"/>Diagnóstico presuntivo em crianças < 18 meses
+        </td>
+    </tr>
+    <tr>
+        <td colspan="10" class="center">24/05/19</td>
+        <td colspan="50">
+            <b>Início Pré-TARV</b> - U.Sanitária: <span>CS 17 De Setembro - 1040106</span>
+            <b>Sector:</b> <input type="checkbox"/>TB
+            <input type="checkbox"/>SAAJ
+            <input type="checkbox" checked/>CPN/G
+            <input type="checkbox"/>CCR/L
+            <input type="checkbox"/>Clínica
+        </td>
+        <td colspan="9" rowspan="2">&nbsp;&nbsp;Motivo</td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="60">
+            <input type="checkbox"/>Transferido de outra US <span>__/__/__</span>&nbsp;&nbsp;
+            Unidade Sanitária &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox"/>Em Pré-TARV
+            <input type="checkbox"/>TARV
+        </td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">Alergias e<br>medicamentos</td>
+        <td colspan="6" class="center">Data</td>
+        <td colspan="40" class="center">Condições médicas importantes</td>
+        <td colspan="9" rowspan="2" class="center"><input type="checkbox"/><br>Reinício - Data</td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="14"></td>
+        <td colspan="6" class="center">__/__/__</td>
+        <td colspan="40"></td>
+    </tr>
+    <tr>
+        <td colspan="14"></td>
+        <td colspan="6" class="center">__/__/__</td>
+        <td colspan="40"></td>
+        <td colspan="9"></td>
+        <td colspan="8" class="center">Data</td>
+        <td colspan="24"></td>
+    </tr>
+    <tr>
+        <td colspan="14"></td>
+        <td colspan="6" class="center">__/__/__</td>
+        <td colspan="40"></td>
+        <td colspan="9" rowspan="2" class="center"><input type="checkbox"/><br>Transferido para</td>
+        <td colspan="8" rowspan="2" class="center">__/__/__</td>
+        <td colspan="24" rowspan="2">&nbsp;&nbsp;Unidade Sanitária:</td>
+    </tr>
+    <tr>
+        <td colspan="14"></td>
+        <td colspan="6" class="center">__/__/__</td>
+        <td colspan="40"></td>
+    </tr>
+    <tr>
+        <td colspan="30">&nbsp;&nbsp;Último CD4 (Valor/Data)<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>__/__/__
+        </td>
+        <td colspan="30" rowspan="2">&nbsp;&nbsp;Última Profilaxia Isoniazida (Data de início) __/__/__</td>
+        <td colspan="9" rowspan="2"><input type="checkbox"/>Óbito</td>
+        <td colspan="8" rowspan="2" class="center">__/__/__</td>
+        <td colspan="24" rowspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="30">&nbsp;&nbsp;Última Carga viral (Valor/Data)<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>__/__/__
+        </td>
+    </tr>
+</table>
 </body>
