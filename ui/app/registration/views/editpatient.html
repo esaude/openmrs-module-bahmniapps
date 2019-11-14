@@ -13,12 +13,11 @@
                  </span>
             </div>
             <span class="form-field-inline clearfix" ng-repeat="attribute in ::patientConfiguration.attributeTypes">
-                    <article class="form-field" ng-if="attribute.name == 'TYPE_OF_REGISTRATION'"
-                    ng-class="::{'right-form-field' : $index%2 != 0}">
-                        <span hidden>{{attribute.enabled = true}}</span>
+                    <article class="form-field" ng-if="attribute.name == 'TYPE_OF_REGISTRATION'" ng-class="{'has-error' : submitted && !typeOfRegistrationChange}">
+                        <span hidden>{{attribute.enabled = hasTypeOfRegistration}}</span>
                             <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
                                 is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
-                                on-change="checkDuplicatePatients()"
+                                on-change="checkDuplicatePatients()" required="true"
                                 get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                     </article>
             </span>
@@ -31,7 +30,6 @@
                                              get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                     </article>
              </span>
-
             <span class="form-field-inline clearfix" ng-repeat="attribute in ::patientConfiguration.attributeTypes">
                 <article class="form-field" ng-if="attribute.name == 'US_REG_DATE'" 
                 ng-class="::{'right-form-field' : $index%2 != 0}">
@@ -41,7 +39,7 @@
                             get-data-results="getDataResults" is-read-only="isReadOnly"  handle-update="handleUpdate"></attribute-types>
                 </article>
             </span>
-          
+
             <section>  
             <article class="form-field">
                     <div class="field-attribute">
@@ -67,8 +65,13 @@
                     <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value == 'NEW_PATIENT'">
                         <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
                         <input type="text" name="healthFacilityCode" ng-model="NID.healthFacilityCode"
-                               minlength="8" maxlength="8" size=8 required focus-me="true" readonly
+                               minlength="8" maxlength="8" size=8 required="true" focus-me="true" readonly ng-blur="buildFinalNID()"
                                ng-focus="NID.healthFacilityCode = healthFacility.code">
+                    </div>
+
+                    <div class="input-prepend" ng-if="!hasTypeOfRegistration && !typeOfRegistrationChange">
+                        <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
+                        <input type="text" name="healthFacilityCode" ng-model="NID.healthFacilityCode" size=8 disabled required>
                     </div>
 
                     <div class="input-prepend">
