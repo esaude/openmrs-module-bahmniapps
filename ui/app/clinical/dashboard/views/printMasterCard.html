@@ -1,7 +1,26 @@
+<style>
+    @media all {
+        .page-break {
+            display: none;
+        }
+    }
+
+    @media print and (orientation: portrait) {
+        .page-break {
+            display: block;
+            page-break-before: always;
+        }
+    }
+</style>
+
 <div ng-controller="PrintMasterCardController">
     <div>
         <!--<div ng-include src="'dashboard/views/masterCardSections/resumo.html'"></div>-->
+        <br>
         <div ng-include src="'dashboard/views/masterCardSections/apss.html'"></div>
-        <!--<div ng-include src="'dashboard/views/masterCardSections/clinico.html'"></div>-->
+<!--
+        <div class="page-break"></div>
+        <div ng-include src="'dashboard/views/masterCardSections/clinico.html'"></div>
+-->
     </div>
 </div>

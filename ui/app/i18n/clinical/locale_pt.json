@@ -554,6 +554,7 @@
   "CONSULTATION_TAB_REVISED_DIAGNOSES_LABEL_DIAGNOSES_LABEL":"Detalhes",
   "CONFIRMED":"CONFIRMADO",
   "PRESUMED":"PRESUMIDO",
+  "PATIENT_NID": "NID",
   "INACTIVE":"Inactivo",
   "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Outras Marcações",
   "Vitals Flowsheet": "Dados Antropométricos",
@@ -561,6 +562,8 @@
   "APSS_PP_SHEET_LABEL":"Ficha APSS e PP",
   "APSS_PP_BOOK_LABEL":"Livro APSS & PP",
   "PP_KEY_POPULATION_LABEL":"População Chave",
+  "PP_VULNERABLE_POPULATION_LABEL":"População Vulnerável (Especifique)",
   "PAGE":"Pág",
-  "AGE":"Idade"
+  "AGE":"Idade",
+  "PROVIDER_SIGNATURE": "Assinatura provedor"
 }
