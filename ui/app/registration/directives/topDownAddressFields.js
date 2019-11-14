@@ -183,10 +183,10 @@ angular.module('bahmni.registration')
                 if (newValue !== undefined) {
                     if (newValue == "INACTIVE_SUSPENDED" || newValue === "INACTIVE_TRANSFERRED_OUT" || newValue === "INACTIVE_DEATH") {
                         if (document.getElementById("cityVillage")) {
+                            $scope.isAddressDisabled = false;
+                        } else {
                             $scope.isAddressDisabled = true;
                         }
-                    } else {
-                        $scope.isAddressDisabled = false;
                     }
                     deregisterAddressWatchForPatientState();
                 }

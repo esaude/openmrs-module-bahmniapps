@@ -13,7 +13,7 @@
                  </span>
             </div>
             <span class="form-field-inline clearfix" ng-repeat="attribute in ::patientConfiguration.attributeTypes">
-                    <article class="form-field" ng-if="attribute.name == 'TYPE_OF_REGISTRATION'" ng-class="{'has-error' : !typeOfRegistrationChange}">
+                    <article class="form-field" ng-if="attribute.name == 'TYPE_OF_REGISTRATION'" ng-class="{'has-error' : submitted && patient.TYPE_OF_REGISTRATION.value === '' || patient.TYPE_OF_REGISTRATION.value === undefined}">
                         <span hidden>{{attribute.enabled = hasTypeOfRegistration}}</span>
                             <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
                                 is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
