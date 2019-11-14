@@ -53,7 +53,7 @@
                     <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value === 'TRANSFERRED_PATIENT'">
                         <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
                         <input type="text" name="healthFacilityCode" id="healthFacilityCode"
-                               ng-model="NID.healthFacilityCode" ng-blur="buildFinalNID()" focus-me="true"
+                               ng-model="NID.healthFacilityCode" focus-me="true"
                                placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_HEALTHFACILITY_CODE' | translate}}"
                                minlength="8" ng-pattern="regexDigits" maxlength="8" size=8 required="true" ng-disabled="enableRequiredFields"
                                ng-class="{'illegalValue' : submitted && this.myForms.myForm.healthFacilityCode.$invalid || this.myForms.myForm.healthFacilityCode.$invalid && !this.myForms.myForm.healthFacilityCode.$pristine || this.myForms.myForm.healthFacilityCode.$error.pattern}">
@@ -62,16 +62,17 @@
                             {{::'MINLENGTH_HEALTH_FACILITY_CODE' | translate}}</p>
                     </div>
 
-                    <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value == 'NEW_PATIENT'">
+                    <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value === 'NEW_PATIENT'">
                         <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
                         <input type="text" name="healthFacilityCode" ng-model="NID.healthFacilityCode"
-                               minlength="8" maxlength="8" size=8 required="true" focus-me="true" readonly ng-blur="buildFinalNID()"
+                               minlength="8" maxlength="8" size=8 required="true" focus-me="true" readonly
                                ng-focus="NID.healthFacilityCode = healthFacility.code">
                     </div>
 
                     <div class="input-prepend" ng-if="!hasTypeOfRegistration && !typeOfRegistrationChange">
                         <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
-                        <input type="text" name="healthFacilityCode" ng-model="NID.healthFacilityCode" size=8 disabled required>
+                        <input type="text" name="healthFacilityCode" ng-value="NID.healthFacilityCode = ''"
+                               ng-model="NID.healthFacilityCode" size=8 disabled required>
                     </div>
 
                     <div class="input-prepend">
