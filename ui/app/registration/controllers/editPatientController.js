@@ -99,6 +99,11 @@ angular.module('bahmni.registration')
 
                     if ($scope.patient.patientState == "INACTIVE_SUSPENDED" || $scope.patient.patientState === "INACTIVE_TRANSFERRED_OUT" || $scope.patient.patientState === "INACTIVE_DEATH") {
                         $rootScope.isEligibleForVisit = false;
+                        if ($scope.myForms.myForm.healthFacilityCode.$invalid || $scope.myForms.myForm.nidYear.$invalid || $scope.myForms.myForm.sequentialCode.$invalid) {
+                            $scope.enableRequiredFields = false;
+                        } else {
+                            $scope.enableRequiredFields = true;
+                        }
                         $scope.$broadcast("DisableRegistrationFields", true);
                         $scope.$emit("DisableRegistrationFields", true);
                     }
