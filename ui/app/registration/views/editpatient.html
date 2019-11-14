@@ -30,7 +30,6 @@
                                              get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                     </article>
              </span>
-
             <span class="form-field-inline clearfix" ng-repeat="attribute in ::patientConfiguration.attributeTypes">
                 <article class="form-field" ng-if="attribute.name == 'US_REG_DATE'" 
                 ng-class="::{'right-form-field' : $index%2 != 0}">

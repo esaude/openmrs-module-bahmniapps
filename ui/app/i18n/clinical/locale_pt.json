@@ -153,6 +153,7 @@
   "ENTER_ORDER_NOTE_LABEL": "Introduza notas para",
   "ENTERING_DATA_FOR_TRANSLATION_KEY": "Introduzir dados para",
   "FOLLOWUP_APSS_CONSULTATION": "APSS - Consulta de Seguimento",
+  "GENDER_LABEL": "Sexo",
   "GENDER_FEMALE": "Feminino",
   "GENDER_MALE": "Masculino",
   "HEADER_LABEL_LOGOUT_KEY": "Sair",
@@ -555,5 +556,12 @@
   "PRESUMED":"PRESUMIDO",
   "INACTIVE":"Inactivo",
   "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Outras Marcações",
-  "Vitals Flowsheet": "Dados Antropométricos"
+  "MASTER_CARD_LABEL":"Mastercard",
+  "APSS_PP_SHEET_LABEL":"Ficha APSS e PP",
+  "APSS_PP_BOOK_LABEL":"Livro APSS & PP",
+  "PP_KEY_POPULATION_LABEL":"População Chave",
+  "PAGE":"Pág",
+  "AGE":"Idade",
+  "Vitals Flowsheet": "Dados Antropométricos",
+  "ADD_PROPHILAXIS": "Add Profilaxia"
 }

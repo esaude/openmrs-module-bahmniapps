@@ -165,6 +165,10 @@ angular.module('consultation')
                     'print-transferOut': {
                         templateUrl: 'dashboard/views/PrintTransferOut.html',
                         controller: 'TransferController'
+                    },
+                    'print-masterCard': {
+                        templateUrl: 'dashboard/views/printMasterCard.html',
+                        controller: 'PrintMasterCardController'
                     }
                 }
             })
