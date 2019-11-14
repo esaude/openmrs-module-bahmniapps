@@ -676,6 +676,7 @@ angular.module('bahmni.clinical')
                     $scope.selectedCategory = treatment.category;
                     $scope.selectedTreatmentLine = treatment.treatmentLine;
                 }
+                $scope.isARV = $scope.selectedCategory.display === "ARV" || $scope.selectedCategory.display === getTranslatedMessage("ARV_KEY");
                 markEitherVariableDrugOrUniformDrug(treatment);
                 treatment.isBeingEdited = true;
                 $scope.treatment = treatment.cloneForEdit(index, treatmentConfig);
