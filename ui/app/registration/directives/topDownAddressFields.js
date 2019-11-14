@@ -182,7 +182,9 @@ angular.module('bahmni.registration')
             var deregisterAddressWatchForPatientState = $scope.$watch('patient', function (newValue) {
                 if (newValue !== undefined) {
                     if (newValue == "INACTIVE_SUSPENDED" || newValue === "INACTIVE_TRANSFERRED_OUT" || newValue === "INACTIVE_DEATH") {
-                        $scope.isAddressDisabled = true;
+                        if (document.getElementById("cityVillage")) {
+                            $scope.isAddressDisabled = true;
+                        }
                     } else {
                         $scope.isAddressDisabled = false;
                     }
