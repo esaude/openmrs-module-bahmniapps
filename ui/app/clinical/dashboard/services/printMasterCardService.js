@@ -244,7 +244,7 @@ angular.module('bahmni.clinical')
                                     } else if (response.data[i].concept.name === apssPPAdherenceFollowUpHasInformedSomeoneRelationship) {
                                         tableStructure.apssAdherenceFollowUpRelationship = response.data[i].value.shortName;
                                     } else if (response.data[i].concept.name === apssAdherenceFollowUpWhoAdministersFullName) {
-                                        tableStructure.apssAdherenceFollowUpWhoAdministersFullName = response.data[i].value.shortName;
+                                        tableStructure.apssAdherenceFollowUpWhoAdministersFullName = response.data[i].value;
                                     } else if (response.data[i].concept.name === apssAdherenceFollowUpWhoAdministersRelationship) {
                                         tableStructure.apssAdherenceFollowUpWhoAdministersRelationship = response.data[i].value.shortName;
                                     } else if (response.data[i].concept.name === apssDifferentiatedModelsDate) {
@@ -289,7 +289,7 @@ angular.module('bahmni.clinical')
                                             } else if (response.data[i].concept.name === apssPPAdherenceFollowUpHasInformedSomeoneRelationship) {
                                                 obsTable[j].apssAdherenceFollowUpRelationship = response.data[i].value.shortName;
                                             } else if (response.data[i].concept.name === apssAdherenceFollowUpWhoAdministersFullName) {
-                                                obsTable[j].apssAdherenceFollowUpWhoAdministersFullName = response.data[i].value.shortName;
+                                                obsTable[j].apssAdherenceFollowUpWhoAdministersFullName = response.data[i].value;
                                             } else if (response.data[i].concept.name === apssAdherenceFollowUpWhoAdministersRelationship) {
                                                 obsTable[j].apssAdherenceFollowUpWhoAdministersRelationship = response.data[i].value.shortName;
                                             } else if (response.data[i].concept.name === apssDifferentiatedModelsDate) {
@@ -332,7 +332,7 @@ angular.module('bahmni.clinical')
                                             } else if (response.data[i].concept.name === apssPPAdherenceFollowUpHasInformedSomeoneRelationship) {
                                                 tableStructure.apssAdherenceFollowUpRelationship = response.data[i].value.shortName;
                                             } else if (response.data[i].concept.name === apssAdherenceFollowUpWhoAdministersFullName) {
-                                                tableStructure.apssAdherenceFollowUpWhoAdministersFullName = response.data[i].value.shortName;
+                                                tableStructure.apssAdherenceFollowUpWhoAdministersFullName = response.data[i].value;
                                             } else if (response.data[i].concept.name === apssAdherenceFollowUpWhoAdministersRelationship) {
                                                 tableStructure.apssAdherenceFollowUpWhoAdministersRelationship = response.data[i].value.shortName;
                                             } else if (response.data[i].concept.name === apssDifferentiatedModelsDate) {
