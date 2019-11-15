@@ -283,9 +283,9 @@ angular.module('bahmni.clinical')
                                     for (var j = 0; j < obsTable.length; j++) {
                                         if (obsTable[j].actualVisit === response.data[i].observationDateTime.split('T')[0]) {
                                             if (response.data[i].concept.name === apssPreTARVCounsellingComments) {
-                                                tableStructure.apssPreTARVCounsellingComments = response.data[i].value;
+                                                obsTable[j].apssPreTARVCounsellingComments = response.data[i].value;
                                             } else if (response.data[i].concept.name === apssSectionIDetails) {
-                                                tableStructure.apssSectionIDetails = response.data[i].value;
+                                                obsTable[j].apssSectionIDetails = response.data[i].value;
                                             } else if (response.data[i].concept.name === apssPPAdherenceFollowUpHasInformedSomeoneRelationship) {
                                                 obsTable[j].apssAdherenceFollowUpRelationship = response.data[i].value.shortName;
                                             } else if (response.data[i].concept.name === apssAdherenceFollowUpWhoAdministersFullName) {
