@@ -119,12 +119,12 @@
 				<td class="center" rowspan="2">3</td>
 				<td colspan="3" rowspan="2" style="width: 100px;">Consultas (Datas)</td>
 				<td colspan="2">Actual</td>
-				<td ng-repeat="ps in data.patientInfo.psychosocialFactors" colspan="2">{{ ps.actualVisit | date:'dd/MM/yy' }}</td>
-				<td ng-repeat="pse in data.patientInfo.psychosocialFactorsActualEmpty" colspan="2">__/__/__</td>
+				<td ng-repeat="ps in data.patientInfo.psychosocialFactors track by $index" colspan="2">{{ ps.actualVisit | date:'dd/MM/yy' }}</td>
+				<td ng-repeat="pse in data.patientInfo.psychosocialFactorsActualEmpty track by $index" colspan="2">__/__/__</td>
 			</tr>
 			<tr>
 				<td colspan="2">Próxima</td>
-				<td ng-repeat="ps in data.patientInfo.psychosocialFactors" colspan="2">{{ ps.nextVisit | date:'dd/MM/yy' }}</td>
+				<td ng-repeat="ps in data.patientInfo.psychosocialFactors track by $index" colspan="2">{{ ps.nextVisit | date:'dd/MM/yy' }}</td>
 				<!--<td ng-repeat="pse in data.patientInfo.psychosocialFactorsNextEmpty track by $index" colspan="2">__/__/__</td>-->
 			</tr>
 			<tr>
@@ -138,7 +138,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td clas5="center">5</td>
+				<td class="center">5</td>
 				<td class="center" colspan="4">ACONSELHA-<br>MENTO<br>PRÉ-TARV</td>
 				<td colspan="15">Educação básica sobre HIV (Prevenção: Transmissão; Progressão<br>da doença) e ADESÃO
 					(Preparação; Necessidade de adesão; Plano<br>de Tratamento) (S / N)</td>
