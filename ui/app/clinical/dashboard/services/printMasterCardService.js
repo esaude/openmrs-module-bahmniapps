@@ -104,10 +104,9 @@ angular.module('bahmni.clinical')
                     var p17 = populateARV();
                     var p18 = populateARTDetails();
                     var p19 = populatePatientLabResults();
-                    var p20 = populateApssDiagnosisDisclosure();
-                    var p22 = populatePsychosocialFactors();
+                    var p20 = populatePsychosocialFactors();
 
-                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p22]).then(function () {
+                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20]).then(function () {
                         resolve(masterCardModel);
                     }).catch(function (error) {
                         reject(error);
@@ -141,14 +140,6 @@ angular.module('bahmni.clinical')
                                 masterCardModel.patientInfo.vulnerablePopulation = member.valueAsString;
                             }
                         });
-                    }
-                });
-            };
-
-            var populateApssDiagnosisDisclosure = function () {
-                var apssPsychosocialFactorsOther = 'Apss_Psychosocial_factors_Other_add_field_specify';
-                observationsService.fetch(patientUuid, [apssPsychosocialFactorsOther]).then(function (response) {
-                    if (response.data && response.data.length > 0) {
                     }
                 });
             };
