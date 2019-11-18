@@ -540,10 +540,12 @@
     "CONSULTATION_TAB_REVISED_DIAGNOSES_LABEL_DIAGNOSES_LABEL":"Details",
     "CONFIRMED":"CONFIRMED",
     "PRESUMED":"PRESUMED",
+    "PATIENT_NID": "NID",
     "INACTIVE":"Inactive",
     "Assintomático" : "Asymptomatic",
     "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Appointments",
     "MASTER_CARD_LABEL":"Mastercard",
     "Vitals Flowsheet": "Nutritional Values",
+    "PROVIDER_SIGNATURE": "Assinatura provedor",
     "ADD_PROPHILAXIS": "Add Prophilaxis"
 }
