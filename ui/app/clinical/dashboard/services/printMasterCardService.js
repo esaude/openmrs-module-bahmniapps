@@ -169,7 +169,8 @@ angular.module('bahmni.clinical')
                 var referenceSectionSupportGroupPC = 'Reference_PC';
                 var referenceSectionSupportGroupAR = 'Reference_AR';
                 var referenceSectionSupportGroupMPS = 'Reference_MPS';
-                var referenceSectionSupportGroupOther = 'Reference_Other_Specify_Group';
+                var referenceSectionSupportGroup = 'Reference_Other_Specify_Group';
+                var referenceSectionSupportGroupOther = 'Reference_Other_Specify_Group_Other';
                 var referenceMDCSectionGA = 'Reference_GA';
                 var referenceMDCSectionAF = 'Reference_AF';
                 var referenceMDCSectionCA = 'Reference_CA';
@@ -178,6 +179,7 @@ angular.module('bahmni.clinical')
                 var referenceMDCSectionDT = 'Reference_DT';
                 var referenceMDCSectionDC = 'Reference_DC';
                 var referenceMDCSectionOther = 'Reference_MDC_Other';
+                var referenceMDCSectionOtherComments = 'Reference_MDC_Other_comments';
                 var apssDifferentiatedModelsDate = 'Apss_Differentiated_Models_Date';
                 var apssPatientCaregiverAgreement = 'Apss_Agreement_Terms_Patient_Caregiver_agrees_contacted';
                 var apssConfidantAgreement = 'Apss_Agreement_Terms_Confidant_agrees_contacted';
@@ -192,10 +194,10 @@ angular.module('bahmni.clinical')
                     apssPPNeedCommunitySupport, apssPPAdherenceFollowUpHasInformedSomeone, apssPPAdherenceFollowUpHasInformedSomeoneRelationship,
                     apssAdherenceFollowUpWhoAdministersFullName, apssAdherenceFollowUpWhoAdministersRelationship, apssAdherenceFollowUpPlan,
                     apssAdherenceFollowUpSideEffects, apssAdherenceFollowUpTARV, referenceSectionSupportGroupCR, referenceSectionSupportGroupPC,
-                    referenceSectionSupportGroupAR, referenceSectionSupportGroupMPS, referenceSectionSupportGroupOther, referenceMDCSectionGA,
-                    referenceMDCSectionAF, referenceMDCSectionCA, referenceMDCSectionPU, referenceMDCSectionFR, referenceMDCSectionDT,
-                    referenceMDCSectionDC, referenceMDCSectionOther, apssDifferentiatedModelsDate, apssPatientCaregiverAgreement,
-                    apssConfidantAgreement, apssAgreementContactType, apssConfidantAgreementContactType,
+                    referenceSectionSupportGroupAR, referenceSectionSupportGroupMPS, referenceSectionSupportGroup, referenceSectionSupportGroupOther,
+                    referenceMDCSectionGA, referenceMDCSectionAF, referenceMDCSectionCA, referenceMDCSectionPU, referenceMDCSectionFR,
+                    referenceMDCSectionDT, referenceMDCSectionDC, referenceMDCSectionOther, referenceMDCSectionOtherComments, apssDifferentiatedModelsDate,
+                    apssPatientCaregiverAgreement, apssConfidantAgreement, apssAgreementContactType, apssConfidantAgreementContactType,
                     apssPositivePreventionKeyPopulation, apssAdherenceFollowUp, apssReasonForTheVisit]).then(function (response) {
                         if (response.data && response.data.length > 0) {
                             var obsTable = [];
@@ -216,6 +218,7 @@ angular.module('bahmni.clinical')
                                     referenceSectionSupportGroupPC: '',
                                     referenceSectionSupportGroupAR: '',
                                     referenceSectionSupportGroupMPS: '',
+                                    referenceSectionSupportGroup: '',
                                     referenceSectionSupportGroupOther: '',
                                     referenceMDCSectionGA: '',
                                     referenceMDCSectionAF: '',
@@ -224,7 +227,8 @@ angular.module('bahmni.clinical')
                                     referenceMDCSectionFR: '',
                                     referenceMDCSectionDT: '',
                                     referenceMDCSectionDC: '',
-                                    referenceMDCSectionOther: ''
+                                    referenceMDCSectionOther: '',
+                                    referenceMDCSectionOtherComments: ''
                                 };
                                 if (obsTable.length === 0) {
                                     tableStructure.actualVisit = response.data[i].observationDateTime.split('T')[0];
@@ -249,7 +253,9 @@ angular.module('bahmni.clinical')
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroupMPS) {
                                         tableStructure.referenceSectionSupportGroupMPS = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroupOther) {
-                                        tableStructure.referenceSectionSupportGroupOther = response.data[i].value.name;
+                                        tableStructure.referenceSectionSupportGroupOther = response.data[i].value;
+                                    } else if (response.data[i].concept.name === referenceSectionSupportGroup) {
+                                        tableStructure.referenceSectionSupportGroup = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionGA) {
                                         tableStructure.referenceMDCSectionGA = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionAF) {
@@ -266,6 +272,8 @@ angular.module('bahmni.clinical')
                                         tableStructure.referenceMDCSectionDC = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionOther) {
                                         tableStructure.referenceMDCSectionOther = response.data[i].value.name;
+                                    } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
+                                        tableStructure.referenceMDCSectionOtherComments = response.data[i].value;
                                     } else if (response.data[i].value.name) {
                                         tableStructure.values.push(response.data[i].value.name);
                                     }
@@ -294,7 +302,9 @@ angular.module('bahmni.clinical')
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupMPS) {
                                                 obsTable[j].referenceSectionSupportGroupMPS = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupOther) {
-                                                obsTable[j].referenceSectionSupportGroupOther = response.data[i].value.name;
+                                                obsTable[j].referenceSectionSupportGroupOther = response.data[i].value;
+                                            } else if (response.data[i].concept.name === referenceSectionSupportGroup) {
+                                                obsTable[j].referenceSectionSupportGroup = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionGA) {
                                                 obsTable[j].referenceMDCSectionGA = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionAF) {
@@ -311,6 +321,8 @@ angular.module('bahmni.clinical')
                                                 obsTable[j].referenceMDCSectionDC = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionOther) {
                                                 obsTable[j].referenceMDCSectionOther = response.data[i].value.name;
+                                            } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
+                                                obsTable[j].referenceMDCSectionOtherComments = response.data[i].value;
                                             } else if (response.data[i].value.name) {
                                                 obsTable[j].values.push(response.data[i].value.name);
                                             }
@@ -337,7 +349,9 @@ angular.module('bahmni.clinical')
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupMPS) {
                                                 tableStructure.referenceSectionSupportGroupMPS = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupOther) {
-                                                tableStructure.referenceSectionSupportGroupOther = response.data[i].value.name;
+                                                tableStructure.referenceSectionSupportGroupOther = response.data[i].value;
+                                            } else if (response.data[i].concept.name === referenceSectionSupportGroup) {
+                                                tableStructure.referenceSectionSupportGroup = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionGA) {
                                                 tableStructure.referenceMDCSectionGA = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionAF) {
@@ -354,6 +368,8 @@ angular.module('bahmni.clinical')
                                                 tableStructure.referenceMDCSectionDC = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionOther) {
                                                 tableStructure.referenceMDCSectionOther = response.data[i].value.name;
+                                            } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
+                                                tableStructure.referenceMDCSectionOtherComments = response.data[i].value;
                                             } else if (response.data[i].value.name) {
                                                 tableStructure.values.push(response.data[i].value.name);
                                             }

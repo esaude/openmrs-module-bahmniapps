@@ -85,7 +85,7 @@
 					<input type="checkbox" ng-checked="data.patientInfo.keyPopulation == 'PP_Key_population_PID'">PID
 					<input type="checkbox" ng-checked="data.patientInfo.keyPopulation == 'PP_Key_population_REC'">REC
 					<input type="checkbox" ng-checked="data.patientInfo.keyPopulation == 'PP_Key_population_MTS'">MTS
-					<input type="checkbox" ng-checked="data.patientInfo.keyPopulation == 'PP_Key_population_Other'">Outro:
+					<input type="checkbox" ng-checked="data.patientInfo.keyPopulation == 'PP_Key_population_Other'">Outro
 				</td>
 			</tr>
 			<tr>
@@ -611,15 +611,15 @@
 							F
 						</div>
 					</div>
-					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupOther">
-						OUTRO&nbsp;/&nbsp;
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupOther === 'Reference_Start'">
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup">
+						{{data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupOther}}&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_Start'">
 							I
 						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupOther === 'Reference_In_Progress'">
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_In_Progress'">
 							C
 						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupOther === 'Reference_End'">
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_End'">
 							F
 						</div>
 					</div>
@@ -645,99 +645,99 @@
 				<td colspan="6">Fluxo rápido</td>
 				<td colspan="2" rowspan="4" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
 					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionGA">
-							GA&nbsp;/&nbsp;
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionGA === 'Reference_Start'">
-								I
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionGA === 'Reference_In_Progress'">
-								C
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionGA === 'Reference_End'">
-								F
-							</div>
-						<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR">
-							FR&nbsp;/&nbsp;
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR === 'Reference_Start'">
-								I
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR === 'Reference_In_Progress'">
-								C
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR === 'Reference_End'">
-								F
-							</div>
+						GA&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionGA === 'Reference_Start'">
+							I
 						</div>
-						<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF">
-							AF&nbsp;/&nbsp;
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF === 'Reference_Start'">
-								I
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF === 'Reference_In_Progress'">
-								C
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF === 'Reference_End'">
-								F
-							</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionGA === 'Reference_In_Progress'">
+							C
 						</div>
-						<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT">
-							DT&nbsp;/&nbsp;
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT === 'Reference_Start'">
-								I
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT === 'Reference_In_Progress'">
-								C
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT === 'Reference_End'">
-								F
-							</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionGA === 'Reference_End'">
+							F
 						</div>
-						<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA">
-							CA&nbsp;/&nbsp;
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_Start'">
-								I
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_In_Progress'">
-								C
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_End'">
-								F
-							</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR">
+						FR&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR === 'Reference_Start'">
+							I
 						</div>
-						<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC">
-							DC&nbsp;/&nbsp;
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC === 'Reference_Start'">
-								I
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC === 'Reference_In_Progress'">
-								C
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC === 'Reference_End'">
-								F
-							</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR === 'Reference_In_Progress'">
+							C
 						</div>
-						<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionPU">
-							PU&nbsp;/&nbsp;
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_Start'">
-								I
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_In_Progress'">
-								C
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_End'">
-								F
-							</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR === 'Reference_End'">
+							F
 						</div>
-						<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther">
-							OUTRO&nbsp;/&nbsp;
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_Start'">
-								I
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_In_Progress'">
-								C
-							</div>
-							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_End'">
-								F
-							</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF">
+						AF&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT">
+						DT&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA">
+						CA&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC">
+						DC&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionPU">
+						PU&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther">
+						{{data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOtherComments}}&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_End'">
+							F
 						</div>
 					</div>
 				</td>
