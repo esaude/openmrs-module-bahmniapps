@@ -544,7 +544,8 @@
     "INACTIVE":"Inactive",
     "Assintomático" : "Asymptomatic",
     "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Appointments",
-    "Vitals Flowsheet": "Nutritional Values",
     "MASTER_CARD_LABEL":"Mastercard",
-    "PROVIDER_SIGNATURE": "Assinatura provedor"
+    "Vitals Flowsheet": "Nutritional Values",
+    "PROVIDER_SIGNATURE": "Assinatura provedor",
+    "ADD_PROPHILAXIS": "Add Prophilaxis"
 }

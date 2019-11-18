@@ -557,7 +557,6 @@
   "PATIENT_NID": "NID",
   "INACTIVE":"Inactivo",
   "CONSULTATION_TAB_APPOINTMENT_HEADER_LABEL": "Outras Marcações",
-  "Vitals Flowsheet": "Dados Antropométricos",
   "MASTER_CARD_LABEL":"Mastercard",
   "APSS_PP_SHEET_LABEL":"Ficha APSS e PP",
   "APSS_PP_BOOK_LABEL":"Livro APSS & PP",
@@ -565,5 +564,7 @@
   "PP_VULNERABLE_POPULATION_LABEL":"População Vulnerável (Especifique)",
   "PAGE":"Pág",
   "AGE":"Idade",
-  "PROVIDER_SIGNATURE": "Assinatura provedor"
+  "PROVIDER_SIGNATURE": "Assinatura provedor",
+  "Vitals Flowsheet": "Dados Antropométricos",
+  "ADD_PROPHILAXIS": "Add Profilaxia"
 }

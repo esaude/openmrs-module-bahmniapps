@@ -499,6 +499,9 @@ angular.module('bahmni.clinical')
             };
 
             $scope.$on("event:reviseDrugOrder", function (event, drugOrder, drugOrders) {
+                if (drugOrder.drug.form != undefined && drugOrder.drug.form === "ARV") {
+                    $scope.isARV = true;
+                }
                 clearOtherDrugOrderActions(drugOrders);
                 drugOrder.isBeingEdited = true;
                 $scope.isBeingRevised = true;
@@ -673,6 +676,7 @@ angular.module('bahmni.clinical')
                     $scope.selectedCategory = treatment.category;
                     $scope.selectedTreatmentLine = treatment.treatmentLine;
                 }
+                $scope.isARV = $scope.selectedCategory.display === "ARV" || $scope.selectedCategory.display === getTranslatedMessage("ARV_KEY");
                 markEitherVariableDrugOrUniformDrug(treatment);
                 treatment.isBeingEdited = true;
                 $scope.treatment = treatment.cloneForEdit(index, treatmentConfig);
@@ -804,6 +808,7 @@ angular.module('bahmni.clinical')
             $scope.clearForm = function () {
                 $scope.treatment = newTreatment();
                 $scope.formInvalid = false;
+                $scope.isARV = false;
                 clearHighlights();
                 markVariable("startNewDrugEntry");
             };
