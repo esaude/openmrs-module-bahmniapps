@@ -109,9 +109,9 @@ angular.module('bahmni.clinical')
                     encITSSAF: '',
                     encDiag: '',
                     encLabReq: '',
-                    // encViralLoad: '',
-                    // encCDCount: '',
-                    encRef: ''
+                    encRef: '',
+                    encSG: '',
+                    encMDC: ''
                 }
             };
 
@@ -1175,14 +1175,49 @@ angular.module('bahmni.clinical')
             var populateEncRef = function (encUuid) {
                 return new Promise(function (resolve, reject) {
                     var patientRef = 'Reference_Other_Services';
+                    var patientSG = 'Reference_Section_Support_Group';
+                    var patientMDC = 'Reference_MDC_Section';
                     var refArr = [];
+                    var sGArr = [];
+                    var mDCArr = [];
 
                     observationsService.fetchForEncounter(encUuid, patientRef).then(function (response) {
                         if (response.data && response.data.length > 0) {
+                            console.log(response);
                             for (var i = 0; i <= response.data.length; i++) {
                                 if (response.data[i] !== undefined) {
-                                    refArr.push(response.data[i].value.shortName);
+                                    refArr.push(response.data[i].valueAsString);
                                     masterCardModel.patientInfo.encRef = refArr;
+                                }
+                            }
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+
+                    observationsService.fetchForEncounter(encUuid, patientSG).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            console.log(response);
+                            for (var i = 0; i <= response.data.length; i++) {
+                                if (response.data[i] !== undefined) {
+                                    sGArr.push(response.data[i].value.shortName);
+                                    masterCardModel.patientInfo.encSG = sGArr;
+                                }
+                            }
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+
+                    observationsService.fetchForEncounter(encUuid, patientMDC).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            console.log(response);
+                            for (var i = 0; i <= response.data.length; i++) {
+                                if (response.data[i] !== undefined) {
+                                    mDCArr.push(response.data[i].value.shortName);
+                                    masterCardModel.patientInfo.encMDC = mDCArr;
                                 }
                             }
                         }
@@ -1210,7 +1245,6 @@ angular.module('bahmni.clinical')
                                                 encoVar = visitVar.encounters[y];
                                                 encoArr.push(encoVar);
                                                 encoUuidArr.push(encoVar.uuid);
-                                                console.log(encoVar);
                                                 console.log(encoArr);
                                                 masterCardModel.patientInfo.actualEncounter = encoVar.encounterDatetime;
                                                 masterCardModel.patientInfo.bPressure = '';
