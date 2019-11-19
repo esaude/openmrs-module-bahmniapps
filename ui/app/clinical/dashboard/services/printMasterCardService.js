@@ -109,8 +109,9 @@ angular.module('bahmni.clinical')
                     encITSSAF: '',
                     encDiag: '',
                     encLabReq: '',
-                    encViralLoad: '',
-                    encCDCount: ''
+                    // encViralLoad: '',
+                    // encCDCount: '',
+                    encRef: ''
                 }
             };
 
@@ -1171,6 +1172,27 @@ angular.module('bahmni.clinical')
                 }
             };
 
+            var populateEncRef = function (encUuid) {
+                return new Promise(function (resolve, reject) {
+                    var patientRef = 'Reference_Other_Services';
+                    var refArr = [];
+
+                    observationsService.fetchForEncounter(encUuid, patientRef).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            for (var i = 0; i <= response.data.length; i++) {
+                                if (response.data[i] !== undefined) {
+                                    refArr.push(response.data[i].value.shortName);
+                                    masterCardModel.patientInfo.encRef = refArr;
+                                }
+                            }
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+                });
+            };
+
             var populateEncounterDetails = function () {
                 return new Promise(function (resolve, reject) {
                     patientVisitHistoryService.getVisitHistory(patientUuid, null).then(function (response) {
@@ -1228,6 +1250,8 @@ angular.module('bahmni.clinical')
                                                 populateEncDiagnosis(encoVar.visit.uuid);
 
                                                 populateEncInvestigations(encoVar);
+
+                                                populateEncRef(encoVar.uuid);
                                             }
                                         }
                                     }
