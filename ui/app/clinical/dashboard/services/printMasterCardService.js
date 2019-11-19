@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .service('printMasterCardService', ['$rootScope', '$translate', 'patientService', 'observationsService', 'programService', 'treatmentService', 'localeService', 'patientVisitHistoryService', 'conceptSetService', 'labOrderResultService',
-        function ($rootScope, $translate, patientService, observationsService, programService, treatmentService, localeService, patientVisitHistoryService, conceptSetService, labOrderResultService) {
+    .service('printMasterCardService', ['$rootScope', '$translate', 'patientService', 'observationsService', 'programService', 'treatmentService', 'localeService', 'patientVisitHistoryService', 'conceptSetService', 'labOrderResultService', 'diagnosisService', 'orderService',
+        function ($rootScope, $translate, patientService, observationsService, programService, treatmentService, localeService, patientVisitHistoryService, conceptSetService, labOrderResultService, diagnosisService, orderService) {
             var masterCardModel = {
 
                 hospitalLogo: '',
@@ -98,7 +98,17 @@ angular.module('bahmni.clinical')
                     encNutriEdQtyUnit: '',
                     encTB: '',
                     encTBDiag: '',
-                    encTBSym: ''
+                    encTBSym: '',
+                    encTBStartDate: '',
+                    encTBStatus: '',
+                    encITS: '',
+                    encITSDiag: '',
+                    encITSSAM: '',
+                    encITSSAF: '',
+                    encDiag: '',
+                    encLabReq: '',
+                    encViralLoad: '',
+                    encCDCount: ''
                 }
             };
 
@@ -689,7 +699,6 @@ angular.module('bahmni.clinical')
                         }
                         resolve();
                         masterCardModel.patientInfo.bPressure = masterCardModel.patientInfo.bPressureS + '/' + masterCardModel.patientInfo.bPressureD;
-                        console.log(masterCardModel.patientInfo.bPressure);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -705,7 +714,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encPregnancy = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encPregnancy);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -714,14 +722,13 @@ angular.module('bahmni.clinical')
 
             var populateEncLastMenstrual = function (encUuid) {
                 return new Promise(function (resolve, reject) {
-                    var patientMest = 'Last_Menstruation_Date';
+                    var patientMest = 'Last Menstruation Date';
 
                     observationsService.fetchForEncounter(encUuid, patientMest).then(function (response) {
                         if (response.data && response.data.length > 0) {
                             masterCardModel.patientInfo.encLastMenstrual = response.data[0].value;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encLastMenstrual);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -742,7 +749,6 @@ angular.module('bahmni.clinical')
                             }
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encLact);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -766,7 +772,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encFPCondom = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encFPCondom);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -776,7 +781,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encFPVas = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encFPVas);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -786,7 +790,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encFPPil = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encFPPil);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -796,7 +799,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encFPInj = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encFPInj);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -806,7 +808,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encFPImp = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encFPImp);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -816,7 +817,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encFPDui = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encFPDui);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -826,7 +826,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encFPLT = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encFPLT);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -836,7 +835,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encFPMal = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encFPMal);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -846,7 +844,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encFPOut = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encFPOut);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -862,7 +859,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encStaging = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encStaging);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -878,7 +874,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encEdema = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encEdema);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -894,7 +889,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encWeight = response.data[0].value;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encWeight);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -910,7 +904,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encHeight = response.data[0].value;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encHeight);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -926,7 +919,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encBP = response.data[0].value;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encBP);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -942,7 +934,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encIMC = response.data[0].value;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encIMC);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -965,7 +956,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encEstadoNutricional = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encIMC);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -989,7 +979,6 @@ angular.module('bahmni.clinical')
                             }
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encNutriEd);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -999,7 +988,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encNutriEdTipo = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.patientNutriEdTipo);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -1009,7 +997,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encNutriEdQty = response.data[0].value;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encNutriEdQty);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -1019,7 +1006,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.encNutriEdQtyUnit = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encNutriEdQtyUnit);
                     }).catch(function (error) {
                         reject(error);
                     });
@@ -1029,22 +1015,19 @@ angular.module('bahmni.clinical')
             var populateEncTB = function (encUuid) {
                 return new Promise(function (resolve, reject) {
                     var patientTB = 'Has TB Symptoms';
+                    var patientTBDiag = 'Date of Diagnosis';
+                    var patientTBSym = 'Symptoms Prophylaxis_New';
+                    var patientTBStartDate = 'SP_Treatment Start Date';
+                    var patientTBStatus = 'SP_Treatment State';
 
                     observationsService.fetchForEncounter(encUuid, patientTB).then(function (response) {
                         if (response.data && response.data.length > 0) {
                             masterCardModel.patientInfo.encTB = response.data[0].value;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encTB);
                     }).catch(function (error) {
                         reject(error);
                     });
-                });
-            };
-
-            var populateEncTBDiag = function (encUuid) {
-                return new Promise(function (resolve, reject) {
-                    var patientTBDiag = 'Date of Diagnosis';
 
                     observationsService.fetchForEncounter(encUuid, patientTBDiag).then(function (response) {
                         if (response.data && response.data.length > 0) {
@@ -1056,27 +1039,114 @@ angular.module('bahmni.clinical')
                             }
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encTBDiag);
                     }).catch(function (error) {
                         reject(error);
                     });
-                });
-            };
-
-            var populateEncTBSym = function (encUuid) {
-                return new Promise(function (resolve, reject) {
-                    var patientTBSym = 'Symptoms Prophylaxis_New';
 
                     observationsService.fetchForEncounter(encUuid, patientTBSym).then(function (response) {
                         if (response.data && response.data.length > 0) {
                             masterCardModel.patientInfo.encTBSym = response.data[0].value.shortName;
                         }
                         resolve();
-                        console.log(masterCardModel.patientInfo.encTBSym);
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+
+                    observationsService.fetchForEncounter(encUuid, patientTBStartDate).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            masterCardModel.patientInfo.encTBStartDate = response.data[0].value;
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+
+                    observationsService.fetchForEncounter(encUuid, patientTBStatus).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            masterCardModel.patientInfo.encTBStatus = response.data[0].value.name;
+                        }
+                        resolve();
                     }).catch(function (error) {
                         reject(error);
                     });
                 });
+            };
+
+            var populateEncITS = function (encUuid) {
+                return new Promise(function (resolve, reject) {
+                    var patientITS = 'Has STI Symptoms';
+                    var patientITSDiag = 'STI Diagnosis_Prophylaxis';
+                    var patientSAM = 'Syndromic Approach_STI_M';
+                    var patientSAF = 'Syndromic Approach_STI_F';
+
+                    observationsService.fetchForEncounter(encUuid, patientITS).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            masterCardModel.patientInfo.encITS = response.data[0].value;
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+
+                    observationsService.fetchForEncounter(encUuid, patientITSDiag).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            masterCardModel.patientInfo.encITSDiag = response.data[0].value.shortName;
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+
+                    observationsService.fetchForEncounter(encUuid, patientSAM).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            masterCardModel.patientInfo.encITSSAM = response.data[0].value.shortName;
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+
+                    observationsService.fetchForEncounter(encUuid, patientSAF).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            masterCardModel.patientInfo.encITSSAF = response.data[0].value.shortName;
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+                });
+            };
+
+            var populateEncDiagnosis = function (visitUuid) {
+                return new Promise(function (resolve, reject) {
+                    var valArr = [];
+                    diagnosisService.getDiagnoses(patientUuid, visitUuid).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            for (var i = 0; i <= response.data.length; i++) {
+                                if (response.data[i] !== undefined) {
+                                    valArr.push(response.data[i].codedAnswer.shortName);
+                                    masterCardModel.patientInfo.encDiag = valArr;
+                                }
+                            }
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+                });
+            };
+
+            var populateEncInvestigations = function (data) {
+                /* masterCardModel.patientInfo.encLabReq = []; */
+                var orderArr = [];
+                for (var i = 0; i <= data.orders.length; i++) {
+                    if (data.orders[i] !== undefined) {
+                        orderArr.push(data.orders[i].display);
+                        // masterCardModel.patientInfo.encLabReq.push(data.orders[i].display);
+                        masterCardModel.patientInfo.encLabReq = orderArr;
+                        console.log(masterCardModel.patientInfo.encLabReq);
+                    }
+                }
             };
 
             var populateEncounterDetails = function () {
@@ -1089,8 +1159,6 @@ angular.module('bahmni.clinical')
                             for (var i = 0; i <= response.visits.length; i++) {
                                 if (response.visits[i] !== undefined) {
                                     visitVar = response.visits[i];
-                                    // visitVar.push(response.visits[i]);
-                                    // console.log(visitVar);
                                     if (visitVar.encounters.length > 0) {
                                         for (var y = 0; y <= visitVar.encounters.length; y++) {
                                             if (visitVar.encounters[y] !== undefined) {
@@ -1131,9 +1199,11 @@ angular.module('bahmni.clinical')
 
                                                 populateEncTB(encoVar.uuid);
 
-                                                populateEncTBDiag(encoVar.uuid);
+                                                populateEncITS(encoVar.uuid);
 
-                                                populateEncTBSym(encoVar.uuid);
+                                                populateEncDiagnosis(encoVar.visit.uuid);
+
+                                                populateEncInvestigations(encoVar);
                                             }
                                         }
                                     }

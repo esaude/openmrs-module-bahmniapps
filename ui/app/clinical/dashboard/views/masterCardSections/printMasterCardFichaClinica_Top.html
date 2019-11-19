@@ -10,7 +10,7 @@
 
     .tg td {
       padding: 0px 3px 0px 3px;
-      border-style: solid;
+      border-style: dashed dashed dashed solid;
       border-width: 1px;
       border-color: black;
     }
@@ -152,7 +152,7 @@
       <th class="tg-9wq8" colspan="2">24</th>
       <th class="tg-0pky"></th>
     </tr>
-    <tr>
+    <tr style="border-style: solid; border-width: 1px">
       <td class="tg-9wq8" rowspan="4">
         <div style="transform:rotate(-90deg)">Processo X</div>
       </td>
@@ -168,8 +168,7 @@
       <td class="tg-9wq8" rowspan="2">Profilaxia INH(Início / Continua / Fim - I / C / F)</td>
       <td class="tg-9wq8" rowspan="2">Ef. Secundários</td>
       <td class="tg-9wq8">ITS</td>
-      <td class="tg-9wq8" rowspan="4">Infecções Oportunistas,Incluindo Sarcome Kaposi, outras doenças(Não / Diagnóstico)
-      </td>
+      <td class="tg-9wq8" rowspan="4">Infecções Oportunistas,Incluindo Sarcome Kaposi, outras doenças(Não / Diagnóstico)</td>
       <td class="tg-9wq8" colspan="2">Investigações</td>
       <td class="tg-9wq8" colspan="5">TARV</td>
       <td class="tg-9wq8"></td>
@@ -178,7 +177,7 @@
         <div style="transform:rotate(-90deg)">RUBRICA</div>
       </td>
     </tr>
-    <tr>
+    <tr style="border-style: solid; border-width: 1px">
       <td class="tg-q9j0" rowspan="3">Comprimento / Altura Se ≥ 5 anos em metros; se ≤ 5 anos em cm </td>
       <td class="tg-9wq8" rowspan="2">Tem sintomas? (S / N)</td>
       <td class="tg-9wq8" rowspan="2">Diagnóstico TB activa(S / N)</td>
@@ -203,11 +202,11 @@
       <td class="tg-9wq8">Grupo de Apoio (Código)</td>
       <td class="tg-c3ow">Modelo Diferenciado de Cuidados (MDC) Código</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid; border-width: 1px">
       <td class="tg-9wq8" rowspan="2">Próxima Consulta (d/ m/ a)</td>
       <td class="tg-9wq8" rowspan="2">Tensão Arterial</td>
       <td class="tg-9wq8" rowspan="2">Plan. Familiar (Não / Método)</td>
-      <td class="tg-9wq8" rowspan="2">Criança Edemas (o / +a  +++)</td>
+      <td class="tg-9wq8" rowspan="2">Criança Edemas (o / +  ++  +++)</td>
       <td class="tg-9wq8">Indicador (IMC; PB; IMC / Idade; P / E)</td>
       <td class="tg-9wq8" rowspan="2">Profilaxia CTZ (Início / Continua / Fim - I / C / F)</td>
       <td class="tg-9wq8">INH (S / N)</td>
@@ -228,11 +227,11 @@
       <td class="tg-9wq8">Adesão (Boa / Risco / Má - B / R / M)</td>
       <td class="tg-9wq8" colspan="2">Início / Continua / Fim (I / C / F)</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid solid dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">{{ masterCardData.patientInfo.actualEncounter | date:'d/MM/yy' }}</td>
       <td class="tg-9wq8">{{ masterCardData.patientInfo.age }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encPregnancy }}/ {{ masterCardData.patientInfo.encLastMenstrual }}/ {{ masterCardData.patientInfo.encLact }}</td>
+      <td class="tg-9wq8">{{ masterCardData.patientInfo.encPregnancy }}/ {{ masterCardData.patientInfo.encLastMenstrual | date:'d/MM/yy' }}/ {{ masterCardData.patientInfo.encLact }}</td>
       <td class="tg-9wq8">{{ masterCardData.patientInfo.encStaging }}</td>
       <td class="tg-9wq8">{{ masterCardData.patientInfo.encWeight }}</td>
       <td class="tg-9wq8">{{ masterCardData.patientInfo.encBP }}</td>
@@ -242,9 +241,9 @@
       <td class="tg-9wq8"><div ng-if='masterCardData.patientInfo.encTBDiag === true' ><span class='circleSelect'>S</span>                   N</div> <div  ng-if='masterCardData.patientInfo.encTBDiag === false'>S                       <span class='circleSelect'>N</span></div> <div ng-if='masterCardData.patientInfo.encTBDiag === undefined'>S                       N</div></td>
       <td class="tg-9wq8">       I       C       F       </td>
       <td class="tg-9wq8">S        N</td>
-      <td class="tg-9wq8">S        N</td>
-      <td class="tg-9wq8"></td>
-      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8"><div ng-if='masterCardData.patientInfo.encITS === true' ><span class='circleSelect'>S</span>                   N</div> <div  ng-if='masterCardData.patientInfo.encITS === false'>S                       <span class='circleSelect'>N</span></div> <div ng-if='masterCardData.patientInfo.encITS === undefined'>S                       N</div></td>
+      <td class="tg-9wq8" rowspan="2">{{masterCardData.patientInfo.encDiag}}</td>
+      <td class="tg-9wq8"><span ng-if="masterCardData.patientInfo.encLabReq.includes('Carga Viral Rotina.') === true || masterCardData.patientInfo.encLabReq.includes('Carga Viral Suspeita.') === true">PEDIDO</span></td>
       <td class="tg-9wq8" rowspan="2">Hb___ ALT___ AST___GL___ CR___ AM___O_________________</td>
       <td class="tg-9wq8">_ Linha DM DT</td>
       <td class="tg-9wq8" rowspan="2"></td>
@@ -257,7 +256,7 @@
       <td class="tg-c3ow"></td>
       <td class="tg-0pky" rowspan="2"></td>
     </tr>
-    <tr>
+    <tr style="border-style: dashed solid solid solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8">{{masterCardData.patientInfo.bPressure}}</td>
@@ -268,12 +267,11 @@
       <td class="tg-9wq8">{{ masterCardData.patientInfo.encEstadoNutricional }}</td>
       <td class="tg-9wq8"> {{ masterCardData.patientInfo.encNutriEdQty }} {{masterCardData.patientInfo.encNutriEdQtyUnit}}</td>
       <td class="tg-9wq8">{{ masterCardData.patientInfo.encTBSym }}</td>
-      <td class="tg-9wq8">____/____/____ I       C       F</td>
+      <td class="tg-9wq8">{{ masterCardData.patientInfo.encTBStartDate | date:'d/MM/yy'}} <br> <div ng-if="masterCardData.patientInfo.encTBStatus == 'Start_SP'" ><span class='circleSelect'>I</span>                   C                   F</div> <div  ng-if="masterCardData.patientInfo.encTBStatus == 'Em Curso'">I                       <span class='circleSelect'>C</span>                 F</div> <div  ng-if="masterCardData.patientInfo.encTBStatus == 'Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_End'">I                       C                 <span class='circleSelect'>F</span></div>  <div ng-if='masterCardData.patientInfo.encTBDiag === undefined'>I                       C                     F</div</td>
       <td class="tg-9wq8">I        C       F</td>
       <td class="tg-9wq8">S        N</td>
-      <td class="tg-9wq8"></td>
-      <td class="tg-9wq8"></td>
-      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8">{{ masterCardData.patientInfo.encITSDiag }}{{ masterCardData.patientInfo.encITSSAM }}{{ masterCardData.patientInfo.encITSSAF }} </td>
+      <td class="tg-9wq8"><span ng-if="masterCardData.patientInfo.encLabReq.includes('CD4.') === true">PEDIDO</span></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">B      R       M</td>
@@ -335,7 +333,7 @@
       <td class="tg-9wq8">S     N<br>I     C    F</td>
       <td class="tg-9wq8">S     N<br>I     C    F</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
@@ -389,7 +387,7 @@
       <td class="tg-9wq8">S     N<br>I     C    F</td>
       <td class="tg-9wq8">S     N<br>I     C    F</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
@@ -443,7 +441,7 @@
       <td class="tg-9wq8">S     N<br>I     C    F</td>
       <td class="tg-9wq8">S     N<br>I     C    F</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
@@ -497,7 +495,7 @@
       <td class="tg-9wq8">S     N<br>I     C    F</td>
       <td class="tg-9wq8">S     N<br>I     C    F</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
@@ -551,7 +549,7 @@
       <td class="tg-9wq8">S     N<br>I     C    F</td>
       <td class="tg-9wq8">S     N<br>I     C    F</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
@@ -605,7 +603,7 @@
       <td class="tg-9wq8">S     N<br>I     C    F</td>
       <td class="tg-9wq8">S     N<br>I     C    F</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
@@ -659,7 +657,7 @@
       <td class="tg-9wq8">S     N<br>I     C    F</td>
       <td class="tg-9wq8">S     N<br>I     C    F</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
@@ -713,7 +711,7 @@
       <td class="tg-9wq8">S     N<br>I     C    F</td>
       <td class="tg-9wq8">S     N<br>I     C    F</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
@@ -767,7 +765,7 @@
       <td class="tg-9wq8">S     N<br>I     C    F</td>
       <td class="tg-9wq8">S     N<br>I     C    F</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
@@ -821,7 +819,7 @@
       <td class="tg-9wq8">S     N<br>I     C    F</td>
       <td class="tg-9wq8">S     N<br>I     C    F</td>
     </tr>
-    <tr>
+    <tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
@@ -851,7 +849,7 @@
       <td class="tg-c3ow"></td>
       <td class="tg-0pky" rowspan="2"></td>
     </tr>
-    <tr>
+    <tr style="border-style: dashed solid solid solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
