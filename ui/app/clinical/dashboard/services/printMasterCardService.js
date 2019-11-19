@@ -101,6 +101,8 @@ angular.module('bahmni.clinical')
                     encTBSym: '',
                     encTBStartDate: '',
                     encTBStatus: '',
+                    encINHSideEffects: '',
+                    encCTZSideEffects: '',
                     encITS: '',
                     encITSDiag: '',
                     encITSSAM: '',
@@ -1019,6 +1021,8 @@ angular.module('bahmni.clinical')
                     var patientTBSym = 'Symptoms Prophylaxis_New';
                     var patientTBStartDate = 'SP_Treatment Start Date';
                     var patientTBStatus = 'SP_Treatment State';
+                    var patientINHSideEffects = 'SP_Side_Effects_INH';
+                    var patientCTZSideEffects = 'SP_Side_Effects_CTZ';
 
                     observationsService.fetchForEncounter(encUuid, patientTB).then(function (response) {
                         if (response.data && response.data.length > 0) {
@@ -1064,6 +1068,24 @@ angular.module('bahmni.clinical')
                     observationsService.fetchForEncounter(encUuid, patientTBStatus).then(function (response) {
                         if (response.data && response.data.length > 0) {
                             masterCardModel.patientInfo.encTBStatus = response.data[0].value.name;
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+
+                    observationsService.fetchForEncounter(encUuid, patientINHSideEffects).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            masterCardModel.patientInfo.encINHSideEffects = response.data[0].value;
+                        }
+                        resolve();
+                    }).catch(function (error) {
+                        reject(error);
+                    });
+
+                    observationsService.fetchForEncounter(encUuid, patientCTZSideEffects).then(function (response) {
+                        if (response.data && response.data.length > 0) {
+                            masterCardModel.patientInfo.encCTZSideEffects = response.data[0].value;
                         }
                         resolve();
                     }).catch(function (error) {
@@ -1155,7 +1177,8 @@ angular.module('bahmni.clinical')
                         if (response.visits && response.visits.length > 0) {
                             var visitVar = '';
                             var encoVar = '';
-                            var encoArr = [];
+                            var encoArr = []; // encounter data used for all info
+                            var encoUuidArr = []; // encounter uuid for ng repeat
                             for (var i = 0; i <= response.visits.length; i++) {
                                 if (response.visits[i] !== undefined) {
                                     visitVar = response.visits[i];
@@ -1163,7 +1186,8 @@ angular.module('bahmni.clinical')
                                         for (var y = 0; y <= visitVar.encounters.length; y++) {
                                             if (visitVar.encounters[y] !== undefined) {
                                                 encoVar = visitVar.encounters[y];
-                                                encoArr.push(encoVar.uuid);
+                                                encoArr.push(encoVar);
+                                                encoUuidArr.push(encoVar.uuid);
                                                 console.log(encoVar);
                                                 console.log(encoArr);
                                                 masterCardModel.patientInfo.actualEncounter = encoVar.encounterDatetime;
