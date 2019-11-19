@@ -13,12 +13,11 @@
                  </span>
             </div>
             <span class="form-field-inline clearfix" ng-repeat="attribute in ::patientConfiguration.attributeTypes">
-                    <article class="form-field" ng-if="attribute.name == 'TYPE_OF_REGISTRATION'"
-                    ng-class="::{'right-form-field' : $index%2 != 0}">
-                        <span hidden>{{attribute.enabled = true}}</span>
+                    <article class="form-field" ng-if="attribute.name == 'TYPE_OF_REGISTRATION'" ng-class="{'has-error' : submitted && patient.TYPE_OF_REGISTRATION.value === '' || patient.TYPE_OF_REGISTRATION.value === undefined}">
+                        <span hidden>{{attribute.enabled = hasTypeOfRegistration}}</span>
                             <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
                                 is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
-                                on-change="checkDuplicatePatients()"
+                                on-change="checkDuplicatePatients()" required="true"
                                 get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                     </article>
             </span>
@@ -31,7 +30,6 @@
                                              get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"></attribute-types>
                     </article>
              </span>
-
             <span class="form-field-inline clearfix" ng-repeat="attribute in ::patientConfiguration.attributeTypes">
                 <article class="form-field" ng-if="attribute.name == 'US_REG_DATE'" 
                 ng-class="::{'right-form-field' : $index%2 != 0}">
@@ -41,7 +39,7 @@
                             get-data-results="getDataResults" is-read-only="isReadOnly"  handle-update="handleUpdate"></attribute-types>
                 </article>
             </span>
-          
+
             <section>  
             <article class="form-field">
                     <div class="field-attribute">
@@ -55,20 +53,26 @@
                     <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value === 'TRANSFERRED_PATIENT'">
                         <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
                         <input type="text" name="healthFacilityCode" id="healthFacilityCode"
-                               ng-model="NID.healthFacilityCode" ng-blur="buildFinalNID()" focus-me="true"
+                               ng-model="NID.healthFacilityCode" focus-me="true"
                                placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_HEALTHFACILITY_CODE' | translate}}"
-                               minlength="8" ng-pattern="regexDigits" maxlength="8" size=8 required="true" ng-disabled="formFieldsDisabled"
+                               minlength="8" ng-pattern="regexDigits" maxlength="8" size=8 required="true" ng-disabled="enableRequiredFields"
                                ng-class="{'illegalValue' : submitted && this.myForms.myForm.healthFacilityCode.$invalid || this.myForms.myForm.healthFacilityCode.$invalid && !this.myForms.myForm.healthFacilityCode.$pristine || this.myForms.myForm.healthFacilityCode.$error.pattern}">
                         <p class="help-block"
                            ng-show="this.myForms.myForm.healthFacilityCode.$error.minlength && !this.myForms.myForm.healthFacilityCode.$error.pattern">
                             {{::'MINLENGTH_HEALTH_FACILITY_CODE' | translate}}</p>
                     </div>
 
-                    <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value == 'NEW_PATIENT'">
+                    <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value === 'NEW_PATIENT'">
                         <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
                         <input type="text" name="healthFacilityCode" ng-model="NID.healthFacilityCode"
-                               minlength="8" maxlength="8" size=8 required focus-me="true" readonly
+                               minlength="8" maxlength="8" size=8 required="true" focus-me="true" readonly
                                ng-focus="NID.healthFacilityCode = healthFacility.code">
+                    </div>
+
+                    <div class="input-prepend" ng-if="!hasTypeOfRegistration && !typeOfRegistrationChange">
+                        <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
+                        <input type="text" name="healthFacilityCode" ng-value="NID.healthFacilityCode = ''"
+                               ng-model="NID.healthFacilityCode" size=8 disabled required>
                     </div>
 
                     <div class="input-prepend">
@@ -83,7 +87,7 @@
                         <input type="number" id="nidYear" name="nidYear" ng-model="NID.year" pattern-validate
                                min="1900" size="4" max="{{currentYear}}" minlength="1" maxlength="4" focus-me="true" required="true"
                                placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_YEAR' | translate}}"
-                               ng-blur="buildFinalNID()" ng-disabled="formFieldsDisabled"
+                               ng-blur="buildFinalNID()" ng-disabled="enableRequiredFields"
                                ng-class="{'illegalValue' : submitted && this.myForms.myForm.nidYear.$invalid || this.myForms.myForm.nidYear.$invalid && !this.myForms.myForm.nidYear.$pristine}">
                     </div>
 
@@ -92,7 +96,7 @@
                         <input type="text" name="sequentialCode" id="sequentialCode" ng-model="NID.sequentialCode"
                                pattern-validate focus-on="patient.primaryIdentifier.hasOldIdentifier"
                                minlength="5" ng-pattern="regexDigits" maxlength="5" size="8"
-                               ng-blur="buildFinalNID()" ng-disabled="formFieldsDisabled" required="true"
+                               ng-blur="buildFinalNID()" ng-disabled="enableRequiredFields" required="true"
                                placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_SEQUENCIAL_CODE' | translate}}"
                                ng-class="{'illegalValue' : submitted && this.myForms.myForm.sequentialCode.$invalid || !this.myForms.myForm.sequentialCode.$pristine && this.myForms.myForm.sequentialCode.$invalid || this.myForms.myForm.sequentialCode.$error.pattern || this.myForms.myForm.sequentialCode.$error.minlength}">
                         <p class="help-block"

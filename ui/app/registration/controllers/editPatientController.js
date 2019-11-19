@@ -17,7 +17,8 @@ angular.module('bahmni.registration')
             $scope.today = dateUtil.getDateWithoutTime(dateUtil.now());
             $rootScope.isEligibleForVisit = true;
             var completeNIDLength = 22;
-            var patientNID;
+            var patientNID, typeOfRegistrationValue;
+            $scope.hasTypeOfRegistration = false;
 
             $scope.onBirthDateChange = function () {
                 $scope.dateValue = angular.element("#birthdate")[0].value;
@@ -36,11 +37,18 @@ angular.module('bahmni.registration')
             var splitNID = function () {
                 return patientService.get(uuid).then(function (response) {
                     patientNID = response.patient.identifiers[0].identifier;
+                    typeOfRegistrationValue = response.patient.person.attributes;
                     if (patientNID.length === completeNIDLength) {
                         var NIDResult = patientNID.split("/");
                         $scope.NID.healthFacilityCode = NIDResult[0];
                         $scope.NID.year = parseInt(NIDResult[2], 10);
                         $scope.NID.sequentialCode = NIDResult[3];
+                    }
+
+                    for (var i = 0; i < typeOfRegistrationValue.length; i++) {
+                        if (typeOfRegistrationValue[i].display === 'NEW_PATIENT' || typeOfRegistrationValue[i].display === 'TRANSFERRED_PATIENT') {
+                            $scope.hasTypeOfRegistration = true;
+                        }
                     }
                 });
             };
@@ -91,6 +99,11 @@ angular.module('bahmni.registration')
 
                     if ($scope.patient.patientState == "INACTIVE_SUSPENDED" || $scope.patient.patientState === "INACTIVE_TRANSFERRED_OUT" || $scope.patient.patientState === "INACTIVE_DEATH") {
                         $rootScope.isEligibleForVisit = false;
+                        if ($scope.myForms.myForm.healthFacilityCode.$invalid || $scope.myForms.myForm.nidYear.$invalid || $scope.myForms.myForm.sequentialCode.$invalid) {
+                            $scope.enableRequiredFields = false;
+                        } else {
+                            $scope.enableRequiredFields = true;
+                        }
                         $scope.$broadcast("DisableRegistrationFields", true);
                         $scope.$emit("DisableRegistrationFields", true);
                     }

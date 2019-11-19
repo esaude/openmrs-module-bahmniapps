@@ -33,7 +33,6 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             $scope.handleSectorChange = $scope.handleSectorChange() || function () { return false; };
             $scope.updateLocationRequired = $scope.updateLocationRequired() || function () { return false; };
             $scope.suggestions = $scope.attribute.answers;
-
             $scope.showTag = false;
             $scope.borderColor = "1px solid #d1d1d1";
             $rootScope.canSave = true;
@@ -65,11 +64,11 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
             };
 
             $scope.validationDirectiveTypeOfRegistration = function (attribute) {
+                $rootScope.typeOfRegistrationChange = true;
                 if (attribute.name === "TYPE_OF_REGISTRATION") {
                     if ($scope.targetModel.TYPE_OF_REGISTRATION.value != undefined) {
                         $rootScope.typeOfRegistrationSelected = $scope.targetModel.TYPE_OF_REGISTRATION.value;
-                    }
-                    else {
+                    } else {
                         $rootScope.typeOfRegistrationSelected = $scope.targetModel.TYPE_OF_REGISTRATION.value;
                     }
                 }
