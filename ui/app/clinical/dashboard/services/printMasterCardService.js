@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .service('printMasterCardService', ['$rootScope', '$translate', 'patientService', 'observationsService', 'treatmentService', 'localeService', 'patientVisitHistoryService', 'labOrderResultService',
-        function ($rootScope, $translate, patientService, observationsService, treatmentService, localeService, patientVisitHistoryService, labOrderResultService) {
+    .service('printMasterCardService', ['$rootScope', '$translate', 'patientService', 'observationsService', 'treatmentService', 'localeService', 'patientVisitHistoryService', 'labOrderResultService', '$http',
+        function ($rootScope, $translate, patientService, observationsService, treatmentService, localeService, patientVisitHistoryService, labOrderResultService, $http) {
             var masterCardModel = {
 
                 hospitalLogo: '',
@@ -81,6 +81,7 @@ angular.module('bahmni.clinical')
             };
 
             var patientUuid = '';
+            var datesOfDispensedDrugs = [];
 
             this.getReportModel = function (_patientUuid) {
                 patientUuid = _patientUuid;
@@ -105,8 +106,9 @@ angular.module('bahmni.clinical')
                     var p18 = populateARTDetails();
                     var p19 = populatePatientLabResults();
                     var p20 = populatePsychosocialFactors();
+                    var p21 = dispenseddrug();
 
-                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20]).then(function () {
+                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21]).then(function () {
                         resolve(masterCardModel);
                     }).catch(function (error) {
                         reject(error);
@@ -990,4 +992,21 @@ angular.module('bahmni.clinical')
                     });
                 });
             };
+
+            var dispenseddrug = function () {
+                $http.get(Bahmni.Common.Constants.dispenseDrugOrderUrl, {
+                    params: {
+                        locId: 17,
+                        patientUuid: patientUuid
+                    },
+                    withCredentials: true
+                }).then(function (results) {
+                    var dispensedARVDrugs = results.data;
+                    for (var i = 0; i < dispensedARVDrugs.length; i++) {
+                        datesOfDispensedDrugs[i] = dispensedARVDrugs[i].dispensed_date;
+                    }
+                    $rootScope.datesOfDispensedARVDrugs = datesOfDispensedDrugs;
+                });
+            };
+
         }]);
