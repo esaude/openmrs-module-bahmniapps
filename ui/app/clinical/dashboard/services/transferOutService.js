@@ -132,8 +132,9 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     patientService.getPatient(patientUuid).then(function (response) {
                         var patientMapper = new Bahmni.PatientMapper($rootScope.patientConfig, $rootScope, $translate);
-                        var contact = response.data.person.attributes[0].value;
-                        reportModel.patientInfo.mainContact = $rootScope.patient.PRIMARY_CONTACT_NUMBER_1.value;
+                        if ($rootScope.patient.PRIMARY_CONTACT_NUMBER_1) {
+                            reportModel.patientInfo.mainContact = $rootScope.patient.PRIMARY_CONTACT_NUMBER_1.value;
+                        }
                         var patient = patientMapper.map(response.data);
                         reportModel.patientInfo.firstName = patient.givenName;
                         reportModel.patientInfo.lastName = patient.familyName;
@@ -148,7 +149,9 @@ angular.module('bahmni.clinical')
                             reportModel.patientInfo.hivDate = null;
                         }
                         else {
-                            reportModel.patientInfo.hivDate = $rootScope.patient.DateofHIVDiagnosis.value;
+                            if ($rootScope.patient.DateofHIVDiagnosis) {
+                                reportModel.patientInfo.hivDate = $rootScope.patient.DateofHIVDiagnosis.value;
+                            }
                         }
                         reportModel.patientInfo.condName = $rootScope.conditionName;
 
@@ -169,13 +172,15 @@ angular.module('bahmni.clinical')
                             reportModel.patientInfo.diagnosisName = arrDiagc;
                             reportModel.patientInfo.diagnosisPastName = null;
                         }
-                        reportModel.patientInfo.regDate = $rootScope.patient.US_REG_DATE.value;
+                        if ($rootScope.patient.US_REG_DATE.value) {
+                            reportModel.patientInfo.regDate = $rootScope.patient.US_REG_DATE.value;
+                        }
                         reportModel.patientInfo.treatmentStartDate = $rootScope.arvdispenseddate;
 
                         var statusArray = [{ name: "Pre TARV" }, { name: "TARV" }];
                         var arrStatus = [];
                         for (var k = 0; k < statusArray.length; k++) {
-                            if ($rootScope.patient.PATIENT_STATUS.value.display == statusArray[k].name) {
+                            if ($rootScope.patient.PATIENT_STATUS && $rootScope.patient.PATIENT_STATUS.value.display == statusArray[k].name) {
                                 arrStatus.push(statusArray[k].name);
                             }
                         }
@@ -260,14 +265,22 @@ angular.module('bahmni.clinical')
                         }
                         else if (response.data[0].concept.name == "CTZ_Details") {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-                                reportModel.patientInfo.CTZ_end = response.data[1].value;
-                                reportModel.patientInfo.CTZ_start = response.data[0].value;
+                                if (response.data[1]) {
+                                    reportModel.patientInfo.CTZ_end = response.data[1].value;
+                                }
+                                if (response.data[0]) {
+                                    reportModel.patientInfo.CTZ_start = response.data[0].value;
+                                }
                             });
                         }
                         else if ((response.data[0].concept.name == "INH_Details")) {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-                                reportModel.patientInfo.INH_end = response.data[1].value;
-                                reportModel.patientInfo.INH_start = response.data[0].value;
+                                if (response.data[1]) {
+                                    reportModel.patientInfo.INH_end = response.data[1].value;
+                                }
+                                if (response.data[0]) {
+                                    reportModel.patientInfo.INH_start = response.data[0].value;
+                                }
                             });
                         }
                         resolve();
