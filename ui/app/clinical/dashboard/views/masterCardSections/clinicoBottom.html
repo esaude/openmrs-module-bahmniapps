@@ -88,26 +88,32 @@
         <col class="cells">
         <col class="cells">
     </colgroup>
+{{dispensedDrug}}
     <tr>
         <th class="sampleTable" rowspan="4"><br><br><span style="font-weight:bold;text-decoration:underline">Recepção</span><span style="font-weight:bold"> </span><br>Levantou ARVs? <br>(S / N)</th>
-        <th ng-repeat="n in pickupARVHead" class="th">
-            <span>S&nbsp;&nbsp;</span>
+        <th class="th">S&nbsp;&nbsp;&nbsp;&nbsp;N</th>
+        <th ng-repeat="n in pickupARVDColumn" class="th">
+            <span ng-class="{'circleSelect': dispensedDrug[n].dispensed}">S&nbsp;&nbsp;</span>
             <span>&nbsp;&nbsp;N</span>
         </th>
     </tr>
     <tr>
         <td class="td">Dia</td>
         <td ng-repeat="n in pickupARVDColumn" class="td">
-            <span></span>
+            <span>{{dispensedDrug[n].dispensed_date | date:'dd'}}</span>
         </td>
     </tr>
     <tr>
         <td class="td">Mês</td>
-        <td ng-repeat="n in pickupARVDColumn" class="td"></td>
+        <td ng-repeat="n in pickupARVDColumn" class="td">
+            <span>{{dispensedDrug[n].dispensed_date | date:'MM'}}</span>
+        </td>
     </tr>
     <tr>
         <td class="td">Ano</td>
-        <td ng-repeat="n in pickupARVDColumn" class="td"></td>
+        <td ng-repeat="n in pickupARVDColumn" class="td">
+            <span>{{dispensedDrug[n].dispensed_date | date:'yy'}}</span>
+        </td>
     </tr>
 </table>
 

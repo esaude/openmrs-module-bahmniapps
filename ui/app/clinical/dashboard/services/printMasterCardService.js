@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .service('printMasterCardService', ['$rootScope', '$translate', 'patientService', 'observationsService', 'treatmentService', 'localeService', 'patientVisitHistoryService', 'labOrderResultService', '$http',
-        function ($rootScope, $translate, patientService, observationsService, treatmentService, localeService, patientVisitHistoryService, labOrderResultService, $http) {
+    .service('printMasterCardService', ['$rootScope', 'spinner', '$stateParams', '$translate', 'patientService', 'observationsService', 'treatmentService', 'treatmentConfig', 'localeService', 'patientVisitHistoryService', 'labOrderResultService', '$http', '$q',
+        function ($rootScope, spinner, $stateParams, $translate, patientService, observationsService, treatmentService, treatmentConfig, localeService, patientVisitHistoryService, labOrderResultService, $http, $q) {
             var masterCardModel = {
 
                 hospitalLogo: '',
@@ -82,6 +82,57 @@ angular.module('bahmni.clinical')
 
             var patientUuid = '';
             var datesOfDispensedDrugs = [];
+            var dispensedDrug = [];
+
+            var dispenseddrug = function () {
+                $http.get(Bahmni.Common.Constants.dispenseDrugOrderUrl, {
+                    params: {
+                        locId: 17,
+                        patientUuid: patientUuid
+                    },
+                    withCredentials: true
+                }).then(function (results) {
+                    var dispensedARVDrugs = results.data;
+
+                    for (var i = 0; i < dispensedARVDrugs.length; i++) {
+                        datesOfDispensedDrugs[i] = dispensedARVDrugs[i].dispensed_date;
+                    }
+
+                    var uniqueSet = new Set(datesOfDispensedDrugs);
+                    var uniqueSetArray = [...uniqueSet];
+
+                    console.log('main 3...');
+                    console.log(uniqueSetArray);
+
+                    for (var j = 0; j < uniqueSetArray.length; j++) {
+                        if (uniqueSetArray[j] === dispensedARVDrugs[j].dispensed_date) {
+                            dispensedDrug[j] = results.data[j];
+                        }
+                    }
+                    $rootScope.dispensedDrug = dispensedDrug;
+                });
+            };
+
+            var prescribedARVDrugs = [];
+            var filteredPrescribedARVDrugs = [];
+            var fetchPrescribedDrugs = function () {
+                spinner.forPromise(treatmentService.getPrescribedDrugOrders(
+                    $stateParams.patientUuid, true, undefined, $stateParams.dateEnrolled, $stateParams.dateCompleted).then(function (data) {
+                    var prescribedDrugs = data;
+
+                    for (var i = 0; i < prescribedDrugs.length; i++) {
+                        if (prescribedDrugs[i].drug.form === 'ARV' && prescribedDrugs[i].orderAttributes !== null) {
+                            prescribedARVDrugs[i] = data[i];
+                        }
+                    }
+
+                    filteredPrescribedARVDrugs = prescribedARVDrugs.filter(function (obj) {
+                       return obj != null;
+                    });
+                    console.log('line number 131...', filteredPrescribedARVDrugs);
+                    // console.log(filteredPrescribedARVDrugs);
+                }));
+            };
 
             this.getReportModel = function (_patientUuid) {
                 patientUuid = _patientUuid;
@@ -107,8 +158,9 @@ angular.module('bahmni.clinical')
                     var p19 = populatePatientLabResults();
                     var p20 = populatePsychosocialFactors();
                     var p21 = dispenseddrug();
+                    var p22 = fetchPrescribedDrugs();
 
-                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21]).then(function () {
+                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22]).then(function () {
                         resolve(masterCardModel);
                     }).catch(function (error) {
                         reject(error);
@@ -992,21 +1044,4 @@ angular.module('bahmni.clinical')
                     });
                 });
             };
-
-            var dispenseddrug = function () {
-                $http.get(Bahmni.Common.Constants.dispenseDrugOrderUrl, {
-                    params: {
-                        locId: 17,
-                        patientUuid: patientUuid
-                    },
-                    withCredentials: true
-                }).then(function (results) {
-                    var dispensedARVDrugs = results.data;
-                    for (var i = 0; i < dispensedARVDrugs.length; i++) {
-                        datesOfDispensedDrugs[i] = dispensedARVDrugs[i].dispensed_date;
-                    }
-                    $rootScope.datesOfDispensedARVDrugs = datesOfDispensedDrugs;
-                });
-            };
-
         }]);
