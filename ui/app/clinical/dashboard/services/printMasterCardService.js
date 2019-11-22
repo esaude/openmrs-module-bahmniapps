@@ -91,13 +91,13 @@ angular.module('bahmni.clinical')
                     },
                     withCredentials: true
                 }).then(function (results) {
-                    for (let i=0; i<results.data.length; i++) {
+                    for (let i = 0; i < results.data.length; i++) {
                         if (dispensedDrug.length === 0) {
                             dispensedDrug.push(results.data[i]);
                         } else {
-                            for (let j=0; j<dispensedDrug.length; j++) {
+                            for (let j = 0; j < dispensedDrug.length; j++) {
                                 if (results.data[i].dispensed_date !== dispensedDrug[j].dispensed_date) {
-                                    if (j === (dispensedDrug.length-1) ) {
+                                    if (j === (dispensedDrug.length - 1)) {
                                         dispensedDrug.push(results.data[i]);
                                     }
                                 }
@@ -131,9 +131,9 @@ angular.module('bahmni.clinical')
                     var p18 = populateARTDetails();
                     var p19 = populatePatientLabResults();
                     var p20 = populatePsychosocialFactors();
-                    var p21 = dispenseddrug();
+                    var p25 = dispenseddrug();
 
-                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21]).then(function () {
+                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p25]).then(function () {
                         resolve(masterCardModel);
                     }).catch(function (error) {
                         reject(error);
