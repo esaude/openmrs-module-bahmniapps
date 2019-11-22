@@ -140,14 +140,18 @@ angular.module('bahmni.clinical')
                     },
                     withCredentials: true
                 }).then(function (results) {
+                    var dispensedARVDrugs = results.data;
                     for (let i = 0; i < results.data.length; i++) {
-                        if (dispensedDrug.length === 0) {
-                            dispensedDrug.push(results.data[i]);
-                        } else {
-                            for (let j = 0; j < dispensedDrug.length; j++) {
-                                if (results.data[i].dispensed_date !== dispensedDrug[j].dispensed_date) {
-                                    if (j === (dispensedDrug.length - 1)) {
-                                        dispensedDrug.push(results.data[i]);
+                        var arvDdispensed = dispensedARVDrugs[i].arv_dispensed;
+                        if (arvDdispensed === true) {
+                            if (dispensedDrug.length === 0) {
+                                dispensedDrug.push(results.data[i]);
+                            } else {
+                                for (let j = 0; j < dispensedDrug.length; j++) {
+                                    if (results.data[i].dispensed_date !== dispensedDrug[j].dispensed_date) {
+                                        if (j === (dispensedDrug.length - 1)) {
+                                            dispensedDrug.push(results.data[i]);
+                                        }
                                     }
                                 }
                             }
