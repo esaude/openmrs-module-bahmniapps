@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .service('printMasterCardService', ['$rootScope', '$translate', 'patientService', 'observationsService', 'treatmentService', 'localeService', 'patientVisitHistoryService', 'labOrderResultService', 'allergiesService', 'diagnosisService',
-        function ($rootScope, $translate, patientService, observationsService, treatmentService, localeService, patientVisitHistoryService, labOrderResultService, allergiesService, diagnosisService) {
+    .service('printMasterCardService', ['$rootScope', 'spinner', '$stateParams', '$translate', 'patientService', 'observationsService', 'treatmentService', 'treatmentConfig', 'localeService', 'patientVisitHistoryService', 'allergiesService', 'diagnosisService', 'labOrderResultService', '$http', '$q',
+        function ($rootScope, spinner, $stateParams, $translate, patientService, observationsService, treatmentService, treatmentConfig, localeService, patientVisitHistoryService, allergiesService, diagnosisService, labOrderResultService, $http, $q) {
             var masterCardModel = {
 
                 hospitalLogo: '',
@@ -130,6 +130,36 @@ angular.module('bahmni.clinical')
             };
 
             var patientUuid = '';
+            var dispensedDrug = [];
+
+            var dispenseddrug = function () {
+                $http.get(Bahmni.Common.Constants.dispenseDrugOrderUrl, {
+                    params: {
+                        locId: 17,
+                        patientUuid: patientUuid
+                    },
+                    withCredentials: true
+                }).then(function (results) {
+                    var dispensedARVDrugs = results.data;
+                    for (let i = 0; i < results.data.length; i++) {
+                        var arvDdispensed = dispensedARVDrugs[i].arv_dispensed;
+                        if (arvDdispensed === true) {
+                            if (dispensedDrug.length === 0) {
+                                dispensedDrug.push(results.data[i]);
+                            } else {
+                                for (let j = 0; j < dispensedDrug.length; j++) {
+                                    if (results.data[i].dispensed_date !== dispensedDrug[j].dispensed_date) {
+                                        if (j === (dispensedDrug.length - 1)) {
+                                            dispensedDrug.push(results.data[i]);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    $rootScope.dispensedDrug = dispensedDrug;
+                });
+            };
 
             this.getReportModel = function (_patientUuid) {
                 patientUuid = _patientUuid;
@@ -158,8 +188,9 @@ angular.module('bahmni.clinical')
                     var p22 = populateFamilySituation();
                     var p23 = populateAllergyToMedications();
                     var p24 = populateMedicalConditions();
+                    var p25 = dispenseddrug();
 
-                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24]).then(function () {
+                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25]).then(function () {
                         resolve(masterCardModel);
                     }).catch(function (error) {
                         reject(error);

@@ -547,5 +547,13 @@
     "MASTER_CARD_LABEL":"Mastercard",
     "Vitals Flowsheet": "Nutritional Values",
     "PROVIDER_SIGNATURE": "Assinatura provedor",
-    "ADD_PROPHILAXIS": "Add Prophilaxis"
+    "ADD_PROPHILAXIS": "Add Prophilaxis",
+    "MASTERCARD_RECEPTION_LABEL": "Reception",
+    "MASTERCARD_RECEPTION_LABEL_PICKED_DRUG": "Picked ARVs?",
+    "MASTERCARD_RECEPTION_LABEL_Y_N": "(Y/N)",
+    "MASTERCARD_RECEPTION_LABEL_N": "N",
+    "MASTERCARD_RECEPTION_LABEL_Y": "Y",
+    "MASTERCARD_RECEPTION_LABEL_DAY": "Day",
+    "MASTERCARD_RECEPTION_LABEL_MOTH": "Moth",
+    "MASTERCARD_RECEPTION_LABEL_YEAR": "Year"
 }
