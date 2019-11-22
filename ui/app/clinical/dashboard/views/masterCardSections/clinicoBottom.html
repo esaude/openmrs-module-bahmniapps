@@ -25,8 +25,15 @@
         word-break: normal;
         border-color: black;
     }
+    .sampleTable thBold {
+        font-family: Arial, sans-serif;
+        font-size: xx-small;
+        border-color:inherit;
+        text-align:center;
+        vertical-align:middle
+    }
     .sampleTable .cells {
-        width: 37px;
+        width: 50px;
     }
     .circleSelect {
         border-radius: 100%;
@@ -47,70 +54,31 @@
 
 <table class="sampleTable">
     <colgroup>
-        <col style="width: 54px">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
-        <col class="cells">
         <col class="cells">
     </colgroup>
 
     <tr>
-        <th class="sampleTable" rowspan="4"><br><br><span style="font-weight:bold;text-decoration:underline">Recepção</span><span style="font-weight:bold"> </span><br>Levantou ARVs? <br>(S / N)</th>
-        <th class="th">S&nbsp;&nbsp;&nbsp;&nbsp;N</th>
+        <th class="sampleTable" rowspan="4"><br><br><span style="font-weight:bold;text-decoration:underline">{{'MASTERCARD_RECEPTION_LABEL' | translate}}</span><span style="font-weight:bold"> </span><br>{{'MASTERCARD_RECEPTION_LABEL_PICKED_DRUG' | translate}} <br>{{'MASTERCARD_RECEPTION_LABEL_Y_N' | translate}}</th>
+        <th class="th">{{'MASTERCARD_RECEPTION_LABEL_Y' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;{{'MASTERCARD_RECEPTION_LABEL_N' | translate}}</th>
         <th ng-repeat="n in pickupARVDColumn" class="th">
-            <span ng-class="{'circleSelect': dispensedDrug[n].dispensed}">S&nbsp;&nbsp;</span>
-            <span>&nbsp;&nbsp;N</span>
+            <span ng-class="{'circleSelect': dispensedDrug[n].dispensed}">{{'MASTERCARD_RECEPTION_LABEL_Y' | translate}}&nbsp;&nbsp;</span>
+            <span>&nbsp;&nbsp;{{'MASTERCARD_RECEPTION_LABEL_N' | translate}}</span>
         </th>
     </tr>
     <tr>
-        <td class="td">Dia</td>
+        <td class="td">{{'MASTERCARD_RECEPTION_LABEL_DAY' | translate}}</td>
         <td ng-repeat="n in pickupARVDColumn" class="td">
             <span>{{dispensedDrug[n].dispensed_date | date:'dd'}}</span>
         </td>
     </tr>
     <tr>
-        <td class="td">Mês</td>
+        <td class="td">{{'MASTERCARD_RECEPTION_LABEL_MOTH' | translate}}</td>
         <td ng-repeat="n in pickupARVDColumn" class="td">
             <span>{{dispensedDrug[n].dispensed_date | date:'MM'}}</span>
         </td>
     </tr>
     <tr>
-        <td class="td">Ano</td>
+        <td class="td">{{'MASTERCARD_RECEPTION_LABEL_YEAR' | translate}}</td>
         <td ng-repeat="n in pickupARVDColumn" class="td">
             <span>{{dispensedDrug[n].dispensed_date | date:'yy'}}</span>
         </td>
@@ -119,25 +87,25 @@
 
 <table class="tg" style="table-layout: fixed; width: 100%">
     <colgroup>
-        <col style="width: 41.010417px">
-        <col style="width: 211.010417px">
-        <col style="width: 49.010417px">
-        <col style="width: 170.010417px">
-        <col style="width: 36.010417px">
-        <col style="width: 210.010417px">
-        <col style="width: 90.010417px">
-        <col style="width: 90.010417px">
-        <col style="width: 136.010417px">
-        <col style="width: 70.010417px">
-        <col style="width: 56.010417px">
-        <col style="width: 60.010417px">
-        <col style="width: 119.010417px">
-        <col style="width: 76.010417px">
-        <col style="width: 97.010417px">
-        <col style="width: 26.010417px">
-        <col style="width: 136.010417px">
-        <col style="width: 30.010417px">
-        <col style="width: 60.010417px">
+        <col style="width: 29px">
+        <col style="width: 150px">
+        <col style="width: 36px">
+        <col style="width: 130px">
+        <col style="width: 36px">
+        <col style="width: 110px">
+        <col style="width: 90px">
+        <col style="width: 90px">
+        <col style="width: 136px">
+        <col style="width: 70px">
+        <col style="width: 56px">
+        <col style="width: 40px">
+        <col style="width: 95px">
+        <col style="width: 66px">
+        <col style="width: 97px">
+        <col style="width: 26px">
+        <col style="width: 136px">
+        <col style="width: 30px">
+        <col style="width: 52px">
     </colgroup>
     <tr>
         <th class="tg-rc17" colspan="2"><span style="font-weight:bold">População Chave (Cabeçalho)</span></th>
