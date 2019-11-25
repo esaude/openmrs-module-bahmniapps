@@ -60,7 +60,7 @@
                                     class="asterick">*</span>
                             </label>
                         </div>
-                        <div class="input-prepend" ng-if="typeOfRegistrationSelected == 'TRANSFERRED_PATIENT'">
+                        <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value === 'TRANSFERRED_PATIENT'">
                             <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
                             <input type="text" name="healthFacilityCode" id="healthFacilityCode"
                                 ng-init="NID.healthFacilityCode=''" ng-model="NID.healthFacilityCode" pattern-validate
@@ -74,19 +74,18 @@
                                 {{::'MINLENGTH_HEALTH_FACILITY_CODE' | translate}}</p>
                         </div>
 
-                        <div class="input-prepend" ng-if="typeOfRegistrationSelected == undefined">
+                        <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value === '' || patient.TYPE_OF_REGISTRATION.value === undefined">
                             <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
-                            <input type="text" required ng-value="NID.healthFacilityCode = ''" name="healthFacilityCode"
-                                id="healthFacilityCode" ng-model="NID.healthFacilityCode" size="8" ng-disabled="true">
+                            <input type="text" name="healthFacilityCode" ng-value="NID.healthFacilityCode = ''"
+                                   ng-model="NID.healthFacilityCode" size=8 disabled required>
                         </div>
 
-                        <div class="input-prepend" ng-if="typeOfRegistrationSelected == 'NEW_PATIENT'">
+                        <div class="input-prepend" ng-if="patient.TYPE_OF_REGISTRATION.value === 'NEW_PATIENT'">
                             <span class="add-on">{{ ::'REGISTRATION_HEALTH_FACILITY_CODE' | translate}}</span>
                             <input type="text" name="healthFacilityCode" id="healthFacilityCode"
-                                ng-model="NID.healthFacilityCode" pattern-validate onfocus="this.value=''"
-                                focus-me="true"
+                                ng-model="NID.healthFacilityCode" pattern-validate
                                 placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_HEALTHFACILITY_CODE' | translate}}"
-                                focus-on="patient.primaryIdentifier.hasOldIdentifier"
+                                focus-on="patient.primaryIdentifier.hasOldIdentifier" focus-me="true"
                                 ng-focus="NID.healthFacilityCode = healthFacility.code" ng-blur="buildFinalNID()"
                                 minlength="8" ng-pattern="regexDigits" maxlength="8" size=8 required readonly
                                 ng-class="{'illegalValue' : submitted && this.myForms.myForm.healthFacilityCode.$invalid || this.myForms.myForm.healthFacilityCode.$invalid && !this.myForms.myForm.healthFacilityCode.$pristine || this.myForms.myForm.healthFacilityCode.$error.pattern}">

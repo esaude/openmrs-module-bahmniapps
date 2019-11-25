@@ -665,7 +665,11 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     if (isEmpty(results.data)) {
                         $rootScope.arvdispenseddate = null;
                     } else {
-                        $rootScope.arvdispenseddate = results.data[0].dispensed_date;
+                        _.map(results.data, function (result) {
+                            if (result.arv_dispensed === true && result.first_arv_dispensed === true) {
+                                $rootScope.arvdispenseddate = result.dispensed_date;
+                            }
+                        });
                     }
                 });
             };
