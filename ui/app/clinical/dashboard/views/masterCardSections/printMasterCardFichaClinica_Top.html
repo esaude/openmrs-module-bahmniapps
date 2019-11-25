@@ -100,14 +100,14 @@
   <table class="tl" align="right">
     <tr>
       <td>População Chave - HSH<input type="checkbox"
-          ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_PID'">
-        PID<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_HSH'">
-        REC<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_REC'">
-        MTS<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_MTS'">
-        Outro<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_Other'"></td>
+          ng-checked="masterCardData.encountersInfo.keyPopulation == 'PP_Key_population_PID'">
+        PID<input type="checkbox" ng-checked="masterCardData.encountersInfo.keyPopulation == 'PP_Key_population_HSH'">
+        REC<input type="checkbox" ng-checked="masterCardData.encountersInfo.keyPopulation == 'PP_Key_population_REC'">
+        MTS<input type="checkbox" ng-checked="masterCardData.encountersInfo.keyPopulation == 'PP_Key_population_MTS'">
+        Outro<input type="checkbox" ng-checked="masterCardData.encountersInfo.keyPopulation == 'PP_Key_population_Other'"></td>
     </tr>
     <tr>
-      <td>População Vulnerável: {{masterCardData.patientInfo.vulPopulation}}</td>
+      <td>População Vulnerável: {{masterCardData.encountersInfo.vulPopulation}}</td>
     </tr>
   </table>
 
@@ -117,7 +117,7 @@
   <br>
   <div class="tx"> <span>NID (US / Anual / Individual): {{patient.identifier}}</span>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>TARV-Coorte (Mês / Ano):
-      {{masterCardData.patientInfo.treatmentStartDate | date:'MMM/yy'}} </span> </div>
+      {{masterCardData.encountersInfo.treatmentStartDate | date:'MMM/yy'}} </span> </div>
   <br>
 
 
@@ -227,59 +227,74 @@
       <td class="tg-9wq8">Adesão (Boa / Risco / Má - B / R / M)</td>
       <td class="tg-9wq8" colspan="2">Início / Continua / Fim (I / C / F)</td>
     </tr>
-    <tr style="border-style: solid solid dashed solid; border-width: 1px">
+    <div>
+      <tr style="border-style: solid solid dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.actualEncounter | date:'d/MM/yy' }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.age }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encPregnancy }}/ {{ masterCardData.patientInfo.encLastMenstrual | date:'d/MM/yy' }}/ {{ masterCardData.patientInfo.encLact }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encStaging }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encWeight }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encBP }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encIndicador }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encNutriEd }} - {{ masterCardData.patientInfo.encNutriEdTipo }}</td>
-      <td class="tg-9wq8"><div ng-if='masterCardData.patientInfo.encTB === true' ><span class='circleSelect'>S</span>                   N</div> <div  ng-if='masterCardData.patientInfo.encTB === false'>S                       <span class='circleSelect'>N</span></div> <div ng-if='masterCardData.patientInfo.encTB === undefined'>S                       N</div></td>
-      <td class="tg-9wq8"><div ng-if='masterCardData.patientInfo.encTBDiag === true' ><span class='circleSelect'>S</span>                   N</div> <div  ng-if='masterCardData.patientInfo.encTBDiag === false'>S                       <span class='circleSelect'>N</span></div> <div ng-if='masterCardData.patientInfo.encTBDiag === undefined'>S                       N</div></td>
-      <td class="tg-9wq8">       I       C       F       </td>
-      <td class="tg-9wq8"><div ng-if='masterCardData.patientInfo.encINHSideEffects === true' ><span class='circleSelect'>S</span>                   N</div> <div  ng-if='masterCardData.patientInfo.encINHSideEffects === false'>S                       <span class='circleSelect'>N</span></div> <div ng-if='masterCardData.patientInfo.encINHSideEffects === undefined'>S                       N</div></td>
-      <td class="tg-9wq8"><div ng-if='masterCardData.patientInfo.encITS === true' ><span class='circleSelect'>S</span>                   N</div> <div  ng-if='masterCardData.patientInfo.encITS === false'>S                       <span class='circleSelect'>N</span></div> <div ng-if='masterCardData.patientInfo.encITS === undefined'>S                       N</div></td>
-      <td class="tg-9wq8" rowspan="2">{{masterCardData.patientInfo.encDiag}}</td>
-      <td class="tg-9wq8"><span ng-if="masterCardData.patientInfo.encLabReq.includes('Carga Viral Rotina.') === true || masterCardData.patientInfo.encLabReq.includes('Carga Viral Suspeita.') === true">PEDIDO</span></td>
-      <td class="tg-9wq8" rowspan="2"><span ng-if="masterCardData.patientInfo.encLabReq.includes('LO_HB') === true" class='circleSelect'>Hb</span><span ng-if="masterCardData.patientInfo.encLabReq.includes('LO_HB') === false">Hb</span>___ <span ng-if="masterCardData.patientInfo.encLabReq.includes('LO_ALT') === true" class='circleSelect'>ALT</span><span ng-if="masterCardData.patientInfo.encLabReq.includes('LO_ALT') === false">ALT</span>___ <span ng-if="masterCardData.patientInfo.encLabReq.includes('LO_AST') === true" class='circleSelect'>AST</span><spa ng-if="masterCardData.patientInfo.encLabReq.includes('LO_AST') === false"n>AST</span>___ <span ng-if="masterCardData.patientInfo.encLabReq.includes('LO_GLYCEMIA(3.05-6.05mmol/L)') === true" class='circleSelect'>GL</span><span ng-if="masterCardData.patientInfo.encLabReq.includes('LO_GLYCEMIA(3.05-6.05mmol/L)') === false">GL</span>___ <span ng-if="masterCardData.patientInfo.encLabReq.includes('LO_CREATININE(4.2-132Hmol/L)') === true" class='circleSelect'>CR</span><span ng-if="masterCardData.patientInfo.encLabReq.includes('LO_CREATININE(4.2-132Hmol/L)') === false">CR</span>___ <span  ng-if="masterCardData.patientInfo.encLabReq.includes('LO_AMILASE(600-1600/UL)') === true"class='circleSelect'>AM</span><span ng-if="masterCardData.patientInfo.encLabReq.includes('LO_AMILASE(600-1600/UL)') === false">AM</span>___ <span>O</span>_________________</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.actualEncounter | date:'d/MM/yy' }}</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.age }}</td>
+      <td class="tg-9wq8"><span>Gravidez: {{ masterCardData.encountersInfo.encPregnancy }}</span> <span>Ultima Menstruação: {{ masterCardData.encountersInfo.encLastMenstrual | date:'d/MM/yy' }}</span> <span>Lactante: {{ masterCardData.encountersInfo.encLact }}</span></td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encStaging }}</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encWeight }}</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encBP }}</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encIndicador }}</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encNutriEd }} - {{ masterCardData.encountersInfo.encNutriEdTipo }}</td>
+      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':masterCardData.encountersInfo.encTB === true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':masterCardData.encountersInfo.encTB === false}">N</span></div></td>
+      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':masterCardData.encountersInfo.encTBDiag === true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':masterCardData.encountersInfo.encTBDiag === false}">N</span></div></td>
+      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':masterCardData.encountersInfo.encINHState == 'Inicio_Prophylaxis'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encINHState == 'Em Curso_Prophylaxis'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encINHState == 'Fim_Prophylaxis'}">F</span></div></td>
+      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':masterCardData.encountersInfo.encINHSideEffects === true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':masterCardData.encountersInfo.encINHSideEffects === false}">N</span></div></td>
+      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':masterCardData.encountersInfo.encITS === true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':masterCardData.encountersInfo.encITS === false}">N</span></div></td>
+      <td class="tg-9wq8" rowspan="2">{{masterCardData.encountersInfo.encDiag}}</td>
+      <td class="tg-9wq8"><span ng-if="masterCardData.encountersInfo.encLabReq.includes('Carga Viral Rotina.') === true || masterCardData.encountersInfo.encLabReq.includes('Carga Viral Suspeita.') === true">PEDIDO</span></td>
+      <td class="tg-9wq8" rowspan="2"><span ng-class="{'circleSelect':masterCardData.encountersInfo.encLabReq.includes('LO_HB') === true}">Hb</span>___ <span ng-class="{'circleSelect':masterCardData.encountersInfo.encLabReq.includes('LO_ALT') === true}">ALT</span>___ <span ng-class="{'circleSelect':masterCardData.encountersInfo.encLabReq.includes('LO_AST') === true}">AST</span>___ <span ng-class="{'circleSelect':masterCardData.encountersInfo.encLabReq.includes('LO_GLYCEMIA(3.05-6.05mmol/L)') === true}">GL</span>___ <span ng-class="{'circleSelect':masterCardData.encountersInfo.encLabReq.includes('LO_CREATININE(4.2-132Hmol/L)') === true}">CR</span>___ <span ng-class="{'circleSelect':masterCardData.encountersInfo.encLabReq.includes('LO_AMILASE(600-1600/UL)') === true}">AM</span>___ <span>O</span>_________________</td>
       <td class="tg-9wq8">_ Linha DM DT</td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8" rowspan="2"> R<br>S&nbsp;&nbsp;&nbsp;A<br>O&nbsp;&nbsp;&nbsp;T</td>
       <td class="tg-9wq8"></td>
-      <td class="tg-9wq8" rowspan="2">{{masterCardData.patientInfo.encRef}}</td>
-      <td class="tg-9wq8">{{masterCardData.patientInfo.encSG}}</td>
-      <td class="tg-c3ow">{{masterCardData.patientInfo.encMDC}}</td>
+      <td class="tg-9wq8" rowspan="2">{{masterCardData.encountersInfo.encRef}}</td>
+      <td class="tg-9wq8">{{masterCardData.encountersInfo.encSG}}</td>
+      <td class="tg-c3ow">{{masterCardData.encountersInfo.encMDC}}</td>
       <td class="tg-0pky" rowspan="2"></td>
     </tr>
     <tr style="border-style: dashed solid solid solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
-      <td class="tg-9wq8">{{masterCardData.patientInfo.bPressure}}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encFPCondom }}/ {{ masterCardData.patientInfo.encFPVas }}/ {{ masterCardData.patientInfo.encFPPil }}/ {{ masterCardData.patientInfo.encFPInj }}/ {{ masterCardData.patientInfo.encFPImp }}/ {{ masterCardData.patientInfo.encFPDui }}/ {{ masterCardData.patientInfo.encFPLT }}/ {{ masterCardData.patientInfo.encFPMal }}/ {{ masterCardData.patientInfo.encFPOut }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encEdema }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encHeight }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encIMC }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encEstadoNutricional }}</td>
-      <td class="tg-9wq8"> {{ masterCardData.patientInfo.encNutriEdQty }} {{masterCardData.patientInfo.encNutriEdQtyUnit}}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encTBSym }}</td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encTBStartDate | date:'d/MM/yy'}} <br> <div ng-if="masterCardData.patientInfo.encTBStatus == 'Start_SP'" ><span class='circleSelect'>I</span>                   C                   F</div> <div  ng-if="masterCardData.patientInfo.encTBStatus == 'Em Curso'">I                       <span class='circleSelect'>C</span>                 F</div> <div  ng-if="masterCardData.patientInfo.encTBStatus == 'Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_End'">I                       C                 <span class='circleSelect'>F</span></div>  <div ng-if='masterCardData.patientInfo.encTBDiag === undefined'>I                       C                     F</div</td>
-      <td class="tg-9wq8">I        C       F</td>
-      <td class="tg-9wq8"><div ng-if='masterCardData.patientInfo.encCTZSideEffects === true' ><span class='circleSelect'>S</span>                   N</div> <div  ng-if='masterCardData.patientInfo.encCTZSideEffects === false'>S                       <span class='circleSelect'>N</span></div> <div ng-if='masterCardData.patientInfo.encCTZSideEffects === undefined'>S                       N</div></td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.encITSDiag }}{{ masterCardData.patientInfo.encITSSAM }}{{ masterCardData.patientInfo.encITSSAF }} </td>
-      <td class="tg-9wq8"><span ng-if="masterCardData.patientInfo.encLabReq.includes('CD4.') === true">PEDIDO</span></td>
+      <td class="tg-9wq8">{{masterCardData.encountersInfo.bPressure}}</td>
+      <td class="tg-9wq8"><span>{{masterCardData.encountersInfo.encFPCon}}</span><span>{{ masterCardData.encountersInfo.encFPCondom }}</span> <span>{{ masterCardData.encountersInfo.encFPVas }}</span> <span>{{ masterCardData.encountersInfo.encFPPil }}</span> <span>{{ masterCardData.encountersInfo.encFPInj }}</span> <span>{{ masterCardData.encountersInfo.encFPImp }}</span> <span>{{ masterCardData.encountersInfo.encFPDui }}</span> <span>{{ masterCardData.encountersInfo.encFPLT }}</span> <span>{{ masterCardData.encountersInfo.encFPMal }}</span> <span>{ masterCardData.encountersInfo.encFPOut }}</span>{</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encEdema }}</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encHeight }}</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encIMC }}</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encEstadoNutricional }}</td>
+      <td class="tg-9wq8"> {{ masterCardData.encountersInfo.encNutriEdQty }} {{masterCardData.encountersInfo.encNutriEdQtyUnit}}</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encTBSym }}</td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encTBStartDate | date:'d/MM/yy'}} <br> <div><span ng-class="{'circleSelect':masterCardData.encountersInfo.encTBStatus == 'Start_SP'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encTBStatus == 'Em Curso'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encTBStatus == 'Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_End'}">F</span></div></td>
+      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':masterCardData.encountersInfo.encCTZState == 'Inicio_Prophylaxis'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encCTZState == 'Em Curso_Prophylaxis'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encCTZState == 'Fim_Prophylaxis'}">F</span></div></td>
+      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':masterCardData.encountersInfo.encCTZSideEffects === true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':masterCardData.encountersInfo.encCTZSideEffects === false}">N</span></div></td>
+      <td class="tg-9wq8">{{ masterCardData.encountersInfo.encITSDiag }}{{ masterCardData.encountersInfo.encITSSAM }}{{ masterCardData.encountersInfo.encITSSAF }} </td>
+      <td class="tg-9wq8"><span ng-if="masterCardData.encountersInfo.encLabReq.includes('CD4.') === true">PEDIDO</span></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">B      R       M</td>
       <td class="tg-9wq8"></td>
-      <td class="tg-9wq8">S     N<br>I     C    F</td>
-      <td class="tg-9wq8">S     N<br>I     C    F</td>
+      <td class="tg-9wq8">S     N<br>
+        <div>CR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encCR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encCR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encCR == 'Reference_End'}">F</span></div>
+        <div>PC:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encPC == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encPC == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encPC == 'Reference_End'}">F</span></div>
+        <div>AR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encAR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encAR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encAR == 'Reference_End'}">F</span></div>
+        <div>MPS:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encMPS == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encMPS == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encMPS == 'Reference_End'}">F</span></div>
+        <div>Other:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encGroupOther == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encGroupOther == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encGroupOther == 'Reference_End'}">F</span></div>
+       </td>
+      <td class="tg-9wq8">S     N<br>
+        <div>GA:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encGA == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encGA == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encGA == 'Reference_End'}">F</span></div>
+        <div>CA:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encCA == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encCA == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encCA == 'Reference_End'}">F</span></div>
+        <div>PU:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encPU == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encPU == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encPU == 'Reference_End'}">F</span></div>
+        <div>FR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encFR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encFR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encFR == 'Reference_End'}">F</span></div>
+        <div>DC:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encDC == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encDC == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encDC == 'Reference_End'}">F</span></div>
+        <div>Other:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encMDCOther == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encMDCOther == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':masterCardData.encountersInfo.encMDCOther == 'Reference_End'}">F</span></div>
+       </td>
     </tr>
-    <tr style="border-style: solid dashed dashed solid; border-width: 1px">
+  </div>
+   <!--<tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>
@@ -874,7 +889,7 @@
       <td class="tg-9wq8">S     N<br>I     C    F</td>
     </tr>
     <tr></tr>
-    <tr></tr>
+    <tr></tr>--> 
   </table>
 </body>
 </div>
