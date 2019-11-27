@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .service('printMasterCardService', ['$rootScope', '$translate', 'patientService', 'observationsService', 'treatmentService', 'localeService', 'patientVisitHistoryService', 'labOrderResultService', 'allergiesService', 'diagnosisService',
-        function ($rootScope, $translate, patientService, observationsService, treatmentService, localeService, patientVisitHistoryService, labOrderResultService, allergiesService, diagnosisService) {
+    .service('printMasterCardService', ['$rootScope', '$translate', 'patientService', 'observationsService', 'treatmentService', 'localeService', 'patientVisitHistoryService', 'labOrderResultService', 'allergiesService', 'diagnosisService', '$http', '$q',
+        function ($rootScope, $translate, patientService, observationsService, treatmentService, localeService, patientVisitHistoryService, labOrderResultService, allergiesService, diagnosisService, $http, $q) {
             var masterCardModel = {
 
                 hospitalLogo: '',
@@ -158,6 +158,7 @@ angular.module('bahmni.clinical')
                     var p22 = populateFamilySituation();
                     var p23 = populateAllergyToMedications();
                     var p24 = populateMedicalConditions();
+                    //var p25 = populatePastAndUpcomingAppointments();
 
                     Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24]).then(function () {
                         resolve(masterCardModel);
@@ -241,7 +242,6 @@ angular.module('bahmni.clinical')
                 var apssPositivePreventionKeyPopulation = 'Apss_Positive_prevention_Key_Population';
                 var apssAdherenceFollowUp = 'Apss_Adherence_follow_up';
                 var apssReasonForTheVisit = 'Apss_Reason_For_The_Visit';
-                
                 var bloodPressureSystolicVitalS = 'Blood_Pressure_–_Systolic_VitalS';
                 var bloodPressureDiastolicVSNew = 'Blood_Pressure_–_Diastolic_VSNew';
                 var familyPlanning = 'Group_VIII_Family_Planning_obs_form';
@@ -780,42 +780,71 @@ angular.module('bahmni.clinical')
                                             if (accession2.tests) {
                                                 accession2.tests.forEach(function (test) {
                                                     if (test.testName === 'CD4 %') {
-                                                        obsTable.forEach(function (observation, i) {
+                                                        obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.cd4 = test.result;
                                                             }
                                                         });
-                                                    } else if (test.testName === 'ALT)') {
-                                                        obsTable.forEach(function (observation, i) {
+                                                    } else if (test.testName === 'ALT') {
+                                                        obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.alt = test.result;
                                                             }
                                                         });
-                                                    } else if (test.testName === 'AST)') {
-                                                        obsTable.forEach(function (observation, i) {
+                                                    } else if (test.testName === 'AST') {
+                                                        obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.ast = test.result;
                                                             }
                                                         });
-                                                    } else if (test.testName === 'HGB)') {
-                                                        obsTable.forEach(function (observation, i) {
+                                                    } else if (test.testName === 'HGB') {
+                                                        obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.hgb = test.result;
                                                             }
                                                         });
                                                     } else if (test.testName === 'CARGA VIRAL (Absoluto-Rotina)' || test.testName === 'CARGA VIRAL(Qualitativo-Rotina)') {
-                                                        obsTable.forEach(function (observation, i) {
+                                                        obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.viralLoad = test.result;
                                                             }
                                                         });
                                                     }
                                                 });
+                                            } else if (accession2.testName === 'ALT') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.alt = accession2.result;
+                                                    }
+                                                });
+                                            } else if (accession2.testName === 'AST') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.ast = accession2.result;
+                                                    }
+                                                });
+                                            } else if (accession2.testName === 'HGB') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.hgb = accession2.result;
+                                                    }
+                                                });
+                                            } else if (accession2.testName === 'CARGA VIRAL (Absoluto-Rotina)' || accession2.testName === 'CARGA VIRAL(Qualitativo-Rotina)') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.viralLoad = accession2.result;
+                                                    }
+                                                });
+                                            } else if (accession2.testName === 'Carga Viral Suspeita') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.viralLoad = accession2.result;
+                                                    }
+                                                });
                                             }
                                         });
                                     });
                                 }
-
                                 var slicedTable = obsTable.slice(0, 12);
 
                                 masterCardModel.patientInfo.psychosocialFactors = slicedTable.reverse();
@@ -1419,9 +1448,6 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     treatmentService.getPrescribedDrugOrders(patientUuid, true).then(function (response) {
                         var resarray = [];
-                        var arrres = response.forEach(function (Drug) {
-                            resarray.push(Drug);
-                        });
                         var arrARV = [];
                         var arrNotARV = [];
                         var dateARV = [];
