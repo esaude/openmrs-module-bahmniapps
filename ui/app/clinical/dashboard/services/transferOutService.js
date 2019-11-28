@@ -220,7 +220,7 @@ angular.module('bahmni.clinical')
 
             var populatePatientLabResults = function () {
                 reportModel.labOrderResult = {};
-                var labResultsToShow = ['ALT', 'LO_ALT', 'AST', 'LO_AST', 'CD 4', 'CD4 %', 'CD4 Abs', 'HGB', 'LO_HB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outro', 'LO_Other:'];
+                var labResultsToShow = ['ALT', 'LO_ALT', 'AST', 'LO_AST', 'CD4 %', 'HGB', 'LO_HB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outro', 'LO_Other:'];
                 return new Promise(function (resolve, reject) {
                     labOrderResultService.getAllForPatient({
                         patientUuid: patientUuid
@@ -234,11 +234,7 @@ angular.module('bahmni.clinical')
                                             loName = 'LO_ALT';
                                         } else if (currentObj.testName === 'AST' || currentObj.testName === 'LO_AST') {
                                             loName = 'LO_AST';
-                                        } else if (currentObj.testName === 'CD 4') {
-                                            loName = 'LO_CD4';
                                         } else if (currentObj.testName === 'CD4 %') {
-                                            loName = 'LO_CD4';
-                                        } else if (currentObj.testName === 'CD4 Abs') {
                                             loName = 'LO_CD4';
                                         } else if (currentObj.testName === 'HGB' || currentObj.testName === 'LO_HB') {
                                             loName = 'LO_HGB';
