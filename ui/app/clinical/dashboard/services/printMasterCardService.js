@@ -337,6 +337,12 @@ angular.module('bahmni.clinical')
                 var syndromicApproachSTIF = 'Syndromic Approach_STI_F';
                 var CD4 = 'CD4';
                 var referenceSectionOtherServices = 'Reference_Other_Services';
+                var tarvAdherence = 'Adherence_ana';
+                var tarvSideEffects = 'Side_Effects_ana';
+                var tarvSevereType = 'Severas_ana_type';
+                var tarveNotSevereType = 'Geralmente_não Severas_ana_type';
+                var tarvLifeRisk = 'Com_risco_de_Vida_type';
+                var TBdateDiag = 'Date of Diagnosis';
 
                 observationsService.fetch(patientUuid, [apssdiagnosisDisclosure, apssPreTARVCounselling, apssPreTARVCounsellingComments,
                     apssSectionIDetails, psychosocialFactors, apssSectionIIform, apssPPSexualBehavior, apssPPHIVDisclosure,
@@ -355,7 +361,8 @@ angular.module('bahmni.clinical')
                     hasTBSymptoms, prophylaxisSymptoms, dateOfDiagnosis, tbTreatmentStartDate, tbTreatmentState, tbTreatmentEndDate, typeOfProphylaxis,
                     startDateProphylaxisINH, stateProphylaxisINH, endDateProphylaxisINH, spSideEffectsINH, secondaryEffectsINH,
                     startDateProphylaxisCTZ, stateProphylaxisCTZ, endDateProphylaxisCTZ, spSideEffectsCTZ, secondaryEffectsCTZ,
-                    hasSTISymptoms, stiDiagnosisProphylaxis, syndromicApproachSTIM, syndromicApproachSTIF, CD4, referenceSectionOtherServices]).then(function (response) {
+                    hasSTISymptoms, stiDiagnosisProphylaxis, syndromicApproachSTIM, syndromicApproachSTIF, CD4, referenceSectionOtherServices, tarvAdherence,
+                    tarvSideEffects, tarvSevereType, tarveNotSevereType, tarvLifeRisk, TBdateDiag]).then(function (response) {
                         if (response.data && response.data.length > 0) {
                             var obsTable = [];
                             for (var i = 0; i < response.data.length; i++) {
@@ -432,7 +439,13 @@ angular.module('bahmni.clinical')
                                     alt: '',
                                     ast: '',
                                     referenceSectionOtherServices: [],
-                                    statusState: ''
+                                    statusState: '',
+                                    tarvAdherence: '',
+                                    tarvSideEffects: '',
+                                    tarvSevereType: [],
+                                    tarveNotSevereType: [],
+                                    tarvLifeRisk: [],
+                                    TBdateDiag: ''
                                 };
                                 if (obsTable.length === 0) {
                                     tableStructure.actualVisit = response.data[i].observationDateTime.split('T')[0];
@@ -562,6 +575,28 @@ angular.module('bahmni.clinical')
                                         tableStructure.CD4 = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceSectionOtherServices && tableStructure.referenceSectionOtherServices.indexOf(response.data[i].value.shortName) === -1) {
                                         tableStructure.referenceSectionOtherServices.push(response.data[i].value.shortName);
+                                    } else if (response.data[i].concept.name === tarvAdherence) {
+                                        tableStructure.tarvAdherence = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === tarvSideEffects) {
+                                        tableStructure.tarvSideEffects = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === tarvSevereType && tableStructure.tarvSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                        tableStructure.tarvSevereType.push(response.data[i].value.shortName);
+                                        tableStructure.tarveNotSevereType = [];
+                                        tableStructure.tarvLifeRisk = [];
+                                    } else if (response.data[i].concept.name === tarveNotSevereType && tableStructure.tarveNotSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                        tableStructure.tarveNotSevereType.push(response.data[i].value.shortName);
+                                        tableStructure.tarvSevereType = [];
+                                        tableStructure.tarvLifeRisk = [];
+                                    } else if (response.data[i].concept.name === tarvLifeRisk && tableStructure.tarvLifeRisk.indexOf(response.data[i].value.shortName) === -1) {
+                                        tableStructure.tarvLifeRisk.push(response.data[i].value.shortName);
+                                        tableStructure.tarvSevereType = [];
+                                        tableStructure.tarveNotSevereType = [];
+                                    } else if (response.data[i].concept.name === TBdateDiag) {
+                                        if (response.data[i].value !== undefined) {
+                                            tableStructure.TBdateDiag = true;
+                                        } else if (response.data[i].value == undefined) {
+                                            tableStructure.TBdateDiag = false;
+                                        }
                                     } else if (response.data[i].value.name) {
                                         tableStructure.values.push(response.data[i].value.name);
                                     }
@@ -695,6 +730,28 @@ angular.module('bahmni.clinical')
                                                 obsTable[j].CD4 = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionOtherServices && obsTable[j].referenceSectionOtherServices.indexOf(response.data[i].value.shortName) === -1) {
                                                 obsTable[j].referenceSectionOtherServices.push(response.data[i].value.shortName);
+                                            } else if (response.data[i].concept.name === tarvAdherence) {
+                                                obsTable[j].tarvAdherence = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === tarvSideEffects) {
+                                                obsTable[j].tarvSideEffects = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === tarvSevereType && obsTable[j].tarvSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                                obsTable[j].tarvSevereType.push(response.data[i].value.shortName);
+                                                obsTable[j].tarveNotSevereType = [];
+                                                obsTable[j].tarvLifeRisk = [];
+                                            } else if (response.data[i].concept.name === tarveNotSevereType && obsTable[j].tarveNotSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                                obsTable[j].tarveNotSevereType.push(response.data[i].value.shortName);
+                                                obsTable[j].tarvSevereType = [];
+                                                obsTable[j].tarvLifeRisk = [];
+                                            } else if (response.data[i].concept.name === tarvLifeRisk && obsTable[j].tarvLifeRisk.indexOf(response.data[i].value.shortName) === -1) {
+                                                obsTable[j].tarvLifeRisk.push(response.data[i].value.shortName);
+                                                obsTable[j].tarvSevereType = [];
+                                                obsTable[j].tarveNotSevereType = [];
+                                            } else if (response.data[i].concept.name === TBdateDiag) {
+                                                if (response.data[i].value !== undefined) {
+                                                    obsTable[j].TBdateDiag = true;
+                                                } else if (response.data[i].value == undefined) {
+                                                    obsTable[j].TBdateDiag = false;
+                                                }
                                             } else if (response.data[i].value.name) {
                                                 obsTable[j].values.push(response.data[i].value.name);
                                             }
@@ -826,6 +883,28 @@ angular.module('bahmni.clinical')
                                                 tableStructure.CD4 = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionOtherServices && tableStructure.referenceSectionOtherServices.indexOf(response.data[i].value.shortName) === -1) {
                                                 tableStructure.referenceSectionOtherServices.push(response.data[i].value.shortName);
+                                            } else if (response.data[i].concept.name === tarvAdherence) {
+                                                tableStructure.tarvAdherence = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === tarvSideEffects) {
+                                                tableStructure.tarvSideEffects = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === tarvSevereType && tableStructure.tarvSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                                tableStructure.tarvSevereType.push(response.data[i].value.shortName);
+                                                tableStructure.tarveNotSevereType = [];
+                                                tableStructure.tarvLifeRisk = [];
+                                            } else if (response.data[i].concept.name === tarveNotSevereType && tableStructure.tarveNotSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                                tableStructure.tarveNotSevereType.push(response.data[i].value.shortName);
+                                                tableStructure.tarvSevereType = [];
+                                                tableStructure.tarvLifeRisk = [];
+                                            } else if (response.data[i].concept.name === tarvLifeRisk && tableStructure.tarvLifeRisk.indexOf(response.data[i].value.shortName) === -1) {
+                                                tableStructure.tarvLifeRisk.push(response.data[i].value.shortName);
+                                                tableStructure.tarvSevereType = [];
+                                                tableStructure.tarveNotSevereType = [];
+                                            } else if (response.data[i].concept.name === TBdateDiag) {
+                                                if (response.data[i].value !== undefined) {
+                                                    tableStructure.TBdateDiag = true;
+                                                } else if (response.data[i].value == undefined) {
+                                                    tableStructure.TBdateDiag = false;
+                                                }
                                             } else if (response.data[i].value.name) {
                                                 tableStructure.values.push(response.data[i].value.name);
                                             }
@@ -936,6 +1015,26 @@ angular.module('bahmni.clinical')
                                             lastObs.statusState = lastState;
                                         }
                                     }
+                                });
+
+                                var getUpcomingAppointments = function () {
+                                    var params = {
+                                        q: "bahmni.sqlGet.upComingAppointments",
+                                        v: "full",
+                                        patientUuid: patientUuid
+                                    };
+                                    return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                                        method: "GET",
+                                        params: params,
+                                        withCredentials: true
+                                    });
+                                };
+                                $q.all([getUpcomingAppointments()]).then(function (response) {
+                                    var upcomingAppointments = response[0].data;
+                                    console.log(upcomingAppointments);
+                                    /* for (let i = 0; i < upcomingAppointments.length; i++) {
+                                        upcomingAppointments[i].DASHBOARD_APPOINTMENTS_SLOT_KEY = upcomingAppointments[i].DASHBOARD_APPOINTMENTS_SLOT_KEY;
+                                    } */
                                 });
 
                                 var slicedTable = obsTable.slice(0, 12);
