@@ -228,9 +228,9 @@
       <td class="tg-9wq8" colspan="2">Início / Continua / Fim (I / C / F)</td>
     </tr>
     <div>
-      <tr style="border-style: solid solid dashed solid; border-width: 1px" ng-repeat="ps in masterCardData.patientInfo.psychosocialFactors track by $index">
+      <tr style="border-style: solid solid dashed solid; border-width: 1px" ng-repeat-start="ps in masterCardData.patientInfo.psychosocialFactors track by $index">
       <td class="tg-9wq8"></td>
-      <td class="tg-9wq8">{{ ps.actualVisit | date:'d/MM/yy' }} {{ps}}</td>
+      <td class="tg-9wq8">{{ ps.actualVisit | date:'d/MM/yy' }} </td>
       <td class="tg-9wq8">{{ masterCardData.patientInfo.age }}</td>
       <td class="tg-9wq8"><span>Gravidez: {{ ps.pregnancyYesNo }}</span> <span>Ultima Menstruação: {{ ps.lastMenstruationDate | date:'d/MM/yy' }}</span> <span>Lactante: {{ ps.brestFeeding }}</span></td>
       <td class="tg-9wq8">{{ ps.whoStaging }}</td>
@@ -293,6 +293,7 @@
         <div>Other:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encMDCOther == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encMDCOther == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encMDCOther == 'Reference_End'}">F</span></div>
        </td>
     </tr>
+    <tr ng-repeat-end></tr>
   </div>
    <!--<tr style="border-style: solid dashed dashed solid; border-width: 1px">
       <td class="tg-9wq8"></td>
