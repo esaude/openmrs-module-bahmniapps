@@ -158,7 +158,6 @@ angular.module('bahmni.clinical')
                     var p22 = populateFamilySituation();
                     var p23 = populateAllergyToMedications();
                     var p24 = populateMedicalConditions();
-                    //var p25 = populatePastAndUpcomingAppointments();
 
                     Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24]).then(function () {
                         resolve(masterCardModel);
@@ -845,99 +844,162 @@ angular.module('bahmni.clinical')
                                         });
                                     });
                                 }
-                                var slicedTable = obsTable.slice(0, 12);
 
-                                masterCardModel.patientInfo.psychosocialFactors = slicedTable.reverse();
-                                masterCardModel.patientInfo.apssPreTARVCounselling = [];
-                                masterCardModel.patientInfo.apssPreTARVCounsellingComments = '';
-                                masterCardModel.patientInfo.apssDifferentiatedModelsDate = '';
+                                var getDrugLine = function () {
+                                    var params = {
+                                        q: "bahmni.sqlGet.patientPrescriptions",
+                                        v: "full",
+                                        lang_unit: "en",
+                                        lang_route: "en",
+                                        lang_treatmentLine: "en",
+                                        patientUuid: patientUuid
+                                    };
+                                    return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                                        method: "GET",
+                                        params: params,
+                                        withCredentials: true
+                                    });
+                                };
 
-                                for (var h = 0; h < masterCardModel.patientInfo.psychosocialFactors.length; h++) {
-                                    var apssPTCYes = 'Apss_Pre_TARV_counselling_Yes';
-                                    var apssPTCNo = 'Apss_Pre_TARV_counselling_NO';
-                                    var apssATPCACYes = "Apss_Agreement_Terms_Patient_Caregiver_agrees_contacted_Yes";
-                                    var apssATPCACNo = "Apss_Agreement_Terms_Patient_Caregiver_agrees_contacted_No";
-                                    var apssATCACYes = "Apss_Agreement_Terms_Confidant_agrees_contacted_Yes";
-                                    var apssATCACNo = "Apss_Agreement_Terms_Confidant_agrees_contacted_No";
-                                    var apssATTCPhone = "Apss_Agreement_Terms_Type_Contact_Phone_call";
-                                    var apssATTCSMS = "Apss_Agreement_Terms_Type_Contact_SMS";
-                                    var apssATTCVisit = "Apss_Agreement_Terms_Type_Contact_House_Visits";
-                                    var apssATCACTPhone = "Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Phone_call";
-                                    var apssATCACTSMS = "Apss_Agreement_Terms_Confidant_agrees_contacted_TC_SMS";
-                                    var apssATCACTVisit = "Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Visits";
+                                $q.all([getDrugLine()]).then(function (response) {
+                                    if (response && response.length > 0) {
+                                        response.forEach(function (prescriptions) {
+                                            if (prescriptions.data && prescriptions.data.length > 0) {
+                                                prescriptions.data.forEach(function (prescription) {
+                                                    for (var i = 0; i < obsTable.length; i++) {
+                                                        var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + new Date(prescription.date_created).getDate();
+                                                        if (obsTable[i].actualVisit === actualVisit) {
+                                                            obsTable[i].prescribedDrugs = {};
+                                                            obsTable[i].prescribedDrugs.dose = prescription.dose;
+                                                            obsTable[i].prescribedDrugs.name = prescription.name;
+                                                            obsTable[i].prescribedDrugs.unit = prescription.unit;
+                                                            obsTable[i].prescribedDrugs.route = prescription.route;
+                                                            obsTable[i].prescribedDrugs.category = prescription.category;
+                                                            obsTable[i].prescribedDrugs.first_arv = prescription.first_arv;
+                                                            obsTable[i].prescribedDrugs.line = prescription.line_treatment[0];
+                                                            obsTable[i].prescribedDrugs.arv_dispensed = prescription.arv_dispensed;
+                                                            obsTable[i].prescribedDrugs.drug_dispensed = prescription.drug_dispensed;
+                                                            obsTable[i].prescribedDrugs.dispensed_date = prescription.dispensed_date;
+                                                            obsTable[i].prescribedDrugs.dosing = angular.fromJson(prescription.dosing_instructions).instructions;
+                                                            break;
+                                                        } else if (i === (obsTable.length - 1)) {
+                                                            obsTable.push({
+                                                                actualVisit: new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + new Date(prescription.date_created).getDate(),
+                                                                prescribedDrugs: {
+                                                                    dose: prescription.dose,
+                                                                    name: prescription.name,
+                                                                    unit: prescription.unit,
+                                                                    route: prescription.route,
+                                                                    category: prescription.category,
+                                                                    first_arv: prescription.first_arv,
+                                                                    line: prescription.line_treatment[0],
+                                                                    arv_dispensed: prescription.arv_dispensed,
+                                                                    drug_dispensed: prescription.drug_dispensed,
+                                                                    dispensed_date: prescription.dispensed_date,
+                                                                    dosing: angular.fromJson(prescription.dosing_instructions).instructions
+                                                                },
+                                                                values: []
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
 
-                                    if (masterCardModel.patientInfo.apssPreTARVCounselling.length < 4) {
-                                        if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssPTCYes)) {
-                                            masterCardModel.patientInfo.apssPreTARVCounselling.push(apssPTCYes);
-                                        } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssPTCNo)) {
-                                            masterCardModel.patientInfo.apssPreTARVCounselling.push(apssPTCNo);
+                                    var slicedTable = obsTable.slice(0, 12);
+
+                                    masterCardModel.patientInfo.psychosocialFactors = slicedTable.reverse();
+                                    masterCardModel.patientInfo.apssPreTARVCounselling = [];
+                                    masterCardModel.patientInfo.apssPreTARVCounsellingComments = '';
+                                    masterCardModel.patientInfo.apssDifferentiatedModelsDate = '';
+
+                                    for (var h = 0; h < masterCardModel.patientInfo.psychosocialFactors.length; h++) {
+                                        var apssPTCYes = 'Apss_Pre_TARV_counselling_Yes';
+                                        var apssPTCNo = 'Apss_Pre_TARV_counselling_NO';
+                                        var apssATPCACYes = "Apss_Agreement_Terms_Patient_Caregiver_agrees_contacted_Yes";
+                                        var apssATPCACNo = "Apss_Agreement_Terms_Patient_Caregiver_agrees_contacted_No";
+                                        var apssATCACYes = "Apss_Agreement_Terms_Confidant_agrees_contacted_Yes";
+                                        var apssATCACNo = "Apss_Agreement_Terms_Confidant_agrees_contacted_No";
+                                        var apssATTCPhone = "Apss_Agreement_Terms_Type_Contact_Phone_call";
+                                        var apssATTCSMS = "Apss_Agreement_Terms_Type_Contact_SMS";
+                                        var apssATTCVisit = "Apss_Agreement_Terms_Type_Contact_House_Visits";
+                                        var apssATCACTPhone = "Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Phone_call";
+                                        var apssATCACTSMS = "Apss_Agreement_Terms_Confidant_agrees_contacted_TC_SMS";
+                                        var apssATCACTVisit = "Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Visits";
+
+                                        if (masterCardModel.patientInfo.apssPreTARVCounselling.length < 4) {
+                                            if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssPTCYes)) {
+                                                masterCardModel.patientInfo.apssPreTARVCounselling.push(apssPTCYes);
+                                            } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssPTCNo)) {
+                                                masterCardModel.patientInfo.apssPreTARVCounselling.push(apssPTCNo);
+                                            }
+                                        }
+                                        if (masterCardModel.patientInfo.apssPatientCaregiverAgreement.length < 1) {
+                                            if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATPCACYes)) {
+                                                masterCardModel.patientInfo.apssPatientCaregiverAgreement = apssATPCACYes;
+                                            } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATPCACNo)) {
+                                                masterCardModel.patientInfo.apssPatientCaregiverAgreement = apssATPCACNo;
+                                            }
+                                        }
+                                        if (masterCardModel.patientInfo.apssConfidantAgreement.length < 1) {
+                                            if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACYes)) {
+                                                masterCardModel.patientInfo.apssConfidantAgreement = apssATCACYes;
+                                            } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACNo)) {
+                                                masterCardModel.patientInfo.apssConfidantAgreement = apssATCACNo;
+                                            }
+                                        }
+                                        if (!masterCardModel.patientInfo.apssAgreementContactType) {
+                                            if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATTCPhone)) {
+                                                masterCardModel.patientInfo.apssAgreementContactType = apssATTCPhone;
+                                            } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATTCSMS)) {
+                                                masterCardModel.patientInfo.apssAgreementContactType = apssATTCSMS;
+                                            } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATTCVisit)) {
+                                                masterCardModel.patientInfo.apssAgreementContactType = apssATTCVisit;
+                                            }
+                                        }
+                                        if (!masterCardModel.patientInfo.apssConfidantAgreementContactType) {
+                                            if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACTPhone)) {
+                                                masterCardModel.patientInfo.apssConfidantAgreementContactType = apssATCACTPhone;
+                                            } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACTSMS)) {
+                                                masterCardModel.patientInfo.apssConfidantAgreementContactType = apssATCACTSMS;
+                                            } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACTVisit)) {
+                                                masterCardModel.patientInfo.apssAgreementContactType = apssATCACTVisit;
+                                            }
                                         }
                                     }
-                                    if (masterCardModel.patientInfo.apssPatientCaregiverAgreement.length < 1) {
-                                        if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATPCACYes)) {
-                                            masterCardModel.patientInfo.apssPatientCaregiverAgreement = apssATPCACYes;
-                                        } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATPCACNo)) {
-                                            masterCardModel.patientInfo.apssPatientCaregiverAgreement = apssATPCACNo;
-                                        }
-                                    }
-                                    if (masterCardModel.patientInfo.apssConfidantAgreement.length < 1) {
-                                        if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACYes)) {
-                                            masterCardModel.patientInfo.apssConfidantAgreement = apssATCACYes;
-                                        } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACNo)) {
-                                            masterCardModel.patientInfo.apssConfidantAgreement = apssATCACNo;
-                                        }
-                                    }
-                                    if (!masterCardModel.patientInfo.apssAgreementContactType) {
-                                        if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATTCPhone)) {
-                                            masterCardModel.patientInfo.apssAgreementContactType = apssATTCPhone;
-                                        } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATTCSMS)) {
-                                            masterCardModel.patientInfo.apssAgreementContactType = apssATTCSMS;
-                                        } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATTCVisit)) {
-                                            masterCardModel.patientInfo.apssAgreementContactType = apssATTCVisit;
-                                        }
-                                    }
-                                    if (!masterCardModel.patientInfo.apssConfidantAgreementContactType) {
-                                        if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACTPhone)) {
-                                            masterCardModel.patientInfo.apssConfidantAgreementContactType = apssATCACTPhone;
-                                        } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACTSMS)) {
-                                            masterCardModel.patientInfo.apssConfidantAgreementContactType = apssATCACTSMS;
-                                        } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACTVisit)) {
-                                            masterCardModel.patientInfo.apssAgreementContactType = apssATCACTVisit;
-                                        }
-                                    }
-                                }
 
-                                for (var k = 0; k < masterCardModel.patientInfo.psychosocialFactors.length; k++) {
-                                    if (masterCardModel.patientInfo.psychosocialFactors[k].apssPreTARVCounsellingComments) {
-                                        masterCardModel.patientInfo.apssPreTARVCounsellingComments = masterCardModel.patientInfo.psychosocialFactors[k].apssPreTARVCounsellingComments;
+                                    for (var k = 0; k < masterCardModel.patientInfo.psychosocialFactors.length; k++) {
+                                        if (masterCardModel.patientInfo.psychosocialFactors[k].apssPreTARVCounsellingComments) {
+                                            masterCardModel.patientInfo.apssPreTARVCounsellingComments = masterCardModel.patientInfo.psychosocialFactors[k].apssPreTARVCounsellingComments;
+                                        }
                                     }
-                                }
 
-                                for (var l = 0; l < masterCardModel.patientInfo.psychosocialFactors.length; l++) {
-                                    if (masterCardModel.patientInfo.psychosocialFactors[l + 1]) {
-                                        masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = masterCardModel.patientInfo.psychosocialFactors[l + 1].actualVisit;
+                                    for (var l = 0; l < masterCardModel.patientInfo.psychosocialFactors.length; l++) {
+                                        if (masterCardModel.patientInfo.psychosocialFactors[l + 1]) {
+                                            masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = masterCardModel.patientInfo.psychosocialFactors[l + 1].actualVisit;
+                                        }
                                     }
-                                }
-                                if (masterCardModel.patientInfo.psychosocialFactors.length < 12) {
-                                    masterCardModel.patientInfo.psychosocialFactorsActualEmpty = [];
-                                    for (var m = 0; m < 12 - masterCardModel.patientInfo.psychosocialFactors.length; m++) {
-                                        masterCardModel.patientInfo.psychosocialFactorsActualEmpty.push(m);
+                                    if (masterCardModel.patientInfo.psychosocialFactors.length < 12) {
+                                        masterCardModel.patientInfo.psychosocialFactorsActualEmpty = [];
+                                        for (var m = 0; m < 12 - masterCardModel.patientInfo.psychosocialFactors.length; m++) {
+                                            masterCardModel.patientInfo.psychosocialFactorsActualEmpty.push(m);
+                                        }
                                     }
-                                }
-                                if (masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length === 0) {
-                                    masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [1];
-                                } else {
-                                    for (var n = 0; n < masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length; n++) {
-                                        masterCardModel.patientInfo.psychosocialFactorsNextEmpty.push(n);
+                                    if (masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length === 0) {
+                                        masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [1];
+                                    } else {
+                                        for (var n = 0; n < masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length; n++) {
+                                            masterCardModel.patientInfo.psychosocialFactorsNextEmpty.push(n);
+                                        }
+                                        masterCardModel.patientInfo.psychosocialFactorsNextEmpty = masterCardModel.patientInfo.psychosocialFactorsNextEmpty;
                                     }
-                                    masterCardModel.patientInfo.psychosocialFactorsNextEmpty = masterCardModel.patientInfo.psychosocialFactorsNextEmpty;
-                                }
-                                for (var q = 0; q < masterCardModel.patientInfo.psychosocialFactors.length; q++) {
-                                    if (masterCardModel.patientInfo.psychosocialFactors[q].apssDifferentiatedModelsDate && !masterCardModel.patientInfo.apssDifferentiatedModelsDate) {
-                                        masterCardModel.patientInfo.apssDifferentiatedModelsDate = masterCardModel.patientInfo.psychosocialFactors[q].apssDifferentiatedModelsDate;
+                                    for (var q = 0; q < masterCardModel.patientInfo.psychosocialFactors.length; q++) {
+                                        if (masterCardModel.patientInfo.psychosocialFactors[q].apssDifferentiatedModelsDate && !masterCardModel.patientInfo.apssDifferentiatedModelsDate) {
+                                            masterCardModel.patientInfo.apssDifferentiatedModelsDate = masterCardModel.patientInfo.psychosocialFactors[q].apssDifferentiatedModelsDate;
+                                        }
                                     }
-                                }
-                            }).catch(function (error) {
+                                });
                             });
                         } else {
                             for (var o = 0; o < 12; o++) {
