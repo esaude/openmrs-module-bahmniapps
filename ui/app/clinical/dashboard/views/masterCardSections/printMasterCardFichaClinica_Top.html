@@ -229,73 +229,111 @@
     </tr>
     <div>
       <tr style="border-style: solid solid dashed solid; border-width: 1px" ng-repeat-start="ps in masterCardData.patientInfo.psychosocialFactors track by $index">
+      <td class="tg-9wq8" rowspan="3"></td>
+      <td class="tg-9wq8" rowspan="2">{{ ps.actualVisit | date:'d/MM/yy' }} </td>
+      <td class="tg-9wq8" rowspan="2">{{ ps.ageAtVisit }}</td>
+      <td class="tg-9wq8" rowspan="2"><span ng-if="ps.pregnancyYesNo">G</span> <span ng-if="ps.lastMenstruationDate">/ {{ ps.lastMenstruationDate | date:'d/MM/yy' }}</span> <span ng-if="ps.breastFeeding"> / L</span></td>
+      <td class="tg-9wq8" rowspan="2">{{ ps.whoStaging }}</td>
+      <td class="tg-9wq8" rowspan="2">{{ ps.weight }}</td>
+      <td class="tg-9wq8" rowspan="2">{{ ps.brachialPerimeter }}</td>
+      <td class="tg-9wq8" rowspan="2">{{ps.indicator}}  </td>
+      <td class="tg-9wq8" rowspan="2"><span ng-if="ps.receivedNutritionalSupport"> Apoio Nutricional:<span ng-if="ps.receivedNutritionalSupport===true">Sim</span> <span ng-if="ps.receivedNutritionalSupport === false">Não</span></span>  
+        <span ng-if="ps.receivedNutritionalEducation">Educação Nutricional:<span ng-if="ps.receivedNutritionalEducation===true">Sim</span> <span ng-if="ps.receivedNutritionalEducation === false">Não</span>
+      </span>&nbsp;&nbsp;&nbsp;{{ps.nutritionSupplement}}</td>
+      <td class="tg-9wq8" rowspan="2"><div><span ng-class="{'circleSelect':ps.hasTBSymptoms===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.hasTBSymptoms === false}">N</span></div></td>
+      <td class="tg-9wq8" rowspan="2"><div><span ng-class="{'circleSelect':ps.TBdateDiag===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.TBdateDiag === false}">N</span></div></td>
+      <td class="tg-9wq8" rowspan="2"><div><span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Inicio_Prophylaxis'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Em Curso_Prophylaxis'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Fim_Prophylaxis'}">F</span></div></td>
+      <td class="tg-9wq8" rowspan="2"><div><span ng-class="{'circleSelect':ps.spSideEffectsINH===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsINH === false}">N</span></div></td>
+      <td class="tg-9wq8" rowspan="2"><div><span ng-class="{'circleSelect':ps.hasSTISymptoms===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.hasSTISymptoms === false}">N</span></div></td>
+      <td class="tg-9wq8" rowspan="3">{{ps.otherCondition.name}} </td>
+      <td class="tg-9wq8" rowspan="2"><span ng-if="ps.viralLoad === undefined">PEDIDO</span>{{ps.viralLoad}}</td>
+      <td class="tg-9wq8" rowspan="3">
+        <span ng-class="{'circleSelect':ps.hgb.length !== 0}">Hb</span>&nbsp;{{ps.hgb}}<span ng-if="ps.hgb.length === 0">___</span> 
+        <span ng-class="{'circleSelect':ps.alt.length !== 0}">ALT</span>&nbsp;{{ps.alt}}<span ng-if="ps.alt.length === 0">___</span>
+        <span ng-class="{'circleSelect':ps.ast.length !== 0}">AST</span>&nbsp;{{ps.ast}}<span ng-if="ps.ast.length === 0">___</span>
+        <span ng-class="{'circleSelect':ps.gl.length !== 0}">GL</span>&nbsp;{{ps.gl}}<span ng-if="ps.gl.length === 0">___</span>
+        <span ng-class="{'circleSelect':ps.cr.length !== 0}">CR</span>&nbsp;{{ps.cr}}<span ng-if="ps.cr.length === 0">___</span>
+        <span ng-class="{'circleSelect':ps.am.length !== 0}">AM</span>&nbsp;{{ps.am}}<span ng-if="ps.am.length === 0">___</span>
+        <span>O</span>_________________</td>
+      <td class="tg-9wq8" rowspan="2"><span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '1' ">1ª</span>
+        <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '2' ">2ª</span>
+        <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '3' ">3ª</span>
+        <span ng-if="!ps.prescribedDrugs.line">_</span> Linha 
+        <span ng-class="{'circleSelect':ps.prescribedDrugs.dosing === 'Mensal'}">DM</span> <span ng-class="{'circleSelect':ps.prescribedDrugs.dosing === 'Trimestral'}">DT</span></td>
+      <td class="tg-9wq8" rowspan="3"> {{ps.prescribedDrugs.dose}} {{ps.prescribedDrugs.unit}} {{ps.prescribedDrugs.frequency}}</td>
+      <td class="tg-9wq8" rowspan="2">N/A</td>
+      <td class="tg-9wq8" rowspan="2">{{ps.tarvSideEffects}}</td>
+      <td class="tg-9wq8" rowspan="3"><span ng-class="{'circleSelect':ps.statusState === 'ACTIVE-TARV_RESTART'}">R</span><br>
+        <span ng-class="{'circleSelect':ps.statusState === 'ACTIVE-TARV_TREATMENT_SUSPENDED' || ps.statusState === 'INACTIVE_SUSPENDED-TARV' }">S</span>&nbsp; 
+        <span ng-class="{'circleSelect':ps.statusState === 'ACTIVE-TARV'}">A</span><br>
+         <span ng-class="{'circleSelect':ps.statusState === 'INACTIVE-DEATH-TARV'}">O</span>&nbsp;
+          <span ng-class="{'circleSelect':ps.statusState === INACTIVE_TRANSFERED_OUT-TARV}">T</span>
+      </td>
+      <td class="tg-9wq8" rowspan="3"> <span ng-repeat="dr in ps.otherPerscribedDrugs track by $index"> {{dr}}</span></td>
+      <td class="tg-9wq8" rowspan="3"><span ng-repeat="ref in ps.referenceSectionOtherServices track by $index"> {{ref}}</span></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-9wq8">{{ ps.actualVisit | date:'d/MM/yy' }} </td>
-      <td class="tg-9wq8">{{ masterCardData.patientInfo.age }}</td>
-      <td class="tg-9wq8"><span>Gravidez: {{ ps.pregnancyYesNo }}</span> <span>Ultima Menstruação: {{ ps.lastMenstruationDate | date:'d/MM/yy' }}</span> <span>Lactante: {{ ps.brestFeeding }}</span></td>
-      <td class="tg-9wq8">{{ ps.whoStaging }}</td>
-      <td class="tg-9wq8">{{ ps.weight }}</td>
-      <td class="tg-9wq8">{{ ps.brachialPerimeter }}</td>
-      <td class="tg-9wq8">BMI indicator </td>
-      <td class="tg-9wq8">{{ ps.receivedNutritionalSupport }} - {{ ps.receivedNutritionalEducation }}</td>
-      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':ps.hasTBSymptoms === true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.hasTBSymptoms === false}">N</span></div></td>
-      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':ps.TBdateDiag === true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.TBdateDiag === false}">N</span></div></td>
-      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Inicio_Prophylaxis'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Em Curso_Prophylaxis'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Fim_Prophylaxis'}">F</span></div></td>
-      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':ps.spSideEffectsINH === true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsINH === false}">N</span></div></td>
-      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':ps.hasSTISymptoms === true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.hasSTISymptoms === false}">N</span></div></td>
-      <td class="tg-9wq8" rowspan="2">{{ps.stiDiagnosisProphylaxis}}</td>
-      <td class="tg-9wq8"><span ng-if="ps.viralLoad === undefined">PEDIDO</span></td>
-      <td class="tg-9wq8" rowspan="2"><span ng-class="{'circleSelect':ps.encLabReq.includes('LO_HB') === true}">Hb</span>___ <span ng-class="{'circleSelect':ps.encLabReq.includes('LO_ALT') === true}">ALT</span>___ <span ng-class="{'circleSelect':ps.encLabReq.includes('LO_AST') === true}">AST</span>___ <span ng-class="{'circleSelect':ps.encLabReq.includes('LO_GLYCEMIA(3.05-6.05mmol/L)') === true}">GL</span>___ <span ng-class="{'circleSelect':ps.encLabReq.includes('LO_CREATININE(4.2-132Hmol/L)') === true}">CR</span>___ <span ng-class="{'circleSelect':ps.encLabReq.includes('LO_AMILASE(600-1600/UL)') === true}">AM</span>___ <span>O</span>_________________</td>
-      <td class="tg-9wq8">_ Linha DM DT</td>
-      <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-9wq8"></td>
-      <td class="tg-9wq8" rowspan="2"> {{ps.statusState}}</td>
-      <td class="tg-9wq8"></td>
-      <td class="tg-9wq8" rowspan="2">{{ps.encRef}}</td>
-      <td class="tg-9wq8">{{ps.encSG}}</td>
-      <td class="tg-c3ow">{{ps.encMDC}}</td>
-      <td class="tg-0pky" rowspan="2"></td>
+      
+      <td class="tg-0pky" rowspan="3"></td>
+    </tr>
+    <tr>
+        <td class="tg-9wq8">Elegivel:<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR || ps.referenceSectionSupportGroupPC || ps.referenceSectionSupportGroupAR || ps.referenceSectionSupportGroupMPS || ps.referenceSectionSupportGroup}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect': !ps.referenceSectionSupportGroupCR || !ps.referenceSectionSupportGroupPC || !ps.referenceSectionSupportGroupAR || !ps.referenceSectionSupportGroupMPS || !ps.referenceSectionSupportGroup }">N</span></td>
+        <td class="tg-9wq8">Elegivel:<span ng-class="{'circleSelect':ps.referenceMDCSectionAF || ps.referenceMDCSectionDT || ps.referenceMDCSectionGA || ps.referenceMDCSectionCA || ps.referenceMDCSectionPU || ps.referenceMDCSectionFR || ps.referenceMDCSectionDC || ps.referenceMDCSectionOther }">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect': !ps.referenceMDCSectionAF || !ps.referenceMDCSectionDT || !ps.referenceMDCSectionGA || !ps.referenceMDCSectionCA || !ps.referenceMDCSectionPU || !ps.referenceMDCSectionFR || !ps.referenceMDCSectionDC || !ps.referenceMDCSectionOther }">N</span></td>
+        
+     
     </tr>
     <tr style="border-style: dashed solid solid solid; border-width: 1px">
-      <td class="tg-9wq8"></td>
+
       <td class="tg-9wq8">{{ ps.nextVisit | date:'d/MM/yy' }}</td>
-      <td class="tg-9wq8">{{ps.bloodPressureSystolicVitalS}}/{{ps.bloodPressureDiastolicVSNew}}</td>
-      <td class="tg-9wq8"><span>{{ps.encFPCon}}</span><span>{{ ps.encFPCondom }}</span> <span>{{ ps.encFPVas }}</span> <span>{{ ps.encFPPil }}</span> <span>{{ ps.encFPInj }}</span> <span>{{ ps.encFPImp }}</span> <span>{{ ps.encFPDui }}</span> <span>{{ ps.encFPLT }}</span> <span>{{ ps.encFPMal }}</span> <span>{ ps.encFPOut }}</span>{</td>
-      <td class="tg-9wq8">{{ ps.encEdema }}</td>
-      <td class="tg-9wq8">{{ ps.encHeight }}</td>
+      <td class="tg-9wq8"><span ng-if="ps.bloodPressureSystolicVitalS || ps.bloodPressureDiastolicVSNew">{{ps.bloodPressureSystolicVitalS}}/{{ps.bloodPressureDiastolicVSNew}}</span></td>
+      <td class="tg-9wq8">
+       <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_PRES_Condom_button_Yes')===true">PRES</span>
+        <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_VAS_Vasectomy_button_Yes')===true">VAS</span>
+        <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_Start')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_In_Progress')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_End')===true ">PIL</span>
+        <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_INJ_Injection_button_Start')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_INJ_Injection_button_In_Progress')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_INJ_Injection_button_End')===true ">INJ</span>
+        <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_IMP_Implant_button_Start')===true|| ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_IMP_Implant_button_In_Progress')===true|| ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_IMP_Implant_button_End')===true ">IMP</span>
+        <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_DIU_Intra_button_Start')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_DIU_Intra_button_In_Progress')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_DIU_Intra_button_End')===true  ">DIU</span>
+        <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_LT_Tubal_Ligation_button_Yes')===true ">LT</span>
+        <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_MAL_Lactational_Amenorrhea_Method_button_Yes')===true ">MAL</span>
+        <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_OUT_Other_button_Yes') ">Outro</span>
+      </td>
+      <td class="tg-9wq8">{{ ps.infantsOdemaProphylaxis }}</td>
+      <td class="tg-9wq8"><span ng-if='masterCardData.patientInfo.age > 5'>{{ ps.height/100 }}</span><span ng-if='masterCardData.patientInfo.age < 5 || masterCardData.patientInfo.age === 5 '>{{ ps.height }}</span></td>
       <td class="tg-9wq8">{{ ps.bmi }}</td>
       <td class="tg-9wq8">{{ ps.nutritionalState }}</td>
-      <td class="tg-9wq8"> {{ ps.encNutriEdQty }} {{ps.encNutriEdQtyUnit}}</td>
-      <td class="tg-9wq8">{{ ps.encTBSym }}</td>
-      <td class="tg-9wq8">{{ ps.encTBStartDate | date:'d/MM/yy'}} <br> <div><span ng-class="{'circleSelect':ps.encTBStatus == 'Start_SP'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encTBStatus == 'Em Curso'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encTBStatus == 'Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_End'}">F</span></div></td>
+      <td class="tg-9wq8"> {{ ps.nutritionalSupplementQt }} {{ps.nutritionalSupplementMeasurementUnit}}</td>
+      <td class="tg-9wq8">{{ ps.prophylaxisSymptoms }}</td>
+      <td class="tg-9wq8">{{ ps.tbTreatmentStartDate | date:'d/MM/yy'}} <br> <div><span ng-class="{'circleSelect':ps.tbTreatmentState == 'Start_SP'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.tbTreatmentState == 'Em Curso'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.tbTreatmentState == 'Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_End'}">F</span></div></td>
       <td class="tg-9wq8"><div><span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Inicio_Prophylaxis'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Em Curso_Prophylaxis'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Fim_Prophylaxis'}">F</span></div></td>
-      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':ps.spSideEffectsCTZ === true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsCTZ === false}">N</span></div></td>
-      <td class="tg-9wq8">{{ ps.encITSDiag }}{{ ps.encITSSAM }}{{ ps.encITSSAF }} </td>
-      <td class="tg-9wq8"><span ng-if="ps.encLabReq.includes('CD4.') === true">PEDIDO</span></td>
-      <td class="tg-9wq8"></td>
-      <td class="tg-9wq8"></td>
-      <td class="tg-9wq8">B      R       M</td>
-      <td class="tg-9wq8"></td>
-      <td class="tg-9wq8">S     N<br>
-        <div>CR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encCR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encCR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encCR == 'Reference_End'}">F</span></div>
-        <div>PC:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encPC == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encPC == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encPC == 'Reference_End'}">F</span></div>
-        <div>AR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encAR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encAR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encAR == 'Reference_End'}">F</span></div>
-        <div>MPS:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encMPS == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encMPS == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encMPS == 'Reference_End'}">F</span></div>
-        <div>Other:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encGroupOther == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encGroupOther == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encGroupOther == 'Reference_End'}">F</span></div>
+      <td class="tg-9wq8"><div><span ng-class="{'circleSelect':ps.spSideEffectsCTZ===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsCTZ === false}">N</span></div></td>
+      <td class="tg-9wq8">{{ ps.stiDiagnosisProphylaxis }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIM }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIF }} </td>
+
+      <td class="tg-9wq8"><span ng-if="ps.CD4 === undefined">PEDIDO</span>{{ps.CD4}}</td>
+      <td class="tg-9wq8">{{ps.prescribedDrugs.name}}</td>
+      <td class="tg-9wq8">N/A</td>
+      <td class="tg-9wq8"> {{ps.tarvAdherence}}</td>
+
+      <td class="tg-9wq8">
+        <div ng-if="ps.referenceSectionSupportGroupCR">CR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_End'}">F</span></div>
+        <div ng-if="ps.referenceSectionSupportGroupPC">PC:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupPC == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupPC == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupPC == 'Reference_End'}">F</span></div>
+        <div ng-if="ps.referenceSectionSupportGroupAR">AR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupAR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupAR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupAR == 'Reference_End'}">F</span></div>
+        <div ng-if="ps.referenceSectionSupportGroupMPS">MPS:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupMPS == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupMPS == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupMPS == 'Reference_End'}">F</span></div>
+        <div ng-if="ps.referenceSectionSupportGroup">Other:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroup == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroup == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroup == 'Reference_End'}">F</span></div>
        </td>
-      <td class="tg-9wq8">S     N<br>
-        <div>GA:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encGA == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encGA == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encGA == 'Reference_End'}">F</span></div>
-        <div>CA:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encCA == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encCA == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encCA == 'Reference_End'}">F</span></div>
-        <div>PU:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encPU == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encPU == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encPU == 'Reference_End'}">F</span></div>
-        <div>FR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encFR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encFR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encFR == 'Reference_End'}">F</span></div>
-        <div>DC:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encDC == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encDC == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encDC == 'Reference_End'}">F</span></div>
-        <div>Other:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encMDCOther == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encMDCOther == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.encMDCOther == 'Reference_End'}">F</span></div>
+      <td class="tg-9wq8">
+        <div ng-if="ps.referenceMDCSectionAF">AF:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionAF == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionAF == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionAF == 'Reference_End'}">F</span></div>
+        <div ng-if="ps.referenceMDCSectionDT">DT:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDT == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDT == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDT == 'Reference_End'}">F</span></div>
+        <div ng-if="ps.referenceMDCSectionGA">GA:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionGA == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionGA == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionGA == 'Reference_End'}">F</span></div>
+        <div ng-if="ps.referenceMDCSectionCA">CA:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionCA == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionCA == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionCA == 'Reference_End'}">F</span></div>
+        <div ng-if="ps.referenceMDCSectionPU">PU:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionPU == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionPU == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionPU == 'Reference_End'}">F</span></div>
+        <div ng-if="ps.referenceMDCSectionFR">FR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionFR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionFR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionFR == 'Reference_End'}">F</span></div>
+        <div ng-if="ps.referenceMDCSectionDC">DC:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDC == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDC == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDC == 'Reference_End'}">F</span></div>
+        <div ng-if="ps.referenceMDCSectionOther">Other:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionOther == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionOther == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionOther == 'Reference_End'}">F</span></div>
        </td>
     </tr>
     <tr ng-repeat-end></tr>
   </div>
-   <!--<tr style="border-style: solid dashed dashed solid; border-width: 1px">
+   <!--<tr style="border-style: solid dashed dashed solid; border-width: 1px" ng-repeat="12 - masterCardData.patientInfo.pyschologicalFactors.length">
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8">/        /</td>
       <td class="tg-9wq8"></td>

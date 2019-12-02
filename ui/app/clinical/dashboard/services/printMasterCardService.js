@@ -299,7 +299,7 @@ angular.module('bahmni.clinical')
                 var nutritionalState = 'Nutritional_States_new';
                 var lastMenstruationDate = 'Last Menstruation Date';
                 var pregnancyYesNo = 'Pregnancy_Yes_No';
-                var brestFeeding = 'Breastfeeding_ANA';
+                var breastFeeding = 'Breastfeeding_ANA';
                 var familyPlanningMethods = 'Family_Planning_Methods';
                 var whoStaging = 'HTC, WHO Staging';
                 var infantsOdemaProphylaxis = 'Infants Odema_Prophylaxis';
@@ -353,7 +353,7 @@ angular.module('bahmni.clinical')
                     referenceMDCSectionDT, referenceMDCSectionDC, referenceMDCSectionOther, referenceMDCSectionOtherComments, apssDifferentiatedModelsDate,
                     apssPatientCaregiverAgreement, apssConfidantAgreement, apssAgreementContactType, apssConfidantAgreementContactType,
                     apssPositivePreventionKeyPopulation, apssAdherenceFollowUp, apssReasonForTheVisit, bloodPressureSystolicVitalS,
-                    bloodPressureDiastolicVSNew, familyPlanning, nutritionalState, lastMenstruationDate, pregnancyYesNo, brestFeeding,
+                    bloodPressureDiastolicVSNew, familyPlanning, nutritionalState, lastMenstruationDate, pregnancyYesNo, breastFeeding,
                     familyPlanningMethods, whoStaging, infantsOdemaProphylaxis, weight, height, brachialPerimeter, bmi,
                     receivedNutritionalSupport, receivedNutritionalEducation, nutritionSupplement, nutritionalSupplementQt, nutritionalSupplementMeasurementUnit,
                     hasTBSymptoms, prophylaxisSymptoms, dateOfDiagnosis, tbTreatmentStartDate, tbTreatmentState, tbTreatmentEndDate, typeOfProphylaxis,
@@ -397,7 +397,7 @@ angular.module('bahmni.clinical')
                                     nutritionalState: '',
                                     lastMenstruationDate: '',
                                     pregnancyYesNo: '',
-                                    brestFeeding: '',
+                                    breastFeeding: '',
                                     familyPlanningMethods: '',
                                     whoStaging: '',
                                     infantsOdemaProphylaxis: '',
@@ -443,8 +443,16 @@ angular.module('bahmni.clinical')
                                     tarvSevereType: [],
                                     tarveNotSevereType: [],
                                     tarvLifeRisk: [],
-                                    TBdateDiag: ''
+                                    TBdateDiag: '',
+                                    gl: '',
+                                    cr: '',
+                                    am: '',
+                                    indicator: '',
+                                    ageAtVisit: '',
+                                    otherPerscribedDrugs: [],
+                                    otherCondition: []
                                 };
+
                                 if (obsTable.length === 0) {
                                     tableStructure.actualVisit = response.data[i].observationDateTime.split('T')[0];
                                     if (response.data[i].concept.name === apssPreTARVCounsellingComments) {
@@ -460,35 +468,35 @@ angular.module('bahmni.clinical')
                                     } else if (response.data[i].concept.name === apssDifferentiatedModelsDate) {
                                         tableStructure.apssDifferentiatedModelsDate = response.data[i].value;
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroupCR) {
-                                        tableStructure.referenceSectionSupportGroupCR = response.data[i].value.shortName;
+                                        tableStructure.referenceSectionSupportGroupCR = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroupPC) {
-                                        tableStructure.referenceSectionSupportGroupPC = response.data[i].value.shortName;
+                                        tableStructure.referenceSectionSupportGroupPC = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroupAR) {
-                                        tableStructure.referenceSectionSupportGroupAR = response.data[i].value.shortName;
+                                        tableStructure.referenceSectionSupportGroupAR = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroupMPS) {
-                                        tableStructure.referenceSectionSupportGroupMPS = response.data[i].value.shortName;
+                                        tableStructure.referenceSectionSupportGroupMPS = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroupOther) {
-                                        tableStructure.referenceSectionSupportGroupOther = response.data[i].value;
+                                        tableStructure.referenceSectionSupportGroupOther = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroup) {
-                                        tableStructure.referenceSectionSupportGroup = response.data[i].value.shortName;
+                                        tableStructure.referenceSectionSupportGroup = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionGA) {
-                                        tableStructure.referenceMDCSectionGA = response.data[i].value.shortName;
+                                        tableStructure.referenceMDCSectionGA = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionAF) {
-                                        tableStructure.referenceMDCSectionAF = response.data[i].value.shortName;
+                                        tableStructure.referenceMDCSectionAF = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionCA) {
-                                        tableStructure.referenceMDCSectionCA = response.data[i].value.shortName;
+                                        tableStructure.referenceMDCSectionCA = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionPU) {
-                                        tableStructure.referenceMDCSectionPU = response.data[i].value.shortName;
+                                        tableStructure.referenceMDCSectionPU = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionFR) {
-                                        tableStructure.referenceMDCSectionFR = response.data[i].value.shortName;
+                                        tableStructure.referenceMDCSectionFR = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionDT) {
-                                        tableStructure.referenceMDCSectionDT = response.data[i].value.shortName;
+                                        tableStructure.referenceMDCSectionDT = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionDC) {
-                                        tableStructure.referenceMDCSectionDC = response.data[i].value.shortName;
+                                        tableStructure.referenceMDCSectionDC = response.data[i].value;
                                     } else if (response.data[i].concept.name === referenceMDCSectionOther) {
-                                        tableStructure.referenceMDCSectionOther = response.data[i].value.shortName;
+                                        tableStructure.referenceMDCSectionOther = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
-                                        tableStructure.referenceMDCSectionOtherComments = response.data[i].value;
+                                        tableStructure.referenceMDCSectionOtherComments = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === bloodPressureSystolicVitalS) {
                                         tableStructure.bloodPressureSystolicVitalS = response.data[i].value;
                                     } else if (response.data[i].concept.name === bloodPressureDiastolicVSNew) {
@@ -501,10 +509,10 @@ angular.module('bahmni.clinical')
                                         tableStructure.lastMenstruationDate = response.data[i].value;
                                     } else if (response.data[i].concept.name === pregnancyYesNo) {
                                         tableStructure.pregnancyYesNo = response.data[i].value.shortName;
-                                    } else if (response.data[i].concept.name === brestFeeding) {
-                                        tableStructure.brestFeeding = response.data[i].value;
+                                    } else if (response.data[i].concept.name === breastFeeding) {
+                                        tableStructure.breastFeeding = response.data[i].value;
                                     } else if (response.data[i].concept.name === familyPlanningMethods) {
-                                        tableStructure.familyPlanningMethods = response.data[i].value;
+                                        tableStructure.familyPlanningMethods = response.data[i].valueAsString;
                                     } else if (response.data[i].concept.name === whoStaging) {
                                         tableStructure.whoStaging = response.data[i].value.shortName;
                                     } else if (response.data[i].concept.name === infantsOdemaProphylaxis) {
@@ -590,15 +598,26 @@ angular.module('bahmni.clinical')
                                         tableStructure.tarvSevereType = [];
                                         tableStructure.tarveNotSevereType = [];
                                     } else if (response.data[i].concept.name === TBdateDiag) {
-                                        if (response.data[i].value !== undefined) {
+                                        if (response.data[i].value) {
                                             tableStructure.TBdateDiag = true;
-                                        } else if (response.data[i].value == undefined) {
+                                        } else if (!response.data[i].value) {
                                             tableStructure.TBdateDiag = false;
                                         }
                                     } else if (response.data[i].value.shortName) {
                                         tableStructure.values.push(response.data[i].value.shortName);
                                     }
                                     obsTable.push(tableStructure);
+
+                                    obsTable.forEach(function (obs) {
+                                        if (masterCardModel.patientInfo.age > 5) {
+                                            obs.ageAtVisit = new Date(obs.actualVisit).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                            obs.indicator = 'BMI';
+                                        } else {
+                                            var age = new Date(obs.actualVisit).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                            obs.ageAtVisit = age * 12;
+                                            obs.indicator = 'BP';
+                                        }
+                                    });
                                 } else {
                                     for (var j = 0; j < obsTable.length; j++) {
                                         if (obsTable[j].actualVisit === response.data[i].observationDateTime.split('T')[0]) {
@@ -615,33 +634,33 @@ angular.module('bahmni.clinical')
                                             } else if (response.data[i].concept.name === apssDifferentiatedModelsDate) {
                                                 obsTable[j].apssDifferentiatedModelsDate = response.data[i].value;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupCR) {
-                                                obsTable[j].referenceSectionSupportGroupCR = response.data[i].value.shortName;
+                                                obsTable[j].referenceSectionSupportGroupCR = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupPC) {
-                                                obsTable[j].referenceSectionSupportGroupPC = response.data[i].value.shortName;
+                                                obsTable[j].referenceSectionSupportGroupPC = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupAR) {
-                                                obsTable[j].referenceSectionSupportGroupAR = response.data[i].value.shortName;
+                                                obsTable[j].referenceSectionSupportGroupAR = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupMPS) {
-                                                obsTable[j].referenceSectionSupportGroupMPS = response.data[i].value.shortName;
+                                                obsTable[j].referenceSectionSupportGroupMPS = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupOther) {
                                                 obsTable[j].referenceSectionSupportGroupOther = response.data[i].value;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroup) {
-                                                obsTable[j].referenceSectionSupportGroup = response.data[i].value.shortName;
+                                                obsTable[j].referenceSectionSupportGroup = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionGA) {
-                                                obsTable[j].referenceMDCSectionGA = response.data[i].value.shortName;
+                                                obsTable[j].referenceMDCSectionGA = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionAF) {
-                                                obsTable[j].referenceMDCSectionAF = response.data[i].value.shortName;
+                                                obsTable[j].referenceMDCSectionAF = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionCA) {
-                                                obsTable[j].referenceMDCSectionCA = response.data[i].value.shortName;
+                                                obsTable[j].referenceMDCSectionCA = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionPU) {
-                                                obsTable[j].referenceMDCSectionPU = response.data[i].value.shortName;
+                                                obsTable[j].referenceMDCSectionPU = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionFR) {
-                                                obsTable[j].referenceMDCSectionFR = response.data[i].value.shortName;
+                                                obsTable[j].referenceMDCSectionFR = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionDT) {
-                                                obsTable[j].referenceMDCSectionDT = response.data[i].value.shortName;
+                                                obsTable[j].referenceMDCSectionDT = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionDC) {
-                                                obsTable[j].referenceMDCSectionDC = response.data[i].value.shortName;
+                                                obsTable[j].referenceMDCSectionDC = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionOther) {
-                                                obsTable[j].referenceMDCSectionOther = response.data[i].value.shortName;
+                                                obsTable[j].referenceMDCSectionOther = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                                 obsTable[j].referenceMDCSectionOtherComments = response.data[i].value;
                                             } else if (response.data[i].concept.name === bloodPressureSystolicVitalS) {
@@ -656,8 +675,8 @@ angular.module('bahmni.clinical')
                                                 obsTable[j].lastMenstruationDate = response.data[i].valueAsString;
                                             } else if (response.data[i].concept.name === pregnancyYesNo) {
                                                 obsTable[j].pregnancyYesNo = response.data[i].value.shortName;
-                                            } else if (response.data[i].concept.name === brestFeeding) {
-                                                obsTable[j].brestFeeding = response.data[i].value;
+                                            } else if (response.data[i].concept.name === breastFeeding) {
+                                                obsTable[j].breastFeeding = response.data[i].value;
                                             } else if (response.data[i].concept.name === familyPlanningMethods) {
                                                 obsTable[j].familyPlanningMethods = response.data[i].valueAsString;
                                             } else if (response.data[i].concept.name === whoStaging) {
@@ -747,7 +766,7 @@ angular.module('bahmni.clinical')
                                             } else if (response.data[i].concept.name === TBdateDiag) {
                                                 if (response.data[i].value !== undefined) {
                                                     obsTable[j].TBdateDiag = true;
-                                                } else if (response.data[i].value == undefined) {
+                                                } else if (response.data[i].value === undefined) {
                                                     obsTable[j].TBdateDiag = false;
                                                 }
                                             } else if (response.data[i].value.shortName) {
@@ -768,33 +787,33 @@ angular.module('bahmni.clinical')
                                             } else if (response.data[i].concept.name === apssDifferentiatedModelsDate) {
                                                 tableStructure.apssDifferentiatedModelsDate = response.data[i].value;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupCR) {
-                                                tableStructure.referenceSectionSupportGroupCR = response.data[i].value.shortName;
+                                                tableStructure.referenceSectionSupportGroupCR = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupPC) {
-                                                tableStructure.referenceSectionSupportGroupPC = response.data[i].value.shortName;
+                                                tableStructure.referenceSectionSupportGroupPC = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupAR) {
-                                                tableStructure.referenceSectionSupportGroupAR = response.data[i].value.shortName;
+                                                tableStructure.referenceSectionSupportGroupAR = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupMPS) {
-                                                tableStructure.referenceSectionSupportGroupMPS = response.data[i].value.shortName;
+                                                tableStructure.referenceSectionSupportGroupMPS = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupOther) {
                                                 tableStructure.referenceSectionSupportGroupOther = response.data[i].value;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroup) {
-                                                tableStructure.referenceSectionSupportGroup = response.data[i].value.shortName;
+                                                tableStructure.referenceSectionSupportGroup = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionGA) {
-                                                tableStructure.referenceMDCSectionGA = response.data[i].value.shortName;
+                                                tableStructure.referenceMDCSectionGA = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionAF) {
-                                                tableStructure.referenceMDCSectionAF = response.data[i].value.shortName;
+                                                tableStructure.referenceMDCSectionAF = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionCA) {
-                                                tableStructure.referenceMDCSectionCA = response.data[i].value.shortName;
+                                                tableStructure.referenceMDCSectionCA = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionPU) {
-                                                tableStructure.referenceMDCSectionPU = response.data[i].value.shortName;
+                                                tableStructure.referenceMDCSectionPU = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionFR) {
-                                                tableStructure.referenceMDCSectionFR = response.data[i].value.shortName;
+                                                tableStructure.referenceMDCSectionFR = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionDT) {
-                                                tableStructure.referenceMDCSectionDT = response.data[i].value.shortName;
+                                                tableStructure.referenceMDCSectionDT = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionDC) {
-                                                tableStructure.referenceMDCSectionDC = response.data[i].value.shortName;
+                                                tableStructure.referenceMDCSectionDC = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionOther) {
-                                                tableStructure.referenceMDCSectionOther = response.data[i].value.shortName;
+                                                tableStructure.referenceMDCSectionOther = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                                 tableStructure.referenceMDCSectionOtherComments = response.data[i].value;
                                             } else if (response.data[i].concept.name === bloodPressureSystolicVitalS) {
@@ -809,8 +828,8 @@ angular.module('bahmni.clinical')
                                                 tableStructure.lastMenstruationDate = response.data[i].valueAsString;
                                             } else if (response.data[i].concept.name === pregnancyYesNo) {
                                                 tableStructure.pregnancyYesNo = response.data[i].value.shortName;
-                                            } else if (response.data[i].concept.name === brestFeeding) {
-                                                tableStructure.brestFeeding = response.data[i].value;
+                                            } else if (response.data[i].concept.name === breastFeeding) {
+                                                tableStructure.breastFeeding = response.data[i].value;
                                             } else if (response.data[i].concept.name === familyPlanningMethods) {
                                                 tableStructure.familyPlanningMethods = response.data[i].valueAsString;
                                             } else if (response.data[i].concept.name === whoStaging) {
@@ -907,6 +926,17 @@ angular.module('bahmni.clinical')
                                                 tableStructure.values.push(response.data[i].value.shortName);
                                             }
                                             obsTable.push(tableStructure);
+
+                                            obsTable.forEach(function (obs) {
+                                                if (masterCardModel.patientInfo.age > 5) {
+                                                    obs.ageAtVisit = new Date(obs.actualVisit).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                                    obs.indicator = 'BMI';
+                                                } else {
+                                                    var age = new Date(obs.actualVisit).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                                    obs.ageAtVisit = age * 12;
+                                                    obs.indicator = 'BP';
+                                                }
+                                            });
                                         }
                                     }
                                 }
@@ -948,6 +978,26 @@ angular.module('bahmni.clinical')
                                                                 observation.viralLoad = test.result;
                                                             }
                                                         });
+                                                    } else if (test.testName === 'GLYCEMIA(3.05-6.05mmol/L)') {
+                                                        obsTable.forEach(function (observation) {
+                                                            if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
+                                                                observation.gl = test.result;
+                                                            }
+                                                        });
+                                                    }
+                                                    else if (test.testName === 'CREATININE(4.2-132Hmol/L)') {
+                                                        obsTable.forEach(function (observation) {
+                                                            if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
+                                                                observation.cr = test.result;
+                                                            }
+                                                        });
+                                                    }
+                                                    else if (test.testName === 'AMILASE(600-1600/UL)') {
+                                                        obsTable.forEach(function (observation) {
+                                                            if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
+                                                                observation.am = test.result;
+                                                            }
+                                                        });
                                                     }
                                                 });
                                             } else if (accession2.testName === 'ALT') {
@@ -980,6 +1030,26 @@ angular.module('bahmni.clinical')
                                                         observation.viralLoad = accession2.result;
                                                     }
                                                 });
+                                            } else if (accession2.testName === 'GLYCEMIA(3.05-6.05mmol/L)') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.gl = accession2.result;
+                                                    }
+                                                });
+                                            }
+                                            else if (accession2.testName === 'CREATININE(4.2-132Hmol/L)') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.cr = accession2.result;
+                                                    }
+                                                });
+                                            }
+                                            else if (accession2.testName === 'AMILASE(600-1600/UL)') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.am = accession2.result;
+                                                    }
+                                                });
                                             }
                                         });
                                     });
@@ -1001,14 +1071,14 @@ angular.module('bahmni.clinical')
                             $q.all([populatePatientStatusStateHist()]).then(function (response) {
                                 for (var i = 0; i < response[0].data.length; i++) {
                                     var statusState = response[0].data[i];
-                                    var actualVisit = statusState.date_created;
+                                    var actualVisit = new Date(statusState.date_created).getFullYear() + '-' + (new Date(statusState.date_created).getMonth() + 1) + '-' + new Date(statusState.date_created).getDay();
                                     var lastState = response[0].data[0];
                                     var lastObs = obsTable[0];
 
                                     obsTable.forEach(function (obs) {
                                         if (obs.actualVisit === actualVisit) {
                                             obs.statusState = statusState.patient_state + '-' + statusState.patient_status;
-                                        }
+                                        } else { obs.statusState = lastState.patient_state + '-' + lastState.patient_status; }
                                     });
                                     if (lastObs.statusState.length === 0) {
                                         lastObs.statusState = lastState.patient_state + '-' + lastState.patient_status;
@@ -1046,19 +1116,23 @@ angular.module('bahmni.clinical')
                                 for (let i = 0; i < upcomingAppointments.length; i++) {
                                     if (upcomingAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Consulta Clínica') {
                                         obsTable.forEach(function (obs) {
-                                            if (obs.actualVisit === upcomingAppointments[i].DASHBOARD_APPOINTMENTS_DATE_CREATED) {
+                                            var observationDate = (new Date(obs.actualVisit).getDate() + '/' + (new Date(obs.actualVisit).getMonth() + 1) + '/' + new Date(obs.actualVisit).getFullYear());
+
+                                            if (observationDate == upcomingAppointments[i].DASHBOARD_APPOINTMENTS_DATE_CREATED) {
                                                 obs.nextVisit = upcomingAppointments[i].DASHBOARD_APPOINTMENTS_DATE_KEY;
-                                                console.log(obs.nextVisit);
+                                            } else /* if (upcomingAppointments[i].DASHBOARD_APPOINTMENTS_DATE_KEY > observationDate) */ {
+                                                obs.nextVisit = upcomingAppointments[i].DASHBOARD_APPOINTMENTS_DATE_KEY;
                                             }
                                         });
                                     }
                                 }
                                 for (let i = 0; i < pastAppointments.length; i++) {
-                                    if (upcomingAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Consulta Clínica') {
+                                    if (pastAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Consulta Clínica') {
                                         obsTable.forEach(function (obs) {
-                                            if (obs.actualVisit === pastAppointments[i].DASHBOARD_APPOINTMENTS_DATE_CREATED) {
+                                            var observationDate = (new Date(obs.actualVisit).getDate() + '/' + (new Date(obs.actualVisit).getMonth() + 1) + '/' + new Date(obs.actualVisit).getFullYear());
+
+                                            if (observationDate == pastAppointments[i].DASHBOARD_APPOINTMENTS_DATE_CREATED) {
                                                 obs.nextVisit = pastAppointments[i].DASHBOARD_APPOINTMENTS_DATE_KEY;
-                                                console.log(obs.nextVisit);
                                             }
                                         });
                                     }
@@ -1087,39 +1161,54 @@ angular.module('bahmni.clinical')
                                         if (prescriptions.data && prescriptions.data.length > 0) {
                                             prescriptions.data.forEach(function (prescription) {
                                                 for (var i = 0; i < obsTable.length; i++) {
-                                                    var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + new Date(prescription.date_created).getDate();
+                                                    var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
+
                                                     if (obsTable[i].actualVisit === actualVisit) {
-                                                        obsTable[i].prescribedDrugs = {};
-                                                        obsTable[i].prescribedDrugs.dose = prescription.dose;
-                                                        obsTable[i].prescribedDrugs.name = prescription.name;
-                                                        obsTable[i].prescribedDrugs.unit = prescription.unit;
-                                                        obsTable[i].prescribedDrugs.route = prescription.route;
-                                                        obsTable[i].prescribedDrugs.category = prescription.category;
-                                                        obsTable[i].prescribedDrugs.first_arv = prescription.first_arv;
-                                                        obsTable[i].prescribedDrugs.line = prescription.line_treatment[0];
-                                                        obsTable[i].prescribedDrugs.arv_dispensed = prescription.arv_dispensed;
-                                                        obsTable[i].prescribedDrugs.drug_dispensed = prescription.drug_dispensed;
-                                                        obsTable[i].prescribedDrugs.dispensed_date = prescription.dispensed_date;
-                                                        obsTable[i].prescribedDrugs.dosing = angular.fromJson(prescription.dosing_instructions).instructions;
-                                                        break;
+                                                        if (prescription.category === 'ARV') {
+                                                            obsTable[i].prescribedDrugs = {};
+                                                            obsTable[i].prescribedDrugs.dose = prescription.dose;
+                                                            obsTable[i].prescribedDrugs.name = prescription.name;
+                                                            obsTable[i].prescribedDrugs.unit = prescription.unit;
+                                                            obsTable[i].prescribedDrugs.route = prescription.route;
+                                                            obsTable[i].prescribedDrugs.category = prescription.category;
+                                                            obsTable[i].prescribedDrugs.first_arv = prescription.first_arv;
+                                                            obsTable[i].prescribedDrugs.line = prescription.line_treatment[0];
+                                                            obsTable[i].prescribedDrugs.arv_dispensed = prescription.arv_dispensed;
+                                                            obsTable[i].prescribedDrugs.drug_dispensed = prescription.drug_dispensed;
+                                                            obsTable[i].prescribedDrugs.dispensed_date = prescription.dispensed_date;
+                                                            obsTable[i].prescribedDrugs.dosing = angular.fromJson(prescription.dosing_instructions).instructions;
+                                                            obsTable[i].prescribedDrugs.frequency = prescription.frequency;
+                                                            break;
+                                                        } else if (prescription.category !== 'ARV' && prescription.category !== 'Prophylaxis') {
+                                                            if (obsTable[i].otherPerscribedDrugs) {
+                                                                obsTable[i].otherPerscribedDrugs.push(prescription.name);
+                                                            }
+                                                        }
                                                     } else if (i === (obsTable.length - 1)) {
-                                                        obsTable.push({
-                                                            actualVisit: new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + new Date(prescription.date_created).getDate(),
-                                                            prescribedDrugs: {
-                                                                dose: prescription.dose,
-                                                                name: prescription.name,
-                                                                unit: prescription.unit,
-                                                                route: prescription.route,
-                                                                category: prescription.category,
-                                                                first_arv: prescription.first_arv,
-                                                                line: prescription.line_treatment[0],
-                                                                arv_dispensed: prescription.arv_dispensed,
-                                                                drug_dispensed: prescription.drug_dispensed,
-                                                                dispensed_date: prescription.dispensed_date,
-                                                                dosing: angular.fromJson(prescription.dosing_instructions).instructions
-                                                            },
-                                                            values: []
-                                                        });
+                                                        if (prescription.category === 'ARV') {
+                                                            obsTable.push({
+                                                                actualVisit: new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2),
+                                                                prescribedDrugs: {
+                                                                    dose: prescription.dose,
+                                                                    name: prescription.name,
+                                                                    unit: prescription.unit,
+                                                                    route: prescription.route,
+                                                                    category: prescription.category,
+                                                                    first_arv: prescription.first_arv,
+                                                                    line: prescription.line_treatment[0],
+                                                                    arv_dispensed: prescription.arv_dispensed,
+                                                                    drug_dispensed: prescription.drug_dispensed,
+                                                                    dispensed_date: prescription.dispensed_date,
+                                                                    dosing: angular.fromJson(prescription.dosing_instructions).instructions,
+                                                                    frequency: prescription.frequency
+                                                                },
+                                                                values: []
+                                                            });
+                                                        } else if (prescription.category !== 'ARV' && prescription.category !== 'Prophylaxis') {
+                                                            if (obsTable.otherPerscribedDrugs) {
+                                                                obsTable.otherPerscribedDrugs.push(prescription.name);
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             });
@@ -1128,6 +1217,19 @@ angular.module('bahmni.clinical')
                                 }
                             });
 
+                            populateMedicalConditions().then(function (otherCon) {
+                                console.log(otherCon);
+                                obsTable.forEach(function (obs) {
+                                    var observationDate = (new Date(obs.actualVisit).getFullYear() + '-' + (new Date(obs.actualVisit).getMonth() + 1) + '-' + ('0' + (new Date(obs.actualVisit).getDate())).slice(-2));
+                                    var diagnosisDate = (new Date(otherCon.date).getFullYear() + '-' + (new Date(otherCon.date).getMonth() + 1) + '-' + ('0' + (new Date(otherCon.date).getDate())).slice(-2));
+                                    console.log(diagnosisDate);
+                                    if (observationDate === diagnosisDate) {
+                                        obs.otherCondition.push(otherCon.name);
+                                    }
+                                });
+                            });
+
+                            console.log(obsTable);
                             var slicedTable = obsTable.slice(0, 12);
 
                             masterCardModel.patientInfo.psychosocialFactors = slicedTable.reverse();
@@ -1227,7 +1329,6 @@ angular.module('bahmni.clinical')
                             }
                         }
                     });
-                console.log(masterCardModel.patientInfo.psychosocialFactors);
             };
 
             var populatePatientDemographics = function () {
@@ -1245,11 +1346,8 @@ angular.module('bahmni.clinical')
                         if ($rootScope.patient.PRIMARY_CONTACT_NUMBER_1 !== undefined) {
                             masterCardModel.patientInfo.mainContact = $rootScope.patient.PRIMARY_CONTACT_NUMBER_1.value;
                         }
-                        if (patient.age <= 5) {
-                            masterCardModel.patientInfo.age = patient.age * 12;
-                        } else {
-                            masterCardModel.patientInfo.age = patient.age;
-                        }
+
+                        masterCardModel.patientInfo.age = patient.age;
 
                         masterCardModel.patientInfo.patientId = patient.identifier;
                         masterCardModel.patientInfo.birth_date = patient.birthdate;
@@ -1937,7 +2035,7 @@ angular.module('bahmni.clinical')
                                 }
                             });
                         }
-                        resolve();
+                        resolve(masterCardModel.medicalConditions.other);
                     }).catch(function (error) {
                         reject(error);
                     });

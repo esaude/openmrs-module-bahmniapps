@@ -7,9 +7,9 @@ angular.module('bahmni.clinical').controller('ConsultationController',
 
         'ngDialog', '$filter', 'configurations', 'visitConfig', 'conditionsService', 'configurationService', 'auditLogService', 'allergiesService', 'printer', 'printPrescriptionReportService', 'providerService', 'providerTypeService', '$http', 'patientService', 'transferOutService', 'printMasterCardService',
         function ($scope, $rootScope, $state, $location, $translate, clinicalAppConfigService, diagnosisService, urlHelper, contextChangeHandler,
-                  spinner, encounterService, messagingService, sessionService, retrospectiveEntryService, patientContext, $q,
-                  patientVisitHistoryService, $stateParams, $window, visitHistory, clinicalDashboardConfig, appService,
-                  ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerService, providerTypeService, $http, patientService, transferOutService, printMasterCardService) {
+            spinner, encounterService, messagingService, sessionService, retrospectiveEntryService, patientContext, $q,
+            patientVisitHistoryService, $stateParams, $window, visitHistory, clinicalDashboardConfig, appService,
+            ngDialog, $filter, configurations, visitConfig, conditionsService, configurationService, auditLogService, allergiesService, printer, printPrescriptionReportService, providerService, providerTypeService, $http, patientService, transferOutService, printMasterCardService) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var getPreviousActiveCondition = Bahmni.Common.Domain.Conditions.getPreviousActiveCondition;
             var currentProviderType;
@@ -95,18 +95,14 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                 return value.name;
             };
 
-            $scope.printDashboardOrPrescription = function (option)
-            {
-                if (option.uuid === clinicalDashboardUuid)
-                {
+            $scope.printDashboardOrPrescription = function (option) {
+                if (option.uuid === clinicalDashboardUuid) {
                     clinicalDashboardConfig.currentTab.print();
                 }
-                else if (option.uuid === prescriptionReportUuid)
-                {
+                else if (option.uuid === prescriptionReportUuid) {
                     $rootScope.isTarvReport = false;
                     printPrescriptionReportService.getReportModel($stateParams.patientUuid, $rootScope.isTarvReport)
-                        .then(function (reportData)
-                        {
+                        .then(function (reportData) {
                             $rootScope.prescriptionReportData = reportData;
                             printer.printFromScope("dashboard/views/printPrescriptionReport.html", $rootScope, function () { });
                         });
@@ -115,34 +111,29 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     $rootScope.isTarvReport = false;
                     printMasterCardService.getReportModel($stateParams.patientUuid).then(function (reportData) {
                         $rootScope.masterCardData = reportData;
+                        console.log($rootScope.masterCardData);
                         printer.printFromScope("dashboard/views/printMasterCard.html", $rootScope, function () { });
                     });
                 }
-                else
-                {
-                    if (option.uuid === transferReportUuid)
-                    {
+                else {
+                    if (option.uuid === transferReportUuid) {
                         $rootScope.isTarvReport = false;
                     }
                     transferOutService.getReportModel($stateParams.patientUuid, $rootScope.isTarvReport)
-                            .then(function (reportData)
-                            {
-                                $rootScope.transferReportData = reportData;
-                                printer.printFromScope("dashboard/views/TransferOut.html", $rootScope, function () { });
-                            });
+                        .then(function (reportData) {
+                            $rootScope.transferReportData = reportData;
+                            printer.printFromScope("dashboard/views/TransferOut.html", $rootScope, function () { });
+                        });
                 }
             };
-            $scope.allowConsultation = function ()
-            {
+            $scope.allowConsultation = function () {
                 return appService.getAppDescriptor().getConfigValue('allowConsultationWhenNoOpenVisit');
             };
-            $scope.closeDashboard = function (dashboard)
-            {
+            $scope.closeDashboard = function (dashboard) {
                 clinicalDashboardConfig.closeTab(dashboard);
                 $scope.$parent.$parent.$broadcast("event:switchDashboard", clinicalDashboardConfig.currentTab);
             };
-            $scope.closeAllDialogs = function ()
-            {
+            $scope.closeAllDialogs = function () {
                 ngDialog.closeAll();
             };
             $scope.availableBoards = [];
