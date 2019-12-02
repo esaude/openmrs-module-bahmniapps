@@ -220,7 +220,7 @@ angular.module('bahmni.clinical')
 
             var populatePatientLabResults = function () {
                 reportModel.labOrderResult = {};
-                var labResultsToShow = ['ALT', 'LO_ALT', 'AST', 'LO_AST', 'CD4 %', 'HGB', 'LO_HB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outro', 'LO_Other:'];
+                var labResultsToShow = ['ALT', 'LO_ALT', 'AST', 'LO_AST', 'CD4 %', 'CD4 Abs', 'HGB', 'LO_HB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'CARGA VIRAL (Absoluto-Suspeita)', 'CARGA VIRAL(Qualitativo-Suspeita)', 'Other', 'Outro', 'LO_Other:'];
                 return new Promise(function (resolve, reject) {
                     labOrderResultService.getAllForPatient({
                         patientUuid: patientUuid
@@ -229,19 +229,27 @@ angular.module('bahmni.clinical')
                             if (response.labAccessions.length > 0) {
                                 _.map(response.labAccessions[0], function (currentObj) {
                                     if (_.includes(labResultsToShow, currentObj.testName)) {
+                                        console.log(currentObj.testName);
+                                        console.log(labResultsToShow);
                                         var loName;
                                         if (currentObj.testName === 'ALT' || currentObj.testName === 'LO_ALT') {
                                             loName = 'LO_ALT';
                                         } else if (currentObj.testName === 'AST' || currentObj.testName === 'LO_AST') {
                                             loName = 'LO_AST';
                                         } else if (currentObj.testName === 'CD4 %') {
-                                            loName = 'LO_CD4';
+                                            loName = 'LO_CD4_per';
+                                        } else if (currentObj.testName === 'CD4 Abs') {
+                                            loName = 'LO_CD4_Abs';
                                         } else if (currentObj.testName === 'HGB' || currentObj.testName === 'LO_HB') {
                                             loName = 'LO_HGB';
                                         } else if (currentObj.testName === 'CARGA VIRAL (Absoluto-Rotina)') {
-                                            loName = 'LO_ViralLoad';
+                                            loName = 'LO_ViralLoad_Rot';
+                                        } else if (currentObj.testName === 'CARGA VIRAL (Absoluto-Suspeita)') {
+                                            loName = 'LO_ViralLoad_Susp';
                                         } else if (currentObj.testName === 'CARGA VIRAL(Qualitativo-Rotina)') {
-                                            loName = 'LO_ViralLoad';
+                                            loName = 'LO_ViralLoad_QAl_Rot';
+                                        } else if (currentObj.testName === 'CARGA VIRAL(Qualitativo-Suspeita)') {
+                                            loName = 'LO_ViralLoad_QAl_Susp';
                                         } else if (currentObj.testName === 'LO_Other:' || currentObj.testName === 'Outro') {
                                             loName = 'LO_Other:';
                                         } else {
