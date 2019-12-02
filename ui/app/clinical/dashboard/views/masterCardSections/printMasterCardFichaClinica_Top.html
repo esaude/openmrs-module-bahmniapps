@@ -245,7 +245,7 @@
       <td class="tg-9wq8" rowspan="2"><div><span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Inicio_Prophylaxis'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Em Curso_Prophylaxis'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Fim_Prophylaxis'}">F</span></div></td>
       <td class="tg-9wq8" rowspan="2"><div><span ng-class="{'circleSelect':ps.spSideEffectsINH===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsINH === false}">N</span></div></td>
       <td class="tg-9wq8" rowspan="2"><div><span ng-class="{'circleSelect':ps.hasSTISymptoms===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.hasSTISymptoms === false}">N</span></div></td>
-      <td class="tg-9wq8" rowspan="3">{{ps.otherCondition.name}} </td>
+      <td class="tg-9wq8" rowspan="3"><span ng-repeat='con in ps.otherCondition '>{{con}}</span> </td>
       <td class="tg-9wq8" rowspan="2"><span ng-if="ps.viralLoad === undefined">PEDIDO</span>{{ps.viralLoad}}</td>
       <td class="tg-9wq8" rowspan="3">
         <span ng-class="{'circleSelect':ps.hgb.length !== 0}">Hb</span>&nbsp;{{ps.hgb}}<span ng-if="ps.hgb.length === 0">___</span> 
