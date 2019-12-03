@@ -411,7 +411,6 @@ angular.module('bahmni.common.conceptSet')
                     }
                     if (scope.observation.concept.name == 'Pregnancy_Yes_No') {
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
-                            console.log(currentObj);
                             if (currentObj.concept.name == 'Last Menstruation Date') {
                                 currentEnteredDate = currentObj.value;
                             }
