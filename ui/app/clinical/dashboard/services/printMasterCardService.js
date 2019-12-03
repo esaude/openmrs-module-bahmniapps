@@ -87,6 +87,8 @@ angular.module('bahmni.clinical')
                     psychosocialFactors: '',
                     psychosocialFactorsActualEmpty: [],
                     psychosocialFactorsNextEmpty: [],
+                    fichaClinicaEmpty: [],
+                    fichaClinicaNextEmpty: [],
                     psychosocialFactorsOther: '',
                     apssPreTARVCounselling: [],
                     apssPreTARVCounsellingComments: '',
@@ -1074,7 +1076,7 @@ angular.module('bahmni.clinical')
                                     for (var i = 0; i < response[0].data.length; i++) {
                                         var encounterProvider = response[0].data[i];
                                         var actualVisit = new Date(encounterProvider.date_created).getFullYear() + '-' + (new Date(encounterProvider.date_created).getMonth() + 1) + '-' + ('0' + (new Date(encounterProvider.date_created).getDate())).slice(-2);
-                                        console.log(actualVisit);
+
                                         obsTable.forEach(function (obs) {
                                             if (obs.actualVisit === actualVisit) {
                                                 obs.provider = encounterProvider.given_name + '-' + encounterProvider.family_name;
@@ -1261,7 +1263,6 @@ angular.module('bahmni.clinical')
                                 });
                             });
 
-                            console.log(obsTable);
                             var slicedTable = obsTable.slice(0, 12);
 
                             masterCardModel.patientInfo.psychosocialFactors = slicedTable.reverse();
@@ -1328,18 +1329,23 @@ angular.module('bahmni.clinical')
                                         masterCardModel.patientInfo.apssPreTARVCounsellingComments = masterCardModel.patientInfo.psychosocialFactors[k].apssPreTARVCounsellingComments;
                                     }
                                 } if (masterCardModel.patientInfo.psychosocialFactors.length < 12) {
+                                    masterCardModel.patientInfo.fichaClinicaEmpty = [];
                                     masterCardModel.patientInfo.psychosocialFactorsActualEmpty = [];
                                     for (var m = 0; m < 12 - masterCardModel.patientInfo.psychosocialFactors.length; m++) {
                                         masterCardModel.patientInfo.psychosocialFactorsActualEmpty.push(m);
+                                        masterCardModel.patientInfo.fichaClinicaEmpty.push(m);
                                     }
                                 }
                                 if (masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length === 0) {
                                     masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [1];
+                                    masterCardModel.patientInfo.fichaClinicaNextEmpty = [1];
                                 } else {
                                     for (var n = 0; n < masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length; n++) {
                                         masterCardModel.patientInfo.psychosocialFactorsNextEmpty.push(n);
+                                        masterCardModel.patientInfo.fichaClinicaNextEmpty.push(n);
                                     }
                                     masterCardModel.patientInfo.psychosocialFactorsNextEmpty = masterCardModel.patientInfo.psychosocialFactorsNextEmpty;
+                                    masterCardModel.patientInfo.fichaClinicaNextEmpty = masterCardModel.patientInfo.fichaClinicaNextEmpty;
                                 }
                                 for (var q = 0; q < masterCardModel.patientInfo.psychosocialFactors.length; q++) {
                                     if (masterCardModel.patientInfo.psychosocialFactors[q].apssDifferentiatedModelsDate && !masterCardModel.patientInfo.apssDifferentiatedModelsDate) {
@@ -1351,6 +1357,8 @@ angular.module('bahmni.clinical')
                             for (var o = 0; o < 12; o++) {
                                 masterCardModel.patientInfo.psychosocialFactorsActualEmpty.push(o);
                                 masterCardModel.patientInfo.psychosocialFactorsNextEmpty.push(o);
+                                masterCardModel.patientInfo.fichaClinicaEmpty.push(o);
+                                masterCardModel.patientInfo.fichaClinicaNextEmpty.push(o);
                             }
                         }
                     });
