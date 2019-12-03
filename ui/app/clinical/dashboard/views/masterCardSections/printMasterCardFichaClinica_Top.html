@@ -227,6 +227,7 @@
       <td class="tg-9wq8">Adesão <span class='txs'>(Boa / Risco / Má - B / R / M)</span></td>
       <td class="tg-9wq8" colspan="2">Início / Continua / Fim <span class='txs'>(I / C / F)</span></td>
     </tr>
+    
     <tr style="border-style: solid solid dashed solid; border-width: 1px" ng-repeat-start="ps in masterCardData.patientInfo.psychosocialFactors track by $index">
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8" rowspan="1">{{ ps.actualVisit | date:'d/MM/yy' }} </td>
@@ -244,15 +245,15 @@
       <td class="tg-9wq8" rowspan="1"><div><span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Inicio_Prophylaxis'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Em Curso_Prophylaxis'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Fim_Prophylaxis'}">F</span></div></td>
       <td class="tg-9wq8" rowspan="1"><div><span ng-class="{'circleSelect':ps.spSideEffectsINH===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsINH === false}">N</span></div></td>
       <td class="tg-9wq8" rowspan="1"><div><span ng-class="{'circleSelect':ps.hasSTISymptoms===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.hasSTISymptoms === false}">N</span></div></td>
-      <td class="tg-9wq8" rowspan="2"><span ng-repeat='con in ps.otherCondition '>{{con}}</span> </td>
+      <td class="tg-9wq8" rowspan="2"><span ng-repeat='con in ps.otherCondition track by $index'>{{con}}</span></td>
       <td class="tg-9wq8" rowspan="1"><span ng-if="ps.viralLoad === undefined">PEDIDO</span>{{ps.viralLoad}}</td>
       <td class="tg-9wq8" rowspan="2">
-        <span ng-class="{'circleSelect':ps.hgb.length !== 0}">Hb</span>&nbsp;{{ps.hgb}}<span ng-if="ps.hgb.length === 0">___</span> 
-        <span ng-class="{'circleSelect':ps.alt.length !== 0}">ALT</span>&nbsp;{{ps.alt}}<span ng-if="ps.alt.length === 0">___</span>
-        <span ng-class="{'circleSelect':ps.ast.length !== 0}">AST</span>&nbsp;{{ps.ast}}<span ng-if="ps.ast.length === 0">___</span>
-        <span ng-class="{'circleSelect':ps.gl.length !== 0}">GL</span>&nbsp;{{ps.gl}}<span ng-if="ps.gl.length === 0">___</span>
-        <span ng-class="{'circleSelect':ps.cr.length !== 0}">CR</span>&nbsp;{{ps.cr}}<span ng-if="ps.cr.length === 0">___</span>
-        <span ng-class="{'circleSelect':ps.am.length !== 0}">AM</span>&nbsp;{{ps.am}}<span ng-if="ps.am.length === 0">___</span>
+        <span ng-class="{'circleSelect':ps.hgb !== undefined}">Hb</span>&nbsp;{{ps.hgb}} <span ng-if="ps.hgb === undefined">___</span> 
+        <span ng-class="{'circleSelect':ps.alt !== undefined}">ALT</span>&nbsp;{{ps.alt}}<span ng-if="ps.alt === undefined">___</span>
+        <span ng-class="{'circleSelect':ps.ast !== undefined}">AST</span>&nbsp;{{ps.ast}}<span ng-if="ps.ast === undefined0">___</span>
+        <span ng-class="{'circleSelect':ps.gl !== undefined}">GL</span>&nbsp;{{ps.gl}}<span ng-if="ps.gl === undefined">___</span>
+        <span ng-class="{'circleSelect':ps.cr !== undefined}">CR</span>&nbsp;{{ps.cr}}<span ng-if="ps.cr === undefined">___</span>
+        <span ng-class="{'circleSelect':ps.am !== undefined}">AM</span>&nbsp;{{ps.am}}<span ng-if="ps.am === undefined">___</span>
         <span>O</span>_________________</td>
       <td class="tg-9wq8" rowspan="1"><span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '1' ">1ª</span>
         <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '2' ">2ª</span>

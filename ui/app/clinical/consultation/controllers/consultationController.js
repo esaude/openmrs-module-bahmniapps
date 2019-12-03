@@ -111,7 +111,6 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                     $rootScope.isTarvReport = false;
                     printMasterCardService.getReportModel($stateParams.patientUuid).then(function (reportData) {
                         $rootScope.masterCardData = reportData;
-                        console.log($rootScope.masterCardData);
                         printer.printFromScope("dashboard/views/printMasterCard.html", $rootScope, function () { });
                     });
                 }
