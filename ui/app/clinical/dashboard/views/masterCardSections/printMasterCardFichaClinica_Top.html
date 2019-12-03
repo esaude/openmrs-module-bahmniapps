@@ -29,20 +29,6 @@
       border-color: inherit;
     }
 
-    .tg .tg-c3ow {
-      border-color: inherit;
-    }
-
-    .tg .tg-0pky {
-      border-color: inherit;
-      text-align: left;
-    }
-
-    .tg .tg-q9j0 {
-      font-size: 10;
-      border-color: inherit;
-    }
-
     .tl {
       font-family: Arial, sans-serif;
       font-size: 16;
@@ -99,8 +85,7 @@
 
   <table class="tl" align="right">
     <tr>
-      <td>População Chave - HSH<input type="checkbox"
-          ng-checked="ps.keyPopulation == 'PP_Key_population_PID'">
+      <td>População Chave - HSH<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_PID'">
         PID<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_HSH'">
         REC<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_REC'">
         MTS<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_MTS'">
@@ -123,7 +108,7 @@
 
 
 
-  <table class="tg">
+  <table class="tg" width='100%'>
     <tr>
       <th class="tg-9wq8"></th>
       <th class="tg-9wq8">1</th>
@@ -150,7 +135,7 @@
       <th class="tg-9wq8">22</th>
       <th class="tg-9wq8">23</th>
       <th class="tg-9wq8" colspan="2">24</th>
-      <th class="tg-0pky"></th>
+      <th class="tg-9wq8"></th>
     </tr>
     <tr style="border-style: solid; border-width: 1px">
       <td class="tg-9wq8" rowspan="4">
@@ -178,7 +163,7 @@
       </td>
     </tr>
     <tr style="border-style: solid; border-width: 1px">
-      <td class="tg-q9j0" rowspan="3">Comprimento / Altura Se ≥ 5 anos em metros; se ≤ 5 anos em cm </td>
+      <td class="tg-9wq8" rowspan="3">Comprimento / Altura Se ≥ 5 anos em metros; se ≤ 5 anos em cm </td>
       <td class="tg-9wq8" rowspan="2">Tem sintomas? (S / N)</td>
       <td class="tg-9wq8" rowspan="2">Diagnóstico TB activa(S / N)</td>
       <td class="tg-9wq8" rowspan="2">Tem sintomas? (S / N)</td>
@@ -200,7 +185,7 @@
           style="font-weight:inherit;font-style:inherit">agnóstica /</span><span
           style="font-weight:inherit;font-style:inherit">Internamento / Outro</span></td>
       <td class="tg-9wq8">Grupo de Apoio (Código)</td>
-      <td class="tg-c3ow">Modelo Diferenciado de Cuidados (MDC) Código</td>
+      <td class="tg-9wq8">Modelo Diferenciado de Cuidados (MDC) Código</td>
     </tr>
     <tr style="border-style: solid; border-width: 1px">
       <td class="tg-9wq8" rowspan="2">Próxima Consulta (d/ m/ a)</td>
@@ -271,14 +256,32 @@
       </td>
       <td class="tg-9wq8" rowspan="3"> <span ng-repeat="dr in ps.otherPerscribedDrugs track by $index"> {{dr}}</span></td>
       <td class="tg-9wq8" rowspan="3"><span ng-repeat="ref in ps.referenceSectionOtherServices track by $index"> {{ref}}</span></td>
-      <td class="tg-9wq8"></td>
-      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8" rowspan="2">
+          <span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR || ps.referenceSectionSupportGroupPC || ps.referenceSectionSupportGroupAR || ps.referenceSectionSupportGroupMPS || ps.referenceSectionSupportGroup}">S</span>&nbsp;&nbsp;&nbsp; <span>N</span>
+         <!-- <span ng-if="ps.referenceSectionSupportGroupCR">CR</span>
+          <span ng-if="ps.referenceSectionSupportGroupPC">PC</span>
+          <span ng-if="ps.referenceSectionSupportGroupAR">AR</span>
+          <span ng-if="ps.referenceSectionSupportGroupMPS">MPS</span>
+          <span ng-if="ps.referenceSectionSupportGroup">Other</span>-->
+      </td>
+      <td class="tg-9wq8" rowspan="2">
+          <span ng-class="{'circleSelect':ps.referenceMDCSectionAF || ps.referenceMDCSectionDT || ps.referenceMDCSectionGA || ps.referenceMDCSectionCA || ps.referenceMDCSectionPU || ps.referenceMDCSectionFR || ps.referenceMDCSectionDC || ps.referenceMDCSectionOther }">S</span>&nbsp;&nbsp;&nbsp; <span>N</span>
+       <!-- <span ng-if="ps.referenceMDCSectionAF">AF</span>
+          <span ng-if="ps.referenceMDCSectionDT">DT</span>
+          <span ng-if="ps.referenceMDCSectionGA">GA</span>
+          <span ng-if="ps.referenceMDCSectionCA">CA</span>
+          <span ng-if="ps.referenceMDCSectionPU">PU</span>
+          <span ng-if="ps.referenceMDCSectionFR">FR</span>
+          <span ng-if="ps.referenceMDCSectionDC">DC</span>
+          <span ng-if="ps.referenceMDCSectionOther">Other</span>-->
+         
+      </td>
       
-      <td class="tg-0pky" rowspan="3"></td>
+      <td class="tg-9wq8" rowspan="3" style="transform:rotate(-90deg)"> {{ps.provider}}</td>
     </tr>
     <tr>
-        <td class="tg-9wq8">Elegivel:<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR || ps.referenceSectionSupportGroupPC || ps.referenceSectionSupportGroupAR || ps.referenceSectionSupportGroupMPS || ps.referenceSectionSupportGroup}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect': !ps.referenceSectionSupportGroupCR || !ps.referenceSectionSupportGroupPC || !ps.referenceSectionSupportGroupAR || !ps.referenceSectionSupportGroupMPS || !ps.referenceSectionSupportGroup }">N</span></td>
-        <td class="tg-9wq8">Elegivel:<span ng-class="{'circleSelect':ps.referenceMDCSectionAF || ps.referenceMDCSectionDT || ps.referenceMDCSectionGA || ps.referenceMDCSectionCA || ps.referenceMDCSectionPU || ps.referenceMDCSectionFR || ps.referenceMDCSectionDC || ps.referenceMDCSectionOther }">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect': !ps.referenceMDCSectionAF || !ps.referenceMDCSectionDT || !ps.referenceMDCSectionGA || !ps.referenceMDCSectionCA || !ps.referenceMDCSectionPU || !ps.referenceMDCSectionFR || !ps.referenceMDCSectionDC || !ps.referenceMDCSectionOther }">N</span></td>
+       <!-- <td class="tg-9wq8"></td>
+        <td class="tg-9wq8"></td>-->
         
      
     </tr>
@@ -361,7 +364,7 @@
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-0pky" rowspan="2"></td>
+      <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr>
       <td class="tg-9wq8"></td>
@@ -415,7 +418,7 @@
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-0pky" rowspan="2"></td>
+      <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr>
       <td class="tg-9wq8"></td>
@@ -468,8 +471,8 @@
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-0pky"></td>
-      <td class="tg-0pky" rowspan="2"></td>
+      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr>
       <td class="tg-9wq8"></td>
@@ -522,8 +525,8 @@
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-0pky"></td>
-      <td class="tg-0pky" rowspan="2"></td>
+      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr>
       <td class="tg-9wq8"></td>
@@ -576,8 +579,8 @@
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-0pky"></td>
-      <td class="tg-0pky" rowspan="2"></td>
+      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr>
       <td class="tg-9wq8"></td>
@@ -630,8 +633,8 @@
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-0pky"></td>
-      <td class="tg-0pky" rowspan="2"></td>
+      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr>
       <td class="tg-9wq8"></td>
@@ -684,8 +687,8 @@
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-0pky"></td>
-      <td class="tg-0pky" rowspan="2"></td>
+      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr>
       <td class="tg-9wq8"></td>
@@ -738,8 +741,8 @@
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-0pky"></td>
-      <td class="tg-0pky" rowspan="2"></td>
+      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr>
       <td class="tg-9wq8"></td>
@@ -792,8 +795,8 @@
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-0pky"></td>
-      <td class="tg-0pky" rowspan="2"></td>
+      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr>
       <td class="tg-9wq8"></td>
@@ -846,8 +849,8 @@
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-0pky"></td>
-      <td class="tg-0pky" rowspan="2"></td>
+      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr>
       <td class="tg-9wq8"></td>
@@ -900,8 +903,8 @@
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-c3ow"></td>
-      <td class="tg-0pky" rowspan="2"></td>
+      <td class="tg-9wq8"></td>
+      <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr style="border-style: dashed dashed solid dashed; border-width: 1px">
       <td class="tg-9wq8"></td>

@@ -23,21 +23,24 @@
             display: block;
             /* transform:rotate(90deg); */
             page-break-inside: avoid;
-            object-fit: fill;
+            /* object-fit: fill; */
+    width:100%;
+    padding:0;
+    margin:0;
         }
     }
 </style>
 
 <div ng-controller="PrintMasterCardController">
     <div>
-        <div ng-include src="'dashboard/views/masterCardSections/resumo.html'"></div>
+      <!--  <div ng-include src="'dashboard/views/masterCardSections/resumo.html'"></div>
         <br>
-        <div ng-include src="'dashboard/views/masterCardSections/apss.html'"></div>
+        <div ng-include src="'dashboard/views/masterCardSections/apss.html'"></div> -->
         <br>
         <div ng-include class="page-breakclinicoMiddle" src="'dashboard/views/masterCardSections/printMasterCardFichaClinica_Top.html'"></div>
         <br>
-        <div class="page-breakclinicoBottom" ng-include src="'dashboard/views/masterCardSections/clinicoBottom.html'"></div>
-<!--
+     <!--   <div class="page-breakclinicoBottom" ng-include src="'dashboard/views/masterCardSections/clinicoBottom.html'"></div>
+
         <div class="page-break"></div>
         <div ng-include src="'dashboard/views/masterCardSections/clinico.html'"></div>
 -->
