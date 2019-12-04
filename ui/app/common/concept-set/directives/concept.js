@@ -3,7 +3,8 @@
 angular.module('bahmni.common.conceptSet')
     .directive('concept', ['RecursionHelper', 'spinner', '$filter', 'messagingService', '$http', '$timeout', 'bmiCalculationService', '$rootScope', '$translate',
         function (RecursionHelper, spinner, $filter, messagingService, $http, $timeout, bmiCalculationService, $rootScope, $translate) {
-            var height, weight, brachialPerimeter, bmi, data, key, isValidHeight, startDateProphylaxis, enDateProphylaxis, treatmentStartDate, treatmentEndDate, answer, tuberculosisData, prophylaxisData;
+            var height, weight, brachialPerimeter, bmi, data, key, isValidHeight, inhStartDate, enDateProphylaxis, treatmentStartDate, treatmentEndDate, answer, tuberculosisData, prophylaxisData;
+            var ctzStartDate, ctzEndDate, flucoStartDate, flucoEndDate;
 
             var link = function (scope) {
                 var dateUtil = Bahmni.Common.Util.DateUtil;
@@ -32,11 +33,25 @@ angular.module('bahmni.common.conceptSet')
                     if (scope.observation.concept.name === "SP_Treatment End Date") {
                         treatmentEndDate = scope.observation.value;
                     }
-                    if (scope.observation.concept.name === "Start Date_Prophylaxis") {
-                        startDateProphylaxis = scope.observation.value;
+                    if (scope.observation.concept.name === "Start_Date_Prophylaxis_INH") {
+                        inhStartDate = scope.observation.value;
                     }
-                    if (scope.observation.concept.name === "End Date") {
+                    if (scope.observation.concept.name === "End_Date_Prophylaxis_INH") {
                         enDateProphylaxis = scope.observation.value;
+                    }
+
+                    if (scope.observation.concept.name === "Start_Date_Prophylaxis_CTZ") {
+                        ctzStartDate = scope.observation.value;
+                    }
+                    if (scope.observation.concept.name === "End_Date_Prophylaxis_CTZ") {
+                        ctzEndDate = scope.observation.value;
+                    }
+
+                    if (scope.observation.concept.name === "Start_Date_Prophylaxis_Fluconazol") {
+                        flucoStartDate = scope.observation.value;
+                    }
+                    if (scope.observation.concept.name === "End_Date_Prophylaxis_Fluconazol") {
+                        flucoEndDate = scope.observation.value;
                     }
 
                     if (treatmentStartDate === '') {
@@ -56,22 +71,60 @@ angular.module('bahmni.common.conceptSet')
                         $rootScope.observationData.toggleSelectionTBState(answer);
                     }
 
-                    if (startDateProphylaxis === '') {
+                    if ($rootScope.prophylaxisObservationData !== undefined && (inhStartDate === '' || inhStartDate === undefined)) {
                         answer = null;
                         $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                     }
                     if (prophylaxisData !== undefined) {
-                        if (startDateProphylaxis === scope.today) {
+                        if (inhStartDate === scope.today) {
                             answer = prophylaxisData[0];
                             $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                         }
-                        if (startDateProphylaxis < scope.today && startDateProphylaxis !== '') {
+                        if (inhStartDate < scope.today && inhStartDate !== '') {
                             answer = prophylaxisData[1];
                             $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
                         }
-                        if ((enDateProphylaxis <= scope.today) && (enDateProphylaxis >= startDateProphylaxis) && (enDateProphylaxis !== '')) {
+                        if ((enDateProphylaxis <= scope.today) && (enDateProphylaxis >= inhStartDate) && (enDateProphylaxis !== '')) {
                             answer = prophylaxisData[2];
                             $rootScope.prophylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
+                    }
+
+                    if ($rootScope.ctzProphylaxisObservationData !== undefined && (ctzStartDate === '' || ctzStartDate === undefined)) {
+                        answer = null;
+                        $rootScope.ctzProphylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                    }
+                    if (prophylaxisData !== undefined) {
+                        if (ctzStartDate === scope.today) {
+                            answer = prophylaxisData[0];
+                            $rootScope.ctzProphylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
+                        if (ctzStartDate < scope.today && ctzStartDate !== '') {
+                            answer = prophylaxisData[1];
+                            $rootScope.ctzProphylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
+                        if ((ctzEndDate <= scope.today) && (ctzEndDate >= ctzStartDate) && (ctzEndDate !== '')) {
+                            answer = prophylaxisData[2];
+                            $rootScope.ctzProphylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
+                    }
+
+                    if ($rootScope.flucoProphylaxisObservationData !== undefined && (flucoStartDate === '' || flucoStartDate === undefined)) {
+                        answer = null;
+                        $rootScope.flucoProphylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                    }
+                    if (prophylaxisData !== undefined) {
+                        if (flucoStartDate === scope.today) {
+                            answer = prophylaxisData[0];
+                            $rootScope.flucoProphylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
+                        if (flucoStartDate < scope.today && flucoStartDate !== '') {
+                            answer = prophylaxisData[1];
+                            $rootScope.flucoProphylaxisObservationData.toggleSelectionProphylaxisState(answer);
+                        }
+                        if ((flucoEndDate <= scope.today) && (flucoEndDate >= flucoStartDate) && (flucoEndDate !== '')) {
+                            answer = prophylaxisData[2];
+                            $rootScope.flucoProphylaxisObservationData.toggleSelectionProphylaxisState(answer);
                         }
                     }
 
@@ -85,31 +138,14 @@ angular.module('bahmni.common.conceptSet')
                         angular.element("#observation_40").css("background", "#fff");
                         angular.element("#observation_40").css("outline", "0");
                     }
-                    if (startDateProphylaxis > enDateProphylaxis && enDateProphylaxis !== '') {
-                        messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
-                        angular.element("#observation_45").css("border", "1px solid red");
-                        angular.element("#observation_45").css("background", "#ffcdcd");
-                        angular.element("#observation_45").css("outline", "0");
-
-                        angular.element("#observation_51").css("border", "1px solid red");
-                        angular.element("#observation_51").css("background", "#ffcdcd");
-                        angular.element("#observation_51").css("outline", "0");
-
-                        angular.element("#observation_57").css("border", "1px solid red");
-                        angular.element("#observation_57").css("background", "#ffcdcd");
-                        angular.element("#observation_57").css("outline", "0");
-                    } else {
-                        angular.element("#observation_45").css("border", "1px solid #DDD");
-                        angular.element("#observation_45").css("background", "#fff");
-                        angular.element("#observation_45").css("outline", "0");
-
-                        angular.element("#observation_51").css("border", "1px solid #DDD");
-                        angular.element("#observation_51").css("background", "#fff");
-                        angular.element("#observation_51").css("outline", "0");
-
-                        angular.element("#observation_57").css("border", "1px solid #DDD");
-                        angular.element("#observation_57").css("background", "#fff");
-                        angular.element("#observation_57").css("outline", "0");
+                    if ($rootScope.prophylaxisObservationData !== undefined && $rootScope.prophylaxisObservationData._value !== undefined) {
+                        checkInputs(inhStartDate, enDateProphylaxis, getElementIdNumber($rootScope.prophylaxisObservationData.uniqueId));
+                    }
+                    if ($rootScope.ctzProphylaxisObservationData !== undefined && $rootScope.ctzProphylaxisObservationData._value !== undefined) {
+                        checkInputs(ctzStartDate, ctzEndDate, getElementIdNumber($rootScope.ctzProphylaxisObservationData.uniqueId));
+                    }
+                    if ($rootScope.flucoProphylaxisObservationData !== undefined && $rootScope.flucoProphylaxisObservationData._value !== undefined) {
+                        checkInputs(flucoStartDate, flucoEndDate, getElementIdNumber($rootScope.flucoProphylaxisObservationData.uniqueId));
                     }
                 };
 
@@ -173,8 +209,31 @@ angular.module('bahmni.common.conceptSet')
                         }
 
                         if (scope.observation.concept.name === 'INH_Details' || scope.observation.concept.name === 'CTZ_Details' || scope.observation.concept.name === 'Fluconazol_Details') {
-                            $rootScope.prophylaxisObservationData = scope.observation.groupMembers[1];
-                            prophylaxisData = $rootScope.prophylaxisObservationData.possibleAnswers;
+                            if (scope.observation.concept.name === 'INH_Details') {
+                                $rootScope.prophylaxisObservationData = scope.observation.groupMembers[1];
+                                prophylaxisData = $rootScope.prophylaxisObservationData.possibleAnswers;
+                            } else if (scope.observation.concept.name === 'CTZ_Details') {
+                                $rootScope.ctzProphylaxisObservationData = scope.observation.groupMembers[1];
+                                prophylaxisData = $rootScope.ctzProphylaxisObservationData.possibleAnswers;
+                            } else if (scope.observation.concept.name === 'Fluconazol_Details') {
+                                $rootScope.flucoProphylaxisObservationData = scope.observation.groupMembers[1];
+                                prophylaxisData = $rootScope.flucoProphylaxisObservationData.possibleAnswers;
+                            }
+                        }
+                    }
+
+                    if (scope.conceptSetName === 'Reference_Form' || scope.conceptSetName === 'Group_Priority_Population_obs_form') {
+                        var providerType = $rootScope.providerType;
+                        if (providerType === "APSS") {
+                            _.map(scope.rootObservation.groupMembers, function (currentObj) {
+                                if (currentObj.concept.name === 'User_type' || currentObj.concept.name === 'User_type_pop') {
+                                    _.map(currentObj.possibleAnswers, function (answers) {
+                                        if (answers.name.name === "APSS_user" || answers.name.name === "APSS_user_pop") {
+                                            currentObj.value = answers;
+                                        }
+                                    });
+                                }
+                            });
                         }
                     }
 
@@ -293,7 +352,9 @@ angular.module('bahmni.common.conceptSet')
                         return groupMember.label === observation.label && !groupMember.voided;
                     });
 
-                    lastObservationByLabel.showAddMoreButton = function () { return true; };
+                    lastObservationByLabel.showAddMoreButton = function () {
+                        return true;
+                    };
                     observation.hidden = true;
                 };
 
@@ -371,6 +432,24 @@ angular.module('bahmni.common.conceptSet')
                     scope.$root.$broadcast("event:observationUpdated-" + scope.conceptSetName, scope.observation.concept.name, scope.rootObservation);
                 };
 
+                var checkInputs = function (startDate, endDate, dateElement) {
+                    if (angular.element(dateElement).val() !== undefined && startDate > endDate && endDate !== '') {
+                        messagingService.showMessage('error', "INVALID_TREATMENT_END_DATE");
+                        angular.element(dateElement).css("border", "1px solid red");
+                        angular.element(dateElement).css("background", "#ffcdcd");
+                        angular.element(dateElement).css("outline", "0");
+                    } else {
+                        angular.element(dateElement).css("border", "1px solid #DDD");
+                        angular.element(dateElement).css("background", "#fff");
+                        angular.element(dateElement).css("outline", "0");
+                    }
+                };
+
+                var getElementIdNumber = function (id) {
+                    var number = parseInt(id.split('_')[1], 10) + 1;
+                    return "#observation_" + number;
+                };
+
                 var getPregnancyStatus = function (patientUuid) {
                     return $http.get(Bahmni.Common.Constants.observationsUrl, {
                         params: {
@@ -424,8 +503,7 @@ angular.module('bahmni.common.conceptSet')
                                 });
                             }
                         });
-                    }
-                    else {
+                    } else {
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
                             if (currentObj.concept.name == 'Nutritional_States_new') {
                                 scope.$apply(function () {
@@ -511,8 +589,7 @@ angular.module('bahmni.common.conceptSet')
 
                             getAnswerObject(key, brachialPerimeter);
                             return;
-                        }
-                        else if (bmi) {
+                        } else if (bmi) {
                             key = bmiCalculationService.getNutritionalStatusKey(patientAgeYears, bmi, gender, height, weight);
                             getAnswerObject(key, bmi);
                         }
@@ -565,4 +642,5 @@ angular.module('bahmni.common.conceptSet')
                 },
                 templateUrl: '../common/concept-set/views/observation.html'
             };
-        }]);
+        }
+    ]);
