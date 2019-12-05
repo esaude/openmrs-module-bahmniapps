@@ -438,6 +438,11 @@ angular.module('bahmni.clinical')
                                     hgb: '',
                                     alt: '',
                                     ast: '',
+                                    cd4Req: '',
+                                    viralLoadReq: '',
+                                    hgbReq: '',
+                                    altReq: '',
+                                    astReq: '',
                                     referenceSectionOtherServices: [],
                                     statusState: '',
                                     tarvAdherence: '',
@@ -449,6 +454,9 @@ angular.module('bahmni.clinical')
                                     gl: '',
                                     cr: '',
                                     am: '',
+                                    glReq: '',
+                                    crReq: '',
+                                    amReq: '',
                                     indicator: '',
                                     ageAtVisit: '',
                                     otherPerscribedDrugs: [],
@@ -973,36 +981,42 @@ angular.module('bahmni.clinical')
                                                         obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.cd4 = test.result;
+                                                                observation.cd4Req = true;
                                                             }
                                                         });
                                                     } else if (test.testName === 'ALT') {
                                                         obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.alt = test.result;
+                                                                observation.altReq = true;
                                                             }
                                                         });
                                                     } else if (test.testName === 'AST') {
                                                         obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.ast = test.result;
+                                                                observation.astReq = true;
                                                             }
                                                         });
                                                     } else if (test.testName === 'HGB') {
                                                         obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.hgb = test.result;
+                                                                observation.hgbReq = true;
                                                             }
                                                         });
                                                     } else if (test.testName === 'CARGA VIRAL (Absoluto-Rotina)' || test.testName === 'CARGA VIRAL(Qualitativo-Rotina)') {
                                                         obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.viralLoad = test.result;
+                                                                observation.viralLoadReq = true;
                                                             }
                                                         });
                                                     } else if (test.testName === 'GLYCEMIA(3.05-6.05mmol/L)') {
                                                         obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.gl = test.result;
+                                                                observation.glReq = true;
                                                             }
                                                         });
                                                     }
@@ -1010,6 +1024,7 @@ angular.module('bahmni.clinical')
                                                         obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.cr = test.result;
+                                                                observation.crReq = true;
                                                             }
                                                         });
                                                     }
@@ -1017,6 +1032,7 @@ angular.module('bahmni.clinical')
                                                         obsTable.forEach(function (observation) {
                                                             if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
                                                                 observation.am = test.result;
+                                                                observation.cd4Req = true;
                                                             }
                                                         });
                                                     }
@@ -1025,36 +1041,42 @@ angular.module('bahmni.clinical')
                                                 obsTable.forEach(function (observation) {
                                                     if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
                                                         observation.alt = accession2.result;
+                                                        observation.altReq = true;
                                                     }
                                                 });
                                             } else if (accession2.testName === 'AST') {
                                                 obsTable.forEach(function (observation) {
                                                     if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
                                                         observation.ast = accession2.result;
+                                                        observation.astReq = true;
                                                     }
                                                 });
                                             } else if (accession2.testName === 'HGB') {
                                                 obsTable.forEach(function (observation) {
                                                     if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
                                                         observation.hgb = accession2.result;
+                                                        observation.hgbReq = true;
                                                     }
                                                 });
                                             } else if (accession2.testName === 'CARGA VIRAL (Absoluto-Rotina)' || accession2.testName === 'CARGA VIRAL(Qualitativo-Rotina)') {
                                                 obsTable.forEach(function (observation) {
                                                     if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
                                                         observation.viralLoad = accession2.result;
+                                                        observation.viralLoadReq = true;
                                                     }
                                                 });
                                             } else if (accession2.testName === 'Carga Viral Suspeita') {
                                                 obsTable.forEach(function (observation) {
                                                     if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
                                                         observation.viralLoad = accession2.result;
+                                                        observation.viralLoadReq = true;
                                                     }
                                                 });
                                             } else if (accession2.testName === 'GLYCEMIA(3.05-6.05mmol/L)') {
                                                 obsTable.forEach(function (observation) {
                                                     if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
                                                         observation.gl = accession2.result;
+                                                        observation.glReq = true;
                                                     }
                                                 });
                                             }
@@ -1062,6 +1084,7 @@ angular.module('bahmni.clinical')
                                                 obsTable.forEach(function (observation) {
                                                     if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
                                                         observation.cr = accession2.result;
+                                                        observation.crReq = true;
                                                     }
                                                 });
                                             }
@@ -1069,6 +1092,7 @@ angular.module('bahmni.clinical')
                                                 obsTable.forEach(function (observation) {
                                                     if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
                                                         observation.am = accession2.result;
+                                                        observation.amReq = true;
                                                     }
                                                 });
                                             }
