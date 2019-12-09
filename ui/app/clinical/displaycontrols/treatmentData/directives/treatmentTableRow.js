@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .directive('treatmentTableRow', function () {
+    .directive('treatmentTableRow', ['$http', function ($http) {
         var controller = function ($scope) {
             $scope.showDetails = false;
             if ($scope.params.showProvider === undefined) {
@@ -10,6 +10,21 @@ angular.module('bahmni.clinical')
             $scope.toggle = function () {
                 $scope.showDetails = !$scope.showDetails;
             };
+
+            var dispenseddrug = function () {
+                $http.get(Bahmni.Common.Constants.dispenseDrugOrderUrl, {
+                    params: {
+                        locId: 17,
+                        patientUuid: $scope.params.patientUuid
+                    },
+                    withCredentials: true
+                }).then(function (results) {
+                    var dispensedDrug = results.data;
+                    console.log('aqui');
+                    console.log(results);
+                });
+            };
+            dispenseddrug();
         };
         return {
             restrict: 'A',
@@ -20,4 +35,4 @@ angular.module('bahmni.clinical')
             },
             templateUrl: "displaycontrols/treatmentData/views/treatmentTableRow.html"
         };
-    });
+    }]);
