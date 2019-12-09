@@ -95,12 +95,11 @@ angular.module('bahmni.clinical')
                     var p19 = populateWhoStage();
                     var p20 = populateModels();
                     var p22 = populateProf();
-                    var p24 = populateLabResult();
                     var p25 = populateARV();
                     var p23 = populateARTDetails();
                     var p26 = populatePatientLabResults();
 
-                    Promise.all([p1, p2, p4, p6, p5, p7, p8, p9, p14, p15, p16, p17, p18, p19, p20, p22, p23, p24, p25, p26]).then(function () {
+                    Promise.all([p1, p2, p4, p6, p5, p7, p8, p9, p14, p15, p16, p17, p18, p19, p20, p22, p23, p25, p26]).then(function () {
                         resolve(reportModel);
                     }).catch(function (error) {
                         reject(error);
@@ -116,8 +115,7 @@ angular.module('bahmni.clinical')
                 if ($rootScope.patient.TRANSFER_OUT_NAME === undefined && $rootScope.patient.Transfer_Date === undefined) {
                     reportModel.dest = null;
                     reportModel.Transfer = null;
-                }
-                else {
+                } else {
                     if ($rootScope.patient.TRANSFER_OUT_NAME) {
                         reportModel.dest = $rootScope.patient.TRANSFER_OUT_NAME.value;
                     }
@@ -132,8 +130,9 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     patientService.getPatient(patientUuid).then(function (response) {
                         var patientMapper = new Bahmni.PatientMapper($rootScope.patientConfig, $rootScope, $translate);
-                        var contact = response.data.person.attributes[0].value;
-                        reportModel.patientInfo.mainContact = $rootScope.patient.PRIMARY_CONTACT_NUMBER_1.value;
+                        if ($rootScope.patient.PRIMARY_CONTACT_NUMBER_1) {
+                            reportModel.patientInfo.mainContact = $rootScope.patient.PRIMARY_CONTACT_NUMBER_1.value;
+                        }
                         var patient = patientMapper.map(response.data);
                         reportModel.patientInfo.firstName = patient.givenName;
                         reportModel.patientInfo.lastName = patient.familyName;
@@ -146,36 +145,42 @@ angular.module('bahmni.clinical')
 
                         if ($rootScope.patient.DateofHIVDiagnosis === undefined) {
                             reportModel.patientInfo.hivDate = null;
-                        }
-                        else {
-                            reportModel.patientInfo.hivDate = $rootScope.patient.DateofHIVDiagnosis.value;
+                        } else {
+                            if ($rootScope.patient.DateofHIVDiagnosis) {
+                                reportModel.patientInfo.hivDate = $rootScope.patient.DateofHIVDiagnosis.value;
+                            }
                         }
                         reportModel.patientInfo.condName = $rootScope.conditionName;
 
                         var arrDiagc = [];
                         if ($rootScope.diagName == null && $rootScope.diagPastName == null) {
                             $rootScope.diagName = null;
-                        }
-                        else if ($rootScope.diagName == null && $rootScope.diagPastName !== null) {
+                        } else if ($rootScope.diagName == null && $rootScope.diagPastName !== null) {
                             for (var j = 0; j < $rootScope.diagPastName.length; j++) {
                                 arrDiagc.push($rootScope.diagPastName[j]);
                                 var arr = arrDiagc.join('');
-                            } reportModel.patientInfo.diagnosisPastName = arr;
-                        }
-                        else if ($rootScope.diagName !== null && $rootScope.diagPastName !== null) {
+                            }
+                            reportModel.patientInfo.diagnosisPastName = arr;
+                        } else if ($rootScope.diagName !== null && $rootScope.diagPastName !== null) {
                             for (var j = 0; j < $rootScope.diagName.length; j++) {
                                 arrDiagc.push($rootScope.diagName[j]);
                             }
                             reportModel.patientInfo.diagnosisName = arrDiagc;
                             reportModel.patientInfo.diagnosisPastName = null;
                         }
-                        reportModel.patientInfo.regDate = $rootScope.patient.US_REG_DATE.value;
+                        if ($rootScope.patient.US_REG_DATE.value) {
+                            reportModel.patientInfo.regDate = $rootScope.patient.US_REG_DATE.value;
+                        }
                         reportModel.patientInfo.treatmentStartDate = $rootScope.arvdispenseddate;
 
-                        var statusArray = [{ name: "Pre TARV" }, { name: "TARV" }];
+                        var statusArray = [{
+                            name: "Pre TARV"
+                        }, {
+                            name: "TARV"
+                        }];
                         var arrStatus = [];
                         for (var k = 0; k < statusArray.length; k++) {
-                            if ($rootScope.patient.PATIENT_STATUS.value.display == statusArray[k].name) {
+                            if ($rootScope.patient.PATIENT_STATUS && $rootScope.patient.PATIENT_STATUS.value.display == statusArray[k].name) {
                                 arrStatus.push(statusArray[k].name);
                             }
                         }
@@ -215,24 +220,37 @@ angular.module('bahmni.clinical')
 
             var populatePatientLabResults = function () {
                 reportModel.labOrderResult = {};
-                var labResultsToShow = ['ALT', 'AST', 'CD 4', 'CD4 %', 'CD4 Abs', 'HGB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outros'];
+                var labResultsToShow = ['ALT', 'LO_ALT', 'AST', 'LO_AST', 'CD4 %', 'HGB', 'LO_HB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outro', 'LO_Other:'];
                 return new Promise(function (resolve, reject) {
-                    labOrderResultService.getAllForPatient({patientUuid: patientUuid}).then(function (response) {
+                    labOrderResultService.getAllForPatient({
+                        patientUuid: patientUuid
+                    }).then(function (response) {
                         if (response.labAccessions) {
                             if (response.labAccessions.length > 0) {
                                 _.map(response.labAccessions[0], function (currentObj) {
                                     if (_.includes(labResultsToShow, currentObj.testName)) {
                                         var loName;
-                                        if (currentObj.testName == 'ALT') { loName = 'LO_ALT'; }
-                                        else if (currentObj.testName == 'AST') { loName = 'LO_AST'; }
-                                        else if (currentObj.testName == 'CD 4') { loName = 'LO_CD4'; }
-                                        else if (currentObj.testName == 'CD4 %') { loName = 'LO_CD4'; }
-                                        else if (currentObj.testName == 'CD4 Abs') { loName = 'LO_CD4'; }
-                                        else if (currentObj.testName == 'HGB') { loName = 'LO_HGB'; }
-                                        else if (currentObj.testName == 'CARGA VIRAL (Absoluto-Rotina)') { loName = 'LO_ViralLoad'; }
-                                        else if (currentObj.testName == 'CARGA VIRAL(Qualitativo-Rotina)') { loName = 'LO_ViralLoad'; }
-                                        else { loName = currentObj.testName; }
-                                        reportModel.labOrderResult[loName] = {testDate: currentObj.resultDateTime, testResult: currentObj.result};
+                                        if (currentObj.testName === 'ALT' || currentObj.testName === 'LO_ALT') {
+                                            loName = 'LO_ALT';
+                                        } else if (currentObj.testName === 'AST' || currentObj.testName === 'LO_AST') {
+                                            loName = 'LO_AST';
+                                        } else if (currentObj.testName === 'CD4 %') {
+                                            loName = 'LO_CD4';
+                                        } else if (currentObj.testName === 'HGB' || currentObj.testName === 'LO_HB') {
+                                            loName = 'LO_HGB';
+                                        } else if (currentObj.testName === 'CARGA VIRAL (Absoluto-Rotina)') {
+                                            loName = 'LO_ViralLoad';
+                                        } else if (currentObj.testName === 'CARGA VIRAL(Qualitativo-Rotina)') {
+                                            loName = 'LO_ViralLoad';
+                                        } else if (currentObj.testName === 'LO_Other:' || currentObj.testName === 'Outro') {
+                                            loName = 'LO_Other:';
+                                        } else {
+                                            loName = currentObj.testName;
+                                        }
+                                        reportModel.labOrderResult[loName] = {
+                                            testDate: currentObj.resultDateTime,
+                                            testResult: currentObj.result
+                                        };
                                     }
                                 });
                             }
@@ -249,27 +267,46 @@ angular.module('bahmni.clinical')
                     var patienINH = 'INH_Details';
                     var patientCTZ = 'CTZ_Details';
                     observationsService.fetch(patientUuid, [patienINH, patientCTZ]).then(function (response) {
-                        var startDate = "Start Date_Prophylaxis";
-                        var endDate = "End Date";
-
+                        var inhStartDate = "Start_Date_Prophylaxis_INH";
+                        var inhEndDate = "End_Date_Prophylaxis_INH";
+                        var ctzStartDate = "Start_Date_Prophylaxis_CTZ";
+                        var ctzEndDate = "End_Date_Prophylaxis_CTZ";
                         if ((response.data.length === 0)) {
-                            observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-                                reportModel.patientInfo.INH_end = null;
-                                reportModel.patientInfo.INH_start = null;
+                            reportModel.patientInfo.INH_end = null;
+                            reportModel.patientInfo.INH_start = null;
+                            reportModel.patientInfo.CTZ_end = null;
+                            reportModel.patientInfo.CTZ_start = null;
+                        } else {
+                            var resposeRes = response.data.reverse();
+                            _.map(resposeRes, function (resultData) {
+                                if (resultData.concept.name == "CTZ_Details") {
+                                    observationsService.fetch(patientUuid, [ctzStartDate, ctzEndDate]).then(function (response) {
+                                        var res = response.data.reverse();
+                                        _.map(res, function (result) {
+                                            if (result.concept.name === ctzStartDate) {
+                                                reportModel.patientInfo.CTZ_start = result.value;
+                                            }
+                                            if (result.concept.name === ctzEndDate) {
+                                                reportModel.patientInfo.CTZ_end = result.value;
+                                            }
+                                        });
+                                    });
+                                } else if ((resultData.concept.name == "INH_Details")) {
+                                    observationsService.fetch(patientUuid, [inhStartDate, inhEndDate]).then(function (response) {
+                                        var res = response.data.reverse();
+                                        _.map(res, function (result) {
+                                            if (result.concept.name === inhStartDate) {
+                                                reportModel.patientInfo.INH_start = result.value;
+                                            }
+                                            if (result.concept.name === inhEndDate) {
+                                                reportModel.patientInfo.INH_end = result.value;
+                                            }
+                                        });
+                                    });
+                                }
                             });
                         }
-                        else if (response.data[0].concept.name == "CTZ_Details") {
-                            observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-                                reportModel.patientInfo.CTZ_end = response.data[1].value;
-                                reportModel.patientInfo.CTZ_start = response.data[0].value;
-                            });
-                        }
-                        else if ((response.data[0].concept.name == "INH_Details")) {
-                            observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-                                reportModel.patientInfo.INH_end = response.data[1].value;
-                                reportModel.patientInfo.INH_start = response.data[0].value;
-                            });
-                        }
+
                         resolve();
                     }).catch(function (error) {
                         reject(error);
@@ -336,8 +373,7 @@ angular.module('bahmni.clinical')
                             var a = response.data[0].value;
                             if (a === true) {
                                 reportModel.patientInfo.Tb_back = "Sim";
-                            }
-                            else {
+                            } else {
                                 reportModel.patientInfo.Tb_back = "Não";
                             }
                         }
@@ -370,8 +406,7 @@ angular.module('bahmni.clinical')
                             var status = response.data[0].valueAsString;
                             if (status == "No") {
                                 reportModel.patientInfo.breastFeedingStatus = "ANSWER_NO";
-                            }
-                            else {
+                            } else {
                                 reportModel.patientInfo.breastFeedingStatus = "ANSWER_YES";
                             }
                         }
@@ -396,91 +431,9 @@ angular.module('bahmni.clinical')
                 });
             };
 
-            var populateLabResult = function () {
-                var Resultarray = [];
-                if ($rootScope.lab === undefined) {
-                    Resultarray = null;
-                }
-                else {
-                    var labResult = $rootScope.lab.results.forEach(function (labres) {
-                        Resultarray.push(labres);
-                    });
-                    var temp = [];
-                    var temp1 = [];
-                    for (var i = 0; i < Resultarray.length; i++) {
-                        temp.push(Resultarray[i].orderName);
-                        temp1.push(Resultarray[i].result);
-                        reportModel.patientInfo.labName = temp[i];
-
-                        if (temp[i] == "LO_HB)")
-                         {
-                            if (temp[i] === null)
-                             {
-                                reportModel.patientInfo.resultHb = null;
-                            }
-                            else
-                            {
-                                reportModel.patientInfo.resultHb = temp1[i];
-                            }
-                        }
-
-                        if (temp[i] == "LO_ViralLoad")
-                         {
-                            if (temp[i] === null)
-                            {
-                                reportModel.patientInfo.resultVl = null;
-                            }
-                            else
-                            {
-                                reportModel.patientInfo.resultVl = temp1[i];
-                            }
-                        }
-
-                        if (temp[i] == "LO_CD4")
-                         {
-                            if (temp[i] === null)
-                            {
-                                reportModel.patientInfo.resultcd = null;
-                            }
-                            else
-                            {
-                                reportModel.patientInfo.resultcd = temp1[i];
-                            }
-                        }
-
-                        if (temp[i] == "LO_ALT")
-                         {
-                            if (temp[i] === null)
-                            {
-                                reportModel.patientInfo.resultAlt = null;
-                            }
-                            else
-                            {
-                                reportModel.patientInfo.resultAlt = temp1[i];
-                            }
-                        }
-
-                        if (temp[i] == "LO_AST")
-                        {
-                            if (temp[i] === null)
-                             {
-                                reportModel.patientInfo.resultAst = null;
-                            }
-                            else
-                            {
-                                reportModel.patientInfo.resultAst = temp1[i];
-                            }
-                        }
-                    }
-                }
-            };
-
-            var populateARTDetails = function ()
-             {
-                return new Promise(function (resolve, reject)
-                {
-                    treatmentService.getActiveDrugOrders(patientUuid, null, null).then(function (response)
-                     {
+            var populateARTDetails = function () {
+                return new Promise(function (resolve, reject) {
+                    treatmentService.getActiveDrugOrders(patientUuid, null, null).then(function (response) {
                         var drugarr = [];
                         for (var i = response.length - 1; i >= 0; i--) {
                             var obj = {};
@@ -537,8 +490,7 @@ angular.module('bahmni.clinical')
 
                         if (arrDate === undefined || arrDate.length === 0) {
                             reportModel.patientInfo.modelDate = null;
-                        }
-                        else if (arrDate.length >= 1) {
+                        } else if (arrDate.length >= 1) {
                             var ddate = arrDate.length - 1;
                             reportModel.patientInfo.modelDate = arrDate[ddate].observationDateTime;
                         }
@@ -575,8 +527,7 @@ angular.module('bahmni.clinical')
                                 arrNotARV.push(resarray[i].concept.name);
                                 dateNotARV.push(resarray[i].effectiveStartDate);
                                 reportModel.patientInfo.notARV = arrNotARV;
-                            }
-                            else {
+                            } else {
                                 resarray[i].concept.name;
                                 arrARV.push(resarray[i].concept.name);
                                 dateARV.push(resarray[i].effectiveStartDate);
@@ -589,20 +540,15 @@ angular.module('bahmni.clinical')
                                         reportModel.patientInfo.thirdLast = null;
                                         reportModel.patientInfo.secLastDate = null;
                                         reportModel.patientInfo.thirdLastDate = null;
-                                    }
-
-                                    else if (arrARV.length === 1) {
+                                    } else if (arrARV.length === 1) {
                                         reportModel.patientInfo.currRegARV = arrARV[j];
-                                    }
-
-                                    else if (arrARV.length === 2) {
+                                    } else if (arrARV.length === 2) {
                                         reportModel.patientInfo.currRegARV = arrARV[0];
                                         reportModel.patientInfo.secLast = arrARV[1];
                                         reportModel.patientInfo.thirdLast = null;
                                         reportModel.patientInfo.secLastDate = dateARV[1];
                                         reportModel.patientInfo.thirdLastDate = null;
-                                    }
-                                    else if (arrARV.length >= 3) {
+                                    } else if (arrARV.length >= 3) {
                                         reportModel.patientInfo.currRegARV = arrARV[0];
                                         reportModel.patientInfo.secLast = arrARV[1];
                                         reportModel.patientInfo.thirdLast = arrARV[2];
@@ -643,4 +589,5 @@ angular.module('bahmni.clinical')
                     });
                 });
             };
-        }]);
+        }
+    ]);

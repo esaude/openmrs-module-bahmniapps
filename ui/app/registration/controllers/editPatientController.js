@@ -298,7 +298,11 @@ angular.module('bahmni.registration')
                             $scope.patient['TRANSFER_OUT_PROVINCE'] = '';
                             $scope.patient['Transfer_Date'] = '';
                             $scope.patient['Observations'] = '';
-                            patientState = $scope.patient.lastActiveState;
+                            if ($scope.patient.lastActiveState === 'INACTIVE_TRANSFERRED_OUT') {
+                                patientState = 'ACTIVE';
+                            } else {
+                                patientState = $scope.patient.lastActiveState;
+                            }
                         }
                     }
                     addNewRelationships();
