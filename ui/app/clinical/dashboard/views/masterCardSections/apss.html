@@ -16,7 +16,7 @@
 		border: 1px solid #595959;
 		border-collapse: collapse;
 		font-family: arial;
-		font-size: 10px;
+		font-size: 9px;
 	}
 
 	td,
@@ -119,13 +119,13 @@
 				<td class="center" rowspan="2">3</td>
 				<td colspan="3" rowspan="2" style="width: 100px;">Consultas (Datas)</td>
 				<td colspan="2">Actual</td>
-				<td ng-repeat="ps in data.patientInfo.psychosocialFactors track by $index" colspan="2">{{ ps.actualVisit | date:'dd/MM/yy' }}</td>
-				<td ng-repeat="pse in data.patientInfo.psychosocialFactorsActualEmpty track by $index" colspan="2">__/__/__</td>
+				<td ng-repeat="ps in data.patientInfo.psychosocialFactors track by $index" class="center" colspan="2">{{ ps.actualVisit | date:'dd/MM/yy' }}</td>
+				<td ng-repeat="pse in data.patientInfo.psychosocialFactorsActualEmpty track by $index" colspan="2" class="center">__/__/__</td>
 			</tr>
 			<tr>
 				<td colspan="2">Próxima</td>
-				<td ng-repeat="ps in data.patientInfo.psychosocialFactors track by $index" colspan="2">{{ ps.nextVisit | date:'dd/MM/yy' }}</td>
-				<!--<td ng-repeat="pse in data.patientInfo.psychosocialFactorsNextEmpty track by $index" colspan="2">__/__/__</td>-->
+				<td ng-repeat="ps in data.patientInfo.psychosocialFactors track by $index" class="center" colspan="2">{{ ps.nextVisit | date:'dd/MM/yy' }}</td>
+				<td ng-repeat="pse in data.patientInfo.psychosocialFactorsNextEmpty track by $index" colspan="2" class="center">__/__/__</td>
 			</tr>
 			<tr>
 				<td class="center">4</td>
@@ -151,7 +151,7 @@
 			<tr>
 				<td class="center" rowspan="9">6</td>
 				<td class="center" colspan="4" rowspan="9">FACTORES<br>PSICO-<br>SOCIAIS<br>que<br>afectam
-					a<br>adesão<br>(A / B / C / D /<br>E / F /...Q /<br>outro)</td>
+					a<br>adesão<br>(A / B / C / D /<br>E / F /...Q,<br>outro)</td>
 				<td class="center">A</td>
 				<td colspan="6">Recusa resultado positivo</td>
 				<td class="center" style="width: 9px;">I</td>
@@ -369,7 +369,7 @@
 			</tr>
 			<tr>
 				<td class="center">H</td>
-				<td colspan="6">Depressão / ansiedade</td>
+				<td colspan="6">Sinais de depressão/ ansiedade</td>
 				<td class="center">Q</td>
 				<td colspan="7">Uso abusivo de álcool ou drogas</td>
 				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
@@ -399,18 +399,18 @@
 			</tr>
 			<tr>
 				<td colspan="15">Outro - Especifique</td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[0].apssSectionIDetails }}</span></td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[1].apssSectionIDetails }}</span></td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[2].apssSectionIDetails }}</span></td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[3].apssSectionIDetails }}</span></td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[4].apssSectionIDetails }}</span></td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[5].apssSectionIDetails }}</span></td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[6].apssSectionIDetails }}</span></td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[7].apssSectionIDetails }}</span></td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[8].apssSectionIDetails }}</span></td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[9].apssSectionIDetails }}</span></td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[10].apssSectionIDetails }}</span></td>
-				<td colspan="2" class="text-small"><span>{{ data.patientInfo.psychosocialFactors[11].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[0].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[1].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[2].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[3].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[4].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[5].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[6].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[7].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[8].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[9].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[10].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[11].apssSectionIDetails }}</span></td>
 			</tr>
 			<tr>
 				<td class="center" rowspan="7">7</td>
@@ -504,13 +504,12 @@
 			</tr>
 			<tr>
 				<td class="center" colspan="3">(Parentesco)</td>
-				<td colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
 					{{data.patientInfo.psychosocialFactors[$index].apssAdherenceFollowUpRelationship}}
 				</td>
 			</tr>
 			<tr>
-				<td colspan="15" rowspan="2">Se criança, adolescente, idoso, se tem deficiência física -
-					<br>Quem administra os ARVs?</td>
+				<td colspan="15" rowspan="2">Se criança, adolescente, idoso, se tem deficiência física ou mental - Quem administra os ARVs?</td>
 				<td class="center" colspan="3" style="width: 5px">(Nome / Próprio)</td>
 				<td colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
 					{{data.patientInfo.psychosocialFactors[$index].apssAdherenceFollowUpWhoAdministersFullName}}
@@ -518,12 +517,12 @@
 			</tr>
 			<tr>
 				<td class="center" colspan="3">(Parentesco)</td>
-				<td colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
 						{{data.patientInfo.psychosocialFactors[$index].apssAdherenceFollowUpWhoAdministersRelationship}}
 				</td>
 			</tr>
 			<tr>
-				<td colspan="18">PLANO DE ADESÃO - Horário; Esquecimento da dose; Viagem - (S / N)</td>
+				<td colspan="18">PLANO DE ADESÃO - Horário; Dose; Esquecimento da dose; Viagem - (S / N)</td>
 				<td colspan="2" class="center" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
 					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Adherence_Plan_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Adherence_Plan_No')}">N</span>
@@ -538,7 +537,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="18">ADESÃO ao TARV - Boa; Risco; Má; Dias de atraso no levantamento ARVs? (B/R/M - N&deg;
+				<td colspan="18">ADESÃO ao TARV - <u>B</u>oa; <u>R</u>isco; <u>M</u>á; Dias de atraso no levantamento ARVs? (B/R/M - N&deg;
 					dias)</td>
 				<td colspan="2" class="center" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
 					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Adherence_TARV_Good')}">B</span>&nbsp;
@@ -548,7 +547,7 @@
 			</tr>
 			<tr>
 				<td class="center">10</td>
-				<td colspan="19">MOTIVO da consulta - Normal / Faltoso / Abandono (N / F / A)</td>
+				<td colspan="19">MOTIVO da consulta - <u>N</u>ormal / <u>F</u>altoso / <u>A</u>bandono (N / F / A)</td>
 				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
 					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Reason_For_The_Visit_Normal')}">N</span>&nbsp;
 					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Reason_For_The_Visit_Faulty')}">F</span>&nbsp;
@@ -557,7 +556,7 @@
 			</tr>
 			<tr>
 				<td class="center" rowspan="3">11</td>
-				<td class="center" colspan="5" rowspan="3">GRUPOS<br>DE APOIO<br>Início/Continua/Fim<br>(Código - I/C/F)</td>
+				<td class="center" colspan="5" rowspan="3">GRUPOS<br>DE APOIO<br><u>I</u>nício/<u>C</u>ontinua/<u>F</u>im<br>(Código - I/C/F)</td>
 				<td>CR</td>
 				<td colspan="6">Crianças Reveladas</td>
 				<td>AR</td>
@@ -612,16 +611,18 @@
 						</div>
 					</div>
 					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup">
-						{{data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupOther}}&nbsp;/&nbsp;
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_Start'">
-							I
-						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_In_Progress'">
-							C
-						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_End'">
-							F
-						</div>
+						<span class="text-small" style="width:50px; word-wrap:break-word; display:inline-block;">
+							{{data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupOther}}&nbsp;/&nbsp;
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_Start'">
+								I
+							</div>
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_In_Progress'">
+								C
+							</div>
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_End'">
+								F
+							</div>
+						</span>
 					</div>
 				</td>
 			</tr>
@@ -638,7 +639,7 @@
 			<tr>
 				<td class="center" rowspan="4">12</td>
 				<td class="center" colspan="5" rowspan="4">Modelos<br>Diferenciados de<br>Cuidados
-					(MDC)<br>Início/Continua/Fim<br>(código - I/C/F)</td>
+					(MDC)<br><u>I</u>nício/<u>C</u>ontinua/<u>F</u>im<br>(código - I/C/F)</td>
 				<td>GA</td>
 				<td colspan="6">GAAC</td>
 				<td>FR</td>
@@ -656,15 +657,15 @@
 							F
 						</div>
 					</div>
-					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR">
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionFR">
 						FR&nbsp;/&nbsp;
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR === 'Reference_Start'">
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionFR === 'Reference_Start'">
 							I
 						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR === 'Reference_In_Progress'">
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionFR === 'Reference_In_Progress'">
 							C
 						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupFR === 'Reference_End'">
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionFR === 'Reference_End'">
 							F
 						</div>
 					</div>
@@ -680,15 +681,15 @@
 							F
 						</div>
 					</div>
-					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT">
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDT">
 						DT&nbsp;/&nbsp;
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT === 'Reference_Start'">
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDT === 'Reference_Start'">
 							I
 						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT === 'Reference_In_Progress'">
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDT === 'Reference_In_Progress'">
 							C
 						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDT === 'Reference_End'">
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDT === 'Reference_End'">
 							F
 						</div>
 					</div>
@@ -704,15 +705,15 @@
 							F
 						</div>
 					</div>
-					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC">
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDC">
 						DC&nbsp;/&nbsp;
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC === 'Reference_Start'">
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDC === 'Reference_Start'">
 							I
 						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC === 'Reference_In_Progress'">
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDC === 'Reference_In_Progress'">
 							C
 						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupDC === 'Reference_End'">
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDC === 'Reference_End'">
 							F
 						</div>
 					</div>
@@ -728,17 +729,19 @@
 							F
 						</div>
 					</div>
-					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther">
-						{{data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOtherComments}}&nbsp;/&nbsp;
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_Start'">
-							I
-						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_In_Progress'">
-							C
-						</div>
-						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_End'">
-							F
-						</div>
+					<div class="center flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther">
+						<span class="text-small" style="width:50px; word-wrap:break-word; display:inline-block;">
+							{{data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOtherComments}}&nbsp;/&nbsp;
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_Start'">
+								I
+							</div>
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_In_Progress'">
+								C
+							</div>
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_End'">
+								F
+							</div>
+						</span>
 					</div>
 				</td>
 			</tr>
@@ -770,7 +773,7 @@
 			<tr>
 				<td colspan="12" rowspan="2" class="center" style="padding: 10px;">
 					<div ng-if="data.patientInfo.apssDifferentiatedModelsDate"><b>Data:</b>&nbsp;{{data.patientInfo.apssDifferentiatedModelsDate}}</div>
-					<div ng-if="!data.patientInfo.apssDifferentiatedModelsDate"><b>Data:</b>&nbsp;__/__/__</div>
+					<div ng-if="!data.patientInfo.apssDifferentiatedModelsDate" class="center"><b>Data:</b>&nbsp;__/__/__</div>
 					<br>
 					<span><b>{{ 'PROVIDER_SIGNATURE' | translate}}:</b>&nbsp;{{ data.patientInfo.username }}</span>
 				</td>
@@ -785,7 +788,7 @@
 					<input type="checkbox" ng-checked="data.patientInfo.apssAgreementContactType == 'Apss_Agreement_Terms_Type_Contact_SMS'">&nbsp;SMS
 					<input type="checkbox" ng-checked="data.patientInfo.apssAgreementContactType == 'Apss_Agreement_Terms_Type_Contact_House_Visits'">&nbsp;Domiciliar</td>
 				<!--<td colspan="3"></td>-->
-				<td colspan="2" class="center">__/__/__</td>
+				<td colspan="2" class="center" class="center">__/__/__</td>
 			</tr>
 			<tr>
 				<td colspan="17">O confidente concorda em ser contactado, se necessário? <span class="align-right">
