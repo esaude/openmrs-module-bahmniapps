@@ -11,20 +11,22 @@
             page-break-before: always;
         }
     }
+
     @media print and (orientation: landscape) {
         .page-breakclinicoBottom {
             display: block;
             page-break-before: always;
         }
+        /* .page-mid {
+        display: block;
+        page-break-before: always;
+        transform: translate(-200px,-130px) rotate(90deg);
+        overflow: hidden;
+        word-break: normal;
+      } */
     }
 
-    @media print and (orientation: landscape) {
-        .page-breakclinicoMiddle {
-            display: block;
-            transform:rotate(90deg);
-            page-break-before: always;
-        }
-    }
+    
 </style>
 
 <div ng-controller="PrintMasterCardController">
@@ -33,9 +35,9 @@
         <br>
         <div ng-include src="'dashboard/views/masterCardSections/apss.html'"></div>
         <br>
-        <div ng-include class="page-breakclinicoMiddle" src="'dashboard/views/masterCardSections/printMasterCardFichaClinica_Top.html'"></div>
+        <div ng-include class='page-mid' src="'dashboard/views/masterCardSections/printMasterCardFichaClinica_Top.html'"></div>
         <br>
-        <div class="page-breakclinicoBottom" ng-include src="'dashboard/views/masterCardSections/clinicoBottom.html'"></div>
+       <div ng-include class="page-breakclinicoBottom" src="'dashboard/views/masterCardSections/clinicoBottom.html'"></div>
 
      <!--   <div class="page-break"></div>
         <div ng-include src="'dashboard/views/masterCardSections/clinico.html'"></div>
