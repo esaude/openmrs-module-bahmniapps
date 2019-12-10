@@ -1597,25 +1597,16 @@ angular.module('bahmni.clinical')
                                 masterCardModel.patientInfo.INH_end = null;
                                 masterCardModel.patientInfo.INH_start = null;
                             });
-                        }
-                        else if (response.data[0].concept.name == "CTZ_Details") {
+                        } else if (response.data[0].concept.name == "CTZ_Details") {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-<<<<<<< HEAD
-                                if (response.data[1]) {
-                                    masterCardModel.patientInfo.CTZ_end = response.data[1].value;
-                                }
-                                if (response.data[0]) {
-=======
                                 if (response.data[1].value) {
                                     masterCardModel.patientInfo.CTZ_end = response.data[1].value;
                                 }
                                 if (response.data[0].value) {
->>>>>>> develop
                                     masterCardModel.patientInfo.CTZ_start = response.data[0].value;
                                 }
                             });
-                        }
-                        else if ((response.data[0].concept.name == "INH_Details")) {
+                        } else if ((response.data[0].concept.name == "INH_Details")) {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
                                 if (response.data[1]) {
                                     masterCardModel.patientInfo.INH_end = response.data[1].value;
