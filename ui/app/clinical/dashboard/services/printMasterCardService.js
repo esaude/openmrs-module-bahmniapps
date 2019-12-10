@@ -531,8 +531,10 @@ angular.module('bahmni.clinical')
                             }
 
                             for (var l = 0; l < masterCardModel.patientInfo.psychosocialFactors.length; l++) {
-                                if (masterCardModel.patientInfo.psychosocialFactors[l + 1]) {
+                                if (masterCardModel.patientInfo.psychosocialFactors[l + 1] && (masterCardModel.patientInfo.psychosocialFactors.length - 1) !== l) {
                                     masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = masterCardModel.patientInfo.psychosocialFactors[l + 1].actualVisit;
+                                } else if ((masterCardModel.patientInfo.psychosocialFactors.length - 1) === l) {
+                                    masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = '__/__/__';
                                 }
                             }
                             if (masterCardModel.patientInfo.psychosocialFactors.length < 12) {
