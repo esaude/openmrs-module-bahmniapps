@@ -87,12 +87,12 @@
         </tr>
         <tr>
             <td colspan="60" rowspan="6">
-                &nbsp;&nbsp;<b>Província:</b> {{ data.healthFacilityInfo.province }}&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Distrito:</b> {{ data.healthFacilityInfo.district }}&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;<b>Província:</b><span ng-if="data.healthFacilityInfo.province">&nbsp;{{ data.healthFacilityInfo.province }}&nbsp;&nbsp;&nbsp;</span><span ng-if="!data.healthFacilityInfo.province">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <b>Distrito:</b><span ng-if="data.healthFacilityInfo.district">&nbsp;{{ data.healthFacilityInfo.district }}&nbsp;&nbsp;&nbsp;</span><span ng-if="!data.healthFacilityInfo.district">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <b>Unidade Sanitária:</b> {{ data.healthFacilityInfo.name }}
                 <br>
-                &nbsp;&nbsp;<b>Nome Completo:</b> {{ data.patientInfo.firstName }}&nbsp&nbsp{{ data.patientInfo.lastName }}
-                <span class="align-right"><b>N&deg; de B.I.:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                &nbsp;&nbsp;<b>Nome Completo:</b> {{ data.patientInfo.firstName }}&nbsp;&nbsp;{{ data.patientInfo.lastName }}
+                <span class="align-right"><b>N&deg; de B.I.:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <br>
                 &nbsp;&nbsp;<b>Sexo:</b> {{ data.patientInfo.gender }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <b>Data de nascimento:</b> {{ data.patientInfo.birth_date | date:'dd/MM/yyyy'}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -100,14 +100,14 @@
                 <b>Tel. Cel (1):</b> {{ data.patientInfo.mainContact }}
                 <br>
                 &nbsp;&nbsp;<b>Profissão:</b> {{ data.patientInfo.occupation }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Nível de Escolaridade:</b> {{ data.patientInfo.education }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <b>Nível de Escolaridade:</b> <span ng-if="data.patientInfo.education">{{ data.patientInfo.education }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span ng-if="!data.patientInfo.education">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <b>Tel. Cel (2):</b> {{ data.patientInfo.alternativeContact1 }}
                 <br>
-                &nbsp;&nbsp;<b>MORADA - Distrito / Cidade:</b> {{ data.patientInfo.district }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>{{ 'TOWN' | translate }}:</b> {{ data.patientInfo.town }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Célula / Quarteirão:</b> {{ data.patientInfo.block }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;<b>MORADA - Distrito / Cidade:</b> {{ data.patientInfo.district }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.patientInfo.district">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <b>{{ 'TOWN' | translate }}:</b> {{ data.patientInfo.town }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.patientInfo.town">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <b>Célula / Quarteirão:</b> {{ data.patientInfo.block }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.patientInfo.block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <br>
-                &nbsp;&nbsp;<b>Avenida / Rua / Casa:</b> {{ data.patientInfo.streetHouse }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;<b>Avenida / Rua / Casa:</b> {{ data.patientInfo.streetHouse }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.patientInfo.streetHouse">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <b>Perto de:</b> {{ data.patientInfo.closeOf }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </td>
             <td colspan="16"><input type="checkbox"/>Outros, especifique</td>
@@ -134,30 +134,30 @@
         <tr>
             <td colspan="8" rowspan="2" class="center">No início<br>TARV</td>
             <td colspan="31">
-                &nbsp;&nbsp;Gravidez: <input type="checkbox" class="text-right"/>
-                Sim <input type="checkbox" class="text-right"/>
-                Não <input type="checkbox" class="text-right"/>
-                Lactante <input type="checkbox" class="text-right"/>
-                Sim <input type="checkbox" class="text-right"/>
-                Não <input type="checkbox" class="text-right"/>
+                &nbsp;&nbsp;<b>Gravidez:</b> 
+                <input type="checkbox" class="text-right"/>Sim
+                <input type="checkbox" class="text-right"/>Não
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Lactante:</b>
+                <input type="checkbox" class="text-right"/>Sim
+                <input type="checkbox" class="text-right"/>Não
             </td>
         </tr>
         <tr>
-            <td colspan="31">&nbsp;&nbsp;<b>Estado de OMS:</b> <span>III</span> <b>CD4 (N° / %):</b></td>
+            <td colspan="31">&nbsp;&nbsp;<b>Estado de OMS:</b> <span></span> <b>CD4 (N° / %):</b></td>
         </tr>
         <tr>
             <td colspan="60" rowspan="4">
                 &nbsp;&nbsp;<u>CONFIDENTE</u> - 
-                <span class="align-right"><b>Tel. Cel (1):</b> {{ data.confident.telehone1 }}&nbsp;&nbsp;</span>
+                <span class="align-right"><b>Tel. Cel (1):</b><span ng-if="data.confident.telephone1"> {{ data.confident.telephone1 }}&nbsp;&nbsp;</span><span ng-if="!data.confident.telephone1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
                 <br>
-                &nbsp;&nbsp;<b>Nome e Parentesco:</b> {{ data.confident.name }}&nbsp;{{ data.confident.surname }}&nbsp;<i>({{ data.confident.relationship }})</i>
-                <span class="align-right"><b>Tel. Cel (2):</b> {{ data.confident.telehone2 }}&nbsp;&nbsp;</span>
+                &nbsp;&nbsp;<b>Nome e Parentesco:</b> {{ data.confident.name }}&nbsp;{{ data.confident.surname }}&nbsp;<span ng-if="data.confident.relationship">({{ data.confident.relationship }})</span>
+                <span class="align-right"><b>Tel. Cel (2):</b><span ng-if="data.confident.telephone2"> {{ data.confident.telephone2 }}&nbsp;&nbsp;</span><span ng-if="!data.confident.telephone2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
                 <br>
-                &nbsp;&nbsp;<b>MORADA - Distrito/Cidade:</b> {{ data.confident.district }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Localidade/Bairro:</b> {{ data.confident.locality }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Célula/Quarteirão:</b> {{ data.confident.block }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;<b>MORADA - Distrito/Cidade:</b> {{ data.confident.district }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.confident.district">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <b>Localidade/Bairro:</b> {{ data.confident.locality }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.confident.locality">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <b>Célula/Quarteirão:</b> {{ data.confident.block }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.confident.block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <br>
-                &nbsp;&nbsp;<b>Avenida/Rua/Casa:</b> {{ data.confident.street }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;<b>Avenida / Rua / Casa:</b> {{ data.confident.street }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.confident.street">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <b>Perto de:</b> {{ data.confident.closeOf }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </td>
             <td colspan="39">&nbsp;&nbsp;Alternativas à 1&ordf; linha</td>
@@ -165,21 +165,21 @@
         <tr>
             <td colspan="8" class="center">__/__/__</td>
             <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
+                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;<b>Motivo:</b>
             </td>
         </tr>
         <tr>
             <td colspan="8" class="center">__/__/__</td>
             <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
+                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;<b>Motivo:</b> 
             </td>
         </tr>
         <tr>
             <td colspan="8" class="center">__/__/__</td>
             <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
+                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;<b>Motivo:</b> 
             </td>
         </tr>
@@ -187,25 +187,25 @@
             <td colspan="28" class="center">Situação da Família</td>
             <td colspan="4" rowspan="9"></td>
             <td colspan="28" class="center">Situação da Família</td>
-            <td colspan="1" rowspan="4" class="center"><div style="transform: translateX(0%) translateY(0%) rotate(270deg);">2&ordf;<br>Linha</div></td>
+            <td colspan="1" rowspan="3" class="center"><div style="transform: translateX(0%) translateY(0%) rotate(270deg);">2&ordf;<br>Linha</div></td>
             <td colspan="39">&nbsp;&nbsp;Mudança para a 2&ordf; linha (ou substituição dentro da 2&ordf; linha)</td>
         </tr>
         <tr>
             <td colspan="14" class="center" style="height: 5px;">Nome</td>
             <td colspan="2" rowspan="2" class="center" style="width: 10px;">Ida-<br>de</td>
             <td colspan="2" rowspan="2" class="center text-small">Teste<br>HIV<br>(P/N/D)</td>
-            <td colspan="2" rowspan="2" class="center text-small">Cui-<br>dados<br>HIV<br>(S/N/A)</td>
+            <td colspan="2" rowspan="2" class="center text-small">Cui-<br>dados<br>HIV<br>(S/N)</td>
             <td colspan="2" rowspan="2" class="center text-small">Em<br>CCR<br>(S/N/A)</td>
             <td colspan="6" rowspan="2" class="center" style="width: 10px;">NID</td>
             <td colspan="14" class="center">Nome</td>
             <td colspan="2" rowspan="2" class="center" style="width: 10px;">Ida-<br>de</td>
             <td colspan="2" rowspan="2" class="center text-small">Teste<br>HIV<br>(P/N/D)</td>
-            <td colspan="2" rowspan="2" class="center text-small">Cui-<br>dados<br>HIV<br>(S/N/A)</td>
+            <td colspan="2" rowspan="2" class="center text-small">Cui-<br>dados<br>HIV<br>(S/N)</td>
             <td colspan="2" rowspan="2" class="center text-small">Em<br>CCR<br>(S/N/A)</td>
             <td colspan="6" rowspan="2" class="center" style="width: 10px;">NID</td>
             <td colspan="8" class="center">__/__/__</td>
             <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
+                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;<b>Motivo:</b> 
             </td>
         </tr>
@@ -219,7 +219,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="14" class="center">{{ data.familySituation[0].name }}</td>
+            <td colspan="14" class="center">{{ data.familySituation[0].name }}<span ng-if="!data.familySituation[0].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
             <td colspan="2" rowspan="2" class="center">
                 {{ data.familySituation[0].age }}
                 <span ng-if="data.familySituation[0].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
@@ -242,7 +242,7 @@
             <td colspan="6" rowspan="2" class="center">
                 <span ng-if="data.familySituation[0].nid.left && data.familySituation[0].nid.right">{{ data.familySituation[0].nid.left }}/<br>{{ data.familySituation[0].nid.right }}</span>
             </td>
-            <td colspan="14" class="center">{{ data.familySituation[3].name }}</td>
+            <td colspan="14" class="center">{{ data.familySituation[3].name }}<span ng-if="!data.familySituation[3].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
             <td colspan="2" rowspan="2" class="center">
                     {{ data.familySituation[3].age }}
                     <span ng-if="data.familySituation[3].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
@@ -265,20 +265,16 @@
             <td colspan="6" rowspan="2" class="center">
                 <span ng-if="data.familySituation[3].nid.left && data.familySituation[3].nid.right">{{ data.familySituation[3].nid.left }}/<br>{{ data.familySituation[3].nid.right }}</span>
             </td>
-            <td colspan="8" class="center">__/__/__</td>
-            <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;<b>Motivo:</b> 
-            </td>
+            <td colspan="39"></td>
         </tr>
         <tr>
-            <td colspan="14" class="center">{{ data.familySituation[0].relationship }}</td>
-            <td colspan="14" class="center">{{ data.familySituation[3].relationship }}</td>
+            <td colspan="14" class="center">{{ data.familySituation[0].relationship }}<span ng-if="!data.familySituation[0].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+            <td colspan="14" class="center">{{ data.familySituation[3].relationship }}<span ng-if="!data.familySituation[3].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
             <td colspan="1" rowspan="3" class="center"><div style="transform: translateX(0%) translateY(0%) rotate(270deg);">3&ordf;<br>Linha</div></td>
             <td colspan="39">&nbsp;&nbsp;Mudança para a 3&ordf; linha</td>
         </tr>
         <tr>
-            <td colspan="14" class="center">{{ data.familySituation[1].name }}</td>
+            <td colspan="14" class="center">{{ data.familySituation[1].name }}<span ng-if="!data.familySituation[1].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
             <td colspan="2" rowspan="2" class="center">
                 {{ data.familySituation[1].age }}
                 <span ng-if="data.familySituation[1].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
@@ -301,7 +297,7 @@
             <td rowspan="2" colspan="6" class="center">
                 <span ng-if="data.familySituation[1].nid.left && data.familySituation[1].nid.right">{{ data.familySituation[1].nid.left }}/<br>{{ data.familySituation[1].nid.right }}</span>
             </td>
-            <td colspan="14" class="center">{{ data.familySituation[4].name }}</td>
+            <td colspan="14" class="center">{{ data.familySituation[4].name }}<span ng-if="!data.familySituation[4].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
             <td colspan="2" rowspan="2" class="center">
                 {{ data.familySituation[4].age }}
                 <span ng-if="data.familySituation[4].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
@@ -331,12 +327,12 @@
             </td>
         </tr>
         <tr>
-            <td colspan="14" class="center">{{ data.familySituation[1].relationship }}</td>
-            <td colspan="14" class="center">{{ data.familySituation[4].relationship }}</td>
+            <td colspan="14" class="center">{{ data.familySituation[1].relationship }}<span ng-if="!data.familySituation[1].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+            <td colspan="14" class="center">{{ data.familySituation[4].relationship }}<span ng-if="!data.familySituation[4].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
             
         </tr>
         <tr>
-            <td colspan="14" class="center">{{ data.familySituation[2].name }}</td>
+            <td colspan="14" class="center">{{ data.familySituation[2].name }}<span ng-if="!data.familySituation[2].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
             <td colspan="2" rowspan="2" class="center">
                 {{ data.familySituation[2].age }}
                 <span ng-if="data.familySituation[2].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
@@ -359,7 +355,7 @@
             <td rowspan="2" colspan="6" class="center">
                 <span ng-if="data.familySituation[2].nid.left && data.familySituation[2].nid.right">{{ data.familySituation[2].nid.left }}/<br>{{ data.familySituation[2].nid.right }}</span>
             </td>
-            <td colspan="14" class="center">{{ data.familySituation[5].name }}</td>
+            <td colspan="14" class="center">{{ data.familySituation[5].name }}<span ng-if="!data.familySituation[5].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
             <td colspan="2" rowspan="2" class="center">
                 {{ data.familySituation[5].age }}
                 <span ng-if="data.familySituation[5].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
@@ -385,8 +381,8 @@
             <td colspan="40" class="center">Mudanças no Estado de Permanência TARV</td>
         </tr>
         <tr>
-            <td colspan="14" class="center">{{ data.familySituation[2].relationship }}</td>
-            <td colspan="14" class="center">{{ data.familySituation[5].relationship }}</td>
+            <td colspan="14" class="center">{{ data.familySituation[2].relationship }}<span ng-if="!data.familySituation[2].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+            <td colspan="14" class="center">{{ data.familySituation[5].relationship }}<span ng-if="!data.familySituation[5].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
             <td colspan="9" rowspan="2" class="center">Suspensões ou<br> Abandonos</td>
             <td colspan="8" rowspan="2">
                 <div><input type="checkbox"/>Suspensão</div>
@@ -418,7 +414,7 @@
                 &nbsp;&nbsp;<b>Teste HIV+:</b>
                 <input type="checkbox" ng-checked="data.patientInfo.typeOfTest ==='Rápido'">TR
                 <input type="checkbox" ng-checked="data.patientInfo.typeOfTest ==='PCR'">PCR
-                &nbsp;&nbsp;&nbsp;<b>Unidade Sanitária:</b> {{ data.healthFacilityInfo.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Unidade Sanitária:</b> {{ data.healthFacilityInfo.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.healthFacilityInfo.name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <input type="checkbox" ng-checked="data.patientInfo.sectorSelect === 'ATSC'">&nbsp;<b>ATSC</b>
             </td>
             <td colspan="9" rowspan="2" class="center">&nbsp;&nbsp;Data</td>
@@ -442,7 +438,7 @@
                 <span ng-if="data.patientInfo.typeOfTest ==='Diagnóstico Presuntivo'">{{ data.patientInfo.dateofHIVDiagnosis | date:'dd/MM/yy'}}</span>
             </td>
             <td colspan="50">
-                &nbsp;&nbsp;<b>Início Pré-TARV</b> - U.Sanitária: <span>{{ data.healthFacilityInfo.name }}</span>
+                &nbsp;&nbsp;<b>Início Pré-TARV</b>&nbsp;&nbsp;&nbsp;- U. Sanitária: <span>{{ data.healthFacilityInfo.name }}</span><span ng-if="!data.healthFacilityInfo.name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <b>Sector:</b> <input type="checkbox"/>TB
                 <input type="checkbox"/>SAAJ
                 <input type="checkbox" ng-checked="data.patientInfo.sectorSelect === 'CPN'"/>CPN/G
@@ -548,8 +544,7 @@
             <td colspan="29">
                 &nbsp;&nbsp;<b>Último CD4</b> (Valor/Data)
                 <span class="align-right">
-                    {{data.labOrderResult.LO_CD4.testResult}} %
-                    &nbsp;&nbsp;
+                    <span ng-if="data.labOrderResult.LO_CD4.testResult">{{data.labOrderResult.LO_CD4.testResult}} %</span>&nbsp;&nbsp;
                     <span ng-if="!data.labOrderResult.LO_CD4.testDate">__/__/__</span>
                     <span ng-if="data.labOrderResult.LO_CD4.testDate">{{ data.labOrderResult.LO_CD4.testDate | date:'dd/MM/yy' }}</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

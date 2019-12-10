@@ -105,8 +105,8 @@ angular.module('bahmni.clinical')
                     name: '',
                     surname: '',
                     relationship: '',
-                    telehone1: '',
-                    telehone2: '',
+                    telephone1: '',
+                    telephone2: '',
                     province: '',
                     district: '',
                     locality: '',
@@ -755,8 +755,12 @@ angular.module('bahmni.clinical')
                         }
                         else if (response.data[0].concept.name == "CTZ_Details") {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-                                masterCardModel.patientInfo.CTZ_end = response.data[1].value;
-                                masterCardModel.patientInfo.CTZ_start = response.data[0].value;
+                                if (response.data[1].value) {
+                                    masterCardModel.patientInfo.CTZ_end = response.data[1].value;
+                                }
+                                if (response.data[0].value) {
+                                    masterCardModel.patientInfo.CTZ_start = response.data[0].value;
+                                }
                             });
                         }
                         else if ((response.data[0].concept.name == "INH_Details")) {
@@ -1156,9 +1160,9 @@ angular.module('bahmni.clinical')
                                 } else if (detail.concept.name === 'CONFIDENT_RELATIONSHIP') {
                                     masterCardModel.confident.relationship = detail.value.shortName;
                                 } else if (detail.concept.name === 'CONFIDENT_TELEPHONE1') {
-                                    masterCardModel.confident.telehone1 = detail.value;
+                                    masterCardModel.confident.telephone1 = detail.value;
                                 } else if (detail.concept.name === 'CONFIDENT_TELEPHONE2') {
-                                    masterCardModel.confident.telehone2 = detail.value;
+                                    masterCardModel.confident.telephone2 = detail.value;
                                 } else if (detail.concept.name === 'CONFIDENT_PROVINCE') {
                                     masterCardModel.confident.province = detail.value;
                                 } else if (detail.concept.name === 'CONFIDENT_DISTRICT') {
