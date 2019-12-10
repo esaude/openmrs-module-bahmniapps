@@ -107,8 +107,8 @@ angular.module('bahmni.clinical')
                     name: '',
                     surname: '',
                     relationship: '',
-                    telehone1: '',
-                    telehone2: '',
+                    telephone1: '',
+                    telephone2: '',
                     province: '',
                     district: '',
                     locality: '',
@@ -1354,34 +1354,43 @@ angular.module('bahmni.clinical')
                                         masterCardModel.patientInfo.apssAgreementContactType = apssATCACTVisit;
                                     }
                                 }
+                            }
 
-                                for (var k = 0; k < masterCardModel.patientInfo.psychosocialFactors.length; k++) {
-                                    if (masterCardModel.patientInfo.psychosocialFactors[k].apssPreTARVCounsellingComments) {
-                                        masterCardModel.patientInfo.apssPreTARVCounsellingComments = masterCardModel.patientInfo.psychosocialFactors[k].apssPreTARVCounsellingComments;
-                                    }
-                                } if (masterCardModel.patientInfo.psychosocialFactors.length < 12) {
-                                    masterCardModel.patientInfo.fichaClinicaEmpty = [];
-                                    masterCardModel.patientInfo.psychosocialFactorsActualEmpty = [];
-                                    for (var m = 0; m < 12 - masterCardModel.patientInfo.psychosocialFactors.length; m++) {
-                                        masterCardModel.patientInfo.psychosocialFactorsActualEmpty.push(m);
-                                        masterCardModel.patientInfo.fichaClinicaEmpty.push(m);
-                                    }
+                            for (var k = 0; k < masterCardModel.patientInfo.psychosocialFactors.length; k++) {
+                                if (masterCardModel.patientInfo.psychosocialFactors[k].apssPreTARVCounsellingComments) {
+                                    masterCardModel.patientInfo.apssPreTARVCounsellingComments = masterCardModel.patientInfo.psychosocialFactors[k].apssPreTARVCounsellingComments;
                                 }
-                                if (masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length === 0) {
-                                    masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [1];
-                                    masterCardModel.patientInfo.fichaClinicaNextEmpty = [1];
-                                } else {
-                                    for (var n = 0; n < masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length; n++) {
-                                        masterCardModel.patientInfo.psychosocialFactorsNextEmpty.push(n);
-                                        masterCardModel.patientInfo.fichaClinicaNextEmpty.push(n);
-                                    }
-                                    masterCardModel.patientInfo.psychosocialFactorsNextEmpty = masterCardModel.patientInfo.psychosocialFactorsNextEmpty;
-                                    masterCardModel.patientInfo.fichaClinicaNextEmpty = masterCardModel.patientInfo.fichaClinicaNextEmpty;
+                            }
+
+                            for (var l = 0; l < masterCardModel.patientInfo.psychosocialFactors.length; l++) {
+                                if (masterCardModel.patientInfo.psychosocialFactors[l + 1] && (masterCardModel.patientInfo.psychosocialFactors.length - 1) !== l) {
+                                    masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = masterCardModel.patientInfo.psychosocialFactors[l + 1].actualVisit;
+                                } else if ((masterCardModel.patientInfo.psychosocialFactors.length - 1) === l) {
+                                    masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = '__/__/__';
                                 }
-                                for (var q = 0; q < masterCardModel.patientInfo.psychosocialFactors.length; q++) {
-                                    if (masterCardModel.patientInfo.psychosocialFactors[q].apssDifferentiatedModelsDate && !masterCardModel.patientInfo.apssDifferentiatedModelsDate) {
-                                        masterCardModel.patientInfo.apssDifferentiatedModelsDate = masterCardModel.patientInfo.psychosocialFactors[q].apssDifferentiatedModelsDate;
-                                    }
+                            }
+                            if (masterCardModel.patientInfo.psychosocialFactors.length < 12) {
+                                masterCardModel.patientInfo.psychosocialFactorsActualEmpty = [];
+                                masterCardModel.patientInfo.fichaClinicaEmpty = [];
+                                for (var m = 0; m < 12 - masterCardModel.patientInfo.psychosocialFactors.length; m++) {
+                                    masterCardModel.patientInfo.psychosocialFactorsActualEmpty.push(m);
+                                    masterCardModel.patientInfo.fichaClinicaEmpty.push(m);
+                                }
+                            }
+                            if (masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length === 0) {
+                                masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [1];
+                                masterCardModel.patientInfo.fichaClinicaNextEmpty = [1];
+                            } else {
+                                masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [];
+                                masterCardModel.patientInfo.fichaClinicaNextEmpty = [];
+                                for (var n = 0; n < masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length; n++) {
+                                    masterCardModel.patientInfo.psychosocialFactorsNextEmpty.push(n);
+                                    masterCardModel.patientInfo.fichaClinicaNextEmpty.push(n);
+                                }
+                            }
+                            for (var q = 0; q < masterCardModel.patientInfo.psychosocialFactors.length; q++) {
+                                if (masterCardModel.patientInfo.psychosocialFactors[q].apssDifferentiatedModelsDate && !masterCardModel.patientInfo.apssDifferentiatedModelsDate) {
+                                    masterCardModel.patientInfo.apssDifferentiatedModelsDate = masterCardModel.patientInfo.psychosocialFactors[q].apssDifferentiatedModelsDate;
                                 }
                             }
                         } else {
@@ -1591,10 +1600,17 @@ angular.module('bahmni.clinical')
                         }
                         else if (response.data[0].concept.name == "CTZ_Details") {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
+<<<<<<< HEAD
                                 if (response.data[1]) {
                                     masterCardModel.patientInfo.CTZ_end = response.data[1].value;
                                 }
                                 if (response.data[0]) {
+=======
+                                if (response.data[1].value) {
+                                    masterCardModel.patientInfo.CTZ_end = response.data[1].value;
+                                }
+                                if (response.data[0].value) {
+>>>>>>> develop
                                     masterCardModel.patientInfo.CTZ_start = response.data[0].value;
                                 }
                             });
@@ -1975,9 +1991,9 @@ angular.module('bahmni.clinical')
                                 } else if (detail.concept.name === 'CONFIDENT_RELATIONSHIP') {
                                     masterCardModel.confident.relationship = detail.value.shortName;
                                 } else if (detail.concept.name === 'CONFIDENT_TELEPHONE1') {
-                                    masterCardModel.confident.telehone1 = detail.value;
+                                    masterCardModel.confident.telephone1 = detail.value;
                                 } else if (detail.concept.name === 'CONFIDENT_TELEPHONE2') {
-                                    masterCardModel.confident.telehone2 = detail.value;
+                                    masterCardModel.confident.telephone2 = detail.value;
                                 } else if (detail.concept.name === 'CONFIDENT_PROVINCE') {
                                     masterCardModel.confident.province = detail.value;
                                 } else if (detail.concept.name === 'CONFIDENT_DISTRICT') {
