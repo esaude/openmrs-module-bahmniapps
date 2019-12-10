@@ -544,10 +544,10 @@ angular.module('bahmni.clinical')
                             if (masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length === 0) {
                                 masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [1];
                             } else {
+                                masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [];
                                 for (var n = 0; n < masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length; n++) {
                                     masterCardModel.patientInfo.psychosocialFactorsNextEmpty.push(n);
                                 }
-                                masterCardModel.patientInfo.psychosocialFactorsNextEmpty = masterCardModel.patientInfo.psychosocialFactorsNextEmpty;
                             }
                             for (var q = 0; q < masterCardModel.patientInfo.psychosocialFactors.length; q++) {
                                 if (masterCardModel.patientInfo.psychosocialFactors[q].apssDifferentiatedModelsDate && !masterCardModel.patientInfo.apssDifferentiatedModelsDate) {
