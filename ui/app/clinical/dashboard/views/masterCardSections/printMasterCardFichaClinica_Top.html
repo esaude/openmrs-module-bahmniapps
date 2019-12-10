@@ -1,4 +1,10 @@
-<style>
+<style type="text/css">
+
+@media print and (orientation: portrait) {
+       .page {
+        transform: translate(-240px,-200px) rotate(90deg);
+      }
+    }
   
   table {
   table-layout: fixed;
@@ -7,7 +13,7 @@
     .tg {
       text-align: center;
       font-family: Arial, sans-serif;
-      font-size: 10;
+      font-size: 9;
       border-collapse: collapse;
     }
 
@@ -21,7 +27,7 @@
     .tg th {
       border-collapse: collapse;
       font-family: Arial, sans-serif;
-      font-size: 10;
+      font-size: 9;
       font-weight: normal;
       border-style: solid;
       border-width: 1px;
@@ -31,7 +37,7 @@
     .tg tr {
       border-collapse: collapse;
       font-family: Arial, sans-serif;
-      font-size: 10;
+      font-size: 9;
       font-weight: normal;
       border-style: dashed;
       border-width: 1px;
@@ -44,7 +50,7 @@
 
     .tla {
       font-family: Arial, sans-serif;
-      font-size: 14;
+      font-size: 12;
       font-weight: normal;
       border-collapse: collapse;
       margin-right:auto;
@@ -53,7 +59,7 @@
 
     .tlb {
       font-family: Arial, sans-serif;
-      font-size: 14;
+      font-size: 12;
       font-weight: normal;
       border-collapse: collapse;
       margin-right:0%;
@@ -74,13 +80,13 @@
 
     .tx {
       font-family: Arial, sans-serif;
-      font-size: 14;
+      font-size: 12;
       display: "inline-block"
     }
 
     .txs {
       font-family: Arial, sans-serif;
-      font-size: 8 !important;
+      font-size: 8;
       display: "inline-block"
     }
 
@@ -92,15 +98,7 @@
         padding-top: 1px;
         padding-bottom: 1px;
     }
-
-    @media print and (orientation: portrait) {
-       .page {
-        display: block;
-        page-break-before: always;
-        transform: translate(-240px,-200px) rotate(90deg);
-      }
-    }
-  </style>
+</style>
 
 <body class='page'>
   <table class="tla">
