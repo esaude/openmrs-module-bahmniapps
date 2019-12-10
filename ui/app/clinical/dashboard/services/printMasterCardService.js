@@ -753,8 +753,12 @@ angular.module('bahmni.clinical')
                         }
                         else if (response.data[0].concept.name == "CTZ_Details") {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-                                masterCardModel.patientInfo.CTZ_end = response.data[1].value;
-                                masterCardModel.patientInfo.CTZ_start = response.data[0].value;
+                                if (response.data[1].value) {
+                                    masterCardModel.patientInfo.CTZ_end = response.data[1].value;
+                                }
+                                if (response.data[0].value) {
+                                    masterCardModel.patientInfo.CTZ_start = response.data[0].value;
+                                }
                             });
                         }
                         else if ((response.data[0].concept.name == "INH_Details")) {

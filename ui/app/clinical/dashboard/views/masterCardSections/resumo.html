@@ -134,16 +134,16 @@
         <tr>
             <td colspan="8" rowspan="2" class="center">No início<br>TARV</td>
             <td colspan="31">
-                &nbsp;&nbsp;Gravidez: <input type="checkbox" class="text-right"/>
-                Sim <input type="checkbox" class="text-right"/>
-                Não <input type="checkbox" class="text-right"/>
-                Lactante <input type="checkbox" class="text-right"/>
-                Sim <input type="checkbox" class="text-right"/>
-                Não <input type="checkbox" class="text-right"/>
+                &nbsp;&nbsp;<b>Gravidez:</b> 
+                <input type="checkbox" class="text-right"/>Sim
+                <input type="checkbox" class="text-right"/>Não
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Lactante:</b>
+                <input type="checkbox" class="text-right"/>Sim
+                <input type="checkbox" class="text-right"/>Não
             </td>
         </tr>
         <tr>
-            <td colspan="31">&nbsp;&nbsp;<b>Estado de OMS:</b> <span>III</span> <b>CD4 (N° / %):</b></td>
+            <td colspan="31">&nbsp;&nbsp;<b>Estado de OMS:</b> <span></span> <b>CD4 (N° / %):</b></td>
         </tr>
         <tr>
             <td colspan="60" rowspan="4">
@@ -165,21 +165,21 @@
         <tr>
             <td colspan="8" class="center">__/__/__</td>
             <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
+                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;<b>Motivo:</b>
             </td>
         </tr>
         <tr>
             <td colspan="8" class="center">__/__/__</td>
             <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
+                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;<b>Motivo:</b> 
             </td>
         </tr>
         <tr>
             <td colspan="8" class="center">__/__/__</td>
             <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
+                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;<b>Motivo:</b> 
             </td>
         </tr>
@@ -187,7 +187,7 @@
             <td colspan="28" class="center">Situação da Família</td>
             <td colspan="4" rowspan="9"></td>
             <td colspan="28" class="center">Situação da Família</td>
-            <td colspan="1" rowspan="4" class="center"><div style="transform: translateX(0%) translateY(0%) rotate(270deg);">2&ordf;<br>Linha</div></td>
+            <td colspan="1" rowspan="3" class="center"><div style="transform: translateX(0%) translateY(0%) rotate(270deg);">2&ordf;<br>Linha</div></td>
             <td colspan="39">&nbsp;&nbsp;Mudança para a 2&ordf; linha (ou substituição dentro da 2&ordf; linha)</td>
         </tr>
         <tr>
@@ -205,7 +205,7 @@
             <td colspan="6" rowspan="2" class="center" style="width: 10px;">NID</td>
             <td colspan="8" class="center">__/__/__</td>
             <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
+                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;<b>Motivo:</b> 
             </td>
         </tr>
@@ -265,11 +265,7 @@
             <td colspan="6" rowspan="2" class="center">
                 <span ng-if="data.familySituation[3].nid.left && data.familySituation[3].nid.right">{{ data.familySituation[3].nid.left }}/<br>{{ data.familySituation[3].nid.right }}</span>
             </td>
-            <td colspan="8" class="center">__/__/__</td>
-            <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;<b>Motivo:</b> 
-            </td>
+            <td colspan="39"></td>
         </tr>
         <tr>
             <td colspan="14" class="center">{{ data.familySituation[0].relationship }}<span ng-if="!data.familySituation[0].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
@@ -418,7 +414,7 @@
                 &nbsp;&nbsp;<b>Teste HIV+:</b>
                 <input type="checkbox" ng-checked="data.patientInfo.typeOfTest ==='Rápido'">TR
                 <input type="checkbox" ng-checked="data.patientInfo.typeOfTest ==='PCR'">PCR
-                &nbsp;&nbsp;&nbsp;<b>Unidade Sanitária:</b> {{ data.healthFacilityInfo.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Unidade Sanitária:</b> {{ data.healthFacilityInfo.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.healthFacilityInfo.name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <input type="checkbox" ng-checked="data.patientInfo.sectorSelect === 'ATSC'">&nbsp;<b>ATSC</b>
             </td>
             <td colspan="9" rowspan="2" class="center">&nbsp;&nbsp;Data</td>
@@ -442,7 +438,7 @@
                 <span ng-if="data.patientInfo.typeOfTest ==='Diagnóstico Presuntivo'">{{ data.patientInfo.dateofHIVDiagnosis | date:'dd/MM/yy'}}</span>
             </td>
             <td colspan="50">
-                &nbsp;&nbsp;<b>Início Pré-TARV</b> - U.Sanitária: <span>{{ data.healthFacilityInfo.name }}</span>
+                &nbsp;&nbsp;<b>Início Pré-TARV</b>&nbsp;&nbsp;&nbsp;- U. Sanitária: <span>{{ data.healthFacilityInfo.name }}</span><span ng-if="!data.healthFacilityInfo.name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <b>Sector:</b> <input type="checkbox"/>TB
                 <input type="checkbox"/>SAAJ
                 <input type="checkbox" ng-checked="data.patientInfo.sectorSelect === 'CPN'"/>CPN/G
@@ -548,8 +544,7 @@
             <td colspan="29">
                 &nbsp;&nbsp;<b>Último CD4</b> (Valor/Data)
                 <span class="align-right">
-                    {{data.labOrderResult.LO_CD4.testResult}} %
-                    &nbsp;&nbsp;
+                    <span ng-if="data.labOrderResult.LO_CD4.testResult">{{data.labOrderResult.LO_CD4.testResult}} %</span>&nbsp;&nbsp;
                     <span ng-if="!data.labOrderResult.LO_CD4.testDate">__/__/__</span>
                     <span ng-if="data.labOrderResult.LO_CD4.testDate">{{ data.labOrderResult.LO_CD4.testDate | date:'dd/MM/yy' }}</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
