@@ -1,16 +1,16 @@
 <style>
-@media print and (orientation: portrait) {
-       .page {
-        transform: translate(-240px,-200px) rotate(90deg);
+    .page {
+        transform: translate(-240px,-100px) rotate(90deg);
       }
-    }
-  
+
   table {
   table-layout: fixed;
      }
 
     .tg {
       text-align: center;
+      writing-mode: horizontal-tb;
+      /*word-break: normal;*/
       font-family: Arial, sans-serif;
       font-size: 7;
       border-collapse: collapse;
@@ -44,6 +44,16 @@
       border-color: black;
     }
 
+    .table-small {
+      font-family: Arial, sans-serif;
+      font-size: 10;
+      font-weight: normal;
+      border-collapse: collapse; 
+      border-style: solid;
+      border-width: 1px;
+      border-color: black;
+    }
+
     .text-top {
       font-family: Arial, sans-serif;
       font-size: 10;
@@ -66,12 +76,12 @@
     }
 </style>
 
-<body class="page" width="100%">
-  <table class="table-small" style="margin-left: 0%; margin-right: auto;font-family: Arial, sans-serif;font-size: 10;font-weight: normal;border-collapse: collapse; border-style: solid;border-width: 1px;border-color: black;">
+<body class="page">
+  <table class="table-small" style="margin-left: 0%; margin-right: auto;">
     <th>Ficha Clinica</th>
   </table>
 
-  <table class="table-small" style="margin-left: auto; margin-right: 0%;font-family: Arial, sans-serif;font-size: 10;font-weight: normal;border-collapse: collapse; border-style: solid;border-width: 1px;border-color: black;">
+  <table class="table-small" style="margin-left: auto; margin-right: 0%;">
     <tr>
       <td>População Chave - HSH<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_PID'">
         PID<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_HSH'">
@@ -91,7 +101,7 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-top">TARV-Coorte (Mês / Ano):{{ps.treatmentStartDate | date:'MMM/yy'}} </span> </div>
   
 
-  <table class="tg" width='100%'>
+  <table class="tg" width='130%'>
     <tr>
       <th class="tg-9wq8"></th>
       <th class="tg-9wq8">1</th>
