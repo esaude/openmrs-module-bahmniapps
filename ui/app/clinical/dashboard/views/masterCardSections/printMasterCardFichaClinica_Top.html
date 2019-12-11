@@ -10,7 +10,7 @@
     .tg {
       text-align: center;
       writing-mode: horizontal-tb;
-      /*word-break: normal;*/
+      word-break: normal;
       font-family: Arial, sans-serif;
       font-size: 7;
       border-collapse: collapse;
@@ -44,7 +44,7 @@
       border-color: black;
     }
 
-    .table-small {
+    .table-smalla {
       font-family: Arial, sans-serif;
       font-size: 10;
       font-weight: normal;
@@ -52,12 +52,24 @@
       border-style: solid;
       border-width: 1px;
       border-color: black;
+      width: 10%;
     }
 
-    .text-top {
+    .table-smallb {
       font-family: Arial, sans-serif;
       font-size: 10;
-      display: "inline"
+      font-weight: normal;
+      border-collapse: collapse; 
+      border-style: solid;
+      border-width: 1px;
+      border-color: black;
+      width: 20%;
+    }
+
+    .text-up {
+      font-family: Arial, sans-serif;
+      font-size: 9;
+      display: "inline-block"
     }
 
     .text-small {
@@ -77,11 +89,11 @@
 </style>
 
 <body class="page">
-  <table class="table-small" style="margin-left: 0%; margin-right: auto;">
+  <table class="table-smalla" style="transform: translate(0px)">
     <th>Ficha Clinica</th>
   </table>
 
-  <table class="table-small" style="margin-left: auto; margin-right: 0%;">
+  <table class="table-smallb" style="transform: translate(1436px)">
     <tr>
       <td>População Chave - HSH<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_PID'">
         PID<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_HSH'">
@@ -94,14 +106,13 @@
     </tr>
   </table>
 
+  <div> <span class="text-up"> Nome: {{patient.name}}</span></div>
   <br>
-  <div> <span class="text-top"> Nome: {{patient.name}}</span></div>
-  <br>
-  <div> <span class="text-top">NID (US / Anual / Individual): {{patient.identifier}}</span>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-top">TARV-Coorte (Mês / Ano):{{ps.treatmentStartDate | date:'MMM/yy'}} </span> </div>
+  <div> <span class="text-up">NID (US / Anual / Individual): {{patient.identifier}}</span>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-up">TARV-Coorte (Mês / Ano):{{ps.treatmentStartDate | date:'MMM/yy'}} </span> </div>
   
 
-  <table class="tg" width='130%'>
+  <table class="tg" width='100%'>
     <tr>
       <th class="tg-9wq8"></th>
       <th class="tg-9wq8">1</th>
