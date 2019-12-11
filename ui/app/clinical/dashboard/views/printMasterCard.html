@@ -5,21 +5,23 @@
         }
     }
 
-    @media print and (orientation: portrait) {
-        .page-break {
+    @media print and (orientation: landscape) {
+        .page-break2 {
             display: block;
-            page-break-before: always;
+            page-break-before: always !important;
+            transform: translate(-170px,400px) rotate(90deg);
+            width: 142%;
         }
     }
 
-    @media print and (orientation: landscape) {
+  /* @media print and (orientation: landscape) {
         .page-breakClinico {
             display: block;
             page-break-before: always;
         transform: translate(-180px,385px) rotate(90deg);
         width: 140%;
       }
-    }
+    }*/
 
 </style>
 
@@ -28,9 +30,9 @@
       <div ng-include src="'dashboard/views/masterCardSections/resumo.html'"></div>
         <br>
         <div ng-include src="'dashboard/views/masterCardSections/apss.html'"></div>
-        <br>
-        <div ng-include class="page-breakClinico" src="'dashboard/views/masterCardSections/printMasterCardFichaClinica_Top.html'"></div>
-<br>
+  
+        <div ng-include class="page-break2" src="'dashboard/views/masterCardSections/printMasterCardFichaClinica_Top.html'"></div>
+
        <div ng-include src="'dashboard/views/masterCardSections/clinicoBottom.html'"></div>
      <!--   <div class="page-break"></div>
         <div ng-include src="'dashboard/views/masterCardSections/clinico.html'"></div>
