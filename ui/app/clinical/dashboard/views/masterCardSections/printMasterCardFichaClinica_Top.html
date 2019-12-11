@@ -1,5 +1,4 @@
-<style type="text/css">
-
+<style>
 @media print and (orientation: portrait) {
        .page {
         transform: translate(-240px,-200px) rotate(90deg);
@@ -13,8 +12,9 @@
     .tg {
       text-align: center;
       font-family: Arial, sans-serif;
-      font-size: 9;
+      font-size: 7;
       border-collapse: collapse;
+      border-color: inherit;
     }
 
     .tg td {
@@ -27,7 +27,7 @@
     .tg th {
       border-collapse: collapse;
       font-family: Arial, sans-serif;
-      font-size: 9;
+      font-size: 7;
       font-weight: normal;
       border-style: solid;
       border-width: 1px;
@@ -37,56 +37,22 @@
     .tg tr {
       border-collapse: collapse;
       font-family: Arial, sans-serif;
-      font-size: 9;
+      font-size: 7;
       font-weight: normal;
       border-style: dashed;
       border-width: 1px;
       border-color: black;
     }
 
-    .tg, .tg-9wq8 {
-      border-color: inherit;
-    }
-
-    .tla {
+    .text-top {
       font-family: Arial, sans-serif;
-      font-size: 12;
-      font-weight: normal;
-      border-collapse: collapse;
-      margin-right:auto;
-      margin-left: 0%;
+      font-size: 10;
+      display: "inline"
     }
 
-    .tlb {
+    .text-small {
       font-family: Arial, sans-serif;
-      font-size: 12;
-      font-weight: normal;
-      border-collapse: collapse;
-      margin-right:0%;
-      margin-left: auto;
-    }
-
-    .tla, .tlb td {
-      border-style: solid;
-      border-width: 1px;
-      border-color: black;
-    }
-
-    .tla, .tlb th {
-      border-style: solid;
-      border-width: 1px;
-      border-color: black;
-    }
-
-    .tx {
-      font-family: Arial, sans-serif;
-      font-size: 12;
-      display: "inline-block"
-    }
-
-    .txs {
-      font-family: Arial, sans-serif;
-      font-size: 8;
+      font-size: 7;
       display: "inline-block"
     }
 
@@ -100,12 +66,12 @@
     }
 </style>
 
-<body class='page'>
-  <table class="tla">
+<body class="page" width="100%">
+  <table class="table-small" style="margin-left: 0%; margin-right: auto;font-family: Arial, sans-serif;font-size: 10;font-weight: normal;border-collapse: collapse; border-style: solid;border-width: 1px;border-color: black;">
     <th>Ficha Clinica</th>
   </table>
 
-  <table class="tlb">
+  <table class="table-small" style="margin-left: auto; margin-right: 0%;font-family: Arial, sans-serif;font-size: 10;font-weight: normal;border-collapse: collapse; border-style: solid;border-width: 1px;border-color: black;">
     <tr>
       <td>População Chave - HSH<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_PID'">
         PID<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_HSH'">
@@ -119,12 +85,11 @@
   </table>
 
   <br>
-  <div class="tx"> <span> Nome: {{patient.name}}</span></div>
+  <div> <span class="text-top"> Nome: {{patient.name}}</span></div>
   <br>
-  <div class="tx"> <span>NID (US / Anual / Individual): {{patient.identifier}}</span>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>TARV-Coorte (Mês / Ano):
-      {{ps.treatmentStartDate | date:'MMM/yy'}} </span> </div>
-  <br>
+  <div> <span class="text-top">NID (US / Anual / Individual): {{patient.identifier}}</span>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-top">TARV-Coorte (Mês / Ano):{{ps.treatmentStartDate | date:'MMM/yy'}} </span> </div>
+  
 
   <table class="tg" width='100%'>
     <tr>
@@ -157,77 +122,77 @@
     </tr>
     <tr style="border-style: solid solid solid solid; border-width: 1px">
       <td class="tg-9wq8" rowspan="4">
-        <div style="transform:rotate(-90deg)">Processo X</div>
+        <div class="text-small" style="transform:rotate(-90deg)">Processo X</div>
       </td>
-      <td class="tg-9wq8" rowspan="2">Consulta Actual / Outros <span class='txs'>(d/ m/ a)</span></td>
-      <td class="tg-9wq8" rowspan="2">Idade <span class='txs'>(Se ≥ 5 anos em anos; se ≤ 5 anos em meses)</span></td>
-      <td class="tg-9wq8" rowspan="2">Gravidez / Data Última Menstruação / Lactante <span class='txs'>(G - Data DUM/ L)</span></td>
-      <td class="tg-9wq8" rowspan="2">Estadio OMS <span class='txs'>(I, II, III, IV)</span></td>
+      <td class="tg-9wq8" rowspan="2">Consulta Actual / Outros <span class="text-small">(d/ m/ a)</span></td>
+      <td class="tg-9wq8" rowspan="2">Idade <span class="text-small">(Se ≥ 5 anos em anos; se ≤ 5 anos em meses)</span></td>
+      <td class="tg-9wq8" rowspan="2">Gravidez / Data Última Menstruação / Lactante <span class="text-small">(G - Data DUM/ L)</span></td>
+      <td class="tg-9wq8" rowspan="2">Estadio OMS <span class="text-small">(I, II, III, IV)</span></td>
       <td class="tg-9wq8">Peso(kg)</td>
-      <td class="tg-9wq8" rowspan="3">PB <span class='txs'>(Grávida; 6 meses do pós-parto; Criança de 6-59 meses)</span></td>
+      <td class="tg-9wq8" rowspan="3">PB <span class="text-small">(Grávida; 6 meses do pós-parto; Criança de 6-59 meses)</span></td>
       <td class="tg-9wq8" rowspan="2">Avaliação Nutricional</td>
-      <td class="tg-9wq8" rowspan="3">Recebeu Apoio / Educação nutricional <span class='txs'>(Não / Tipo)</span></td>
+      <td class="tg-9wq8" rowspan="3">Recebeu Apoio / Educação nutricional <span class="text-small">(Não / Tipo)</span></td>
       <td class="tg-9wq8" colspan="2">Tuberculose</td>
-      <td class="tg-9wq8" rowspan="2">Profilaxia INH <span class='txs'>(Início / Continua / Fim - I / C / F)</span></td>
+      <td class="tg-9wq8" rowspan="2">Profilaxia INH <span class="text-small">(Início / Continua / Fim - I / C / F)</span></td>
       <td class="tg-9wq8" rowspan="2">Ef. Secundários</td>
       <td class="tg-9wq8">ITS</td>
-      <td class="tg-9wq8" rowspan="4">Infecções Oportunistas,Incluindo Sarcome Kaposi, outras doenças <span class='txs'>(Não / Diagnóstico)</span></td>
+      <td class="tg-9wq8" rowspan="4">Infecções Oportunistas,Incluindo Sarcome Kaposi, outras doenças <span class="text-small">(Não / Diagnóstico)</span></td>
       <td class="tg-9wq8" colspan="2">Investigações</td>
       <td class="tg-9wq8" colspan="5">TARV</td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8" colspan="3">Referência para:</td>
       <td class="tgt" rowspan="4">
-        <div style="transform:rotate(-90deg)">RUBRICA</div>
+        <div class="text-small" style="transform:rotate(-90deg)">RUBRICA</div>
       </td>
     </tr>
     <tr style="border-style: solid; border-width: 1px">
-      <td class="tg-9wq8" rowspan="3">Comprimento / Altura <span class='txs'>(Se ≥ 5 anos em metros; se ≤ 5 anos em cm)</span> </td>
-      <td class="tg-9wq8" rowspan="2">Tem sintomas?<span class='txs'>(S / N)</span></td>
-      <td class="tg-9wq8" rowspan="2">Diagnóstico TB activa <span class='txs'>(S / N)</span></td>
-      <td class="tg-9wq8" rowspan="2">Tem sintomas? <span class='txs'>(S / N)</span></td>
-      <td class="tg-9wq8" rowspan="2">Carga Viral <span class='txs'>(Pedido / Cópias / ml)</span></td>
-      <td class="tg-9wq8" rowspan="3">Hemoglobina (Hg) /Transaminases (AST / ALT) / Glicemia (GL) Creatinina (CR) / Amilase (AM) / Outros (O) <span class='txs'>(<span style="text-decoration:underline">Pedido</span> - Marcar com círculo; <span
+      <td class="tg-9wq8" rowspan="3">Comprimento / Altura <span class="text-small">(Se ≥ 5 anos em metros; se ≤ 5 anos em cm)</span> </td>
+      <td class="tg-9wq8" rowspan="2">Tem sintomas?<span class="text-small">(S / N)</span></td>
+      <td class="tg-9wq8" rowspan="2">Diagnóstico TB activa <span class="text-small">(S / N)</span></td>
+      <td class="tg-9wq8" rowspan="2">Tem sintomas? <span class="text-small">(S / N)</span></td>
+      <td class="tg-9wq8" rowspan="2">Carga Viral <span class="text-small">(Pedido / Cópias / ml)</span></td>
+      <td class="tg-9wq8" rowspan="3">Hemoglobina (Hg) /Transaminases (AST / ALT) / Glicemia (GL) Creatinina (CR) / Amilase (AM) / Outros (O) <span class="text-small">(<span style="text-decoration:underline">Pedido</span> - Marcar com círculo; <span
           style="text-decoration:underline">Resultado</span> - Valor)</span></td>
-      <td class="tg-9wq8" rowspan="2">Linha - Dispensa mensal / Trimestral <span class='txs'>(1ª / 2ª / 3ª Linha - DM / DT)</span></td>
+      <td class="tg-9wq8" rowspan="2">Linha - Dispensa mensal / Trimestral <span class="text-small">(1ª / 2ª / 3ª Linha - DM / DT)</span></td>
       <td class="tg-9wq8" rowspan="3"><span style="text-decoration:underline">Para cada ARV</span> Posologia de cada dose
         e № de doses /dia</td>
-      <td class="tg-9wq8" rowspan="2">Alternativa ou Mudança linha? <span class='txs'>(Não / A - M)</span></td>
-      <td class="tg-9wq8" rowspan="2">Efeitos Secundários <span class='txs'>(Não / Código - Grau)</span></td>
+      <td class="tg-9wq8" rowspan="2">Alternativa ou Mudança linha? <span class="text-small">(Não / A - M)</span></td>
+      <td class="tg-9wq8" rowspan="2">Efeitos Secundários <span class="text-small">(Não / Código - Grau)</span></td>
       <td class="tg-9wq8" rowspan="3">Mudança Estado P<span
           style="font-weight:inherit;font-style:inherit">ermanência</span><span
           style="font-weight:inherit;font-style:inherit">&nbsp;&nbsp;TARV</span><br>R<br>S&nbsp;&nbsp;&nbsp;A<br>O&nbsp;&nbsp;&nbsp;T
       </td>
-      <td class="tg-9wq8" rowspan="3">Outras prescrições<span class='txs'>(Excluir TPI, TPC e ARVs)</span></td>
+      <td class="tg-9wq8" rowspan="3">Outras prescrições<span class="text-small">(Excluir TPI, TPC e ARVs)</span></td>
       <td class="tg-9wq8" rowspan="3">TB / PTV / PF /APSS e PP /Revelação Di<span
           style="font-weight:inherit;font-style:inherit">agnóstica /</span><span
           style="font-weight:inherit;font-style:inherit">Internamento / Outro</span></td>
-      <td class="tg-9wq8">Grupo de Apoio <span class='txs'>(Código)</span></td>
-      <td class="tg-9wq8">Modelo Diferenciado de Cuidados <span class='txs'>(MDC) Código</span></td>
+      <td class="tg-9wq8">Grupo de Apoio <span class="text-small">(Código)</span></td>
+      <td class="tg-9wq8">Modelo Diferenciado de Cuidados <span class="text-small">(MDC) Código</span></td>
     </tr>
     <tr style="border-style: solid; border-width: 1px">
-      <td class="tg-9wq8" rowspan="2">Próxima Consulta <span class='txs'>(d/ m/ a)</span></td>
+      <td class="tg-9wq8" rowspan="2">Próxima Consulta <span class="text-small">(d/ m/ a)</span></td>
       <td class="tg-9wq8" rowspan="2">Tensão Arterial</td>
-      <td class="tg-9wq8" rowspan="2">Plan. Familiar <span class='txs'>(Não / Método)</span></td>
-      <td class="tg-9wq8" rowspan="2">Criança Edemas <span class='txs'></span>(o / +  ++  +++)</td>
-      <td class="tg-9wq8">Indicador <span class='txs'>(IMC; PB; IMC / Idade; P / E)</span></td>
-      <td class="tg-9wq8" rowspan="2">Profilaxia CTZ <span class='txs'>(Início / Continua / Fim - I / C / F)</span></td>
-      <td class="tg-9wq8">INH <span class='txs'>(S / N)</span></td>
-      <td class="tg-9wq8" colspan="2">Elegível <span class='txs'>(S / N)</span></td>
+      <td class="tg-9wq8" rowspan="2">Plan. Familiar <span class="text-small">(Não / Método)</span></td>
+      <td class="tg-9wq8" rowspan="2">Criança Edemas <span class="text-small"></span>(o / +  ++  +++)</td>
+      <td class="tg-9wq8">Indicador <span class="text-small">(IMC; PB; IMC / Idade; P / E)</span></td>
+      <td class="tg-9wq8" rowspan="2">Profilaxia CTZ <span class="text-small">(Início / Continua / Fim - I / C / F)</span></td>
+      <td class="tg-9wq8">INH <span class="text-small">(S / N)</span></td>
+      <td class="tg-9wq8" colspan="2">Elegível <span class="text-small">(S / N)</span></td>
     </tr>
     <tr>
-      <td class="tg-9wq8">IMC <span class='txs'>(Kg / m2)</span></td>
-      <td class="tg-9wq8">Grau <span class='txs'>(Normal / Ligeira / DAM / DAG)</span></td>
+      <td class="tg-9wq8">IMC <span class="text-small">(Kg / m2)</span></td>
+      <td class="tg-9wq8">Grau <span class="text-small">(Normal / Ligeira / DAM / DAG)</span></td>
       <td class="tg-9wq8">Quantidade </td>
-      <td class="tg-9wq8">Quais sintomas? <span class='txs'>(FESTAC; adenopatias)</span></td>
-      <td class="tg-9wq8">Tratamento TB <span class='txs'>(cartão / TB - Data de Início e Fim) (Início / Continua / Fim) (d / m / a - I /
+      <td class="tg-9wq8">Quais sintomas? <span class="text-small">(FESTAC; adenopatias)</span></td>
+      <td class="tg-9wq8">Tratamento TB <span class="text-small">(cartão / TB - Data de Início e Fim) (Início / Continua / Fim) (d / m / a - I /
           C / F)</span></td>
-      <td class="tg-9wq8">CTZ <span class='txs'>(S / N)</span></td>
-      <td class="tg-9wq8">Diagnóstico ITS <span class='txs'>(Código)</span></td>
-      <td class="tg-9wq8">CD4 <span class='txs'>(Pedido / se ≤  5A - CD4%)</span></td>
-      <td class="tg-9wq8">Regime <span class='txs'>(Siglas)</span></td>
-      <td class="tg-9wq8">Motivo <span class='txs'>(Código)</span></td>
-      <td class="tg-9wq8">Adesão <span class='txs'>(Boa / Risco / Má - B / R / M)</span></td>
-      <td class="tg-9wq8" colspan="2">Início / Continua / Fim <span class='txs'>(I / C / F)</span></td>
+      <td class="tg-9wq8">CTZ <span class="text-small">(S / N)</span></td>
+      <td class="tg-9wq8">Diagnóstico ITS <span class="text-small">(Código)</span></td>
+      <td class="tg-9wq8">CD4 <span class="text-small">(Pedido / se ≤  5A - CD4%)</span></td>
+      <td class="tg-9wq8">Regime <span class="text-small">(Siglas)</span></td>
+      <td class="tg-9wq8">Motivo <span class="text-small">(Código)</span></td>
+      <td class="tg-9wq8">Adesão <span class="text-small">(Boa / Risco / Má - B / R / M)</span></td>
+      <td class="tg-9wq8" colspan="2">Início / Continua / Fim <span class="text-small">(I / C / F)</span></td>
     </tr>
     
     <tr style="border-style: solid solid dashed solid; border-width: 1px" ng-repeat-start="ps in masterCardData.patientInfo.psychosocialFactors track by $index">
@@ -250,13 +215,13 @@
       <td class="tg-9wq8" rowspan="2"><span ng-repeat='con in ps.otherCondition track by $index'>{{con}}</span></td>
       <td class="tg-9wq8" rowspan="1"><span ng-if="ps.viralLoadReq === true">PEDIDO</span>{{ps.viralLoad}}</td>
       <td class="tg-9wq8" rowspan="2">
-        <span ng-class="{'circleSelect':ps.hgbReq === true }">Hb</span>&nbsp;{{ps.hgb}} <span ng-if="ps.hgbReq === undefined">___</span> 
-        <span ng-class="{'circleSelect':ps.altReq === true }">ALT</span>&nbsp;{{ps.alt}}<span ng-if="ps.altReq === undefined">___</span>
-        <span ng-class="{'circleSelect':ps.astReq === true}">AST</span>&nbsp;{{ps.ast}}<span ng-if="ps.astReq === undefined0">___</span>
-        <span ng-class="{'circleSelect':ps.glReq === true }">GL</span>&nbsp;{{ps.gl}}<span ng-if="ps.glReq === undefined">___</span>
-        <span ng-class="{'circleSelect':ps.crReq === true }">CR</span>&nbsp;{{ps.cr}}<span ng-if="ps.crReq === undefined">___</span>
-        <span ng-class="{'circleSelect':ps.amReq === true }">AM</span>&nbsp;{{ps.am}}<span ng-if="ps.amReq === undefined">___</span>
-        <span>O</span>_______</td>
+        <span ng-class="{'circleSelect':ps.hgbReq === true }">Hb</span>&nbsp;{{ps.hgb}} <span ng-if="ps.hgbReq === ''">___</span> 
+        <span ng-class="{'circleSelect':ps.altReq === true }">ALT</span>&nbsp;{{ps.alt}}<span ng-if="ps.altReq === ''">___</span>
+        <span ng-class="{'circleSelect':ps.astReq === true}">AST</span>&nbsp;{{ps.ast}}<span ng-if="ps.astReq === ''">___</span>
+        <span ng-class="{'circleSelect':ps.glReq === true }">GL</span>&nbsp;{{ps.gl}}<span ng-if="ps.glReq === ''">___</span>
+        <span ng-class="{'circleSelect':ps.crReq === true }">CR</span>&nbsp;{{ps.cr}}<span ng-if="ps.crReq === ''">___</span>
+        <span ng-class="{'circleSelect':ps.amReq === true }">AM</span>&nbsp;{{ps.am}}<span ng-if="ps.amReq === ''">___</span>
+        <span>O______</span></td>
       <td class="tg-9wq8" rowspan="1"><span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '1' ">1ª</span>
         <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '2' ">2ª</span>
         <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '3' ">3ª</span>
@@ -279,7 +244,7 @@
       <td class="tg-9wq8" rowspan="1">
           <span ng-class="{'circleSelect':ps.referenceMDCSectionAF || ps.referenceMDCSectionDT || ps.referenceMDCSectionGA || ps.referenceMDCSectionCA || ps.referenceMDCSectionPU || ps.referenceMDCSectionFR || ps.referenceMDCSectionDC || ps.referenceMDCSectionOther }">S</span>&nbsp;&nbsp;&nbsp; <span>N</span>
       </td>
-      <td class="tg-9wq8" rowspan="2" style="transform:rotate(-90deg)"> {{ps.provider}}</td>
+      <td class="tg-9wq8" class="text-small" rowspan="2" style="transform:rotate(-90deg)"> {{ps.provider}}</td>
     </tr>
     <tr style="border-style: dashed solid solid solid; border-width: 1px">
       <td class="tg-9wq8">{{ ps.nextVisit | date:'d/MM/yy' }}</td>
@@ -301,7 +266,7 @@
       <td class="tg-9wq8">{{ ps.nutritionalState }}</td>
       <td class="tg-9wq8"> {{ ps.nutritionalSupplementQt }} {{ps.nutritionalSupplementMeasurementUnit}}</td>
       <td class="tg-9wq8">{{ ps.prophylaxisSymptoms }}</td>
-      <td class="tg-9wq8">{{ ps.tbTreatmentStartDate | date:'d/MM/yy'}} <br> <div><span ng-class="{'circleSelect':ps.tbTreatmentState == 'Start_SP'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.tbTreatmentState == 'Em Curso'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.tbTreatmentState == 'Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_End'}">F</span></div></td>
+      <td class="tg-9wq8">{{ ps.tbTreatmentStartDate | date:'d/MM/yy'}} <div><span ng-class="{'circleSelect':ps.tbTreatmentState == 'Start_SP'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.tbTreatmentState == 'Em Curso'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.tbTreatmentState == 'Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_End'}">F</span></div></td>
       <td class="tg-9wq8"><div><span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Inicio_Prophylaxis'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Em Curso_Prophylaxis'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Fim_Prophylaxis'}">F</span></div></td>
       <td class="tg-9wq8"><div><span ng-class="{'circleSelect':ps.spSideEffectsCTZ===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsCTZ === false}">N</span></div></td>
       <td class="tg-9wq8">{{ ps.stiDiagnosisProphylaxis }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIM }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIF }} </td>
@@ -332,7 +297,7 @@
     <tr ng-repeat-end></tr>
    <tr style="border-style: solid solid dashed solid; border-width: 1px" ng-repeat-start="px in masterCardData.patientInfo.fichaClinicaEmpty track by $index">
       <td class="tg-9wq8" rowspan="2"></td>
-      <td class="tg-9wq8">/  /</td>
+      <td class="tg-9wq8">&nbsp;/&nbsp;/&nbsp;</td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
@@ -340,14 +305,14 @@
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-9wq8">S  N</td>
+      <td class="tg-9wq8">S  N</td>&nbsp;
       <td class="tg-9wq8">S  N</td>
       <td class="tg-9wq8">I  C  F</td>
       <td class="tg-9wq8">S  N</td>
       <td class="tg-9wq8">S  N</td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8" ></td>
-      <td class="tg-9wq8" rowspan="2">Hb__ ALT__ AST__ GL__ CR__ AM__ O________</td>
+      <td class="tg-9wq8" rowspan="2">Hb__ ALT__ AST__ GL__ CR__ AM__ O______</td>
       <td class="tg-9wq8">_ Linha DM DT</td>
       <td class="tg-9wq8" rowspan="2"></td>
       <td class="tg-9wq8"></td>
@@ -361,7 +326,7 @@
       <td class="tg-9wq8" rowspan="2"></td>
     </tr>
     <tr style="border-style: dashed solid solid solid; border-width: 1px">
-      <td class="tg-9wq8">/  /</td>
+      <td class="tg-9wq8">&nbsp;/&nbsp;/&nbsp;</td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
@@ -370,7 +335,7 @@
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
       <td class="tg-9wq8"></td>
-      <td class="tg-9wq8">__/__/__<br>I  C  F</td>
+      <td class="tg-9wq8">&nbsp;/&nbsp;/&nbsp;<br>I  C  F</td>
       <td class="tg-9wq8">I  C  F</td>
       <td class="tg-9wq8">S  N</td>
       <td class="tg-9wq8"></td>
