@@ -229,6 +229,7 @@ angular.module('bahmni.common.conceptSet')
                                 if (currentObj.concept.name === 'User_type' || currentObj.concept.name === 'User_type_pop') {
                                     _.map(currentObj.possibleAnswers, function (answers) {
                                         if (answers.name.name === "APSS_user" || answers.name.name === "APSS_user_pop") {
+                                            currentObj.disabled = true;
                                             currentObj.value = answers;
                                         }
                                     });
