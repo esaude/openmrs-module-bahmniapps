@@ -202,7 +202,6 @@ angular.module('bahmni.clinical')
 
             var populatePriorityPopulation = function () {
                 var pP = 'Group_Priority_Population_obs_form';
-                
                 masterCardModel.patientInfo.keyPopulation = '';
                 masterCardModel.patientInfo.vulnerablePopulation = '';
 
@@ -783,7 +782,6 @@ angular.module('bahmni.clinical')
 
             var populatePatientLabResults = function () {
                 masterCardModel.labOrderResult = {};
-                
                 var labResultsToShow = ['ALT', 'AST', 'CD 4', 'CD4 %', 'CD4 Abs', 'HGB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outros'];
                 return new Promise(function (resolve, reject) {
                     labOrderResultService.getAllForPatient({patientUuid: patientUuid}).then(function (response) {
@@ -887,7 +885,6 @@ angular.module('bahmni.clinical')
 
             var populateTbDetails = function () {
                 masterCardModel.patientInfo.Tb_start = '';
-                
                 return new Promise(function (resolve, reject) {
                     var TbStart = "SP_Treatment Start Date";
                     observationsService.fetch(patientUuid, [TbStart]).then(function (response) {
@@ -1128,7 +1125,6 @@ angular.module('bahmni.clinical')
             var populateBMI = function () {
                 var patientBMIConceptName = 'BMI';
                 masterCardModel.patientInfo.BMI = '';
-                
                 observationsService.fetch(patientUuid, [patientBMIConceptName]).then(function (response) {
                     if (response.data && response.data.length > 0) {
                         masterCardModel.patientInfo.BMI = response.data[0].value;
@@ -1144,7 +1140,6 @@ angular.module('bahmni.clinical')
                 masterCardModel.patientInfo.thirdLast = '';
                 masterCardModel.patientInfo.secLastDate = '';
                 masterCardModel.patientInfo.thirdLastDate = '';
-                
                 return new Promise(function (resolve, reject) {
                     treatmentService.getPrescribedDrugOrders(patientUuid, true).then(function (response) {
                         var resarray = [];
@@ -1362,7 +1357,6 @@ angular.module('bahmni.clinical')
                 masterCardModel.medicalConditions.hta = '';
                 masterCardModel.medicalConditions.kaposi = '';
                 masterCardModel.medicalConditions.criptococose = '';
-                
                 return new Promise(function (resolve, reject) {
                     diagnosisService.getDiagnoses(patientUuid).then(function (response) {
                         if (response.data && response.data.length > 0) {
