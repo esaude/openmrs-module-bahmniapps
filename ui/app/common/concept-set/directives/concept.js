@@ -235,6 +235,16 @@ angular.module('bahmni.common.conceptSet')
                                     });
                                 }
                             });
+                        } else if (providerType === "Clinical") {
+                            _.map(scope.rootObservation.groupMembers, function (currentObj) {
+                                if (currentObj.concept.name === 'User_type' || currentObj.concept.name === 'User_type_pop') {
+                                    _.map(currentObj.possibleAnswers, function (answers) {
+                                        if (answers.name.name === "Clinical_user" || answers.name.name === "Clinical_user_pop") {
+                                            currentObj.value = answers;
+                                        }
+                                    });
+                                }
+                            });
                         }
                     }
 
