@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .service('printMasterCardService', ['$rootScope', 'spinner', '$stateParams', '$translate', 'patientService', 'observationsService', 'treatmentService', 'treatmentConfig', 'localeService', 'patientVisitHistoryService', 'allergiesService', 'diagnosisService', 'labOrderResultService', '$http', '$q',
-        function ($rootScope, spinner, $stateParams, $translate, patientService, observationsService, treatmentService, treatmentConfig, localeService, patientVisitHistoryService, allergiesService, diagnosisService, labOrderResultService, $http, $q) {
+    .service('printMasterCardService', ['$rootScope', '$stateParams', '$translate', 'patientService', 'observationsService', 'treatmentService', 'treatmentConfig', 'localeService', 'patientVisitHistoryService', 'allergiesService', 'diagnosisService', 'labOrderResultService', '$http', '$q',
+        function ($rootScope, $stateParams, $translate, patientService, observationsService, treatmentService, treatmentConfig, localeService, patientVisitHistoryService, allergiesService, diagnosisService, labOrderResultService, $http, $q) {
             var masterCardModel = {
 
                 hospitalLogo: '',
                 transference: {
+                    date: '',
                     healthFacilityName: '',
                     healthFacilityDistrict: '',
                     healthFacilityProvince: ''
@@ -200,6 +201,10 @@ angular.module('bahmni.clinical')
 
             var populatePriorityPopulation = function () {
                 var pP = 'Group_Priority_Population_obs_form';
+                
+                masterCardModel.patientInfo.keyPopulation = '';
+                masterCardModel.patientInfo.vulnerablePopulation = '';
+
                 observationsService.fetch(patientUuid, [pP]).then(function (response) {
                     if (response.data && response.data.length > 0) {
                         var pPValues = response.data[0].value.split(',');
@@ -272,6 +277,30 @@ angular.module('bahmni.clinical')
                 var apssPositivePreventionKeyPopulation = 'Apss_Positive_prevention_Key_Population';
                 var apssAdherenceFollowUp = 'Apss_Adherence_follow_up';
                 var apssReasonForTheVisit = 'Apss_Reason_For_The_Visit';
+
+                masterCardModel.patientInfo.alternativeContact1 = '';
+                masterCardModel.patientInfo.alternativeContact2 = '';
+                masterCardModel.patientInfo.address = '';
+                masterCardModel.patientInfo.education = '';
+                masterCardModel.patientInfo.occupation = '';
+                masterCardModel.patientInfo.labOrderResult = '';
+                masterCardModel.patientInfo.dateofHIVDiagnosis = '';
+                masterCardModel.patientInfo.sectorSelect = '';
+                masterCardModel.patientInfo.typeOfTest = '';
+                masterCardModel.patientInfo.pastName = '';
+                masterCardModel.patientInfo.keyPopulation = '';
+                masterCardModel.patientInfo.psychosocialFactors = '';
+                masterCardModel.patientInfo.psychosocialFactorsActualEmpty = [];
+                masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [];
+                masterCardModel.patientInfo.psychosocialFactorsOther = '';
+                masterCardModel.patientInfo.apssPreTARVCounselling = [];
+                masterCardModel.patientInfo.apssPreTARVCounsellingComments = '';
+                masterCardModel.patientInfo.apssDifferentiatedModelsDate = '';
+                masterCardModel.patientInfo.apssPatientCaregiverAgreement = '';
+                masterCardModel.patientInfo.apssConfidantAgreement = '';
+                masterCardModel.patientInfo.deathDate = '';
+                masterCardModel.patientInfo.causeOfDeath = '';
+
                 observationsService.fetch(patientUuid, [apssdiagnosisDisclosure, apssPreTARVCounselling, apssPreTARVCounsellingComments,
                     apssSectionIDetails, psychosocialFactors, apssSectionIIform, apssPPSexualBehavior, apssPPHIVDisclosure,
                     apssPPImportanceAdherence, apssPPSexuallyTransmittedInfections, apssPPFamilyPlanning, apssPPAlcoholOtherDrugsConsumption,
@@ -465,9 +494,6 @@ angular.module('bahmni.clinical')
                             var slicedTable = obsTable.slice(0, 12);
 
                             masterCardModel.patientInfo.psychosocialFactors = slicedTable.reverse();
-                            masterCardModel.patientInfo.apssPreTARVCounselling = [];
-                            masterCardModel.patientInfo.apssPreTARVCounsellingComments = '';
-                            masterCardModel.patientInfo.apssDifferentiatedModelsDate = '';
 
                             for (var h = 0; h < masterCardModel.patientInfo.psychosocialFactors.length; h++) {
                                 var apssPTCYes = 'Apss_Pre_TARV_counselling_Yes';
@@ -566,6 +592,31 @@ angular.module('bahmni.clinical')
             };
 
             var populatePatientDemographics = function () {
+                masterCardModel.patientInfo.mainContact = '';
+                masterCardModel.patientInfo.firstName = '';
+                masterCardModel.patientInfo.lastName = '';
+                masterCardModel.patientInfo.gender = '';
+                masterCardModel.patientInfo.age = '';
+                masterCardModel.patientInfo.patientId = '';
+                masterCardModel.patientInfo.birth_date = '';
+                masterCardModel.patientInfo.stageConditionName = '';
+                masterCardModel.patientInfo.username = '';
+                masterCardModel.patientInfo.hivDate = '';
+                masterCardModel.patientInfo.condName = '';
+                masterCardModel.patientInfo.diagnosisPastName = '';
+                masterCardModel.patientInfo.diagnosisName = '';
+                masterCardModel.patientInfo.regDate = '';
+                masterCardModel.patientInfo.treatmentStartDate = '';
+                masterCardModel.patientInfo.patientStatus = '';
+                masterCardModel.patientInfo.isTARV = '';
+                masterCardModel.patientInfo.town = '';
+                masterCardModel.patientInfo.district = '';
+                masterCardModel.patientInfo.block = '';
+                masterCardModel.patientInfo.streetHouse = '';
+                masterCardModel.patientInfo.closeOf = '';
+                masterCardModel.patientInfo.province = '';
+                masterCardModel.patientInfo.registrationDate = '';
+                
                 return new Promise(function (resolve, reject) {
                     patientService.getPatient(patientUuid).then(function (response) {
                         var patientMapper = new Bahmni.PatientMapper($rootScope.patientConfig, $rootScope, $translate);
@@ -598,7 +649,8 @@ angular.module('bahmni.clinical')
                             for (var j = 0; j < $rootScope.diagPastName.length; j++) {
                                 arrDiagc.push($rootScope.diagPastName[j]);
                                 var arr = arrDiagc.join('');
-                            } masterCardModel.patientInfo.diagnosisPastName = arr;
+                            }
+                            masterCardModel.patientInfo.diagnosisPastName = arr;
                         } else if ($rootScope.diagName !== null && $rootScope.diagPastName !== null) {
                             for (var j = 0; j < $rootScope.diagName.length; j++) {
                                 arrDiagc.push($rootScope.diagName[j]);
@@ -640,6 +692,9 @@ angular.module('bahmni.clinical')
                             }
                             if (attribute.attributeType.display === 'HEALTH_FACILITY_PROVINCE') {
                                 masterCardModel.healthFacilityInfo.province = attribute.value;
+                            }
+                            if (attribute.attributeType.display === 'US_REG_DATE') {
+                                masterCardModel.transference.date = attribute.value.split('T')[0];
                             }
                             if (attribute.attributeType.display === 'TRANSFERENCE_HF_NAME') {
                                 masterCardModel.transference.healthFacilityName = attribute.value.split(' -')[0];
@@ -695,6 +750,8 @@ angular.module('bahmni.clinical')
             };
 
             var populatePatientWeightAndHeight = function () {
+                masterCardModel.patientInfo.weight = '';
+
                 return new Promise(function (resolve, reject) {
                     var patientWeightConceptName = 'Weight';
                     observationsService.fetch(patientUuid, [patientWeightConceptName]).then(function (response) {
@@ -710,6 +767,7 @@ angular.module('bahmni.clinical')
 
             var populatePatientLabResults = function () {
                 masterCardModel.labOrderResult = {};
+                
                 var labResultsToShow = ['ALT', 'AST', 'CD 4', 'CD4 %', 'CD4 Abs', 'HGB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outros'];
                 return new Promise(function (resolve, reject) {
                     labOrderResultService.getAllForPatient({patientUuid: patientUuid}).then(function (response) {
@@ -740,10 +798,15 @@ angular.module('bahmni.clinical')
             };
 
             var populateProf = function () {
+                masterCardModel.patientInfo.INH_start = '';
+                masterCardModel.patientInfo.INH_end = '';
+                masterCardModel.patientInfo.CTZ_start = '';
+                masterCardModel.patientInfo.CTZ_end = '';
+
                 return new Promise(function (resolve, reject) {
-                    var patienINH = 'INH_Details';
+                    var patientINH = 'INH_Details';
                     var patientCTZ = 'CTZ_Details';
-                    observationsService.fetch(patientUuid, [patienINH, patientCTZ]).then(function (response) {
+                    observationsService.fetch(patientUuid, [patientINH, patientCTZ]).then(function (response) {
                         var startDate = "Start Date_Prophylaxis";
                         var endDate = "End Date";
 
@@ -753,17 +816,17 @@ angular.module('bahmni.clinical')
                                 masterCardModel.patientInfo.INH_start = null;
                             });
                         }
-                        else if (response.data[0].concept.name == "CTZ_Details") {
+                        else if (response.data[0].concept.name === "CTZ_Details") {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
-                                if (response.data[1].value) {
+                                if (response.data[1] && response.data[1].value) {
                                     masterCardModel.patientInfo.CTZ_end = response.data[1].value;
                                 }
-                                if (response.data[0].value) {
+                                if (response.data[0] && response.data[0].value) {
                                     masterCardModel.patientInfo.CTZ_start = response.data[0].value;
                                 }
                             });
                         }
-                        else if ((response.data[0].concept.name == "INH_Details")) {
+                        else if ((response.data[0].concept.name === "INH_Details")) {
                             observationsService.fetch(patientUuid, [startDate, endDate]).then(function (response) {
                                 if (response.data[1]) {
                                     masterCardModel.patientInfo.INH_end = response.data[1].value;
@@ -791,6 +854,8 @@ angular.module('bahmni.clinical')
                 });
             };
             var populatePatientHeight = function () {
+                masterCardModel.patientInfo.height = '';
+
                 return new Promise(function (resolve, reject) {
                     var patientHeightConceptName = 'Height';
                     observationsService.fetch(patientUuid, [patientHeightConceptName]).then(function (response) {
@@ -805,6 +870,8 @@ angular.module('bahmni.clinical')
             };
 
             var populateTbDetails = function () {
+                masterCardModel.patientInfo.Tb_start = '';
+                
                 return new Promise(function (resolve, reject) {
                     var TbStart = "SP_Treatment Start Date";
                     observationsService.fetch(patientUuid, [TbStart]).then(function (response) {
@@ -819,6 +886,7 @@ angular.module('bahmni.clinical')
             };
 
             var populateTbEndDate = function () {
+                masterCardModel.patientInfo.Tb_end = '';
                 return new Promise(function (resolve, reject) {
                     var TbEnd = "SP_Treatment End Date";
                     observationsService.fetch(patientUuid, [TbEnd]).then(function (response) {
@@ -832,6 +900,7 @@ angular.module('bahmni.clinical')
                 });
             };
             var populateTbBackground = function () {
+                masterCardModel.patientInfo.Tb_back = '';
                 return new Promise(function (resolve, reject) {
                     var TbEnd = "Has TB Symptoms";
                     observationsService.fetch(patientUuid, [TbEnd]).then(function (response) {
@@ -852,6 +921,7 @@ angular.module('bahmni.clinical')
             };
 
             var populatePreg = function () {
+                masterCardModel.patientInfo.pregStatus = '';
                 return new Promise(function (resolve, reject) {
                     var preg = "Pregnancy_Yes_No";
                     observationsService.fetch(patientUuid, [preg]).then(function (response) {
@@ -866,6 +936,7 @@ angular.module('bahmni.clinical')
             };
 
             var populateBrestFeeding = function () {
+                masterCardModel.patientInfo.breastFeedingStatus = '';
                 return new Promise(function (resolve, reject) {
                     var brestFeeding = "Breastfeeding_ANA";
                     observationsService.fetch(patientUuid, [brestFeeding]).then(function (response) {
@@ -886,6 +957,7 @@ angular.module('bahmni.clinical')
             };
 
             var populateWhoStage = function () {
+                masterCardModel.patientInfo.whoStaging = '';
                 return new Promise(function (resolve, reject) {
                     var WhoStage = "HTC, WHO Staging";
                     observationsService.fetch(patientUuid, [WhoStage]).then(function (response) {
@@ -901,6 +973,13 @@ angular.module('bahmni.clinical')
 
             var populateLabResult = function () {
                 var Resultarray = [];
+                masterCardModel.patientInfo.labName = '';
+                masterCardModel.patientInfo.resultHb = '';
+                masterCardModel.patientInfo.resultAlt = '';
+                masterCardModel.patientInfo.resultAst = '';
+                masterCardModel.patientInfo.resultVl = '';
+                masterCardModel.patientInfo.resultcd = '';
+
                 if ($rootScope.lab === undefined) {
                     Resultarray = null;
                 }
@@ -915,62 +994,42 @@ angular.module('bahmni.clinical')
                         temp1.push(Resultarray[i].result);
                         masterCardModel.patientInfo.labName = temp[i];
 
-                        if (temp[i] == "LO_HB)")
-                         {
-                            if (temp[i] === null)
-                             {
+                        if (temp[i] == "LO_HB)") {
+                            if (temp[i] === null) {
                                 masterCardModel.patientInfo.resultHb = null;
-                            }
-                            else
-                            {
+                            } else {
                                 masterCardModel.patientInfo.resultHb = temp1[i];
                             }
                         }
 
-                        if (temp[i] == "LO_ViralLoad")
-                         {
-                            if (temp[i] === null)
-                            {
+                        if (temp[i] === "LO_ViralLoad") {
+                            if (temp[i] === null) {
                                 masterCardModel.patientInfo.resultVl = null;
-                            }
-                            else
-                            {
+                            } else {
                                 masterCardModel.patientInfo.resultVl = temp1[i];
                             }
                         }
 
-                        if (temp[i] == "LO_CD4")
-                         {
-                            if (temp[i] === null)
-                            {
+                        if (temp[i] === "LO_CD4") {
+                            if (temp[i] === null) {
                                 masterCardModel.patientInfo.resultcd = null;
-                            }
-                            else
-                            {
+                            } else {
                                 masterCardModel.patientInfo.resultcd = temp1[i];
                             }
                         }
 
-                        if (temp[i] == "LO_ALT")
-                         {
-                            if (temp[i] === null)
-                            {
+                        if (temp[i] === "LO_ALT") {
+                            if (temp[i] === null) {
                                 masterCardModel.patientInfo.resultAlt = null;
-                            }
-                            else
-                            {
+                            } else {
                                 masterCardModel.patientInfo.resultAlt = temp1[i];
                             }
                         }
 
-                        if (temp[i] == "LO_AST")
-                        {
-                            if (temp[i] === null)
-                             {
+                        if (temp[i] === "LO_AST") {
+                            if (temp[i] === null) {
                                 masterCardModel.patientInfo.resultAst = null;
-                            }
-                            else
-                            {
+                            } else {
                                 masterCardModel.patientInfo.resultAst = temp1[i];
                             }
                         }
@@ -978,12 +1037,14 @@ angular.module('bahmni.clinical')
                 }
             };
 
-            var populateARTDetails = function ()
-             {
-                return new Promise(function (resolve, reject)
-                {
-                    treatmentService.getActiveDrugOrders(patientUuid, null, null).then(function (response)
-                     {
+            var populateARTDetails = function () {
+                masterCardModel.regimeName = '';
+                masterCardModel.regimeChangeName = '';
+                masterCardModel.regimeStartDate = '';
+                masterCardModel.regimeChangeDate = '';
+
+                return new Promise(function (resolve, reject) {
+                    treatmentService.getActiveDrugOrders(patientUuid, null, null).then(function (response) {
                         var drugarr = [];
                         for (var i = response.length - 1; i >= 0; i--) {
                             var obj = {};
@@ -992,14 +1053,14 @@ angular.module('bahmni.clinical')
                             drugarr.push(obj);
                         }
 
-                        for (var i = drugarr.length; i > 0; i--) {
-                            for (var j = 1; j < i; j++) {
+                        for (var k = drugarr.length; k > 0; k--) {
+                            for (var j = 1; j < k; j++) {
                                 if (j % 2 !== 0) {
-                                    masterCardModel.regimeName = drugarr[i - 1][j];
-                                    masterCardModel.regimeChangeName = drugarr[i - 2][j];
+                                    masterCardModel.regimeName = drugarr[k - 1][j];
+                                    masterCardModel.regimeChangeName = drugarr[k - 2][j];
                                 }
-                                masterCardModel.regimeStartDate = drugarr[i - 1][j - 1];
-                                masterCardModel.regimeChangeDate = drugarr[i - 2][j - 1];
+                                masterCardModel.regimeStartDate = drugarr[k - 1][j - 1];
+                                masterCardModel.regimeChangeDate = drugarr[k - 2][j - 1];
                             }
                         }
                         resolve();
@@ -1010,17 +1071,18 @@ angular.module('bahmni.clinical')
             };
 
             var populateModels = function () {
+                masterCardModel.patientInfo.mdsYes = '';
+                masterCardModel.patientInfo.mdsNo = '';
+                masterCardModel.patientInfo.modelTypes = '';
+                masterCardModel.patientInfo.modelDate = '';
+
                 return new Promise(function (resolve, reject) {
                     var modelsName = "Apss_Differentiated_Models";
                     observationsService.fetch(patientUuid, [modelsName]).then(function (response) {
                         var modelarray = [];
-                        var abc = response.data.forEach(function (res) {
-                            var group = res.groupMembers.forEach(function (name) {
-                                modelarray.push(name);
-                            });
-                        });
-
                         var temp = [];
+                        var arrDate = [];
+
                         for (var i = 0; i < modelarray.length; i++) {
                             temp.push(modelarray[i].concept.shortName);
                         }
@@ -1032,11 +1094,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.mdsYes = "ANSWER_NO";
                         }
                         masterCardModel.patientInfo.modelTypes = temp;
-
-                        var arrDate = [];
-                        var arr = response.data.forEach(function (date) {
-                            arrDate.push(date);
-                        });
 
                         if (arrDate === undefined || arrDate.length === 0) {
                             masterCardModel.patientInfo.modelDate = null;
@@ -1054,6 +1111,8 @@ angular.module('bahmni.clinical')
 
             var populateBMI = function () {
                 var patientBMIConceptName = 'BMI';
+                masterCardModel.patientInfo.BMI = '';
+                
                 observationsService.fetch(patientUuid, [patientBMIConceptName]).then(function (response) {
                     if (response.data && response.data.length > 0) {
                         masterCardModel.patientInfo.BMI = response.data[0].value;
@@ -1062,6 +1121,14 @@ angular.module('bahmni.clinical')
             };
 
             var populateDrugOrders = function (visitUuid) {
+                masterCardModel.patientInfo.notARV = '';
+                masterCardModel.patientInfo.isARV = '';
+                masterCardModel.patientInfo.currRegARV = '';
+                masterCardModel.patientInfo.secLast = '';
+                masterCardModel.patientInfo.thirdLast = '';
+                masterCardModel.patientInfo.secLastDate = '';
+                masterCardModel.patientInfo.thirdLastDate = '';
+                
                 return new Promise(function (resolve, reject) {
                     treatmentService.getPrescribedDrugOrders(patientUuid, true).then(function (response) {
                         var resarray = [];
@@ -1123,6 +1190,7 @@ angular.module('bahmni.clinical')
             };
 
             var populateLocationAndDrugOrders = function (lastVisit) {
+                masterCardModel.location = '';
                 return new Promise(function (resolve, reject) {
                     patientVisitHistoryService.getVisitHistory(patientUuid, null).then(function (response) {
                         if (response.visits && response.visits.length > 0) {
@@ -1137,6 +1205,7 @@ angular.module('bahmni.clinical')
             };
 
             var populateHospitalNameAndLogo = function () {
+                masterCardModel.hospitalLogo = '';
                 return new Promise(function (resolve, reject) {
                     localeService.getLoginText().then(function (response) {
                         masterCardModel.hospitalLogo = response.data.homePage.logo;
@@ -1148,6 +1217,18 @@ angular.module('bahmni.clinical')
             };
 
             var populateConfidentDetails = function () {
+                masterCardModel.confident.name = '';
+                masterCardModel.confident.surname = '';
+                masterCardModel.confident.relationship = '';
+                masterCardModel.confident.telephone1 = '';
+                masterCardModel.confident.telephone2 = '';
+                masterCardModel.confident.province = '';
+                masterCardModel.confident.district = '';
+                masterCardModel.confident.locality = '';
+                masterCardModel.confident.block = '';
+                masterCardModel.confident.street = '';
+                masterCardModel.confident.closeOf = '';
+
                 return new Promise(function (resolve, reject) {
                     var confidentDetails = 'CONFIDENT_DETAILS';
                     observationsService.fetch(patientUuid, [confidentDetails]).then(function (response) {
@@ -1186,6 +1267,7 @@ angular.module('bahmni.clinical')
             };
 
             var populateFamilySituation = function () {
+                masterCardModel.familySituation = '';
                 return new Promise(function (resolve, reject) {
                     var confidentFamilySituation = 'CONFIDENT_FAMILY_SITUATION';
                     observationsService.fetch(patientUuid, [confidentFamilySituation]).then(function (response) {
@@ -1238,6 +1320,7 @@ angular.module('bahmni.clinical')
             };
 
             var populateAllergyToMedications = function () {
+                masterCardModel.allergyHistory = '';
                 return new Promise(function (resolve, reject) {
                     allergiesService.getAllergyHistory(patientUuid).then(function (response) {
                         if (response.data && response.data.length > 0) {
@@ -1256,6 +1339,14 @@ angular.module('bahmni.clinical')
             };
 
             var populateMedicalConditions = function () {
+                masterCardModel.medicalConditions = {};
+                masterCardModel.medicalConditions.hepatitis = '';
+                masterCardModel.medicalConditions.diabetes = '';
+                masterCardModel.medicalConditions.tb = '';
+                masterCardModel.medicalConditions.hta = '';
+                masterCardModel.medicalConditions.kaposi = '';
+                masterCardModel.medicalConditions.criptococose = '';
+                
                 return new Promise(function (resolve, reject) {
                     diagnosisService.getDiagnoses(patientUuid).then(function (response) {
                         if (response.data && response.data.length > 0) {

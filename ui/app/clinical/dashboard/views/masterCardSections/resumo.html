@@ -453,9 +453,9 @@
         </tr>
         <tr>
             <td colspan="60" >
-                <input type="checkbox" ng-checked="data.transference.healthFacilityName"/>Transferido de outra US 
-                <span>__/__/__</span>&nbsp;&nbsp;
-                <b>Unidade Sanitária</b>&nbsp;{{ data.healthFacilityInfo.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" ng-checked="data.transference.healthFacilityName"/><b>Transferido de outra US: </b>
+                {{ data.transference.date | date:'dd/MM/yy' }}<span ng-if="!data.transference.date">__/__/__</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <b>Unidade Sanitária:</b>&nbsp;{{ data.transference.healthFacilityName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="checkbox" ng-checked="data.patientInfo.patientStatus[0] === 'Pre TARV'"/>Em Pré-TARV
                 <input type="checkbox" ng-checked="data.patientInfo.patientStatus[0] != 'Pre TARV'"/>TARV
             </td>
