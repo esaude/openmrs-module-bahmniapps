@@ -3,52 +3,49 @@
         border-collapse: collapse;
         border-spacing: 0;
         font-size: 6px;
-        width: 141%;
-        transform: translate(440px, 480px);
     }
 
     .sampleTable-a {
         border-collapse: collapse;
         border-spacing: 0;
-        width: 141%;
-        transform: translate(520px, -440px);
-        text-align: center;
-        word-wrap: break-word;
-        position: absolute;
         padding: 0 1px 0 1px;
+        text-align: center;
     }
 
     .table-small-a {
-      transform: translate(520px, -480px);
       border-collapse: collapse; 
       border-style: solid;
       border-width: 1px;
       border-color: black;
       width: 10%;
+      font-size: 6;
+      margin-left: 0%;
+      margin-right: auto;
+      margin-top:3px;
     }
 
     .table-small-b {
-      transform: translate(1670px, -490px);
       border-collapse: collapse; 
       border-style: solid;
       border-width: 1px;
       border-color: black;
-      width: 30%;
+      width: 20%;
+      font-size: 6;
+      margin-left: auto;
+      margin-right: -4px;
     }
 
-    .text-up {
-      transform: translate(520px, -470px);
-      font-family: Arial, sans-serif;
-      display: "inline-block";
+    .text-uptop {
+      font-size: 6;
     }
 
     .text-small {
-        font-size: 8;
+        font-size: 6;
         display: "inline";
     }
 
     .text-extrasmall {
-        font-size: 6;
+        font-size: 5;
         display: "inline";
     }
 
@@ -90,7 +87,9 @@
     }
 
     .align-content-vertical {
-        transform: rotate(90deg);
+        transform:translate(-949px,-700px) rotate(90deg) scale(0.9);
+        position:fixed;
+        height:185%;
     }
 
     .circleSelect {
@@ -121,11 +120,10 @@
         </tr>
     </table>
 </span>
-<div class="text-up" style="font-size: 8;"><span> Nome: {{patient.name}}</span>
-<br>
-<span>NID (US / Anual / Individual): {{patient.identifier}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>TARV-Coorte (Mês / Ano):{{ps.treatmentStartDate | date:'MMM/yy'}} </span>
-</div>             
-    <table class="sampleTable-a" align="center" style="font-size: 8;">
+<div><span class="text-uptop"> Nome: {{patient.name}}</span><br>
+<span class="text-uptop">NID (US / Anual / Individual): {{patient.identifier}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-uptop">TARV-Coorte (Mês / Ano):{{ps.treatmentStartDate | date:'MMM/yy'}} </span>
+</div>            
+    <table class="sampleTable-a" align="center">
         <colgroup>
             <col class="cells">
         </colgroup>
@@ -242,13 +240,13 @@
                 <td rowspan="2"><span ng-repeat='con in ps.otherCondition track by $index'>{{con}}</span></td>
                 <td rowspan="1"><span ng-if="ps.viralLoadReq === true">PEDIDO</span>{{ps.viralLoad}}</td>
                 <td rowspan="2">
-                  <span ng-class="{'circleSelect':ps.hgbReq === true }">Hb</span>&nbsp;{{ps.hgb}} <span ng-if="ps.hgbReq === ''">___</span> 
-                  <span ng-class="{'circleSelect':ps.altReq === true }">ALT</span>&nbsp;{{ps.alt}}<span ng-if="ps.altReq === ''">___</span>
-                  <span ng-class="{'circleSelect':ps.astReq === true}">AST</span>&nbsp;{{ps.ast}}<span ng-if="ps.astReq === ''">___</span>
+                  <span ng-class="{'circleSelect':ps.hgbReq === true }">Hb</span>&nbsp;{{ps.hgb}} <span ng-if="ps.hgbReq === ''">__</span> 
+                  <span ng-class="{'circleSelect':ps.altReq === true }">ALT</span>&nbsp;{{ps.alt}}<span ng-if="ps.altReq === ''">__</span>
+                  <span ng-class="{'circleSelect':ps.astReq === true}">AST</span>&nbsp;{{ps.ast}}<span ng-if="ps.astReq === ''">__</span>
                   <span ng-class="{'circleSelect':ps.glReq === true }">GL</span>&nbsp;{{ps.gl}}<span ng-if="ps.glReq === ''">___</span>
-                  <span ng-class="{'circleSelect':ps.crReq === true }">CR</span>&nbsp;{{ps.cr}}<span ng-if="ps.crReq === ''">___</span>
-                  <span ng-class="{'circleSelect':ps.amReq === true }">AM</span>&nbsp;{{ps.am}}<span ng-if="ps.amReq === ''">___</span>
-                  <span>O______</span></td>
+                  <span ng-class="{'circleSelect':ps.crReq === true }">CR</span>&nbsp;{{ps.cr}}<span ng-if="ps.crReq === ''">__</span>
+                  <span ng-class="{'circleSelect':ps.amReq === true }">AM</span>&nbsp;{{ps.am}}<span ng-if="ps.amReq === ''">__</span>
+                  <span>O___</span></td>
                 <td rowspan="1"><span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '1' ">1ª</span>
                   <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '2' ">2ª</span>
                   <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '3' ">3ª</span>
@@ -374,10 +372,7 @@
                 </tr>
                 <tr ng-repeat-end></tr>
         </table>
-</div>
-
-<div class="align-content-vertical">
-    <table class="sampleTable" align="center">
+<table class="sampleTable" align="center">
         <colgroup>
             <col class="cells">
         </colgroup>
@@ -414,4 +409,291 @@
             </td>
         </tr>
     </table>
+    <!--<table class="sampleTable">
+            <colgroup>
+                <col style="width: 1px">
+                <col style="width: 105px">
+                <col style="width: 1px">
+                <col style="width: 95px">
+                <col style="width: 1px">
+                <col style="width: 120px">
+                <col style="width: 100px">
+                <col style="width: 105px">
+                <col style="width: 300px">
+                <col style="width: 50px">
+                <col style="width: 30px">
+                <col style="width: 50px">
+                <col style="width: 100px">
+                <col style="width: 1px">
+                <col style="width: 90px">
+                <col style="width: 10px">
+                <col style="width: 55px">
+                <col style="width:1px">
+                <col style="width:55px">
+            </colgroup>
+            <tr>
+                <th colspan="2">População Chave (Cabeçalho)</th>
+                <th colspan="4">Factores Psicosociais que afectam a adesão (Ficha APSS e PP)</th>
+                <th colspan="5">Avaliação Nutricional (C7)</th>
+                <th colspan="4">Efeito secundários (C20)</th>
+                <th colspan="4" rowspan="2">Motivos substituição / Mudança de Linha (C19)</th>
+            </tr>
+            <tr>
+                <td class="centralizetext">HSH</td>
+                <td >Homens que fazem sexo com Homens</td>
+                <td class="centralizetext" >A</td>
+                <td >Recusa resultado positivo</td>
+                <td class="centralizetext" >I</td>
+                <td >Dificuldade para revelar ao parceiro / família</td>
+                <td >Indicador Nutricional</td>
+                <td class="centralizetext" rowspan="2">IMC Adultos</td>
+                <td class="centralizetext" rowspan="2">Perímetro Branquial (PB)</td>
+                <td class="centralizetext" rowspan="2">P / E ou IMC / Idade</td>
+                <td class="centralizetext" rowspan="2">Edema Bilateral</td>
+                <td class="centralizetext" colspan="4">Manifestação clínicas</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >PID</td>
+                <td >Pessoas que injectam drogas</td>
+                <td class="centralizetext" >B</td>
+                <td >Sente-se doente demais</td>
+                <td class="centralizetext" >J</td>
+                <td >Toxicidade / Medo de efeitos secundários</td>
+                <td >Grau </td>
+                <td colspan="2">Geralmente não severeas:</td>
+                <td  colspan="2">Severas</td>
+                <td class="centralizetext" >1</td>
+                <td colspan="3">Toxididade / Efeitos secundários</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >REC</td>
+                <td >Reclusos</td>
+                <td class="centralizetext" >C</td>
+                <td >Não acredita no TARV</td>
+                <td class="centralizetext" >L</td>
+                <td >Perdeu / Esqueceu / Dividiu comprimidos</td>
+                <td >Desnutrição aguda grave (DAG)</td>
+                <td class="centralizetext" >&lt; 16.0</td>
+                <td >6-59 meses &lt; 11,5 cm, 5-10 anos &lt; 13,0 cm, 11-15 anos &lt; 16,0 cm, Grávidas ou nos 6 meses, Pós-parto: &lt; 21,0 cm</td>
+                <td class="centralizetext" >&lt; - 3 DP</td>
+                <td class="centralizetext" >Presente</td>
+                <td class="centralizetext">NV / DA</td>
+                <td >Náuseas, vómitos / dor abdominal</td>
+                <td class="centralizetext" >CIT</td>
+                <td >Citopenia</td>
+                <td class="centralizetext" >2</td>
+                <td colspan="3">Gravidez</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >MTS</td>
+                <td >Trabalhadoras de Sexo</td>
+                <td class="centralizetext" >D</td>
+                <td >São muitos comprimidos</td>
+                <td class="centralizetext" >M</td>
+                <td >Estigma e Descriminação</td>
+                <td >Desnutrição aguda moderada (DAM)</td>
+                <td class="centralizetext" >16.0 - 16.99</td>
+                <td>6-59 meses; &gt;= 11,5 cm e &lt; 12,5 cm, 5-10 anos &gt;= 3,0 cm e &lt; 14,5 cm, 11-15 anos &gt;= 16,0 cm e &lt; 18,5 cm, Grávidas ou nos 6 meses, Pós-parto: &gt;= 21,0 cm e 23 cm</td>
+                <td class="centralizetext" >&gt;= -3 e &lt; - 2 DP</td>
+                <td class="centralizetext">Ausente</td>
+                <td class="centralizetext" >DIA</td>
+                <td ><br>Diarreia</td>
+                <td class="centralizetext">PAN</td>
+                <td >Pancreatite</td>
+                <td class="centralizetext" ><br>3</td>
+                <td colspan="3"><br>Risco de gravidez</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" colspan="2">Planeamento Familiar - Métodos (C3)</td>
+                <td class="centralizetext" >E</td>
+                <td >Sente-se melhor</td>
+                <td class="centralizetext" >N</td>
+                <td >Problemas de transporte</td>
+                <td >Desnutrição aguda ligeira</td>
+                <td class="centralizetext" >17.0 - 18.49</td>
+                <td ></td>
+                <td class="centralizetext" >&gt;= -2 e &lt; - 1 DP</td>
+                <td class="centralizetext" >Ausente</td>
+                <td class="centralizetext" >PSIQ</td>
+                <td >Neuropsiquiátrico / comportamento</td>
+                <td class="centralizetext" >NFT</td>
+                <td >Nefrotoxicidade</td>
+                <td class="centralizetext" >4</td>
+                <td colspan="3">Início do tratamento de tuberculose</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >PRES</td>
+                <td >Preservativo</td>
+                <td class="centralizetext" >F</td>
+                <td >Falta de alimentação</td>
+                <td class="centralizetext" >O</td>
+                <td >Violência baseada no género</td>
+                <td  colspan="5" rowspan="7"></td>
+                <td class="centralizetext" >NEUP</td>
+                <td >Neuropatia periférica</td>
+                <td colspan="2">Com risco de vida</td>
+                <td class="centralizetext" >5</td>
+                <td colspan="3">Novo medicamento disponível</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >PIL</td>
+                <td >Contraceptivo oral</td>
+                <td class="centralizetext" >G</td>
+                <td >Falta de apoio familiar</td>
+                <td class="centralizetext" >P</td>
+                <td >Aspectos culturais ou tradicionais</td>
+                <td class="centralizetext" >EC</td>
+                <td >Erupção cutânea / Dermatite</td>
+                <td class="centralizetext" >HEP</td>
+                <td >Hepatite</td>
+                <td class="centralizetext" >6</td>
+                <td colspan="3">Ruptura de stock de ARVs</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >INJ</td>
+                <td >Injectável</td>
+                <td class="centralizetext" >H</td>
+                <td >Depressão e/ou ansiedade</td>
+                <td class="centralizetext" >Q</td>
+                <td >Uso abusivo de álcool ou drogas</td>
+                <td class="centralizetext" >HG</td>
+                <td >Hiperglicémia</td>
+                <td class="centralizetext" >SSJ</td>
+                <td >Sindroma de Stevens - Johnson</td>
+                <td class="centralizetext" >7</td>
+                <td colspan="3">Outra razão (Especificar)</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >IMP</td>
+                <td >Implante</td>
+                <td class="centralizetext" colspan="2">Sintomas de Tuberculose (C9)</td>
+                <td class="centralizetext" colspan="2">ITS (C13)</td>
+                <td class="centralizetext" >DL</td>
+                <td >Dislipidémia</td>
+                <td class="centralizetext" >HIP</td>
+                <td >Hipersensibilidade a ABC / RAL</td>
+                <td colspan="4">Só para mudança para 2a ou 3a linha</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >DIU</td>
+                <td >Dispositivo Intra-uterino</td>
+                <td class="centralizetext" >F</td>
+                <td >Febre</td>
+                <td class="centralizetext" >SIF</td>
+                <td >Sifílis</td>
+                <td class="centralizetext" >LPD</td>
+                <td >Lipodistrofia</td>
+                <td class="centralizetext" >ACL</td>
+                <td >Acidose láctica</td>
+                <td class="centralizetext" >8</td>
+                <td colspan="3">Falência clínica</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >LT</td>
+                <td >Laqueação das trompas</td>
+                <td class="centralizetext" >E</td>
+                <td >Emagrecimento recente</td>
+                <td  colspan="2">Abordagem Sindrómica</td>
+                <td colspan="2" rowspan="2"></td>
+                <td class="centralizetext" rowspan="2">ESH</td>
+                <td rowspan="2">Esteatose hepaática c/ hiperlactemia</td>
+                <td class="centralizetext" >9</td>
+                <td colspan="3">Falência imunológica</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >VAS</td>
+                <td >Vasectomia</td>
+                <td class="centralizetext" >S</td>
+                <td >Sudorese nocturna</td>
+                <td class="centralizetext" >CV</td>
+                <td >Corrimento vaginal</td>
+                <td class="centralizetext" >10</td>
+                <td colspan="3">Falência virológica</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >MAL</td>
+                <td >Método Amenorreia Lactacional</td>
+                <td class="centralizetext" >T</td>
+                <td >Tosse com / sem sangue</td>
+                <td class="centralizetext" >CUM</td>
+                <td >Corrimento uteral</td>
+                <td class="centralizetext" colspan="2">Adesão ao TARV (C20)</td>
+                <td class="centralizetext" colspan="2">Saídas TARV (C21)</td>
+                <td class="centralizetext" colspan="2">Grau toxicidade ARVs (C20)</td>
+                <td class="centralizetext" colspan="3">Grupos de Apoio (C24)</td>
+                <td class="centralizetext" colspan="4">Modelos Diferenciados de Cuidados (MDC) (C24)</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" rowspan="4"><br><br>OUT</td>
+                <td rowspan="4"><br><br>Outro<br></td>
+                <td class="centralizetext" >A</td>
+                <td >Astenia</td>
+                <td class="centralizetext" >UG</td>
+                <td >Ulcera genital</td>
+                <td class="centralizetext" >Adesão</td>
+                <td >Dias de atraso no levantamento TARV</td>
+                <td class="centralizetext" >S</td>
+                <td >Suspensão</td>
+                <td class="centralizetext" >I</td>
+                <td >Ligeiro</td>
+                <td class="centralizetext" >CR</td>
+                <td colspan="2">Crianças Reveladas</td>
+                <td class="centralizetext" >GA</td>
+                <td class="centralizetext" >GAAC</td>
+                <td class="centralizetext" >FR</td>
+                <td >Fluxo Rápido</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >C</td>
+                <td >Contacto recente com Tuberculose</td>
+                <td class="centralizetext" >DIP</td>
+                <td >DIP - dor no baixo ventre</td>
+                <td class="centralizetext" >B (Boa)</td>
+                <td >&lt;= 3 dias de atraso</td>
+                <td class="centralizetext" >A</td>
+                <td >Abandono</td>
+                <td class="centralizetext" >II</td>
+                <td >Moderado</td>
+                <td class="centralizetext" >PC</td>
+                <td  colspan="2">Pais cuidadores</td>
+                <td class="centralizetext">AF</td>
+                <td >Abordagem familiar</td>
+                <td class="centralizetext" >DT</td>
+                <td >Dispensa Trimestral</td>
+            </tr>
+            <tr>
+                <td class="centralizetext"  rowspan="2">Criança</td>
+                <td rowspan="2">Adenopatia cervical indolor</td>
+                <td class="centralizetext">ESI</td>
+                <td>Escroto inchado</td>
+                <td class="centralizetext" >R (Risco)</td>
+                <td >4 dias &lt;= R &lt;= 6 dias de atraso</td>
+                <td class="centralizetext">O</td>
+                <td >Óbito</td>
+                <td class="centralizetext" >III</td>
+                <td >Severo</td>
+                <td class="centralizetext" >AR</td>
+                <td colspan="2">Adolescentes revelados</td>
+                <td class="centralizetext" >CA</td>
+                <td >Clubes de adesão</td>
+                <td class="centralizetext">DC</td>
+                <td >Dispensa Comunitária</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >BI</td>
+                <td >Bubão inguinal</td>
+                <td class="centralizetext" >Má</td>
+                <td >7 / + dias de atraso</td>
+                <td class="centralizetext" >T</td>
+                <td >Transferido para</td>
+                <td class="centralizetext" >IV</td>
+                <td >Risco de vida</td>
+                <td class="centralizetext" >MPM</td>
+                <td  colspan="2">Mãe para Mãe</td>
+                <td class="centralizetext">PU</td>
+                <td >Paragem única</td>
+                <td class="centralizetext" >DS</td>
+                <td >Dispensa Semestral</td>
+            </tr>
+        </table>-->
 </div>
