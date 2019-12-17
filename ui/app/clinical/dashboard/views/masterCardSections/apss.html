@@ -1,0 +1,807 @@
+<style>
+	@media print and (orientation: landscape) {
+		.page-break {
+			display: block;
+			page-break-before: always;
+		}
+	}
+
+	table {
+		width: 100%
+	}
+
+	table,
+	td,
+	th {
+		border: 1px solid #595959;
+		border-collapse: collapse;
+		font-family: arial;
+		font-size: 9px;
+	}
+
+	td,
+	th {
+		padding: 0 1px 0 1px;
+	}
+	input[type="checkbox"] {
+            vertical-align:middle;
+        }
+
+	.center {
+		text-align: center;
+	}
+
+	.text-sideways {
+		writing-mode: vertical-rl;
+		text-orientation: sideways;
+	}
+
+	.text-upright {
+		writing-mode: vertical-rl;
+		text-orientation: upright;
+	}
+
+	.text-small {
+		font-size: 7px;
+	}
+
+	.title {
+		font-weight: bold;
+		font-size: 1em
+	}
+
+	.align-left {
+		float: left;
+	}
+
+	.align-right {
+		float: right;
+	}
+	
+	.flex-center {
+		display: flex;
+		justify-content: center;
+	}
+	.circleSelect {
+        border-radius: 100%;
+        border: 1px solid #000;
+        padding-left: 2px;
+        padding-right: 2px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+</style>
+
+
+<body>
+	<table>
+		<tbody>
+			<tr>
+				<td class="title" colspan="30"><b>{{ 'APSS_PP_SHEET_LABEL' | translate }}</b></td>
+				<td class="center" rowspan="2">2</td>
+				<td colspan="13">
+					<b>{{ 'PP_KEY_POPULATION_LABEL' | translate }}:</b>
+					<input type="checkbox" ng-checked="data.patientInfo.keyPopulation == 'PP_Key_population_HSH'">HSH
+					<input type="checkbox" ng-checked="data.patientInfo.keyPopulation == 'PP_Key_population_PID'">PID
+					<input type="checkbox" ng-checked="data.patientInfo.keyPopulation == 'PP_Key_population_REC'">REC
+					<input type="checkbox" ng-checked="data.patientInfo.keyPopulation == 'PP_Key_population_MTS'">MTS
+					<input type="checkbox" ng-checked="data.patientInfo.keyPopulation == 'PP_Key_population_Other'">Outro
+				</td>
+			</tr>
+			<tr>
+				<td class="center">1</td>
+				<td colspan="29">
+					<div>
+						<div>
+							<b>{{ 'PATIENT_NID' | translate }}</b>:&nbsp{{data.patientInfo.patientId}}</span>
+							<span class="align-right">
+								<b>{{ 'APSS_PP_BOOK_LABEL' | translate }}:</b> <span></span>&nbsp;&nbsp;&nbsp;
+								<b>Pág:</b><span></span>&nbsp;&nbsp;&nbsp;
+								<b>Linha:</b> <span></span>
+							</span>
+						</div>
+					</div>
+					<div>
+						<b> {{ 'PRESCRIPTION_REPORT_PATIENT_NAME' | translate }}</b>:&nbsp
+						{{ data.patientInfo.firstName }}&nbsp&nbsp{{ data.patientInfo.lastName }}
+						<span class="align-right">{{ 'GENDER_LABEL' | translate }}:
+							<input type="checkbox" ng-checked="data.patientInfo.gender == 'M'">M
+							<input type="checkbox" ng-checked="data.patientInfo.gender == 'F'">F&nbsp;&nbsp;&nbsp;
+							<b>{{ 'AGE' | translate }}:</b><span>{{ data.patientInfo.age }}</span>&nbsp;
+						</span>
+					</div>
+				</td>
+				<td colspan="13"><b>{{ 'PP_VULNERABLE_POPULATION_LABEL' | translate }}</b>: {{ data.patientInfo.vulnerablePopulation | translate}}</td>
+			</tr>
+			<tr>
+				<td rowspan="2"></td>
+				<td colspan="13" rowspan="2"></td>
+				<td class="center" rowspan="2">3</td>
+				<td colspan="3" rowspan="2" style="width: 100px;">Consultas (Datas)</td>
+				<td colspan="2">Actual</td>
+				<td ng-repeat="ps in data.patientInfo.psychosocialFactors track by $index" class="center" colspan="2">{{ ps.actualVisit | date:'dd/MM/yy' }}</td>
+				<td ng-repeat="pse in data.patientInfo.psychosocialFactorsActualEmpty track by $index" colspan="2" class="center">__/__/__</td>
+			</tr>
+			<tr>
+				<td colspan="2">Próxima</td>
+				<td ng-repeat="ps in data.patientInfo.psychosocialFactors track by $index" class="center" colspan="2">{{ ps.nextVisit | date:'dd/MM/yy' }}</td>
+				<td ng-repeat="pse in data.patientInfo.psychosocialFactorsNextEmpty track by $index" colspan="2" class="center">__/__/__</td>
+			</tr>
+			<tr>
+				<td class="center">4</td>
+				<td colspan="19">ESTADO DA REVELAÇÃO DO DIAGNÓSTICO à Criança/Adolescente? Não/Parcial/Total (N/P/T)
+				</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Disclosure_Diagnosis_results_child_adolescent_No')}">N</span>&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Disclosure_Diagnosis_results_child_adolescent_Partial')}">P</span>&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Disclosure_Diagnosis_results_child_adolescent_Total')}">T</span>&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td class="center">5</td>
+				<td class="center" colspan="4">ACONSELHA-<br>MENTO<br>PRÉ-TARV</td>
+				<td colspan="15">Educação básica sobre HIV (Prevenção: Transmissão; Progressão<br>da doença) e ADESÃO
+					(Preparação; Necessidade de adesão; Plano<br>de Tratamento) (S / N)</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3]">
+					<span ng-class="{'circleSelect': data.patientInfo.apssPreTARVCounselling[$index] === 'Apss_Pre_TARV_counselling_Yes'}">S</span>
+					<span ng-class="{'circleSelect': data.patientInfo.apssPreTARVCounselling[$index] === 'Apss_Pre_TARV_counselling_NO'}">N</span>
+				</td>
+				<td colspan="18">Comentários:&nbsp;<span>{{ data.patientInfo.apssPreTARVCounsellingComments }}</span></td>
+			</tr>
+			<tr>
+				<td class="center" rowspan="9">6</td>
+				<td class="center" colspan="4" rowspan="9">FACTORES<br>PSICO-<br>SOCIAIS<br>que<br>afectam
+					a<br>adesão<br>(A / B / C / D /<br>E / F /...Q,<br>outro)</td>
+				<td class="center">A</td>
+				<td colspan="6">Recusa resultado positivo</td>
+				<td class="center" style="width: 9px;">I</td>
+				<td colspan="7">Dificuldade para revelar a parceira / família</td>
+<!--
+				<div ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+					<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				</div>
+-->
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Denial_of_positive_result')}">A</span></td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Hard_disclose_to_partner_family')}">I</td>
+			</tr>
+			<tr>
+				<td class="center">B</td>
+				<td colspan="6">Sente-se doente demais</td>
+				<td class="center">J</td>
+				<td colspan="7">Toxicidade / Medo de efeitos secundários</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Feels_too_sick_ill')}">B</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Toxicity_Fear_of_side_effects')}">J</td>
+			</tr>
+			<tr>
+				<td class="center">C</td>
+				<td colspan="6">Não acredita no TARV</td>
+				<td class="center">L</td>
+				<td colspan="7">Perdeu / Esqueceu / Partilhou comprimidos</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_I_don_believe_ARV')}">C</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Lost_Forgot_Shared_drugs')}">L</td>
+			</tr>
+			<tr>
+				<td class="center">D</td>
+				<td colspan="6">São muitos comprimidos</td>
+				<td class="center">M</td>
+				<td colspan="7">Estigma / Descriminação</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_It_lot_drugs')}">D</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Stigma_Discrimination')}">M</td>
+			</tr>
+			<tr>
+				<td class="center">E</td>
+				<td colspan="6">Sente-se melhor</td>
+				<td class="center">N</td>
+				<td colspan="7">Problemas de transporte</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Feels_better')}">E</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Transport_Issues')}">N</td>
+			</tr>
+			<tr>
+				<td class="center">F</td>
+				<td colspan="6">Falta de alimentação</td>
+				<td class="center">O</td>
+				<td colspan="7">Violência baseada no género</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Lack_of_food')}">F</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Gender_Based_Violence')}">O</td>
+			</tr>
+			<tr>
+				<td class="center">G</td>
+				<td colspan="6">Falta de apoio familiar</td>
+				<td class="center">P</td>
+				<td colspan="7">Aspectos culturais ou tradicionais</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Lack_of_family_support')}">G</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Cultural_Religious_Traditional_Aspects')}">P</td>
+			</tr>
+			<tr>
+				<td class="center">H</td>
+				<td colspan="6">Sinais de depressão/ ansiedade</td>
+				<td class="center">Q</td>
+				<td colspan="7">Uso abusivo de álcool ou drogas</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[0].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[1].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[2].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[3].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[4].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[5].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[6].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[7].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[8].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[9].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[10].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+				<td class="center"><pan ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Signs_depression_anxiety')}">H</td>
+				<td class="center"><span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[11].values.includes('Apss_Psychosocial_factors_Alcohol_Drug_Abuse')}">Q</td>
+			</tr>
+			<tr>
+				<td colspan="15">Outro - Especifique</td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[0].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[1].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[2].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[3].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[4].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[5].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[6].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[7].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[8].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[9].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[10].apssSectionIDetails }}</span></td>
+				<td colspan="2" class="center text-small"><span>{{ data.patientInfo.psychosocialFactors[11].apssSectionIDetails }}</span></td>
+			</tr>
+			<tr>
+				<td class="center" rowspan="7">7</td>
+				<td rowspan="7" style="width: 5px">
+					<span class="center text-small">
+						<div style="transform: rotate(270deg);">
+							PREVENÇÃO POSITIVA
+						</div>
+					</span>
+				</td>
+				<td style="width: 10px;">PP1</td>
+				<td colspan="17">Comportamento sexual - sexo seguro e oferta de preservativos (S/N)</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Sexual_behavior_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Sexual_behavior_No')}">N</span>
+				</td>
+			</tr>
+			<tr>
+				<td>PP2</td>
+				<td colspan="17">Revelação do seroestado a parceiro / a e convite para testagem (S/N)</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Disclosure_HIV_status_partner_encouragement_test_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Disclosure_HIV_status_partner_encouragement_test_No')}">N</span>
+				</td>
+			</tr>
+			<tr>
+				<td>PP3</td>
+				<td colspan="17">Importância da adesão aos cuidados Pré-TARV e TARV (S/N)</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_importance_adherence_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_importance_adherence_No')}">N</span>
+				</td>
+			</tr>
+			<tr>
+				<td>PP4</td>
+				<td colspan="17">Infecções de Transmissão Sexual (S/N)</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Sexually_Transmitted_Infections_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Sexually_Transmitted_Infections_No')}">N</span>
+				</td>
+			</tr>
+			<tr>
+				<td>PP5</td>
+				<td colspan="17">Planeamento Familiar - PF (S/N); Grávida - Gravidez Segura - GS (S/N); PTV (S/N)</td>
+				<td colspan="2" class="center" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Family_Planning_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Family_Planning_No')}">N</span>
+				</td>
+			</tr>
+			<tr>
+				<td>PP6</td>
+				<td colspan="17">Consumo de álcool e outras drogas</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Alcohol_other_Drugs_consumption_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Alcohol_other_Drugs_consumption_No')}">N</span>
+				</td>
+			</tr>
+			<tr>
+				<td>PP7</td>
+				<td colspan="17">Necessidade de apoio comunitário (S/N)</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Need_community_support_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Need_community_support_No')}">N</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="center">8</td>
+				<td colspan="19">POPULAÇÕES CHAVE - oferta de lubrificantes (S/N)</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Key_Population_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Positive_prevention_Key_Population_No')}">N</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="center" rowspan="7">9</td>
+				<td rowspan="7">
+					<span class="center text-small">
+						<div style="transform: rotate(270deg);">
+							SEGUIMENTO DA ADESÃO<br>(APÓS O INÍCIO TARV)
+						</div>
+					</span>
+				</td>
+				<td colspan="15" rowspan="2">Informou alguém sobre o seu seroestado?</td>
+				<td class="center" colspan="3">
+					<span>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>N</span>
+				</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Has_informed_someone_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Has_informed_someone_No')}">N</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="center" colspan="3">(Parentesco)</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					{{data.patientInfo.psychosocialFactors[$index].apssAdherenceFollowUpRelationship}}
+				</td>
+			</tr>
+			<tr>
+				<td colspan="15" rowspan="2">Se criança, adolescente, idoso, se tem deficiência física ou mental - Quem administra os ARVs?</td>
+				<td class="center" colspan="3" style="width: 5px">(Nome / Próprio)</td>
+				<td colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					{{data.patientInfo.psychosocialFactors[$index].apssAdherenceFollowUpWhoAdministersFullName}}
+				</td>
+			</tr>
+			<tr>
+				<td class="center" colspan="3">(Parentesco)</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+						{{data.patientInfo.psychosocialFactors[$index].apssAdherenceFollowUpWhoAdministersRelationship}}
+				</td>
+			</tr>
+			<tr>
+				<td colspan="18">PLANO DE ADESÃO - Horário; Dose; Esquecimento da dose; Viagem - (S / N)</td>
+				<td colspan="2" class="center" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Adherence_Plan_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Adherence_Plan_No')}">N</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="18">EFEITOS SECUNDÁRIOS - O que pode ocorrer; Como manejar efeitos secundários - (S / N)
+				</td>
+				<td colspan="2" class="center" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Side_Effects_Yes')}">S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Side_Effects_No')}">N</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="18">ADESÃO ao TARV - <u>B</u>oa; <u>R</u>isco; <u>M</u>á; Dias de atraso no levantamento ARVs? (B/R/M - N&deg;
+					dias)</td>
+				<td colspan="2" class="center" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Adherence_TARV_Good')}">B</span>&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Adherence_TARV_Risky')}">R</span>&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Adherence_follow_up_Adherence_TARV_Bad')}">M</span>&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td class="center">10</td>
+				<td colspan="19">MOTIVO da consulta - <u>N</u>ormal / <u>F</u>altoso / <u>A</u>bandono (N / F / A)</td>
+				<td class="center" colspan="2" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Reason_For_The_Visit_Normal')}">N</span>&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Reason_For_The_Visit_Faulty')}">F</span>&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Reason_For_The_Visit_Leave')}">A</span>&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td class="center" rowspan="3">11</td>
+				<td class="center" colspan="5" rowspan="3">GRUPOS<br>DE APOIO<br><u>I</u>nício/<u>C</u>ontinua/<u>F</u>im<br>(Código - I/C/F)</td>
+				<td>CR</td>
+				<td colspan="6">Crianças Reveladas</td>
+				<td>AR</td>
+				<td colspan="6">Adolescentes reveladas/os</td>
+				<td colspan="2" rowspan="3" class="center" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupCR">
+						CR&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupCR === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupCR === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupCR === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupAR">
+						AR&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupAR === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupAR === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupAR === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupPC">
+						PC&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupPC === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupPC === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupPC === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupMPS">
+						MPM&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupMPS === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupMPS === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupMPS === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup">
+						<span class="text-small" style="width:50px; word-wrap:break-word; display:inline-block;">
+							{{data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroupOther}}&nbsp;/&nbsp;
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_Start'">
+								I
+							</div>
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_In_Progress'">
+								C
+							</div>
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceSectionSupportGroup === 'Reference_End'">
+								F
+							</div>
+						</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>PC</td>
+				<td colspan="6">Pais e cuidadores</td>
+				<td>MPM</td>
+				<td colspan="6">Mãe para Mãe</td>
+			</tr>
+			<tr>
+				<td colspan="7">Outro, especifique o grupo</td>
+				<td colspan="7"></td>
+			</tr>
+			<tr>
+				<td class="center" rowspan="4">12</td>
+				<td class="center" colspan="5" rowspan="4">Modelos<br>Diferenciados de<br>Cuidados
+					(MDC)<br><u>I</u>nício/<u>C</u>ontinua/<u>F</u>im<br>(código - I/C/F)</td>
+				<td>GA</td>
+				<td colspan="6">GAAC</td>
+				<td>FR</td>
+				<td colspan="6">Fluxo rápido</td>
+				<td colspan="2" rowspan="4" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]">
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionGA">
+						GA&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionGA === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionGA === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionGA === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionFR">
+						FR&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionFR === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionFR === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionFR === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF">
+						AF&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionAF === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDT">
+						DT&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDT === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDT === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDT === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA">
+						CA&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDC">
+						DC&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDC === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDC === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionDC === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionPU">
+						PU&nbsp;/&nbsp;
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_Start'">
+							I
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_In_Progress'">
+							C
+						</div>
+						<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionCA === 'Reference_End'">
+							F
+						</div>
+					</div>
+					<div class="center flex-center" ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther">
+						<span class="text-small" style="width:50px; word-wrap:break-word; display:inline-block;">
+							{{data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOtherComments}}&nbsp;/&nbsp;
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_Start'">
+								I
+							</div>
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_In_Progress'">
+								C
+							</div>
+							<div ng-if="data.patientInfo.psychosocialFactors[$index].referenceMDCSectionOther === 'Reference_End'">
+								F
+							</div>
+						</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>AF</td>
+				<td colspan="6">Abordagem familiar</td>
+				<td>DT</td>
+				<td colspan="6">Dispensa Trimestral</td>
+			</tr>
+			<tr>
+				<td>CA</td>
+				<td colspan="6">Clube de adesão</td>
+				<td>DC</td>
+				<td colspan="6">Dispensa Comunitária</td>
+			</tr>
+			<tr>
+				<td>PU</td>
+				<td colspan="6">Paragem Única</td>
+				<td colspan="7">Outro, especifique o grupo</td>
+			</tr>
+			<tr>
+				<td rowspan="3">13</td>
+				<td class="center" colspan="12">Está preparado para iniciar o TARV</td>
+				<td class="center" rowspan="3">14</td>
+				<td class="center" colspan="28">TERMOS de CONSENTIMENTO</td>
+				<!--<td class="center" colspan="3">Assinaturas</td>-->
+				<td class="center" colspan="2">Datas</td>
+			</tr>
+			<tr>
+				<td colspan="12" rowspan="2" class="center" style="padding: 10px;">
+					<div ng-if="data.patientInfo.apssDifferentiatedModelsDate"><b>Data:</b>&nbsp;{{data.patientInfo.apssDifferentiatedModelsDate}}</div>
+					<div ng-if="!data.patientInfo.apssDifferentiatedModelsDate" class="center"><b>Data:</b>&nbsp;__/__/__</div>
+					<br>
+					<span><b>{{ 'PROVIDER_SIGNATURE' | translate}}:</b>&nbsp;{{ data.patientInfo.username }}</span>
+				</td>
+				<td colspan="17">
+					<div>O paciente / cuidador concorda em ser contactado, se necessário? <span class="align-right">
+						<input type="checkbox" ng-checked="data.patientInfo.apssPatientCaregiverAgreement == 'Apss_Agreement_Terms_Patient_Caregiver_agrees_contacted_No'">Não
+						<input type="checkbox" ng-checked="data.patientInfo.apssPatientCaregiverAgreement == 'Apss_Agreement_Terms_Patient_Caregiver_agrees_contacted_Yes'">Sim
+					</div>
+				</td>
+				<td colspan="11" class="center"><b>Contacto:</b>
+					<input type="checkbox" ng-checked="data.patientInfo.apssAgreementContactType == 'Apss_Agreement_Terms_Type_Contact_Phone_call'">&nbsp;Telefone
+					<input type="checkbox" ng-checked="data.patientInfo.apssAgreementContactType == 'Apss_Agreement_Terms_Type_Contact_SMS'">&nbsp;SMS
+					<input type="checkbox" ng-checked="data.patientInfo.apssAgreementContactType == 'Apss_Agreement_Terms_Type_Contact_House_Visits'">&nbsp;Domiciliar</td>
+				<!--<td colspan="3"></td>-->
+				<td colspan="2" class="center" class="center">__/__/__</td>
+			</tr>
+			<tr>
+				<td colspan="17">O confidente concorda em ser contactado, se necessário? <span class="align-right">
+					<input type="checkbox" ng-checked="data.patientInfo.apssConfidantAgreement == 'Apss_Agreement_Terms_Confidant_agrees_contacted_No'">Não
+					<input type="checkbox" ng-checked="data.patientInfo.apssConfidantAgreement == 'Apss_Agreement_Terms_Confidant_agrees_contacted_Yes'">Sim
+				</td>
+				<td colspan="11" class="center"><b>Contacto:</b>
+					<input type="checkbox" ng-checked="data.patientInfo.apssConfidantAgreementContactType == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Phone_call'">&nbsp;Telefone
+					<input type="checkbox" ng-checked="data.patientInfo.apssConfidantAgreementContactType == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_SMS'">&nbsp;SMS
+					<input type="checkbox" ng-checked="data.patientInfo.apssConfidantAgreementContactType == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Visits'">&nbsp;Domiciliar</td>
+				<!--<td colspan="3"></td>-->
+				<td colspan="2" class="center">__/__/__</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
