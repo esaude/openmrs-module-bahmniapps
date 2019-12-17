@@ -2,14 +2,15 @@
 
 angular.module('bahmni.clinical')
     .controller('DrugOrderHistoryController', ['$scope', '$filter', '$stateParams', 'activeDrugOrders',
-        'treatmentConfig', 'treatmentService', 'spinner', 'drugOrderHistoryHelper', 'visitHistory', '$translate', '$rootScope',
+        'treatmentConfig', 'treatmentService', 'spinner', 'drugOrderHistoryHelper', 'visitHistory', '$translate', '$rootScope', '$q', '$http',
         function ($scope, $filter, $stateParams, activeDrugOrders, treatmentConfig, treatmentService, spinner,
-                   drugOrderHistoryHelper, visitHistory, $translate, $rootScope) {
+                   drugOrderHistoryHelper, visitHistory, $translate, $rootScope, $q, $http) {
             var DrugOrderViewModel = Bahmni.Clinical.DrugOrderViewModel;
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var currentVisit = visitHistory.activeVisit;
             var activeDrugOrdersList = [];
             var prescribedDrugOrders = [];
+            var drugOrdersData = [];
             $scope.dispensePrivilege = Bahmni.Clinical.Constants.dispensePrivilege;
             $scope.scheduledDate = DateUtil.getDateWithoutTime(DateUtil.addDays(DateUtil.now(), 1));
 
@@ -70,10 +71,19 @@ angular.module('bahmni.clinical')
                 };
 
                 var drugOrderGroups = _.map(drugOrderGroupedByDate, function (drugOrders, visitStartDate) {
+                    var drugOrdersMap = drugOrders.map(createDrugOrder);
+                    for (var i = 0; i < drugOrdersData.length; i++) {
+                        for (var j = 0; j < drugOrdersMap.length; j++) {
+                            if (drugOrdersData[i].uuid === drugOrdersMap[j].drug.uuid) {
+                                drugOrdersMap[j].treatment_line = drugOrdersData[i].treatment_line;
+                                drugOrdersMap[j].dispensed_date = drugOrdersData[i].dispensed_date;
+                            }
+                        }
+                    }
                     return {
                         label: $filter("bahmniDate")(visitStartDate),
                         visitStartDate: DateUtil.parse(visitStartDate),
-                        drugOrders: drugOrders.map(createDrugOrder),
+                        drugOrders: drugOrdersMap,
                         isCurrentVisit: currentVisit && DateUtil.isSameDateTime(visitStartDate, currentVisit.startDatetime)
                     };
                 });
@@ -83,13 +93,30 @@ angular.module('bahmni.clinical')
 
             $scope.stoppedOrderReasons = treatmentConfig.stoppedOrderReasonConcepts;
 
+            var getDrugLine = function () {
+                var params = {
+                    q: "bahmni.sqlGet.patientPrescriptions",
+                    v: "full",
+                    lang_unit: "pt",
+                    lang_route: "pt",
+                    lang_treatmentLine: "pt",
+                    lang_frequency: "pt",
+                    patientUuid: $scope.patient.uuid
+                };
+                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                    method: "GET",
+                    params: params,
+                    withCredentials: true
+                });
+            };
+
             var init = function () {
                 var numberOfVisits = treatmentConfig.drugOrderHistoryConfig.numberOfVisits ? treatmentConfig.drugOrderHistoryConfig.numberOfVisits : 3;
-                spinner.forPromise(treatmentService.getPrescribedDrugOrders(
-                    $stateParams.patientUuid, true, numberOfVisits, $stateParams.dateEnrolled, $stateParams.dateCompleted).then(function (data) {
-                        prescribedDrugOrders = data;
-                        createPrescriptionGroups($scope.consultation.activeAndScheduledDrugOrders);
-                    }));
+                Promise.all([treatmentService.getPrescribedDrugOrders($stateParams.patientUuid, true, numberOfVisits, $stateParams.dateEnrolled, $stateParams.dateCompleted), getDrugLine()]).then(function (data) {
+                    prescribedDrugOrders = data[0];
+                    drugOrdersData = data[1].data;
+                    createPrescriptionGroups($scope.consultation.activeAndScheduledDrugOrders);
+                });
             };
             $scope.getOrderReasonConcept = function (drugOrder) {
                 if (drugOrder.orderReasonConcept) {

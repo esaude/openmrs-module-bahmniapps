@@ -34,11 +34,14 @@
                 <td class="days">
                     <span>{{::drugOrder.effectiveStartDate | bahmniDate}}</span>
                 </td>
+                <td class="days">
+                    <span>{{::drugOrder.dispensed_date | bahmniDate}}</span>
+                </td>
                 <td>
                     <span>{{::drugOrder.instructions || ""}}</span>
                 </td>
                 <td>
-                    <span>{{::drugOrder.additionalInstructions || ""}}</span>
+                    <span>{{::drugOrder.treatment_line}}</span>
                 </td>
                 <td class="toggle-btn"
                     ng-if="::section.dashboardConfig.showDetailsButton">

@@ -575,5 +575,9 @@
   "MASTERCARD_RECEPTION_LABEL_DAY": "Dia",
   "MASTERCARD_RECEPTION_LABEL_MOTH": "Mês",
   "MASTERCARD_RECEPTION_LABEL_YEAR": "Ano",
-  "LINE_TREATMENT": "Linha de tratamento"
+  "LINE_TREATMENT": "Linha de tratamento",
+  "MONTHLY": "Mensal",
+  "TRIMESTER": "Trimestral",
+  "SEMIANNUAL": "Semestral",
+  "DRUG_DETAILS_DISPENSED_DATE": "Data de levantamento"
 }
