@@ -314,7 +314,7 @@
                 <td>{{ ps.prophylaxisSymptoms }}</td>
                 <td>{{ ps.tbTreatmentStartDate | date:'d/MM/yy'}} <div><span ng-class="{'circleSelect':ps.tbTreatmentState == 'Start_SP'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.tbTreatmentState == 'Em Curso'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.tbTreatmentState == 'Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_End'}">F</span></td>
                 <td><span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Início'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Em Curso'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Fim'}">F</span></td>
-                <td><span ng-class="{'circleSelect':ps.spSideEffectsCTZ===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsCTZ === false}">N</span></div></td>
+                <td><span ng-class="{'circleSelect':ps.spSideEffectsCTZ===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsCTZ === false}">N</span></td>
                 <td>{{ ps.stiDiagnosisProphylaxis }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIM }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIF }} </td>
           
                 <td><span ng-if="ps.cd4Req === true">PEDIDO</span>{{ps.CD4}}</td>

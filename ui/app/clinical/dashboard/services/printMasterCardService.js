@@ -1274,7 +1274,7 @@ angular.module('bahmni.clinical')
                                                             obsTable[i].prescribedDrugs.route = prescription.route;
                                                             obsTable[i].prescribedDrugs.category = prescription.category;
                                                             obsTable[i].prescribedDrugs.first_arv = prescription.first_arv;
-                                                            obsTable[i].prescribedDrugs.line = prescription.line_treatment[0];
+                                                            obsTable[i].prescribedDrugs.line = prescription.line_treatment;
                                                             obsTable[i].prescribedDrugs.arv_dispensed = prescription.arv_dispensed;
                                                             obsTable[i].prescribedDrugs.drug_dispensed = prescription.drug_dispensed;
                                                             obsTable[i].prescribedDrugs.dispensed_date = prescription.dispensed_date;
@@ -1297,7 +1297,7 @@ angular.module('bahmni.clinical')
                                                                     route: prescription.route,
                                                                     category: prescription.category,
                                                                     first_arv: prescription.first_arv,
-                                                                    line: prescription.line_treatment[0],
+                                                                    line: prescription.line_treatment,
                                                                     arv_dispensed: prescription.arv_dispensed,
                                                                     drug_dispensed: prescription.drug_dispensed,
                                                                     dispensed_date: prescription.dispensed_date,
