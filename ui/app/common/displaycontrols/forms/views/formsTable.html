@@ -26,7 +26,7 @@
                                   ng-dialog-data="{{getConfigToFetchDataAndShow(data)}}">
                                 <i class="fa fa-eye"></i>
                             </span>
-                            <span ng-if="isFormEditable"
+                            <span ng-if="isFormEditable && !(patient.isMigrated && data.concept.name.display ==='Clinical_History_Obs_Form')"
                                   class="has-link fl formDataEdit"
                                   ng-dialog="dashboard/views/dashboardSections/editObservationForm.html"
                                   ng-dialog-class="ngdialog-theme-default ng-dialog-all-details-page ng-dialog-edit"

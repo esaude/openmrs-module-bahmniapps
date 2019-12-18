@@ -101,7 +101,7 @@
                 <br>
                 &nbsp;&nbsp;<b>Profissão:</b> {{ data.patientInfo.occupation }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <b>Nível de Escolaridade:</b> <span ng-if="data.patientInfo.education">{{ data.patientInfo.education }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span ng-if="!data.patientInfo.education">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <b>Tel. Cel (2):</b> {{ data.patientInfo.alternativeContact1 }}
+                <b>Tel. Cel (2):</b><span ng-if="data.patientInfo.alternativeContact1">{{ data.patientInfo.alternativeContact1 }}</span>
                 <br>
                 &nbsp;&nbsp;<b>MORADA - Distrito / Cidade:</b> {{ data.patientInfo.district }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.patientInfo.district">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <b>{{ 'TOWN' | translate }}:</b> {{ data.patientInfo.town }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.patientInfo.town">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -438,8 +438,8 @@
                 <span ng-if="data.patientInfo.typeOfTest ==='Diagnóstico Presuntivo'">{{ data.patientInfo.dateofHIVDiagnosis | date:'dd/MM/yy'}}</span>
             </td>
             <td colspan="50">
-                &nbsp;&nbsp;<b>Início Pré-TARV</b>&nbsp;&nbsp;&nbsp;- U. Sanitária: <span>{{ data.healthFacilityInfo.name }}</span><span ng-if="!data.healthFacilityInfo.name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <b>Sector:</b> <input type="checkbox"/>TB
+                &nbsp;&nbsp;<b>Início Pré-TARV</b>&nbsp;&nbsp;&nbsp;- U. Sanitária: <span>{{ data.healthFacilityInfo.name }}</span><span ng-if="!data.healthFacilityInfo.name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sector:</b> <input type="checkbox"/>TB
                 <input type="checkbox"/>SAAJ
                 <input type="checkbox" ng-checked="data.patientInfo.sectorSelect === 'CPN'"/>CPN/G
                 <input type="checkbox" ng-checked="data.patientInfo.sectorSelect === 'CCR'"/>CCR/L
@@ -453,9 +453,9 @@
         </tr>
         <tr>
             <td colspan="60" >
-                <input type="checkbox" ng-checked="data.transference.healthFacilityName"/>Transferido de outra US 
-                <span>__/__/__</span>&nbsp;&nbsp;
-                <b>Unidade Sanitária</b>&nbsp;{{ data.healthFacilityInfo.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" ng-checked="data.transference.healthFacilityName"/><b>Transferido de outra US: </b>
+                <span ng-if="data.transference.healthFacilityName">{{ data.transference.date | date:'dd/MM/yy' }}</span><span ng-if="!data.transference.date">__/__/__</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <b>Unidade Sanitária:</b>&nbsp;{{ data.transference.healthFacilityName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="checkbox" ng-checked="data.patientInfo.patientStatus[0] === 'Pre TARV'"/>Em Pré-TARV
                 <input type="checkbox" ng-checked="data.patientInfo.patientStatus[0] != 'Pre TARV'"/>TARV
             </td>
@@ -550,7 +550,8 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
             </td>
-            <td colspan="31" rowspan="2">&nbsp;&nbsp;<b>Última Profilaxia Isoniazida</b> (Data de início)&nbsp;
+            <td colspan="31" rowspan="1">
+                &nbsp;&nbsp;<b>Última Profilaxia Isoniazida</b> (Data de início):&nbsp;
                 <span ng-if="!data.patientInfo.INH_start">__/__/__</span>
                 <span ng-if="data.patientInfo.INH_start">{{ data.patientInfo.INH_start | date:'dd/MM/yy' }}</span>
             </td>
@@ -571,6 +572,11 @@
                     <span ng-if="data.labOrderResult.LO_ViralLoad.testDate">{{data.labOrderResult.LO_ViralLoad.testDate | date:'dd/MM/yy'}}</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
+            </td>
+            <td colspan="31" rowspan="1">
+                &nbsp;&nbsp;<b>Última Profilaxia Isoniazida</b> (Data de fim):&nbsp;
+                <span ng-if="!data.patientInfo.INH_end">&nbsp;&nbsp;&nbsp;__/__/__</span>
+                <span ng-if="data.patientInfo.INH_end">{{ data.patientInfo.INH_end | date:'dd/MM/yy' }}</span>
             </td>
         </tr>
     </table>
