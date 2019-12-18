@@ -220,38 +220,47 @@ angular.module('bahmni.clinical')
 
             var populatePatientLabResults = function () {
                 reportModel.labOrderResult = {};
-                var labResultsToShow = ['ALT', 'LO_ALT', 'AST', 'LO_AST', 'CD4 %', 'HGB', 'LO_HB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outro', 'LO_Other:'];
                 return new Promise(function (resolve, reject) {
                     labOrderResultService.getAllForPatient({
                         patientUuid: patientUuid
                     }).then(function (response) {
                         if (response.labAccessions) {
                             if (response.labAccessions.length > 0) {
-                                _.map(response.labAccessions[0], function (currentObj) {
-                                    if (_.includes(labResultsToShow, currentObj.testName)) {
+                                response.labAccessions.reverse().forEach(function (labAccession) {
+                                    labAccession.forEach(function (value) {
                                         var loName;
-                                        if (currentObj.testName === 'ALT' || currentObj.testName === 'LO_ALT') {
+                                        if (value.testName === 'ALT' || value.testName === 'LO_ALT') {
                                             loName = 'LO_ALT';
-                                        } else if (currentObj.testName === 'AST' || currentObj.testName === 'LO_AST') {
+                                        } else if (value.testName === 'AST' || value.testName === 'LO_AST') {
                                             loName = 'LO_AST';
-                                        } else if (currentObj.testName === 'CD4 %') {
+                                        } else if (value.testName === 'CD 4') {
                                             loName = 'LO_CD4';
-                                        } else if (currentObj.testName === 'HGB' || currentObj.testName === 'LO_HB') {
+                                        } else if (value.testName === 'CD4 %') {
+                                            loName = 'LO_CD4_per';
+                                        } else if (value.testName === 'CD4 Abs') {
+                                            loName = 'LO_CD4_Abs';
+                                        } else if (value.testName === 'HGB' || value.testName === 'LO_HB') {
                                             loName = 'LO_HGB';
-                                        } else if (currentObj.testName === 'CARGA VIRAL (Absoluto-Rotina)') {
-                                            loName = 'LO_ViralLoad';
-                                        } else if (currentObj.testName === 'CARGA VIRAL(Qualitativo-Rotina)') {
-                                            loName = 'LO_ViralLoad';
-                                        } else if (currentObj.testName === 'LO_Other:' || currentObj.testName === 'Outro') {
+                                        } else if (value.testName === 'CARGA VIRAL (Absoluto-Rotina)') {
+                                            loName = 'LO_ViralLoad_Rot';
+                                        } else if (value.testName === 'CARGA VIRAL (Absoluto-Suspeita)') {
+                                            loName = 'LO_ViralLoad_Susp';
+                                        } else if (value.testName === 'CARGA VIRAL(Qualitativo-Rotina)') {
+                                            loName = 'LO_ViralLoad_QAl_Rot';
+                                        } else if (value.testName === 'CARGA VIRAL(Qualitativo-Suspeita)') {
+                                            loName = 'LO_ViralLoad_QAl_Susp';
+                                        } else if (value.testName === 'LO_Other:' || value.testName === 'Outro') {
                                             loName = 'LO_Other:';
                                         } else {
-                                            loName = currentObj.testName;
+                                            loName = value.testName;
                                         }
-                                        reportModel.labOrderResult[loName] = {
-                                            testDate: currentObj.resultDateTime,
-                                            testResult: currentObj.result
-                                        };
-                                    }
+                                        if (value.result) {
+                                            reportModel.labOrderResult[loName] = {
+                                                testDate: value.resultDateTime,
+                                                testResult: value.result
+                                            };
+                                        }
+                                    });
                                 });
                             }
                         }

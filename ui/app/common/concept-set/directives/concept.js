@@ -202,6 +202,18 @@ angular.module('bahmni.common.conceptSet')
                         scope.observation.disabled = true;
                     }
 
+                    if (scope.observation.concept.name.includes("HOF") && scope.patient.isMigrated) {
+                        scope.observation.disabled = true;
+                    } else
+                    if (scope.observation.concept.name.includes("HOF") && scope.patient.historyObsFirstTime == false) {
+                        scope.observation.disabled = true;
+                    } else {
+                        if (scope.observation.concept.name === "HOF_TARV_PROPHILAXIS_Patient_Type") {
+                            scope.observation.disabled = true;
+                            scope.observation.hide = true;
+                        }
+                    }
+
                     if (scope.conceptSetName === 'Group V-Screening / Prophylaxis') {
                         if (scope.observation.concept.name === 'SP_Treatment State') {
                             $rootScope.observationData = scope.observation;
@@ -229,6 +241,17 @@ angular.module('bahmni.common.conceptSet')
                                 if (currentObj.concept.name === 'User_type' || currentObj.concept.name === 'User_type_pop') {
                                     _.map(currentObj.possibleAnswers, function (answers) {
                                         if (answers.name.name === "APSS_user" || answers.name.name === "APSS_user_pop") {
+                                            currentObj.disabled = true;
+                                            currentObj.value = answers;
+                                        }
+                                    });
+                                }
+                            });
+                        } else if (providerType === "Clinical") {
+                            _.map(scope.rootObservation.groupMembers, function (currentObj) {
+                                if (currentObj.concept.name === 'User_type' || currentObj.concept.name === 'User_type_pop') {
+                                    _.map(currentObj.possibleAnswers, function (answers) {
+                                        if (answers.name.name === "Clinical_user" || answers.name.name === "Clinical_user_pop") {
                                             currentObj.value = answers;
                                         }
                                     });

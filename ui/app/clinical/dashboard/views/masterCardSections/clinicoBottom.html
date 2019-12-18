@@ -2,12 +2,20 @@
     .sampleTable {
         border-collapse: collapse;
         border-spacing: 0;
-        table-layout: fixed;
-        width: 100%;
+        font-size: 6px;
+        width: 141%;
+        transform: translate(-410px, 494px);
     }
     .sampleTable td {
-        font-family: Arial, sans-serif;
-        font-size: xx-small;
+        font-size: 6px;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+        border-color: black;
+    }
+    .sampleTable .centralizetext {
+        font-size: 6px;
         text-align: center;
         border-style: solid;
         border-width: 1px;
@@ -16,8 +24,7 @@
         border-color: black;
     }
     .sampleTable th {
-        font-family: Arial, sans-serif;
-        font-size: xx-small;
+        font-size: 6px;
         font-weight: normal;
         border-style: solid;
         border-width: 1px;
@@ -25,15 +32,14 @@
         word-break: normal;
         border-color: black;
     }
-    .sampleTable thBold {
-        font-family: Arial, sans-serif;
-        font-size: xx-small;
-        border-color:inherit;
-        text-align:center;
-        vertical-align:middle
-    }
     .sampleTable .cells {
         width: 50px;
+    }
+    .sampleTable span {
+        font-size: 6px;
+    }
+    .align-content-vertical {
+        transform: rotate(90deg);
     }
     .circleSelect {
         border-radius: 100%;
@@ -43,332 +49,39 @@
         padding-top: 1px;
         padding-bottom: 1px;
     }
-    .tg  {border-collapse:collapse;border-spacing:0;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:1px 3px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:1px 3px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-    .tg .tg-ajx1{font-weight:bold;font-size:xx-small;background-color:#ffffc7;border-color:inherit;text-align:center;vertical-align:middle}
-    .tg .tg-rc17{font-size:xx-small;border-color:inherit;text-align:center;vertical-align:middle}
-    .tg .tg-yp4s{font-weight:bold;font-size:xx-small;border-color:inherit;text-align:center;vertical-align:middle}
-    .tg .tg-dhix{font-size:xx-small;border-color:inherit;text-align:left;vertical-align:middle}
 </style>
 
-<table class="sampleTable">
-    <colgroup>
-        <col class="cells">
-    </colgroup>
+<div class="align-content-vertical">
+    <table class="sampleTable" align="center">
+        <colgroup>
+            <col class="cells">
+        </colgroup>
 
-    <tr>
-        <th class="sampleTable" rowspan="4"><br><br><span style="font-weight:bold;text-decoration:underline">{{'MASTERCARD_RECEPTION_LABEL' | translate}}</span><span style="font-weight:bold"> </span><br>{{'MASTERCARD_RECEPTION_LABEL_PICKED_DRUG' | translate}} <br>{{'MASTERCARD_RECEPTION_LABEL_Y_N' | translate}}</th>
-        <th class="th">{{'MASTERCARD_RECEPTION_LABEL_Y' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;{{'MASTERCARD_RECEPTION_LABEL_N' | translate}}</th>
-        <th ng-repeat="n in pickupARVDColumn" class="th">
-            <span ng-class="{'circleSelect': dispensedDrug[n].dispensed}">{{'MASTERCARD_RECEPTION_LABEL_Y' | translate}}&nbsp;&nbsp;</span>
-            <span>&nbsp;&nbsp;{{'MASTERCARD_RECEPTION_LABEL_N' | translate}}</span>
-        </th>
-    </tr>
-    <tr>
-        <td class="td">{{'MASTERCARD_RECEPTION_LABEL_DAY' | translate}}</td>
-        <td ng-repeat="n in pickupARVDColumn" class="td">
-            <span>{{dispensedDrug[n].dispensed_date | date:'dd'}}</span>
-        </td>
-    </tr>
-    <tr>
-        <td class="td">{{'MASTERCARD_RECEPTION_LABEL_MOTH' | translate}}</td>
-        <td ng-repeat="n in pickupARVDColumn" class="td">
-            <span>{{dispensedDrug[n].dispensed_date | date:'MM'}}</span>
-        </td>
-    </tr>
-    <tr>
-        <td class="td">{{'MASTERCARD_RECEPTION_LABEL_YEAR' | translate}}</td>
-        <td ng-repeat="n in pickupARVDColumn" class="td">
-            <span>{{dispensedDrug[n].dispensed_date | date:'yy'}}</span>
-        </td>
-    </tr>
-</table>
-
-<table class="tg" style="table-layout: fixed; width: 100%">
-    <colgroup>
-        <col style="width: 29px">
-        <col style="width: 150px">
-        <col style="width: 36px">
-        <col style="width: 130px">
-        <col style="width: 36px">
-        <col style="width: 110px">
-        <col style="width: 90px">
-        <col style="width: 90px">
-        <col style="width: 136px">
-        <col style="width: 70px">
-        <col style="width: 56px">
-        <col style="width: 40px">
-        <col style="width: 95px">
-        <col style="width: 66px">
-        <col style="width: 97px">
-        <col style="width: 26px">
-        <col style="width: 136px">
-        <col style="width: 30px">
-        <col style="width: 45px">
-    </colgroup>
-    <tr>
-        <th class="tg-rc17" colspan="2"><span style="font-weight:bold">População Chave (Cabeçalho)</span></th>
-        <th class="tg-yp4s" colspan="4">Factores Psicosociais que afectam a adesão (Ficha APSS e PP)</th>
-        <th class="tg-yp4s" colspan="5">Avaliação Nutricional (C7)</th>
-        <th class="tg-yp4s" colspan="4">Efeito secundários (C20)</th>
-        <th class="tg-yp4s" colspan="4" rowspan="2"><span style="font-weight:700">Motivos substituição / Mudança de Linha (C19)</span></th>
-    </tr>
-    <tr>
-        <td class="tg-rc17">HSH</td>
-        <td class="tg-dhix">Homens que fazem sexo com Homens</td>
-        <td class="tg-rc17">A</td>
-        <td class="tg-dhix">Recusa resultado positivo</td>
-        <td class="tg-rc17">I</td>
-        <td class="tg-dhix">Dificuldade para revelar ao parceiro / família</td>
-        <td class="tg-rc17">Indicador Nutricional</td>
-        <td class="tg-rc17" rowspan="2"><br>IMC Adultos</td>
-        <td class="tg-rc17" rowspan="2"><br>Perímetro Branquial (PB)</td>
-        <td class="tg-dhix" rowspan="2">P / E ou IMC / Idade</td>
-        <td class="tg-dhix" rowspan="2">Edema Bilateral</td>
-        <td class="tg-yp4s" colspan="4">Manifestação clínicas</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">PID</td>
-        <td class="tg-dhix">Pessoas que injectam drogas</td>
-        <td class="tg-rc17">B</td>
-        <td class="tg-dhix">Sente-se doente demais</td>
-        <td class="tg-rc17">J</td>
-        <td class="tg-dhix">Toxicidade / Medo de efeitos secundários</td>
-        <td class="tg-rc17">Grau </td>
-        <td class="tg-dhix" colspan="2">Geralmente não severeas:</td>
-        <td class="tg-dhix" colspan="2">Severas</td>
-        <td class="tg-rc17">1</td>
-        <td class="tg-dhix" colspan="3">Toxididade / Efeitos secundários</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17"><br>REC</td>
-        <td class="tg-dhix"><br>Reclusos</td>
-        <td class="tg-rc17">C</td>
-        <td class="tg-dhix">Não acredita no TARV</td>
-        <td class="tg-rc17">L</td>
-        <td class="tg-dhix">Perdeu / Esqueceu / Dividiu comprimidos</td>
-        <td class="tg-rc17"><br>Desnutrição aguda grave (DAG)</td>
-        <td class="tg-rc17">&lt; 16.0</td>
-        <td class="tg-dhix">6-59 meses &lt; 11,5 cm<br>5-10 anos &lt; 13,0 cm<br>11-15 anos &lt; 16,0 cm<br>Grávidas ou nos 6 meses<br>Pós-parto: &lt; 21,0 cm</td>
-        <td class="tg-rc17"><br><br>&lt; - 3 DP</td>
-        <td class="tg-rc17"><br><br>Presente</td>
-        <td class="tg-rc17">NV / DA</td>
-        <td class="tg-dhix">Náuseas, vómitos / dor abdominal</td>
-        <td class="tg-rc17">CIT</td>
-        <td class="tg-dhix">Citopenia</td>
-        <td class="tg-rc17">2</td>
-        <td class="tg-dhix" colspan="3">Gravidez</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">MTS<br></td>
-        <td class="tg-dhix">Trabalhadoras de Sexo</td>
-        <td class="tg-rc17">D</td>
-        <td class="tg-dhix">São muitos comprimidos</td>
-        <td class="tg-rc17">M</td>
-        <td class="tg-dhix">Estigma e Descriminação</td>
-        <td class="tg-rc17"><br>Desnutrição aguda moderada (DAM)</td>
-        <td class="tg-rc17">16.0 - 16.99</td>
-        <td class="tg-dhix">6-59 meses; &gt;= 11,5 cm e &lt; 12,5 cm<br>5-10 anos &gt;= 3,0 cm e &lt; 14,5 cm<br>11-15 anos &gt;= 16,0 cm e &lt; 18,5 cm<br>Grávidas ou nos 6 meses<br>Pós-parto: &gt;= 21,0 cm e 23 cm</td>
-        <td class="tg-rc17"><br><br>&gt;= -3 e &lt; - 2 DP</td>
-        <td class="tg-rc17"><br>Ausente</td>
-        <td class="tg-rc17"><br>DIA</td>
-        <td class="tg-dhix"><br>Diarreia</td>
-        <td class="tg-rc17"><br>PAN</td>
-        <td class="tg-dhix"><br>Pancreatite</td>
-        <td class="tg-rc17"><br>3</td>
-        <td class="tg-dhix" colspan="3"><br>Risco de gravidez</td>
-    </tr>
-    <tr>
-        <td class="tg-yp4s" colspan="2">Planeamento Familiar - Métodos (C3)</td>
-        <td class="tg-rc17">E</td>
-        <td class="tg-dhix">Sente-se melhor</td>
-        <td class="tg-rc17">N</td>
-        <td class="tg-dhix">Problemas de transporte</td>
-        <td class="tg-rc17">Desnutrição aguda ligeira</td>
-        <td class="tg-rc17">17.0 - 18.49</td>
-        <td class="tg-dhix"></td>
-        <td class="tg-rc17">&gt;= -2 e &lt; - 1 DP</td>
-        <td class="tg-rc17">Ausente</td>
-        <td class="tg-rc17">PSIQ</td>
-        <td class="tg-dhix">Neuropsiquiátrico / comportamento</td>
-        <td class="tg-rc17">NFT</td>
-        <td class="tg-dhix">Nefrotoxicidade</td>
-        <td class="tg-rc17">4</td>
-        <td class="tg-dhix" colspan="3">Início do tratamento de tuberculose</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">PRES</td>
-        <td class="tg-dhix">Preservativo</td>
-        <td class="tg-rc17">F</td>
-        <td class="tg-dhix">Falta de alimentação</td>
-        <td class="tg-rc17">O</td>
-        <td class="tg-dhix">Violência baseada no género</td>
-        <td class="tg-ajx1" colspan="5" rowspan="7"></td>
-        <td class="tg-rc17">NEUP</td>
-        <td class="tg-dhix">Neuropatia periférica</td>
-        <td class="tg-dhix" colspan="2">Com risco de vida</td>
-        <td class="tg-rc17">5</td>
-        <td class="tg-dhix" colspan="3">Novo medicamento disponível</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">PIL</td>
-        <td class="tg-dhix">Contraceptivo oral</td>
-        <td class="tg-rc17">G</td>
-        <td class="tg-dhix">Falta de apoio familiar</td>
-        <td class="tg-rc17">P</td>
-        <td class="tg-dhix">Aspectos culturais ou tradicionais</td>
-        <td class="tg-rc17">EC</td>
-        <td class="tg-dhix">Erupção cutânea / Dermatite</td>
-        <td class="tg-rc17">HEP</td>
-        <td class="tg-dhix">Hepatite</td>
-        <td class="tg-rc17">6</td>
-        <td class="tg-dhix" colspan="3">Ruptura de stock de ARVs</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">INJ</td>
-        <td class="tg-dhix">Injectável</td>
-        <td class="tg-rc17">H</td>
-        <td class="tg-dhix">Depressão e/ou ansiedade</td>
-        <td class="tg-rc17">Q</td>
-        <td class="tg-dhix">Uso abusivo de álcool ou drogas</td>
-        <td class="tg-rc17">HG</td>
-        <td class="tg-dhix">Hiperglicémia</td>
-        <td class="tg-rc17">SSJ</td>
-        <td class="tg-dhix">Sindroma de Stevens - Johnson</td>
-        <td class="tg-rc17">7</td>
-        <td class="tg-dhix" colspan="3">Outra razão (Especificar)</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">IMP</td>
-        <td class="tg-dhix">Implante</td>
-        <td class="tg-yp4s" colspan="2">Sintomas de Tuberculose (C9)</td>
-        <td class="tg-yp4s" colspan="2">ITS (C13)</td>
-        <td class="tg-rc17">DL</td>
-        <td class="tg-dhix">Dislipidémia</td>
-        <td class="tg-rc17">HIP</td>
-        <td class="tg-dhix">Hipersensibilidade a ABC / RAL</td>
-        <td class="tg-dhix" colspan="4">Só para mudança para 2a ou 3a linha</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">DIU</td>
-        <td class="tg-dhix">Dispositivo Intra-uterino</td>
-        <td class="tg-rc17">F</td>
-        <td class="tg-dhix">Febre</td>
-        <td class="tg-rc17">SIF</td>
-        <td class="tg-dhix">Sifílis</td>
-        <td class="tg-rc17">LPD</td>
-        <td class="tg-dhix">Lipodistrofia</td>
-        <td class="tg-rc17">ACL</td>
-        <td class="tg-dhix">Acidose láctica</td>
-        <td class="tg-rc17">8</td>
-        <td class="tg-dhix" colspan="3">Falência clínica</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">LT</td>
-        <td class="tg-dhix">Laqueação das trompas</td>
-        <td class="tg-rc17">E</td>
-        <td class="tg-dhix">Emagrecimento recente</td>
-        <td class="tg-dhix" colspan="2">Abordagem Sindrómica</td>
-        <td class="tg-dhix" colspan="2" rowspan="2"></td>
-        <td class="tg-rc17" rowspan="2">ESH</td>
-        <td class="tg-dhix" rowspan="2">Esteatose hepaática c/ hiperlactemia</td>
-        <td class="tg-rc17">9</td>
-        <td class="tg-dhix" colspan="3">Falência imunológica</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">VAS</td>
-        <td class="tg-dhix">Vasectomia</td>
-        <td class="tg-rc17">S</td>
-        <td class="tg-dhix">Sudorese nocturna</td>
-        <td class="tg-rc17">CV</td>
-        <td class="tg-dhix">Corrimento vaginal</td>
-        <td class="tg-rc17">10</td>
-        <td class="tg-dhix" colspan="3">Falência virológica</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">MAL</td>
-        <td class="tg-dhix">Método Amenorreia Lactacional</td>
-        <td class="tg-rc17">T</td>
-        <td class="tg-dhix">Tosse com / sem sangue</td>
-        <td class="tg-rc17">CUM</td>
-        <td class="tg-dhix">Corrimento uteral</td>
-        <td class="tg-rc17" colspan="2"><span style="font-weight:700">Adesão ao TARV (C20)</span></td>
-        <td class="tg-yp4s" colspan="2">Saídas TARV (C21)</td>
-        <td class="tg-yp4s" colspan="2">Grau toxicidade ARVs (C20)</td>
-        <td class="tg-yp4s" colspan="3"><span style="font-weight:700">Grupos de Apoio (C24)</span></td>
-        <td class="tg-yp4s" colspan="4">Modelos Diferenciados de Cuidados (MDC) (C24)</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17" rowspan="4"><br><br>OUT</td>
-        <td class="tg-dhix" rowspan="4"><br><br>Outro<br></td>
-        <td class="tg-rc17">A</td>
-        <td class="tg-dhix">Astenia</td>
-        <td class="tg-rc17">UG</td>
-        <td class="tg-dhix">Ulcera genital</td>
-        <td class="tg-rc17">Adesão</td>
-        <td class="tg-dhix">Dias de atraso no levantamento TARV</td>
-        <td class="tg-rc17">S</td>
-        <td class="tg-dhix">Suspensão</td>
-        <td class="tg-rc17">I</td>
-        <td class="tg-dhix">Ligeiro</td>
-        <td class="tg-rc17">CR</td>
-        <td class="tg-dhix" colspan="2">Crianças Reveladas</td>
-        <td class="tg-dhix">GA</td>
-        <td class="tg-dhix">GAAC</td>
-        <td class="tg-rc17">FR</td>
-        <td class="tg-dhix">Fluxo Rápido</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">C</td>
-        <td class="tg-dhix">Contacto recente com Tuberculose</td>
-        <td class="tg-rc17">DIP</td>
-        <td class="tg-dhix">DIP - dor no baixo ventre</td>
-        <td class="tg-rc17">B (Boa)</td>
-        <td class="tg-dhix">&lt;= 3 dias de atraso</td>
-        <td class="tg-rc17">A</td>
-        <td class="tg-dhix">Abandono</td>
-        <td class="tg-rc17">II</td>
-        <td class="tg-dhix">Moderado</td>
-        <td class="tg-rc17">PC</td>
-        <td class="tg-dhix" colspan="2">Pais cuidadores</td>
-        <td class="tg-dhix">AF</td>
-        <td class="tg-dhix">Abordagem familiar</td>
-        <td class="tg-rc17">DT</td>
-        <td class="tg-dhix">Dispensa Trimestral</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17" rowspan="2">Criança</td>
-        <td class="tg-dhix" rowspan="2">Adenopatia cervical indolor</td>
-        <td class="tg-rc17">ESI</td>
-        <td class="tg-dhix">Escroto inchado</td>
-        <td class="tg-rc17">R (Risco)</td>
-        <td class="tg-dhix">4 dias &lt;= R &lt;= 6 dias de atraso</td>
-        <td class="tg-rc17">O</td>
-        <td class="tg-dhix">Óbito</td>
-        <td class="tg-rc17">III</td>
-        <td class="tg-dhix">Severo</td>
-        <td class="tg-rc17">AR</td>
-        <td class="tg-dhix" colspan="2">Adolescentes revelados</td>
-        <td class="tg-dhix">CA</td>
-        <td class="tg-dhix">Clubes de adesão</td>
-        <td class="tg-rc17">DC</td>
-        <td class="tg-dhix">Dispensa Comunitária</td>
-    </tr>
-    <tr>
-        <td class="tg-rc17">BI</td>
-        <td class="tg-dhix">Bubão inguinal</td>
-        <td class="tg-rc17">Má</td>
-        <td class="tg-dhix">7 / + dias de atraso</td>
-        <td class="tg-rc17">T</td>
-        <td class="tg-dhix">Transferido para</td>
-        <td class="tg-rc17">IV</td>
-        <td class="tg-dhix">Risco de vida</td>
-        <td class="tg-rc17">MPM</td>
-        <td class="tg-dhix" colspan="2">Mãe para Mãe</td>
-        <td class="tg-dhix">PU</td>
-        <td class="tg-dhix">Paragem única</td>
-        <td class="tg-rc17">DS</td>
-        <td class="tg-dhix">Dispensa Semestral</td>
-    </tr>
-</table>
+        <tr>
+            <th class="th" rowspan="4">{{'MASTERCARD_RECEPTION_LABEL' | translate}}<br>{{'MASTERCARD_RECEPTION_LABEL_PICKED_DRUG' | translate}} <br>{{'MASTERCARD_RECEPTION_LABEL_Y_N' | translate}}</th>
+            <th class="th">{{'MASTERCARD_RECEPTION_LABEL_Y' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;{{'MASTERCARD_RECEPTION_LABEL_N' | translate}}</th>
+            <th ng-repeat="n in pickupARVDColumn" class="th">
+                <span ng-class="{'circleSelect': dispensedDrug[n].dispensed}">{{'MASTERCARD_RECEPTION_LABEL_Y' | translate}}&nbsp;&nbsp;</span>
+                <span>&nbsp;&nbsp;{{'MASTERCARD_RECEPTION_LABEL_N' | translate}}</span>
+            </th>
+        </tr>
+        <tr>
+            <td class="td">{{'MASTERCARD_RECEPTION_LABEL_DAY' | translate}}</td>
+            <td ng-repeat="n in pickupARVDColumn" class="td">
+                <span>{{dispensedDrug[n].dispensed_date | date:'dd'}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="td">{{'MASTERCARD_RECEPTION_LABEL_MOTH' | translate}}</td>
+            <td ng-repeat="n in pickupARVDColumn" class="td">
+                <span>{{dispensedDrug[n].dispensed_date | date:'MM'}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="td">{{'MASTERCARD_RECEPTION_LABEL_YEAR' | translate}}</td>
+            <td ng-repeat="n in pickupARVDColumn" class="td">
+                <span>{{dispensedDrug[n].dispensed_date | date:'yy'}}</span>
+            </td>
+        </tr>
+    </table>
+</div>
