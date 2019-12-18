@@ -89,6 +89,8 @@ angular.module('bahmni.clinical')
                     psychosocialFactors: '',
                     psychosocialFactorsActualEmpty: [],
                     psychosocialFactorsNextEmpty: [],
+                    fichaClinicaEmpty: [],
+                    fichaClinicaNextEmpty: [],
                     psychosocialFactorsOther: '',
                     apssPreTARVCounselling: [],
                     apssPreTARVCounsellingComments: '',
@@ -191,12 +193,33 @@ angular.module('bahmni.clinical')
                     var p23 = populateAllergyToMedications();
                     var p24 = populateMedicalConditions();
                     var p25 = dispenseddrug();
+                    var p26 = populateVulPopulation();
 
-                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25]).then(function () {
+                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26]).then(function () {
                         resolve(masterCardModel);
                     }).catch(function (error) {
                         reject(error);
                     });
+                });
+            };
+
+            var populateVulPopulation = function () {
+                var pP = 'Group_Priority_Population_obs_form';
+                observationsService.fetch(patientUuid, [pP]).then(function (response) {
+                    if (response.data && response.data.length > 0) {
+                        var pPValues = response.data[0].value.split(',');
+                        pPValues.forEach(function (value) {
+                            value = value.trim();
+                            if (value === 'PP_Vulnerable_Population_Yes_Female_youths') { masterCardModel.patientInfo.vulPopulation = 'Rapariga entre 10-14 anos'; }
+                            else if (value === 'PP_Vulnerable_Population_Yes_Young woman') { masterCardModel.patientInfo.vulPopulation = 'Mulher jovem entre 15-24 anos'; }
+                            else if (value === 'PP_Vulnerable_Population_Yes_Serodiscordant_couples') { masterCardModel.patientInfo.vulPopulation = 'Casais serodiscordantes'; }
+                            else if (value === 'PP_Vulnerable_Population_Yes_Orphans') { masterCardModel.patientInfo.vulPopulation = 'Criança Órfã'; }
+                            else if (value === 'PP_Vulnerable_Population_Yes_Person_Disability') { masterCardModel.patientInfo.vulPopulation = 'Pessoa com deficiência'; }
+                            else if (value === 'PP_Vulnerable_Population_Yes_Seasonal_Workers') { masterCardModel.patientInfo.vulPopulation = 'Trabalhadores sazonais'; }
+                            else if (value === 'PP_Vulnerable_Population_Yes_Miner') { masterCardModel.patientInfo.vulPopulation = 'Mineiro'; }
+                            else if (value === 'PP_Vulnerable_Population_Yes_Truck_driver') { masterCardModel.patientInfo.vulPopulation = 'Camionista'; }
+                        });
+                    }
                 });
             };
 
@@ -277,6 +300,54 @@ angular.module('bahmni.clinical')
                 var apssPositivePreventionKeyPopulation = 'Apss_Positive_prevention_Key_Population';
                 var apssAdherenceFollowUp = 'Apss_Adherence_follow_up';
                 var apssReasonForTheVisit = 'Apss_Reason_For_The_Visit';
+                var bloodPressureSystolicVitalS = 'Blood_Pressure_–_Systolic_VitalS';
+                var bloodPressureDiastolicVSNew = 'Blood_Pressure_–_Diastolic_VSNew';
+                var familyPlanning = 'Group_VIII_Family_Planning_obs_form';
+                var nutritionalState = 'Nutritional_States_new';
+                var lastMenstruationDate = 'Last Menstruation Date';
+                var pregnancyYesNo = 'Pregnancy_Yes_No';
+                var breastFeeding = 'Breastfeeding_ANA';
+                var familyPlanningMethods = 'Family_Planning_Methods';
+                var whoStaging = 'HTC, WHO Staging';
+                var infantsOdemaProphylaxis = 'Infants Odema_Prophylaxis';
+                var weight = 'WEIGHT';
+                var height = 'HEIGHT';
+                var brachialPerimeter = 'Brachial_perimeter_new';
+                var bmi = 'BMI';
+                var receivedNutritionalSupport = 'Received nutritional support';
+                var receivedNutritionalEducation = 'Received nutritional education';
+                var nutritionSupplement = 'Nutrition Supplement';
+                var nutritionalSupplementQt = 'Quantity of Nutritional Supplement';
+                var nutritionalSupplementMeasurementUnit = 'SP_Measurement_Unit';
+                var hasTBSymptoms = 'Has TB Symptoms';
+                var prophylaxisSymptoms = 'Symptoms Prophylaxis_New';
+                var dateOfDiagnosis = 'Date of Diagnosis';
+                var tbTreatmentStartDate = 'SP_Treatment Start Date';
+                var tbTreatmentState = 'SP_Treatment State';
+                var tbTreatmentEndDate = 'SP_Treatment End Date';
+                var typeOfProphylaxis = 'Type_Prophylaxis';
+                var startDateProphylaxisINH = 'Start_Date_Prophylaxis_INH';
+                var stateProphylaxisINH = 'State_Prophylaxis_INH';
+                var endDateProphylaxisINH = 'End_Date_Prophylaxis_INH';
+                var spSideEffectsINH = 'SP_Side_Effects_INH';
+                var secondaryEffectsINH = 'Secondary effects_INH';
+                var startDateProphylaxisCTZ = 'Start_Date_Prophylaxis_CTZ';
+                var stateProphylaxisCTZ = 'State_Prophylaxis_CTZ';
+                var endDateProphylaxisCTZ = 'End_Date_Prophylaxis_CTZ';
+                var spSideEffectsCTZ = 'SP_Side_Effects_CTZ';
+                var secondaryEffectsCTZ = 'Secondary effects_CTZ';
+                var hasSTISymptoms = 'Has STI Symptoms';
+                var stiDiagnosisProphylaxis = 'STI Diagnosis_Prophylaxis';
+                var syndromicApproachSTIM = 'Syndromic Approach_STI_M';
+                var syndromicApproachSTIF = 'Syndromic Approach_STI_F';
+                var CD4 = 'CD4';
+                var referenceSectionOtherServices = 'Reference_Other_Services';
+                var tarvAdherence = 'Adherence_ana';
+                var tarvSideEffects = 'Side_Effects_ana';
+                var tarvSevereType = 'Severas_ana_type';
+                var tarveNotSevereType = 'Geralmente_não Severas_ana_type';
+                var tarvLifeRisk = 'Com_risco_de_Vida_type';
+                var TBdateDiag = 'Date of Diagnosis';
 
                 masterCardModel.patientInfo.address = '';
                 masterCardModel.patientInfo.labOrderResult = '';
@@ -303,7 +374,15 @@ angular.module('bahmni.clinical')
                     referenceMDCSectionGA, referenceMDCSectionAF, referenceMDCSectionCA, referenceMDCSectionPU, referenceMDCSectionFR,
                     referenceMDCSectionDT, referenceMDCSectionDC, referenceMDCSectionOther, referenceMDCSectionOtherComments, apssDifferentiatedModelsDate,
                     apssPatientCaregiverAgreement, apssConfidantAgreement, apssAgreementContactType, apssConfidantAgreementContactType,
-                    apssPositivePreventionKeyPopulation, apssAdherenceFollowUp, apssReasonForTheVisit]).then(function (response) {
+                    apssPositivePreventionKeyPopulation, apssAdherenceFollowUp, apssReasonForTheVisit, bloodPressureSystolicVitalS,
+                    bloodPressureDiastolicVSNew, familyPlanning, nutritionalState, lastMenstruationDate, pregnancyYesNo, breastFeeding,
+                    familyPlanningMethods, whoStaging, infantsOdemaProphylaxis, weight, height, brachialPerimeter, bmi,
+                    receivedNutritionalSupport, receivedNutritionalEducation, nutritionSupplement, nutritionalSupplementQt, nutritionalSupplementMeasurementUnit,
+                    hasTBSymptoms, prophylaxisSymptoms, dateOfDiagnosis, tbTreatmentStartDate, tbTreatmentState, tbTreatmentEndDate, typeOfProphylaxis,
+                    startDateProphylaxisINH, stateProphylaxisINH, endDateProphylaxisINH, spSideEffectsINH, secondaryEffectsINH,
+                    startDateProphylaxisCTZ, stateProphylaxisCTZ, endDateProphylaxisCTZ, spSideEffectsCTZ, secondaryEffectsCTZ,
+                    hasSTISymptoms, stiDiagnosisProphylaxis, syndromicApproachSTIM, syndromicApproachSTIF, CD4, referenceSectionOtherServices, tarvAdherence,
+                    tarvSideEffects, tarvSevereType, tarveNotSevereType, tarvLifeRisk, TBdateDiag]).then(function (response) {
                         if (response.data && response.data.length > 0) {
                             var obsTable = [];
                             for (var i = 0; i < response.data.length; i++) {
@@ -333,8 +412,78 @@ angular.module('bahmni.clinical')
                                     referenceMDCSectionDT: '',
                                     referenceMDCSectionDC: '',
                                     referenceMDCSectionOther: '',
-                                    referenceMDCSectionOtherComments: ''
+                                    referenceMDCSectionOtherComments: '',
+                                    bloodPressureDiastolicVSNew: '',
+                                    bloodPressureSystolicVitalS: '',
+                                    familyPlanning: '',
+                                    nutritionalState: '',
+                                    lastMenstruationDate: '',
+                                    pregnancyYesNo: '',
+                                    breastFeeding: '',
+                                    familyPlanningMethods: '',
+                                    whoStaging: '',
+                                    infantsOdemaProphylaxis: '',
+                                    weight: '',
+                                    height: '',
+                                    brachialPerimeter: '',
+                                    bmi: '',
+                                    receivedNutritionalSupport: '',
+                                    receivedNutritionalEducation: '',
+                                    nutritionSupplement: '',
+                                    nutritionalSupplementQt: '',
+                                    nutritionalSupplementMeasurementUnit: '',
+                                    hasTBSymptoms: '',
+                                    prophylaxisSymptoms: '',
+                                    dateOfDiagnosis: '',
+                                    tbTreatmentStartDate: '',
+                                    tbTreatmentState: '',
+                                    tbTreatmentEndDate: '',
+                                    typeOfProphylaxis: '',
+                                    startDateProphylaxisINH: '',
+                                    stateProphylaxisINH: '',
+                                    endDateProphylaxisINH: '',
+                                    spSideEffectsINH: '',
+                                    secondaryEffectsINH: '',
+                                    startDateProphylaxisCTZ: '',
+                                    stateProphylaxisCTZ: '',
+                                    endDateProphylaxisCTZ: '',
+                                    spSideEffectsCTZ: '',
+                                    secondaryEffectsCTZ: '',
+                                    hasSTISymptoms: '',
+                                    stiDiagnosisProphylaxis: '',
+                                    syndromicApproachSTIM: '',
+                                    syndromicApproachSTIF: '',
+                                    cd4: '',
+                                    viralLoad: '',
+                                    hgb: '',
+                                    alt: '',
+                                    ast: '',
+                                    cd4Req: '',
+                                    viralLoadReq: '',
+                                    hgbReq: '',
+                                    altReq: '',
+                                    astReq: '',
+                                    referenceSectionOtherServices: [],
+                                    statusState: '',
+                                    tarvAdherence: '',
+                                    tarvSideEffects: '',
+                                    tarvSevereType: [],
+                                    tarveNotSevereType: [],
+                                    tarvLifeRisk: [],
+                                    TBdateDiag: '',
+                                    gl: '',
+                                    cr: '',
+                                    am: '',
+                                    glReq: '',
+                                    crReq: '',
+                                    amReq: '',
+                                    indicator: '',
+                                    ageAtVisit: '',
+                                    otherPerscribedDrugs: [],
+                                    otherCondition: [],
+                                    provider: ''
                                 };
+
                                 if (obsTable.length === 0) {
                                     tableStructure.actualVisit = response.data[i].observationDateTime.split('T')[0];
                                     if (response.data[i].concept.name === apssPreTARVCounsellingComments) {
@@ -358,7 +507,7 @@ angular.module('bahmni.clinical')
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroupMPS) {
                                         tableStructure.referenceSectionSupportGroupMPS = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroupOther) {
-                                        tableStructure.referenceSectionSupportGroupOther = response.data[i].value;
+                                        tableStructure.referenceSectionSupportGroupOther = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroup) {
                                         tableStructure.referenceSectionSupportGroup = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionGA) {
@@ -374,15 +523,141 @@ angular.module('bahmni.clinical')
                                     } else if (response.data[i].concept.name === referenceMDCSectionDT) {
                                         tableStructure.referenceMDCSectionDT = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionDC) {
-                                        tableStructure.referenceMDCSectionDC = response.data[i].value.name;
+                                        tableStructure.referenceMDCSectionDC = response.data[i].value;
                                     } else if (response.data[i].concept.name === referenceMDCSectionOther) {
                                         tableStructure.referenceMDCSectionOther = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
-                                        tableStructure.referenceMDCSectionOtherComments = response.data[i].value;
-                                    } else if (response.data[i].value.name) {
-                                        tableStructure.values.push(response.data[i].value.name);
+                                        tableStructure.referenceMDCSectionOtherComments = response.data[i].value.name;
+                                    } else if (response.data[i].concept.name === bloodPressureSystolicVitalS) {
+                                        tableStructure.bloodPressureSystolicVitalS = response.data[i].value;
+                                    } else if (response.data[i].concept.name === bloodPressureDiastolicVSNew) {
+                                        tableStructure.bloodPressureDiastolicVSNew = response.data[i].value;
+                                    } else if (response.data[i].concept.name === familyPlanning) {
+                                        tableStructure.familyPlanning = response.data[i].value;
+                                    } else if (response.data[i].concept.name === nutritionalState) {
+                                        tableStructure.nutritionalState = response.data[i].valueAsString;
+                                    } else if (response.data[i].concept.name === lastMenstruationDate) {
+                                        tableStructure.lastMenstruationDate = response.data[i].value;
+                                    } else if (response.data[i].concept.name === pregnancyYesNo) {
+                                        tableStructure.pregnancyYesNo = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === breastFeeding) {
+                                        tableStructure.breastFeeding = response.data[i].value;
+                                    } else if (response.data[i].concept.name === familyPlanningMethods) {
+                                        tableStructure.familyPlanningMethods = response.data[i].valueAsString;
+                                    } else if (response.data[i].concept.name === whoStaging) {
+                                        tableStructure.whoStaging = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === infantsOdemaProphylaxis) {
+                                        tableStructure.infantsOdemaProphylaxis = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === weight) {
+                                        tableStructure.weight = response.data[i].value;
+                                    } else if (response.data[i].concept.name === height) {
+                                        tableStructure.height = response.data[i].value;
+                                    } else if (response.data[i].concept.name === brachialPerimeter) {
+                                        tableStructure.brachialPerimeter = response.data[i].value;
+                                    } else if (response.data[i].concept.name === bmi) {
+                                        tableStructure.bmi = response.data[i].value;
+                                    } else if (response.data[i].concept.name === receivedNutritionalSupport) {
+                                        tableStructure.receivedNutritionalSupport = response.data[i].value;
+                                    } else if (response.data[i].concept.name === receivedNutritionalEducation) {
+                                        tableStructure.receivedNutritionalEducation = response.data[i].value;
+                                    } else if (response.data[i].concept.name === nutritionSupplement) {
+                                        tableStructure.nutritionSupplement = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === nutritionalSupplementQt) {
+                                        tableStructure.nutritionalSupplementQt = response.data[i].value;
+                                    } else if (response.data[i].concept.name === nutritionalSupplementMeasurementUnit) {
+                                        tableStructure.nutritionalSupplementMeasurementUnit = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === hasTBSymptoms) {
+                                        tableStructure.hasTBSymptoms = response.data[i].value;
+                                    } else if (response.data[i].concept.name === prophylaxisSymptoms) {
+                                        tableStructure.prophylaxisSymptoms = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === dateOfDiagnosis) {
+                                        tableStructure.dateOfDiagnosis = response.data[i].value;
+                                    } else if (response.data[i].concept.name === tbTreatmentStartDate) {
+                                        tableStructure.tbTreatmentStartDate = response.data[i].value;
+                                    } else if (response.data[i].concept.name === tbTreatmentState) {
+                                        tableStructure.tbTreatmentState = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === tbTreatmentEndDate) {
+                                        tableStructure.tbTreatmentEndDate = response.data[i].value;
+                                    } else if (response.data[i].concept.name === typeOfProphylaxis) {
+                                        tableStructure.typeOfProphylaxis = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === startDateProphylaxisINH) {
+                                        tableStructure.startDateProphylaxisINH = response.data[i].value;
+                                    } else if (response.data[i].concept.name === stateProphylaxisINH) {
+                                        tableStructure.stateProphylaxisINH = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === endDateProphylaxisINH) {
+                                        tableStructure.endDateProphylaxisINH = response.data[i].value;
+                                    } else if (response.data[i].concept.name === spSideEffectsINH) {
+                                        tableStructure.spSideEffectsINH = response.data[i].value;
+                                    } else if (response.data[i].concept.name === secondaryEffectsINH) {
+                                        tableStructure.secondaryEffectsINH = response.data[i].value;
+                                    } else if (response.data[i].concept.name === startDateProphylaxisCTZ) {
+                                        tableStructure.startDateProphylaxisCTZ = response.data[i].value;
+                                    } else if (response.data[i].concept.name === stateProphylaxisCTZ) {
+                                        tableStructure.stateProphylaxisCTZ = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === endDateProphylaxisCTZ) {
+                                        tableStructure.endDateProphylaxisCTZ = response.data[i].value;
+                                    } else if (response.data[i].concept.name === spSideEffectsCTZ) {
+                                        tableStructure.spSideEffectsCTZ = response.data[i].value;
+                                    } else if (response.data[i].concept.name === secondaryEffectsCTZ) {
+                                        tableStructure.secondaryEffectsCTZ = response.data[i].value;
+                                    } else if (response.data[i].concept.name === hasSTISymptoms) {
+                                        tableStructure.hasSTISymptoms = response.data[i].value;
+                                    } else if (response.data[i].concept.name === stiDiagnosisProphylaxis) {
+                                        tableStructure.stiDiagnosisProphylaxis = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === syndromicApproachSTIM) {
+                                        tableStructure.syndromicApproachSTIM = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === syndromicApproachSTIF) {
+                                        tableStructure.syndromicApproachSTIF = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === CD4) {
+                                        tableStructure.CD4 = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === referenceSectionOtherServices && tableStructure.referenceSectionOtherServices.indexOf(response.data[i].value.shortName) === -1) {
+                                        tableStructure.referenceSectionOtherServices.push(response.data[i].value.shortName);
+                                    } else if (response.data[i].concept.name === tarvAdherence) {
+                                        tableStructure.tarvAdherence = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === tarvSideEffects) {
+                                        tableStructure.tarvSideEffects = response.data[i].value.shortName;
+                                    } else if (response.data[i].concept.name === tarvSevereType && tableStructure.tarvSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                        tableStructure.tarvSevereType.push(response.data[i].value.shortName);
+                                        tableStructure.tarveNotSevereType = [];
+                                        tableStructure.tarvLifeRisk = [];
+                                    } else if (response.data[i].concept.name === tarveNotSevereType && tableStructure.tarveNotSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                        tableStructure.tarveNotSevereType.push(response.data[i].value.shortName);
+                                        tableStructure.tarvSevereType = [];
+                                        tableStructure.tarvLifeRisk = [];
+                                    } else if (response.data[i].concept.name === tarvLifeRisk && tableStructure.tarvLifeRisk.indexOf(response.data[i].value.shortName) === -1) {
+                                        tableStructure.tarvLifeRisk.push(response.data[i].value.shortName);
+                                        tableStructure.tarvSevereType = [];
+                                        tableStructure.tarveNotSevereType = [];
+                                    } else if (response.data[i].concept.name === TBdateDiag) {
+                                        if (response.data[i].value) {
+                                            tableStructure.TBdateDiag = true;
+                                        } else if (!response.data[i].value) {
+                                            tableStructure.TBdateDiag = false;
+                                        }
+                                    } else if (response.data[i].value.shortName) {
+                                        tableStructure.values.push(response.data[i].value.shortName);
                                     }
                                     obsTable.push(tableStructure);
+
+                                    obsTable.forEach(function (obs) {
+                                        if (masterCardModel.patientInfo.age > 5) {
+                                            obs.ageAtVisit = new Date(obs.actualVisit).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                            obs.indicator = 'BMI';
+                                        } else {
+                                            var age = new Date(obs.actualVisit).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                            obs.ageAtVisit = age * 12;
+                                            obs.indicator = 'BP';
+                                        }
+                                    });
+                                    obsTable.forEach(function (obs) {
+                                        var observationDate = (new Date(obs.actualVisit).getFullYear() + '-' + (new Date(obs.actualVisit).getMonth() + 1) + '-' + ('0' + (new Date(obs.actualVisit).getDate())).slice(-2));
+                                        var diagnosisDate = (new Date(masterCardModel.medicalConditions.other.date).getFullYear() + '-' + (new Date(masterCardModel.medicalConditions.other.date).getMonth() + 1) + '-' + ('0' + (new Date(masterCardModel.medicalConditions.other.date).getDate())).slice(-2));
+                                        var conditions = [];
+                                        if (observationDate === diagnosisDate) {
+                                            conditions.push(masterCardModel.medicalConditions.other.name);
+                                            obs.otherCondition = conditions;
+                                        }
+                                    });
                                 } else {
                                     for (var j = 0; j < obsTable.length; j++) {
                                         if (obsTable[j].actualVisit === response.data[i].observationDateTime.split('T')[0]) {
@@ -428,8 +703,114 @@ angular.module('bahmni.clinical')
                                                 obsTable[j].referenceMDCSectionOther = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                                 obsTable[j].referenceMDCSectionOtherComments = response.data[i].value;
-                                            } else if (response.data[i].value.name) {
-                                                obsTable[j].values.push(response.data[i].value.name);
+                                            } else if (response.data[i].concept.name === bloodPressureSystolicVitalS) {
+                                                obsTable[j].bloodPressureSystolicVitalS = response.data[i].value;
+                                            } else if (response.data[i].concept.name === bloodPressureDiastolicVSNew) {
+                                                obsTable[j].bloodPressureDiastolicVSNew = response.data[i].value;
+                                            } else if (response.data[i].concept.name === familyPlanning) {
+                                                obsTable[j].familyPlanning = response.data[i].value;
+                                            } else if (response.data[i].concept.name === nutritionalState) {
+                                                obsTable[j].nutritionalState = response.data[i].valueAsString;
+                                            } else if (response.data[i].concept.name === lastMenstruationDate) {
+                                                obsTable[j].lastMenstruationDate = response.data[i].valueAsString;
+                                            } else if (response.data[i].concept.name === pregnancyYesNo) {
+                                                obsTable[j].pregnancyYesNo = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === breastFeeding) {
+                                                obsTable[j].breastFeeding = response.data[i].value;
+                                            } else if (response.data[i].concept.name === familyPlanningMethods) {
+                                                obsTable[j].familyPlanningMethods = response.data[i].valueAsString;
+                                            } else if (response.data[i].concept.name === whoStaging) {
+                                                obsTable[j].whoStaging = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === infantsOdemaProphylaxis) {
+                                                obsTable[j].infantsOdemaProphylaxis = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === weight) {
+                                                obsTable[j].weight = response.data[i].value;
+                                            } else if (response.data[i].concept.name === height) {
+                                                obsTable[j].height = response.data[i].value;
+                                            } else if (response.data[i].concept.name === brachialPerimeter) {
+                                                obsTable[j].brachialPerimeter = response.data[i].value;
+                                            } else if (response.data[i].concept.name === bmi) {
+                                                obsTable[j].bmi = response.data[i].value;
+                                            } else if (response.data[i].concept.name === receivedNutritionalSupport) {
+                                                obsTable[j].receivedNutritionalSupport = response.data[i].value;
+                                            } else if (response.data[i].concept.name === receivedNutritionalEducation) {
+                                                obsTable[j].receivedNutritionalEducation = response.data[i].value;
+                                            } else if (response.data[i].concept.name === nutritionSupplement) {
+                                                obsTable[j].nutritionSupplement = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === nutritionalSupplementQt) {
+                                                obsTable[j].nutritionalSupplementQt = response.data[i].value;
+                                            } else if (response.data[i].concept.name === nutritionalSupplementMeasurementUnit) {
+                                                obsTable[j].nutritionalSupplementMeasurementUnit = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === hasTBSymptoms) {
+                                                obsTable[j].hasTBSymptoms = response.data[i].value;
+                                            } else if (response.data[i].concept.name === prophylaxisSymptoms) {
+                                                obsTable[j].prophylaxisSymptoms = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === dateOfDiagnosis) {
+                                                obsTable[j].dateOfDiagnosis = response.data[i].value;
+                                            } else if (response.data[i].concept.name === tbTreatmentStartDate) {
+                                                obsTable[j].tbTreatmentStartDate = response.data[i].value;
+                                            } else if (response.data[i].concept.name === tbTreatmentState) {
+                                                obsTable[j].tbTreatmentState = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === tbTreatmentEndDate) {
+                                                obsTable[j].tbTreatmentEndDate = response.data[i].value;
+                                            } else if (response.data[i].concept.name === typeOfProphylaxis) {
+                                                obsTable[j].typeOfProphylaxis = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === startDateProphylaxisINH) {
+                                                obsTable[j].startDateProphylaxisINH = response.data[i].value;
+                                            } else if (response.data[i].concept.name === stateProphylaxisINH) {
+                                                obsTable[j].stateProphylaxisINH = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === endDateProphylaxisINH) {
+                                                obsTable[j].endDateProphylaxisINH = response.data[i].value;
+                                            } else if (response.data[i].concept.name === spSideEffectsINH) {
+                                                obsTable[j].spSideEffectsINH = response.data[i].value;
+                                            } else if (response.data[i].concept.name === secondaryEffectsINH) {
+                                                obsTable[j].secondaryEffectsINH = response.data[i].value;
+                                            } else if (response.data[i].concept.name === startDateProphylaxisCTZ) {
+                                                obsTable[j].startDateProphylaxisCTZ = response.data[i].value;
+                                            } else if (response.data[i].concept.name === stateProphylaxisCTZ) {
+                                                obsTable[j].stateProphylaxisCTZ = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === endDateProphylaxisCTZ) {
+                                                obsTable[j].endDateProphylaxisCTZ = response.data[i].value;
+                                            } else if (response.data[i].concept.name === spSideEffectsCTZ) {
+                                                obsTable[j].spSideEffectsCTZ = response.data[i].value;
+                                            } else if (response.data[i].concept.name === secondaryEffectsCTZ) {
+                                                obsTable[j].secondaryEffectsCTZ = response.data[i].value;
+                                            } else if (response.data[i].concept.name === hasSTISymptoms) {
+                                                obsTable[j].hasSTISymptoms = response.data[i].value;
+                                            } else if (response.data[i].concept.name === stiDiagnosisProphylaxis) {
+                                                obsTable[j].stiDiagnosisProphylaxis = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === syndromicApproachSTIM) {
+                                                obsTable[j].syndromicApproachSTIM = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === syndromicApproachSTIF) {
+                                                obsTable[j].syndromicApproachSTIF = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === CD4) {
+                                                obsTable[j].CD4 = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === referenceSectionOtherServices && obsTable[j].referenceSectionOtherServices.indexOf(response.data[i].value.shortName) === -1) {
+                                                obsTable[j].referenceSectionOtherServices.push(response.data[i].value.shortName);
+                                            } else if (response.data[i].concept.name === tarvAdherence) {
+                                                obsTable[j].tarvAdherence = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === tarvSideEffects) {
+                                                obsTable[j].tarvSideEffects = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === tarvSevereType && obsTable[j].tarvSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                                obsTable[j].tarvSevereType.push(response.data[i].value.shortName);
+                                                obsTable[j].tarveNotSevereType = [];
+                                                obsTable[j].tarvLifeRisk = [];
+                                            } else if (response.data[i].concept.name === tarveNotSevereType && obsTable[j].tarveNotSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                                obsTable[j].tarveNotSevereType.push(response.data[i].value.shortName);
+                                                obsTable[j].tarvSevereType = [];
+                                                obsTable[j].tarvLifeRisk = [];
+                                            } else if (response.data[i].concept.name === tarvLifeRisk && obsTable[j].tarvLifeRisk.indexOf(response.data[i].value.shortName) === -1) {
+                                                obsTable[j].tarvLifeRisk.push(response.data[i].value.shortName);
+                                                obsTable[j].tarvSevereType = [];
+                                                obsTable[j].tarveNotSevereType = [];
+                                            } else if (response.data[i].concept.name === TBdateDiag) {
+                                                if (response.data[i].value !== undefined) {
+                                                    obsTable[j].TBdateDiag = true;
+                                                } else if (response.data[i].value === undefined) {
+                                                    obsTable[j].TBdateDiag = false;
+                                                }
+                                            } else if (response.data[i].value.shortName) {
+                                                obsTable[j].values.push(response.data[i].value.shortName);
                                             }
                                         } else if (j === obsTable.length - 1) {
                                             tableStructure.actualVisit = response.data[i].observationDateTime.split('T')[0];
@@ -475,14 +856,464 @@ angular.module('bahmni.clinical')
                                                 tableStructure.referenceMDCSectionOther = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                                 tableStructure.referenceMDCSectionOtherComments = response.data[i].value;
-                                            } else if (response.data[i].value.name) {
-                                                tableStructure.values.push(response.data[i].value.name);
+                                            } else if (response.data[i].concept.name === bloodPressureSystolicVitalS) {
+                                                tableStructure.bloodPressureSystolicVitalS = response.data[i].value;
+                                            } else if (response.data[i].concept.name === bloodPressureDiastolicVSNew) {
+                                                tableStructure.bloodPressureDiastolicVSNew = response.data[i].value;
+                                            } else if (response.data[i].concept.name === familyPlanning) {
+                                                tableStructure.familyPlanning = response.data[i].value;
+                                            } else if (response.data[i].concept.name === nutritionalState) {
+                                                tableStructure.nutritionalState = response.data[i].valueAsString;
+                                            } else if (response.data[i].concept.name === lastMenstruationDate) {
+                                                tableStructure.lastMenstruationDate = response.data[i].valueAsString;
+                                            } else if (response.data[i].concept.name === pregnancyYesNo) {
+                                                tableStructure.pregnancyYesNo = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === breastFeeding) {
+                                                tableStructure.breastFeeding = response.data[i].value;
+                                            } else if (response.data[i].concept.name === familyPlanningMethods) {
+                                                tableStructure.familyPlanningMethods = response.data[i].valueAsString;
+                                            } else if (response.data[i].concept.name === whoStaging) {
+                                                tableStructure.whoStaging = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === infantsOdemaProphylaxis) {
+                                                tableStructure.infantsOdemaProphylaxis = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === weight) {
+                                                tableStructure.weight = response.data[i].value;
+                                            } else if (response.data[i].concept.name === height) {
+                                                tableStructure.height = response.data[i].value;
+                                            } else if (response.data[i].concept.name === brachialPerimeter) {
+                                                tableStructure.brachialPerimeter = response.data[i].value;
+                                            } else if (response.data[i].concept.name === bmi) {
+                                                tableStructure.bmi = response.data[i].value;
+                                            } else if (response.data[i].concept.name === receivedNutritionalSupport) {
+                                                tableStructure.receivedNutritionalSupport = response.data[i].value;
+                                            } else if (response.data[i].concept.name === receivedNutritionalEducation) {
+                                                tableStructure.receivedNutritionalEducation = response.data[i].value;
+                                            } else if (response.data[i].concept.name === nutritionSupplement) {
+                                                tableStructure.nutritionSupplement = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === nutritionalSupplementQt) {
+                                                tableStructure.nutritionalSupplementQt = response.data[i].value;
+                                            } else if (response.data[i].concept.name === nutritionalSupplementMeasurementUnit) {
+                                                tableStructure.nutritionalSupplementMeasurementUnit = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === hasTBSymptoms) {
+                                                tableStructure.hasTBSymptoms = response.data[i].value;
+                                            } else if (response.data[i].concept.name === prophylaxisSymptoms) {
+                                                tableStructure.prophylaxisSymptoms = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === dateOfDiagnosis) {
+                                                tableStructure.dateOfDiagnosis = response.data[i].value;
+                                            } else if (response.data[i].concept.name === tbTreatmentStartDate) {
+                                                tableStructure.tbTreatmentStartDate = response.data[i].value;
+                                            } else if (response.data[i].concept.name === tbTreatmentState) {
+                                                tableStructure.tbTreatmentState = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === tbTreatmentEndDate) {
+                                                tableStructure.tbTreatmentEndDate = response.data[i].value;
+                                            } else if (response.data[i].concept.name === typeOfProphylaxis) {
+                                                tableStructure.typeOfProphylaxis = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === startDateProphylaxisINH) {
+                                                tableStructure.startDateProphylaxisINH = response.data[i].value;
+                                            } else if (response.data[i].concept.name === stateProphylaxisINH) {
+                                                tableStructure.stateProphylaxisINH = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === endDateProphylaxisINH) {
+                                                tableStructure.endDateProphylaxisINH = response.data[i].value;
+                                            } else if (response.data[i].concept.name === spSideEffectsINH) {
+                                                tableStructure.spSideEffectsINH = response.data[i].value;
+                                            } else if (response.data[i].concept.name === secondaryEffectsINH) {
+                                                tableStructure.secondaryEffectsINH = response.data[i].value;
+                                            } else if (response.data[i].concept.name === startDateProphylaxisCTZ) {
+                                                tableStructure.startDateProphylaxisCTZ = response.data[i].value;
+                                            } else if (response.data[i].concept.name === stateProphylaxisCTZ) {
+                                                tableStructure.stateProphylaxisCTZ = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === endDateProphylaxisCTZ) {
+                                                tableStructure.endDateProphylaxisCTZ = response.data[i].value;
+                                            } else if (response.data[i].concept.name === spSideEffectsCTZ) {
+                                                tableStructure.spSideEffectsCTZ = response.data[i].value;
+                                            } else if (response.data[i].concept.name === secondaryEffectsCTZ) {
+                                                tableStructure.secondaryEffectsCTZ = response.data[i].value;
+                                            } else if (response.data[i].concept.name === hasSTISymptoms) {
+                                                tableStructure.hasSTISymptoms = response.data[i].value;
+                                            } else if (response.data[i].concept.name === stiDiagnosisProphylaxis) {
+                                                tableStructure.stiDiagnosisProphylaxis = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === syndromicApproachSTIM) {
+                                                tableStructure.syndromicApproachSTIM = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === syndromicApproachSTIF) {
+                                                tableStructure.syndromicApproachSTIF = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === CD4) {
+                                                tableStructure.CD4 = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === referenceSectionOtherServices && tableStructure.referenceSectionOtherServices.indexOf(response.data[i].value.shortName) === -1) {
+                                                tableStructure.referenceSectionOtherServices.push(response.data[i].value.shortName);
+                                            } else if (response.data[i].concept.name === tarvAdherence) {
+                                                tableStructure.tarvAdherence = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === tarvSideEffects) {
+                                                tableStructure.tarvSideEffects = response.data[i].value.shortName;
+                                            } else if (response.data[i].concept.name === tarvSevereType && tableStructure.tarvSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                                tableStructure.tarvSevereType.push(response.data[i].value.shortName);
+                                                tableStructure.tarveNotSevereType = [];
+                                                tableStructure.tarvLifeRisk = [];
+                                            } else if (response.data[i].concept.name === tarveNotSevereType && tableStructure.tarveNotSevereType.indexOf(response.data[i].value.shortName) === -1) {
+                                                tableStructure.tarveNotSevereType.push(response.data[i].value.shortName);
+                                                tableStructure.tarvSevereType = [];
+                                                tableStructure.tarvLifeRisk = [];
+                                            } else if (response.data[i].concept.name === tarvLifeRisk && tableStructure.tarvLifeRisk.indexOf(response.data[i].value.shortName) === -1) {
+                                                tableStructure.tarvLifeRisk.push(response.data[i].value.shortName);
+                                                tableStructure.tarvSevereType = [];
+                                                tableStructure.tarveNotSevereType = [];
+                                            } else if (response.data[i].concept.name === TBdateDiag) {
+                                                if (response.data[i].value !== undefined) {
+                                                    tableStructure.TBdateDiag = true;
+                                                } else if (response.data[i].value == undefined) {
+                                                    tableStructure.TBdateDiag = false;
+                                                }
+                                            } else if (response.data[i].value.shortName) {
+                                                tableStructure.values.push(response.data[i].value.shortName);
                                             }
                                             obsTable.push(tableStructure);
+
+                                            obsTable.forEach(function (obs) {
+                                                if (masterCardModel.patientInfo.age > 5) {
+                                                    obs.ageAtVisit = new Date(obs.actualVisit).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                                    obs.indicator = 'BMI';
+                                                } else {
+                                                    var age = new Date(obs.actualVisit).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                                    obs.ageAtVisit = age * 12;
+                                                    obs.indicator = 'BP';
+                                                }
+                                            });
+                                            obsTable.forEach(function (obs) {
+                                                var observationDate = (new Date(obs.actualVisit).getFullYear() + '-' + (new Date(obs.actualVisit).getMonth() + 1) + '-' + ('0' + (new Date(obs.actualVisit).getDate())).slice(-2));
+                                                var diagnosisDate = (new Date(masterCardModel.medicalConditions.other.date).getFullYear() + '-' + (new Date(masterCardModel.medicalConditions.other.date).getMonth() + 1) + '-' + ('0' + (new Date(masterCardModel.medicalConditions.other.date).getDate())).slice(-2));
+                                                var conditions = [];
+                                                if (observationDate === diagnosisDate) {
+                                                    conditions.push(masterCardModel.medicalConditions.other.name);
+                                                    obs.otherCondition = conditions;
+                                                }
+                                            });
                                         }
                                     }
                                 }
                             }
+
+                            labOrderResultService.getAllForPatient({ patientUuid: patientUuid }).then(function (response) {
+                                if (response.labAccessions && response.labAccessions.length > 0) {
+                                    response.labAccessions.forEach(function (accession) {
+                                        accession.forEach(function (accession2) {
+                                            if (accession2.tests) {
+                                                accession2.tests.forEach(function (test) {
+                                                    if (test.testName === 'CD4 %') {
+                                                        obsTable.forEach(function (observation) {
+                                                            if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
+                                                                observation.cd4 = test.result;
+                                                                observation.cd4Req = true;
+                                                            }
+                                                        });
+                                                    } else if (test.testName === 'ALT') {
+                                                        obsTable.forEach(function (observation) {
+                                                            if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
+                                                                observation.alt = test.result;
+                                                                observation.altReq = true;
+                                                            }
+                                                        });
+                                                    } else if (test.testName === 'AST') {
+                                                        obsTable.forEach(function (observation) {
+                                                            if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
+                                                                observation.ast = test.result;
+                                                                observation.astReq = true;
+                                                            }
+                                                        });
+                                                    } else if (test.testName === 'HGB') {
+                                                        obsTable.forEach(function (observation) {
+                                                            if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
+                                                                observation.hgb = test.result;
+                                                                observation.hgbReq = true;
+                                                            }
+                                                        });
+                                                    } else if (test.testName === 'CARGA VIRAL (Absoluto-Rotina)' || test.testName === 'CARGA VIRAL(Qualitativo-Rotina)') {
+                                                        obsTable.forEach(function (observation) {
+                                                            if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
+                                                                observation.viralLoad = test.result;
+                                                                observation.viralLoadReq = true;
+                                                            }
+                                                        });
+                                                    } else if (test.testName === 'GLYCEMIA(3.05-6.05mmol/L)') {
+                                                        obsTable.forEach(function (observation) {
+                                                            if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
+                                                                observation.gl = test.result;
+                                                                observation.glReq = true;
+                                                            }
+                                                        });
+                                                    }
+                                                    else if (test.testName === 'CREATININE(4.2-132Hmol/L)') {
+                                                        obsTable.forEach(function (observation) {
+                                                            if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
+                                                                observation.cr = test.result;
+                                                                observation.crReq = true;
+                                                            }
+                                                        });
+                                                    }
+                                                    else if (test.testName === 'AMILASE(600-1600/UL)') {
+                                                        obsTable.forEach(function (observation) {
+                                                            if (observation.actualVisit === new Date(test.visitStartTime).getFullYear() + '-' + (new Date(test.visitStartTime).getMonth() + 1) + '-' + new Date(test.visitStartTime).getDate()) {
+                                                                observation.am = test.result;
+                                                                observation.cd4Req = true;
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            } else if (accession2.testName === 'ALT') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.alt = accession2.result;
+                                                        observation.altReq = true;
+                                                    }
+                                                });
+                                            } else if (accession2.testName === 'AST') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.ast = accession2.result;
+                                                        observation.astReq = true;
+                                                    }
+                                                });
+                                            } else if (accession2.testName === 'HGB') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.hgb = accession2.result;
+                                                        observation.hgbReq = true;
+                                                    }
+                                                });
+                                            } else if (accession2.testName === 'CARGA VIRAL (Absoluto-Rotina)' || accession2.testName === 'CARGA VIRAL(Qualitativo-Rotina)') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.viralLoad = accession2.result;
+                                                        observation.viralLoadReq = true;
+                                                    }
+                                                });
+                                            } else if (accession2.testName === 'Carga Viral Suspeita') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.viralLoad = accession2.result;
+                                                        observation.viralLoadReq = true;
+                                                    }
+                                                });
+                                            } else if (accession2.testName === 'GLYCEMIA(3.05-6.05mmol/L)') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.gl = accession2.result;
+                                                        observation.glReq = true;
+                                                    }
+                                                });
+                                            }
+                                            else if (accession2.testName === 'CREATININE(4.2-132Hmol/L)') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.cr = accession2.result;
+                                                        observation.crReq = true;
+                                                    }
+                                                });
+                                            }
+                                            else if (accession2.testName === 'AMILASE(600-1600/UL)') {
+                                                obsTable.forEach(function (observation) {
+                                                    if (observation.actualVisit === new Date(accession2.visitStartTime).getFullYear() + '-' + (new Date(accession2.visitStartTime).getMonth() + 1) + '-' + new Date(accession2.visitStartTime).getDate()) {
+                                                        observation.am = accession2.result;
+                                                        observation.amReq = true;
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    });
+                                }
+                            });
+
+                            var populateEncounterProvider = function () {
+                                var params = {
+                                    q: "bahmni.sqlGet.patientEncounterProvider",
+                                    v: "full",
+                                    patientUuid: patientUuid
+                                };
+                                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                                    method: "GET",
+                                    params: params,
+                                    withCredentials: true
+                                });
+                            };
+                            $q.all([populateEncounterProvider()]).then(function (response) {
+                                if (response[0] && response[0].data.length > 0) {
+                                    for (var i = 0; i < response[0].data.length; i++) {
+                                        var encounterProvider = response[0].data[i];
+                                        var actualVisit = new Date(encounterProvider.date_created).getFullYear() + '-' + (new Date(encounterProvider.date_created).getMonth() + 1) + '-' + ('0' + (new Date(encounterProvider.date_created).getDate())).slice(-2);
+
+                                        obsTable.forEach(function (obs) {
+                                            if (obs.actualVisit === actualVisit) {
+                                                obs.provider = encounterProvider.given_name + '-' + encounterProvider.family_name;
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+
+                            var populatePatientStatusStateHist = function () {
+                                var params = {
+                                    q: "bahmni.sqlGet.getPatientStatusState",
+                                    v: "full",
+                                    patientUuid: patientUuid
+                                };
+                                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                                    method: "GET",
+                                    params: params,
+                                    withCredentials: true
+                                });
+                            };
+                            $q.all([populatePatientStatusStateHist()]).then(function (response) {
+                                for (var i = 0; i < response[0].data.length; i++) {
+                                    var statusState = response[0].data[i];
+                                    var actualVisit = new Date(statusState.date_created).getFullYear() + '-' + (new Date(statusState.date_created).getMonth() + 1) + '-' + ('0' + (new Date(statusState.date_created).getDate())).slice(-2);
+                                    var lastState = response[0].data[0];
+                                    var lastObs = obsTable[0];
+
+                                    obsTable.forEach(function (obs) {
+                                        if (obs.actualVisit === actualVisit) {
+                                            obs.statusState = statusState.patient_state + '-' + statusState.patient_status;
+                                        } else { obs.statusState = lastState.patient_state + '-' + lastState.patient_status; }
+                                    });
+                                    if (lastObs.statusState.length === 0) {
+                                        lastObs.statusState = lastState.patient_state + '-' + lastState.patient_status;
+                                    }
+                                }
+                            });
+
+                            var getUpcomingAppointments = function () {
+                                var params = {
+                                    q: "bahmni.sqlGet.upComingAppointments",
+                                    v: "full",
+                                    patientUuid: patientUuid
+                                };
+                                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                                    method: "GET",
+                                    params: params,
+                                    withCredentials: true
+                                });
+                            };
+                            var getPastAppointments = function () {
+                                var params = {
+                                    q: "bahmni.sqlGet.pastAppointments",
+                                    v: "full",
+                                    patientUuid: patientUuid
+                                };
+                                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                                    method: "GET",
+                                    params: params,
+                                    withCredentials: true
+                                });
+                            };
+                            $q.all([getUpcomingAppointments(), getPastAppointments()]).then(function (response) {
+                                var upcomingAppointments = response[0].data;
+                                var pastAppointments = response[1].data;
+                                for (let i = 0; i < upcomingAppointments.length; i++) {
+                                    if (upcomingAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Consulta Clínica') {
+                                        obsTable.forEach(function (obs) {
+                                            var observationDate = (new Date(obs.actualVisit).getDate() + '/' + (new Date(obs.actualVisit).getMonth() + 1) + '/' + new Date(obs.actualVisit).getFullYear());
+
+                                            if (observationDate === upcomingAppointments[i].DASHBOARD_APPOINTMENTS_DATE_CREATED) {
+                                                var newDate = upcomingAppointments[i].DASHBOARD_APPOINTMENTS_DATE_KEY.split("/");
+                                                obs.nextVisit = newDate[0] + '/' + newDate[1] + '/' + newDate[2].slice(-2);
+                                            } else /* if (upcomingAppointments[i].DASHBOARD_APPOINTMENTS_DATE_KEY > observationDate) */ {
+                                                obs.nextVisit = upcomingAppointments[i].DASHBOARD_APPOINTMENTS_DATE_KEY;
+                                                var newDate = upcomingAppointments[i].DASHBOARD_APPOINTMENTS_DATE_KEY.split("/");
+                                                obs.nextVisit = newDate[0] + '/' + newDate[1] + '/' + newDate[2].slice(-2);
+                                            }
+                                        });
+                                    }
+                                }
+                                for (let i = 0; i < pastAppointments.length; i++) {
+                                    if (pastAppointments[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Consulta Clínica') {
+                                        obsTable.forEach(function (obs) {
+                                            var observationDate = (new Date(obs.actualVisit).getDate() + '/' + (new Date(obs.actualVisit).getMonth() + 1) + '/' + new Date(obs.actualVisit).getFullYear());
+
+                                            if (observationDate === pastAppointments[i].DASHBOARD_APPOINTMENTS_DATE_CREATED) {
+                                                var newDate = pastAppointments[i].DASHBOARD_APPOINTMENTS_DATE_KEY.split("/");
+                                                obs.nextVisit = newDate[0] + '/' + newDate[1] + '/' + newDate[2].slice(-2);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+
+                            var getDrugLine = function () {
+                                var params = {
+                                    q: "bahmni.sqlGet.patientPrescriptions",
+                                    v: "full",
+                                    lang_unit: "pt",
+                                    lang_route: "pt",
+                                    lang_treatmentLine: "pt",
+                                    lang_frequency: "pt",
+                                    patientUuid: patientUuid
+                                };
+                                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                                    method: "GET",
+                                    params: params,
+                                    withCredentials: true
+                                });
+                            };
+
+                            $q.all([getDrugLine()]).then(function (response) {
+                                if (response && response.length > 0) {
+                                    response.forEach(function (prescriptions) {
+                                        if (prescriptions.data && prescriptions.data.length > 0) {
+                                            prescriptions.data.forEach(function (prescription) {
+                                                for (var i = 0; i < obsTable.length; i++) {
+                                                    var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
+
+                                                    if (obsTable[i].actualVisit === actualVisit) {
+                                                        if (prescription.category === 'ARV') {
+                                                            obsTable[i].prescribedDrugs = {};
+                                                            obsTable[i].prescribedDrugs.dose = prescription.dose;
+                                                            obsTable[i].prescribedDrugs.name = prescription.name;
+                                                            obsTable[i].prescribedDrugs.unit = prescription.unit;
+                                                            obsTable[i].prescribedDrugs.route = prescription.route;
+                                                            obsTable[i].prescribedDrugs.category = prescription.category;
+                                                            obsTable[i].prescribedDrugs.first_arv = prescription.first_arv;
+                                                            obsTable[i].prescribedDrugs.line = prescription.line_treatment[0];
+                                                            obsTable[i].prescribedDrugs.arv_dispensed = prescription.arv_dispensed;
+                                                            obsTable[i].prescribedDrugs.drug_dispensed = prescription.drug_dispensed;
+                                                            obsTable[i].prescribedDrugs.dispensed_date = prescription.dispensed_date;
+                                                            obsTable[i].prescribedDrugs.dosing = angular.fromJson(prescription.dosing_instructions).instructions;
+                                                            obsTable[i].prescribedDrugs.frequency = prescription.frequency;
+                                                            break;
+                                                        } else if (prescription.category !== 'ARV' && prescription.category !== 'Prophylaxis') {
+                                                            if (obsTable[i].otherPerscribedDrugs) {
+                                                                obsTable[i].otherPerscribedDrugs.push(prescription.name);
+                                                            }
+                                                        }
+                                                    } else if (i === (obsTable.length - 1)) {
+                                                        if (prescription.category === 'ARV') {
+                                                            obsTable.push({
+                                                                actualVisit: new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2),
+                                                                prescribedDrugs: {
+                                                                    dose: prescription.dose,
+                                                                    name: prescription.name,
+                                                                    unit: prescription.unit,
+                                                                    route: prescription.route,
+                                                                    category: prescription.category,
+                                                                    first_arv: prescription.first_arv,
+                                                                    line: prescription.line_treatment[0],
+                                                                    arv_dispensed: prescription.arv_dispensed,
+                                                                    drug_dispensed: prescription.drug_dispensed,
+                                                                    dispensed_date: prescription.dispensed_date,
+                                                                    dosing: angular.fromJson(prescription.dosing_instructions).instructions,
+                                                                    frequency: prescription.frequency
+                                                                },
+                                                                values: []
+                                                            });
+                                                        } else if (prescription.category !== 'ARV' && prescription.category !== 'Prophylaxis') {
+                                                            if (obsTable.otherPerscribedDrugs) {
+                                                                obsTable.otherPerscribedDrugs.push(prescription.name);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+
                             var slicedTable = obsTable.slice(0, 12);
 
                             masterCardModel.patientInfo.psychosocialFactors = slicedTable.reverse();
@@ -557,16 +1388,21 @@ angular.module('bahmni.clinical')
                             }
                             if (masterCardModel.patientInfo.psychosocialFactors.length < 12) {
                                 masterCardModel.patientInfo.psychosocialFactorsActualEmpty = [];
+                                masterCardModel.patientInfo.fichaClinicaEmpty = [];
                                 for (var m = 0; m < 12 - masterCardModel.patientInfo.psychosocialFactors.length; m++) {
                                     masterCardModel.patientInfo.psychosocialFactorsActualEmpty.push(m);
+                                    masterCardModel.patientInfo.fichaClinicaEmpty.push(m);
                                 }
                             }
                             if (masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length === 0) {
                                 masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [1];
+                                masterCardModel.patientInfo.fichaClinicaNextEmpty = [1];
                             } else {
                                 masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [];
+                                masterCardModel.patientInfo.fichaClinicaNextEmpty = [];
                                 for (var n = 0; n < masterCardModel.patientInfo.psychosocialFactorsActualEmpty.length; n++) {
                                     masterCardModel.patientInfo.psychosocialFactorsNextEmpty.push(n);
+                                    masterCardModel.patientInfo.fichaClinicaNextEmpty.push(n);
                                 }
                             }
                             for (var q = 0; q < masterCardModel.patientInfo.psychosocialFactors.length; q++) {
@@ -578,6 +1414,8 @@ angular.module('bahmni.clinical')
                             for (var o = 0; o < 12; o++) {
                                 masterCardModel.patientInfo.psychosocialFactorsActualEmpty.push(o);
                                 masterCardModel.patientInfo.psychosocialFactorsNextEmpty.push(o);
+                                masterCardModel.patientInfo.fichaClinicaEmpty.push(o);
+                                masterCardModel.patientInfo.fichaClinicaNextEmpty.push(o);
                             }
                         }
                     });
@@ -637,7 +1475,13 @@ angular.module('bahmni.clinical')
                         masterCardModel.patientInfo.firstName = patient.givenName;
                         masterCardModel.patientInfo.lastName = patient.familyName;
                         masterCardModel.patientInfo.gender = patient.gender;
+
+                        if ($rootScope.patient.PRIMARY_CONTACT_NUMBER_1 !== undefined) {
+                            masterCardModel.patientInfo.mainContact = $rootScope.patient.PRIMARY_CONTACT_NUMBER_1.value;
+                        }
+
                         masterCardModel.patientInfo.age = patient.age;
+
                         masterCardModel.patientInfo.patientId = patient.identifier;
                         masterCardModel.patientInfo.birth_date = patient.birthdate;
                         masterCardModel.patientInfo.stageConditionName = $rootScope.stageConditionName;
@@ -780,26 +1624,26 @@ angular.module('bahmni.clinical')
                 });
             };
 
-            var populatePatientLabResults = function () {
+            var populatePatientLabResults = function (visitUuid) {
                 masterCardModel.labOrderResult = {};
                 var labResultsToShow = ['ALT', 'AST', 'CD 4', 'CD4 %', 'CD4 Abs', 'HGB', 'CARGA VIRAL (Absoluto-Rotina)', 'CARGA VIRAL(Qualitativo-Rotina)', 'Other', 'Outros'];
                 return new Promise(function (resolve, reject) {
-                    labOrderResultService.getAllForPatient({patientUuid: patientUuid}).then(function (response) {
+                    labOrderResultService.getAllForPatient({ patientUuid: patientUuid, visitUuids: visitUuid }).then(function (response) {
                         if (response.labAccessions) {
                             if (response.labAccessions.length > 0) {
                                 _.map(response.labAccessions[0], function (currentObj) {
                                     if (_.includes(labResultsToShow, currentObj.testName)) {
                                         var loName;
-                                        if (currentObj.testName == 'ALT') { loName = 'LO_ALT'; }
-                                        else if (currentObj.testName == 'AST') { loName = 'LO_AST'; }
-                                        else if (currentObj.testName == 'CD 4') { loName = 'LO_CD4'; }
-                                        else if (currentObj.testName == 'CD4 %') { loName = 'LO_CD4'; }
-                                        else if (currentObj.testName == 'CD4 Abs') { loName = 'LO_CD4'; }
-                                        else if (currentObj.testName == 'HGB') { loName = 'LO_HGB'; }
-                                        else if (currentObj.testName == 'CARGA VIRAL (Absoluto-Rotina)') { loName = 'LO_ViralLoad'; }
-                                        else if (currentObj.testName == 'CARGA VIRAL(Qualitativo-Rotina)') { loName = 'LO_ViralLoad'; }
+                                        if (currentObj.testName === 'ALT') { loName = 'LO_ALT'; }
+                                        else if (currentObj.testName === 'AST') { loName = 'LO_AST'; }
+                                        else if (currentObj.testName === 'CD 4') { loName = 'LO_CD4'; }
+                                        else if (currentObj.testName === 'CD4 %') { loName = 'LO_CD4'; }
+                                        else if (currentObj.testName === 'CD4 Abs') { loName = 'LO_CD4'; }
+                                        else if (currentObj.testName === 'HGB') { loName = 'LO_HGB'; }
+                                        else if (currentObj.testName === 'CARGA VIRAL (Absoluto-Rotina)') { loName = 'LO_ViralLoad'; }
+                                        else if (currentObj.testName === 'CARGA VIRAL(Qualitativo-Rotina)') { loName = 'LO_ViralLoad'; }
                                         else { loName = currentObj.testName; }
-                                        masterCardModel.labOrderResult[loName] = {testDate: currentObj.resultDateTime, testResult: currentObj.result};
+                                        masterCardModel.labOrderResult[loName] = { testDate: currentObj.resultDateTime, testResult: currentObj.result };
                                     }
                                 });
                             }
@@ -1143,9 +1987,6 @@ angular.module('bahmni.clinical')
                 return new Promise(function (resolve, reject) {
                     treatmentService.getPrescribedDrugOrders(patientUuid, true).then(function (response) {
                         var resarray = [];
-                        var arrres = response.forEach(function (Drug) {
-                            resarray.push(Drug);
-                        });
                         var arrARV = [];
                         var arrNotARV = [];
                         var dateARV = [];
@@ -1338,7 +2179,7 @@ angular.module('bahmni.clinical')
                             masterCardModel.allergyHistory = [];
                             response.data.forEach(function (element) {
                                 element.allergies.forEach(function (allergy) {
-                                    masterCardModel.allergyHistory.push({name: allergy.concept.name, date: allergy.dateCreated});
+                                    masterCardModel.allergyHistory.push({ name: allergy.concept.name, date: allergy.dateCreated });
                                 });
                             });
                         }

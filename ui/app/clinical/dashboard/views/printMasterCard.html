@@ -9,19 +9,20 @@
         .page-break {
             display: block;
             page-break-before: always;
+            page-break-after: always;
         }
     }
 </style>
 
 <div ng-controller="PrintMasterCardController">
-    <div>
-        <div ng-include src="'dashboard/views/masterCardSections/resumo.html'"></div>
+     <div ng-include src="'dashboard/views/masterCardSections/resumo.html'"></div>
         <br>
         <div ng-include src="'dashboard/views/masterCardSections/apss.html'"></div>
-        <div class="page-break" ng-include src="'dashboard/views/masterCardSections/clinicoBottom.html'"></div>
-<!--
+<br>
+       <div class="page-break" ng-include src="'dashboard/views/masterCardSections/clinicoTop.html'"></div>
+
+     <!--
         <div class="page-break"></div>
         <div ng-include src="'dashboard/views/masterCardSections/clinico.html'"></div>
 -->
-    </div>
 </div>

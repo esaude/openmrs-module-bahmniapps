@@ -1,0 +1,720 @@
+<style type="text/css">
+    .sampleTable {
+        border-collapse: collapse;
+        border-spacing: 0;
+        font-size: 6px;
+        margin-right: 10px;
+        height: 100%;
+        width: 100%;
+    }
+
+    .sampleTable-a {
+        border-collapse: collapse;
+        border-spacing: 0;
+        padding: 0 1px 0 1px;
+        text-align: center;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+    }
+
+    .sampleTable-a td {
+        border-style: dashed dashed solid dashed;
+        border-width: 1px;
+    }
+
+    /*.sampleTable-a tr {
+        border-style: dashed;
+        border-width: 1px;
+    }*/
+
+    .table-small-a {
+      border-collapse: collapse; 
+      border-style: solid;
+      border-width: 1px;
+      border-color: black;
+      width: 10%;
+      font-size: 8;
+      margin-left: 10px;
+      /*margin-left: 0%;
+      margin-right: auto;
+      margin-top:3px;*/
+    }
+
+    .table-small-b {
+      border-collapse: collapse; 
+      border-style: solid;
+      border-width: 1px;
+      border-color: black;
+      width: 20%;
+      font-size: 8;
+      float: right;
+      margin-left:20px;
+      /*margin-left: auto;
+      margin-right: -4px;*/
+    }
+
+    .text-uptop {
+      font-size: 8;
+    }
+
+    .text-small {
+        font-size: 8;
+        display: "inline";
+    }
+
+    .text-extrasmall {
+        font-size: 7;
+        display: "inline";
+    }
+
+    .sampleTable td {
+        font-size: 6px;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+        border-color: black;
+    }
+
+    .sampleTable .centralizetext {
+        font-size: 6px;
+        text-align: center;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+        border-color: black;
+    }
+
+    .sampleTable th {
+        font-size: 6px;
+        font-weight: normal;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+        border-color: black;
+    }
+
+    .sampleTable .cells {
+        width: 50px;
+    }
+
+    .sampleTable span {
+        font-size: 6px;
+    }
+
+    .align-content-vertical {
+        /*transform:translate(50px,500px) rotate(90deg);
+        position:fixed;
+        height:500px;*/
+        writing-mode: vertical-rl;
+        margin-inline-start: 160px;
+    }
+
+    .circleSelect {
+        border-radius: 100%;
+        border: 1px solid #000;
+        padding-left: 2px;
+        padding-right: 2px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+</style>
+
+<div class="align-content-vertical">
+    <span>
+    <table class="table-small-a">
+        <th>Ficha Clinica</th>
+    </table>
+    <table class="table-small-b">
+        <tr>
+            <td>População Chave - HSH<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_PID'">
+                PID<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_HSH'">
+                REC<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_REC'">
+                MTS<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_MTS'">
+                Outro<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_Other'"></td>
+        </tr>
+        <tr>
+            <td>População Vulnerável: {{ps.vulPopulation}}</td>
+        </tr>
+    </table>
+</span>
+<div><span class="text-uptop"> Nome: {{patient.name}}</span><br>
+<span class="text-uptop">NID (US / Anual / Individual): {{patient.identifier}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-uptop">TARV-Coorte (Mês / Ano):{{ps.treatmentStartDate | date:'MMM/yy'}} </span>
+</div>            
+    <table class="sampleTable-a" align="center">
+        <colgroup>
+            <col class="cells">
+        </colgroup>
+
+        <tr>
+            <td>A</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+            <td>16</td>
+            <td>17</td>
+            <td>18</td>
+            <td>19</td>
+            <td>20</td>
+            <td>21</td>
+            <td>22</td>
+            <td>23</td>
+            <td colspan="2">24</td>
+            <td></td>
+        </tr>
+        <tr style="border-style: solid solid solid solid; border-width: 1px;">
+            <td rowspan="4" class="text-small" style="transform: rotate(-90deg)">Processo X</td>
+            <td rowspan="2">Consulta Actual / Outros <span class="text-extrasmall">(d/ m/ a)</span></td>
+            <td rowspan="2">Idade <span class="text-extrasmall">(Se ≥ 5 anos em metros; se ≤ 5 anos em cm)</span></td>
+            <td rowspan="2">Gravidez / Data Última Menstruação / Lactante <span class="text-extrasmall">(G - Data DUM/ L)</span></td>
+            <td rowspan="2">Estadio OMS <span class="text-extrasmall">(I, II, III, IV)</span></td>
+            <td>Peso(kg)</td>
+            <td rowspan="3">PB <span class="text-extrasmall">(Grávida; 6 meses do pós-parto; Criança de 6-59 meses)</span></td>
+            <td rowspan="2">Avaliação Nutricional</td>
+            <td rowspan="3">Recebeu Apoio / Educação nutricional <span class="text-extrasmall">(Não / Tipo)</span></td>
+            <td colspan="2">Tuberculose</td>
+            <td rowspan="2">Profilaxia INH <span class="text-extrasmall">(Início / Continua / Fim - I / C / F)</span> </td>
+            <td rowspan="2">Ef. Secundários</td>
+            <td>ITS</td>
+            <td rowspan="4">Infeções Oportunistas,Incluindo Sarcoma Kaposi, outras doenças <span class="text-extrasmall">(Não / Diagnóstico)</span></td>
+            <td colspan="2">Investigações</td>
+            <td colspan="5">TARV</td>
+            <td></td>
+            <td colspan="3">Referência para:</td>
+            <td rowspan='4' class="text-small" style="transform: rotate(-90deg)">RUBRICA</td>
+        </tr>
+        <tr style="border-style: solid; border-width: 1px;">
+            <td rowspan="3">Comprimento / Altura <span class="text-extrasmall">(Se ≥ 5 anos em metros; se ≤ 5 anos em cm)</span> </td>
+            <td rowspan="2">Tem sintomas?<span class="text-extrasmall">(S / N)</span></td>
+            <td rowspan="2">Diagnóstico TB activa <span class="text-extrasmall">(S / N)</span></td>
+            <td rowspan="2">Tem sintomas? <span class="text-extrasmall">(S / N)</span></td>
+            <td rowspan="2">Carga Viral <span class="text-extrasmall">(Pedido / Cópias / ml)</span></td>
+            <td rowspan="3">Hemoglobina (Hg) /Transaminases (AST / ALT) / Glicemia (GL) Creatinina (CR) / Amilase (AM) / Outros (O)
+                <span class="text-extrasmall">(<span style="text-decoration:underline">Pedido</span> - Marcar com círculo;
+                <span style="text-decoration:underline">Resultado</span> - Valor)</span></td>
+            <td rowspan="2">Linha - Dispensa mensal / Trimestral <span class="text-extrasmall">(1ª / 2ª / 3ª Linha - DM/ DT)</span></td>
+            <td rowspan="3"><span style="text-decoration:underline">Para cada ARV</span> Posologia de cada dose e № de doses /dia</td>
+            <td rowspan="2">Alternativa ou Mudança linha? <span class="text-extrasmall">(Não / A - M)</span></td>
+            <td rowspan="2">Efeitos Secundários <span class="text-extrasmall">(Não / Código - Grau)</span></td>
+            <td rowspan="3">Mudança Estado Permanência&nbsp;&nbsp;TARV</span><br>R<br>S&nbsp;&nbsp;&nbsp;A<br>O&nbsp;&nbsp;&nbsp;T</td>
+            <td rowspan="3">Outras prescrições<span class="text-extrasmall">(Excluir TPI, TPC e ARVs)</span></td>
+            <td rowspan="3">TB / PTV / PF /APSS e PP /Revelação Diagnóstica /Internamento / Outro</span></td>
+            <td>Grupo de Apoio <span class="text-extrasmall">(Código)</span></td>
+            <td>Modelo Diferenciado de Cuidados <span class="text-extrasmall">(MDC) Código</span></td>
+        </tr>
+        <tr style="border-style: solid; border-width: 1px;">
+            <td rowspan="2">Próxima Consulta <span class="text-extrasmall">(d/ m/ a)</span></td>
+            <td rowspan="2">Tensão Arterial</td>
+            <td rowspan="2">Plan. Familiar <span class="text-extrasmall">(Não / Método)</span></td>
+            <td rowspan="2">Criança Edemas <span class="text-extrasmall"></span>(o / + ++  +++)</td>
+            <td>Indicador <span class="text-extrasmall">(IMC; PB; IMC / Idade; P / E)</span></td>
+            <td rowspan="2">Profilaxia CTZ <span class="text-extrasmall">(Início / Continua / Fim - I / C / F)</span></td>
+            <td>INH <span class="text-extrasmall">(S / N)</span></td>
+            <td colspan="2">Elegível <span class="text-extrasmall">(S / N)</span></td>
+        </tr>
+        <tr style="border-style: solid; border-width: 1px;">
+            <td>IMC <span class="text-extrasmall">(Kg / m2)</span></td>
+            <td>Grau <span class="text-extrasmall">(Normal / Ligeira / DAM / DAG)</span></td>
+            <td>Quantidade </td>
+            <td>Quais sintomas? <span class="text-extrasmall">(FESTAC; adenopatias)</span></td>
+            <td>Tratamento TB <span class="text-extrasmall">(cartão / TB - Data de Início e Fim) (Início / Continua / Fim) (d / m / a - I / C / F)</span></td>
+            <td>CTZ <span class="text-extrasmall">(S / N)</span></td>
+            <td>Diagnóstico ITS <span class="text-extrasmall">(Código)</span></td>
+            <td>CD4 <span class="text-extrasmall">(Pedido / se ≤  5A - CD4%)</span></td>
+            <td>Regime <span class="text-extrasmall">(Siglas)</span></td>
+            <td>Motivo <span class="text-extrasmall">(Código)</span></td>
+            <td>Adesão <span class="text-extrasmall">(Boa / Risco / Má - B / R / M)</span></td>
+            <td colspan="2">Início / Continua / Fim <span class="text-extrasmall">(I / C / F)</span></td>
+        </tr>
+        <tr ng-repeat-start="ps in masterCardData.patientInfo.psychosocialFactors track by $index">
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
+                <td rowspan="1">{{ ps.actualVisit | date:'d/MM/yy' }}</td>
+                <td rowspan="1">{{ ps.ageAtVisit }}</td>
+                <td rowspan="1"><span ng-if="ps.pregnancyYesNo">G</span> <span ng-if="ps.lastMenstruationDate">/ {{ ps.lastMenstruationDate | date:'d/MM/yy' }}</span> <span ng-if="ps.breastFeeding"> / L</span></td>
+                <td rowspan="1">{{ ps.whoStaging }}</td>
+                <td rowspan="1">{{ ps.weight }}</td>
+                <td rowspan="1">{{ ps.brachialPerimeter }}</td>
+                <td rowspan="1">{{ps.indicator}}  </td>
+                <td rowspan="1"><span ng-if="ps.receivedNutritionalSupport"> Apoio Nutricional:<span ng-if="ps.receivedNutritionalSupport===true">Sim</span> <span ng-if="ps.receivedNutritionalSupport === false">Não</span></span>  
+                  <span ng-if="ps.receivedNutritionalEducation">Educação Nutricional:<span ng-if="ps.receivedNutritionalEducation===true">Sim</span> <span ng-if="ps.receivedNutritionalEducation === false">Não</span>
+                </span>&nbsp;&nbsp;&nbsp;{{ps.nutritionSupplement}}</td>
+                <td rowspan="1"><span ng-class="{'circleSelect':ps.hasTBSymptoms===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.hasTBSymptoms === false}">N</span></td>
+                <td rowspan="1"><span ng-class="{'circleSelect':ps.TBdateDiag===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.TBdateDiag === false}">N</span></td>
+                <td rowspan="1"><span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Início'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Em Curso'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Fim'}">F</span></td>
+                <td rowspan="1"><span ng-class="{'circleSelect':ps.spSideEffectsINH===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsINH === false}">N</span></td>
+                <td rowspan="1"><span ng-class="{'circleSelect':ps.hasSTISymptoms===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.hasSTISymptoms === false}">N</span></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"><span ng-repeat='con in ps.otherCondition track by $index'>{{con}}</span></td>
+                <td rowspan="1"><span ng-if="ps.viralLoadReq === true">PEDIDO</span>{{ps.viralLoad}}</td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;">
+                  <span ng-class="{'circleSelect':ps.hgbReq === true }">Hb</span>&nbsp;{{ps.hgb}} <span ng-if="ps.hgbReq === ''">__</span> 
+                  <span ng-class="{'circleSelect':ps.altReq === true }">ALT</span>&nbsp;{{ps.alt}}<span ng-if="ps.altReq === ''">__</span>
+                  <span ng-class="{'circleSelect':ps.astReq === true}">AST</span>&nbsp;{{ps.ast}}<span ng-if="ps.astReq === ''">__</span>
+                  <span ng-class="{'circleSelect':ps.glReq === true }">GL</span>&nbsp;{{ps.gl}}<span ng-if="ps.glReq === ''">___</span>
+                  <span ng-class="{'circleSelect':ps.crReq === true }">CR</span>&nbsp;{{ps.cr}}<span ng-if="ps.crReq === ''">__</span>
+                  <span ng-class="{'circleSelect':ps.amReq === true }">AM</span>&nbsp;{{ps.am}}<span ng-if="ps.amReq === ''">__</span>
+                  <span>O___</span></td>
+                <td rowspan="1"><span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === 'Primeira Linha' ">1ª</span>
+                  <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === 'Segunda Linha' ">2ª</span>
+                  <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === 'Terceira Linha' ">3ª</span>
+                  <span ng-if="!ps.prescribedDrugs.line">_</span> Linha 
+                  <span ng-class="{'circleSelect':ps.prescribedDrugs.dosing === 'Mensal'}">DM</span> <span ng-class="{'circleSelect':ps.prescribedDrugs.dosing === 'Trimestral'}">DT</span></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"> {{ps.prescribedDrugs.dose}} {{ps.prescribedDrugs.unit}} {{ps.prescribedDrugs.frequency}}</td>
+                <td rowspan="1">N/A</td>
+                <td rowspan="1">{{ps.tarvSideEffects}}</td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"><span ng-class="{'circleSelect':ps.statusState === 'ACTIVE-TARV_RESTART'}">R</span><br>
+                  <span ng-class="{'circleSelect':ps.statusState === 'ACTIVE-TARV_TREATMENT_SUSPENDED' || ps.statusState === 'INACTIVE_SUSPENDED-TARV' }">S</span>&nbsp; 
+                  <span ng-class="{'circleSelect':ps.statusState === 'ACTIVE-TARV'}">A</span><br>
+                   <span ng-class="{'circleSelect':ps.statusState === 'INACTIVE-DEATH-TARV'}">O</span>&nbsp;
+                    <span ng-class="{'circleSelect':ps.statusState === INACTIVE_TRANSFERED_OUT-TARV}">T</span>
+                </td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"> <span ng-repeat="dr in ps.otherPerscribedDrugs track by $index"> {{dr}}</span></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"><span ng-repeat="ref in ps.referenceSectionOtherServices track by $index"> {{ref}}</span></td>
+                <td rowspan="1">
+                    <span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR || ps.referenceSectionSupportGroupPC || ps.referenceSectionSupportGroupAR || ps.referenceSectionSupportGroupMPS || ps.referenceSectionSupportGroup}">S</span>&nbsp;&nbsp;&nbsp; <span>N</span>
+                </td>
+                <td rowspan="1">
+                    <span ng-class="{'circleSelect':ps.referenceMDCSectionAF || ps.referenceMDCSectionDT || ps.referenceMDCSectionGA || ps.referenceMDCSectionCA || ps.referenceMDCSectionPU || ps.referenceMDCSectionFR || ps.referenceMDCSectionDC || ps.referenceMDCSectionOther }">S</span>&nbsp;&nbsp;&nbsp; <span>N</span>
+                </td>
+                <td  class="text-small"rowspan="2" style="transform:rotate(-90deg)"> {{ps.provider}}</td>
+              </tr>
+              <tr style="border-style: solid dashed solid solid; border-width: 1px;">
+                <td>{{ ps.nextVisit | date:'d/MM/yy' }}</td>
+                <td><span ng-if="ps.bloodPressureSystolicVitalS || ps.bloodPressureDiastolicVSNew">{{ps.bloodPressureSystolicVitalS}}/{{ps.bloodPressureDiastolicVSNew}}</span></td>
+                <td>
+                 <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_PRES_Condom_button_Yes')===true">PRES</span>
+                  <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_VAS_Vasectomy_button_Yes')===true">VAS</span>
+                  <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_Start')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_In_Progress')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_End')===true ">PIL</span>
+                  <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_INJ_Injection_button_Start')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_INJ_Injection_button_In_Progress')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_INJ_Injection_button_End')===true ">INJ</span>
+                  <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_IMP_Implant_button_Start')===true|| ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_IMP_Implant_button_In_Progress')===true|| ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_IMP_Implant_button_End')===true ">IMP</span>
+                  <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_DIU_Intra_button_Start')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_DIU_Intra_button_In_Progress')===true || ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_DIU_Intra_button_End')===true  ">DIU</span>
+                  <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_LT_Tubal_Ligation_button_Yes')===true ">LT</span>
+                  <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_MAL_Lactational_Amenorrhea_Method_button_Yes')===true ">MAL</span>
+                  <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_OUT_Other_button_Yes') ">Outro</span>
+                </td>
+                <td>{{ ps.infantsOdemaProphylaxis }}</td>
+                <td><span ng-if='masterCardData.patientInfo.age> 5'>{{ ps.height/100 }}</span><span ng-if='masterCardData.patientInfo.age < 5 || masterCardData.patientInfo.age === 5 '>{{ ps.height }}</span></td>
+                <td>{{ ps.bmi }}</td>
+                <td>{{ ps.nutritionalState }}</td>
+                <td> {{ ps.nutritionalSupplementQt }} {{ps.nutritionalSupplementMeasurementUnit}}</td>
+                <td>{{ ps.prophylaxisSymptoms }}</td>
+                <td>{{ ps.tbTreatmentStartDate | date:'d/MM/yy'}} <div><span ng-class="{'circleSelect':ps.tbTreatmentState == 'Start_SP'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.tbTreatmentState == 'Em Curso'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.tbTreatmentState == 'Family_Planning_Contraceptive_Methods_PIL_Oral_Contraceptive_button_End'}">F</span></td>
+                <td><span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Início'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Em Curso'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisCTZ == 'Fim'}">F</span></td>
+                <td><span ng-class="{'circleSelect':ps.spSideEffectsCTZ===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsCTZ === false}">N</span></div></td>
+                <td>{{ ps.stiDiagnosisProphylaxis }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIM }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIF }} </td>
+          
+                <td><span ng-if="ps.cd4Req === true">PEDIDO</span>{{ps.CD4}}</td>
+                <td>{{ps.prescribedDrugs.name}}</td>
+                <td>N/A</td>
+                <td> {{ps.tarvAdherence}}</td>
+          
+                <td>
+                  <span ng-if="ps.referenceSectionSupportGroupCR">CR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_End'}">F</span></span>
+                  <span ng-if="ps.referenceSectionSupportGroupPC">PC:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupPC == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupPC == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupPC == 'Reference_End'}">F</span></span>
+                  <span ng-if="ps.referenceSectionSupportGroupAR">AR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupAR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupAR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupAR == 'Reference_End'}">F</span></span>
+                  <span ng-if="ps.referenceSectionSupportGroupMPS">MPS:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupMPS == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupMPS == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupMPS == 'Reference_End'}">F</span></span>
+                  <span ng-if="ps.referenceSectionSupportGroup">Other:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroup == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroup == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroup == 'Reference_End'}">F</span></span>
+                 </td>
+                <td>
+                  <span ng-if="ps.referenceMDCSectionAF">AF:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionAF == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionAF == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionAF == 'Reference_End'}">F</span></span>
+                  <span ng-if="ps.referenceMDCSectionDT">DT:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDT == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDT == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDT == 'Reference_End'}">F</span></span>
+                  <span ng-if="ps.referenceMDCSectionGA">GA:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionGA == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionGA == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionGA == 'Reference_End'}">F</span></span>
+                  <span ng-if="ps.referenceMDCSectionCA">CA:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionCA == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionCA == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionCA == 'Reference_End'}">F</span></span>
+                  <span ng-if="ps.referenceMDCSectionPU">PU:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionPU == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionPU == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionPU == 'Reference_End'}">F</span></span>
+                  <span ng-if="ps.referenceMDCSectionFR">FR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionFR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionFR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionFR == 'Reference_End'}">F</span></span>
+                  <span ng-if="ps.referenceMDCSectionDC">DC:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDC == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDC == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionDC == 'Reference_End'}">F</span></span>
+                  <span ng-if="ps.referenceMDCSectionOther">Other:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionOther == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionOther == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceMDCSectionOther == 'Reference_End'}">F</span></span>
+                 </td>
+              </tr>
+              <tr ng-repeat-end></tr>
+            <tr ng-repeat-start="px in masterCardData.patientInfo.fichaClinicaEmpty track by $index">
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
+                <td>_/_/_</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>S&nbsp;&nbsp;&nbsp; N</td>
+                <td>S&nbsp;&nbsp;&nbsp; N</td>
+                <td>I&nbsp;&nbsp;&nbsp; C&nbsp;&nbsp;&nbsp; F</td>
+                <td>S&nbsp;&nbsp;&nbsp; N</td>
+                <td>S&nbsp;&nbsp;&nbsp; N</td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
+                <td></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;">Hb__ ALT__ AST__ GL__ CR__ AM__ O____</td>
+                <td>_Linha DM</td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
+                <td>N/A</td>
+                <td></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"> R<br>S&nbsp;&nbsp;&nbsp;A<br>O&nbsp;&nbsp;&nbsp;T</td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
+                <td>S&nbsp;&nbsp;&nbsp; N</td>
+                <td>S&nbsp;&nbsp;&nbsp; N</td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
+            </tr>
+            <tr style="border-style: solid dashed solid solid; border-width: 1px;">
+                <td>_/_/_</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>_/_/_ <br>I&nbsp;&nbsp;&nbsp; C&nbsp;&nbsp;&nbsp; F</td>
+                <td>I&nbsp;&nbsp;&nbsp; C&nbsp;&nbsp;&nbsp; F</td>
+                <td>S&nbsp;&nbsp;&nbsp; N</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>N/A</td>
+                <td>B&nbsp;&nbsp;&nbsp; R&nbsp;&nbsp;&nbsp; M</td>
+                <td></td>
+                <td></td>
+                </tr>
+                <tr ng-repeat-end></tr>
+        </table>
+<table class="sampleTable" align="center">
+        <colgroup>
+            <col class="cells">
+        </colgroup>
+
+        <tr>
+            <th class="th" rowspan="4">
+                {{'MASTERCARD_RECEPTION_LABEL' | translate}}<br>{{'MASTERCARD_RECEPTION_LABEL_PICKED_DRUG' | translate}}
+                <br>{{'MASTERCARD_RECEPTION_LABEL_Y_N' | translate}}</th>
+            <th class="th">
+                {{'MASTERCARD_RECEPTION_LABEL_Y' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;{{'MASTERCARD_RECEPTION_LABEL_N' | translate}}
+            </th>
+            <th ng-repeat="n in pickupARVDColumn" class="th">
+                <span
+                    ng-class="{'circleSelect': dispensedDrug[n].dispensed}">{{'MASTERCARD_RECEPTION_LABEL_Y' | translate}}&nbsp;&nbsp;</span>
+                <span>&nbsp;&nbsp;{{'MASTERCARD_RECEPTION_LABEL_N' | translate}}</span>
+            </th>
+        </tr>
+        <tr>
+            <td class="td">{{'MASTERCARD_RECEPTION_LABEL_DAY' | translate}}</td>
+            <td ng-repeat="n in pickupARVDColumn" class="td">
+                <span>{{dispensedDrug[n].dispensed_date | date:'dd'}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="td">{{'MASTERCARD_RECEPTION_LABEL_MOTH' | translate}}</td>
+            <td ng-repeat="n in pickupARVDColumn" class="td">
+                <span>{{dispensedDrug[n].dispensed_date | date:'MM'}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="td">{{'MASTERCARD_RECEPTION_LABEL_YEAR' | translate}}</td>
+            <td ng-repeat="n in pickupARVDColumn" class="td">
+                <span>{{dispensedDrug[n].dispensed_date | date:'yy'}}</span>
+            </td>
+        </tr>
+    </table>
+    <!--<table class="sampleTable">
+            <colgroup>
+                <col style="width: 1px">
+                <col style="width: 105px">
+                <col style="width: 1px">
+                <col style="width: 95px">
+                <col style="width: 1px">
+                <col style="width: 120px">
+                <col style="width: 100px">
+                <col style="width: 105px">
+                <col style="width: 300px">
+                <col style="width: 50px">
+                <col style="width: 30px">
+                <col style="width: 50px">
+                <col style="width: 100px">
+                <col style="width: 1px">
+                <col style="width: 90px">
+                <col style="width: 10px">
+                <col style="width: 55px">
+                <col style="width:1px">
+                <col style="width:55px">
+            </colgroup>
+            <tr>
+                <th colspan="2">População Chave (Cabeçalho)</th>
+                <th colspan="4">Factores Psicosociais que afectam a adesão (Ficha APSS e PP)</th>
+                <th colspan="5">Avaliação Nutricional (C7)</th>
+                <th colspan="4">Efeito secundários (C20)</th>
+                <th colspan="4" rowspan="2">Motivos substituição / Mudança de Linha (C19)</th>
+            </tr>
+            <tr>
+                <td class="centralizetext">HSH</td>
+                <td >Homens que fazem sexo com Homens</td>
+                <td class="centralizetext" >A</td>
+                <td >Recusa resultado positivo</td>
+                <td class="centralizetext" >I</td>
+                <td >Dificuldade para revelar ao parceiro / família</td>
+                <td >Indicador Nutricional</td>
+                <td class="centralizetext" rowspan="2">IMC Adultos</td>
+                <td class="centralizetext" rowspan="2">Perímetro Branquial (PB)</td>
+                <td class="centralizetext" rowspan="2">P / E ou IMC / Idade</td>
+                <td class="centralizetext" rowspan="2">Edema Bilateral</td>
+                <td class="centralizetext" colspan="4">Manifestação clínicas</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >PID</td>
+                <td >Pessoas que injectam drogas</td>
+                <td class="centralizetext" >B</td>
+                <td >Sente-se doente demais</td>
+                <td class="centralizetext" >J</td>
+                <td >Toxicidade / Medo de efeitos secundários</td>
+                <td >Grau </td>
+                <td colspan="2">Geralmente não severeas:</td>
+                <td  colspan="2">Severas</td>
+                <td class="centralizetext" >1</td>
+                <td colspan="3">Toxididade / Efeitos secundários</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >REC</td>
+                <td >Reclusos</td>
+                <td class="centralizetext" >C</td>
+                <td >Não acredita no TARV</td>
+                <td class="centralizetext" >L</td>
+                <td >Perdeu / Esqueceu / Dividiu comprimidos</td>
+                <td >Desnutrição aguda grave (DAG)</td>
+                <td class="centralizetext" >&lt; 16.0</td>
+                <td >6-59 meses &lt; 11,5 cm, 5-10 anos &lt; 13,0 cm, 11-15 anos &lt; 16,0 cm, Grávidas ou nos 6 meses, Pós-parto: &lt; 21,0 cm</td>
+                <td class="centralizetext" >&lt; - 3 DP</td>
+                <td class="centralizetext" >Presente</td>
+                <td class="centralizetext">NV / DA</td>
+                <td >Náuseas, vómitos / dor abdominal</td>
+                <td class="centralizetext" >CIT</td>
+                <td >Citopenia</td>
+                <td class="centralizetext" >2</td>
+                <td colspan="3">Gravidez</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >MTS</td>
+                <td >Trabalhadoras de Sexo</td>
+                <td class="centralizetext" >D</td>
+                <td >São muitos comprimidos</td>
+                <td class="centralizetext" >M</td>
+                <td >Estigma e Descriminação</td>
+                <td >Desnutrição aguda moderada (DAM)</td>
+                <td class="centralizetext" >16.0 - 16.99</td>
+                <td>6-59 meses; &gt;= 11,5 cm e &lt; 12,5 cm, 5-10 anos &gt;= 3,0 cm e &lt; 14,5 cm, 11-15 anos &gt;= 16,0 cm e &lt; 18,5 cm, Grávidas ou nos 6 meses, Pós-parto: &gt;= 21,0 cm e 23 cm</td>
+                <td class="centralizetext" >&gt;= -3 e &lt; - 2 DP</td>
+                <td class="centralizetext">Ausente</td>
+                <td class="centralizetext" >DIA</td>
+                <td ><br>Diarreia</td>
+                <td class="centralizetext">PAN</td>
+                <td >Pancreatite</td>
+                <td class="centralizetext" ><br>3</td>
+                <td colspan="3"><br>Risco de gravidez</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" colspan="2">Planeamento Familiar - Métodos (C3)</td>
+                <td class="centralizetext" >E</td>
+                <td >Sente-se melhor</td>
+                <td class="centralizetext" >N</td>
+                <td >Problemas de transporte</td>
+                <td >Desnutrição aguda ligeira</td>
+                <td class="centralizetext" >17.0 - 18.49</td>
+                <td ></td>
+                <td class="centralizetext" >&gt;= -2 e &lt; - 1 DP</td>
+                <td class="centralizetext" >Ausente</td>
+                <td class="centralizetext" >PSIQ</td>
+                <td >Neuropsiquiátrico / comportamento</td>
+                <td class="centralizetext" >NFT</td>
+                <td >Nefrotoxicidade</td>
+                <td class="centralizetext" >4</td>
+                <td colspan="3">Início do tratamento de tuberculose</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >PRES</td>
+                <td >Preservativo</td>
+                <td class="centralizetext" >F</td>
+                <td >Falta de alimentação</td>
+                <td class="centralizetext" >O</td>
+                <td >Violência baseada no género</td>
+                <td  colspan="5" rowspan="7"></td>
+                <td class="centralizetext" >NEUP</td>
+                <td >Neuropatia periférica</td>
+                <td colspan="2">Com risco de vida</td>
+                <td class="centralizetext" >5</td>
+                <td colspan="3">Novo medicamento disponível</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >PIL</td>
+                <td >Contraceptivo oral</td>
+                <td class="centralizetext" >G</td>
+                <td >Falta de apoio familiar</td>
+                <td class="centralizetext" >P</td>
+                <td >Aspectos culturais ou tradicionais</td>
+                <td class="centralizetext" >EC</td>
+                <td >Erupção cutânea / Dermatite</td>
+                <td class="centralizetext" >HEP</td>
+                <td >Hepatite</td>
+                <td class="centralizetext" >6</td>
+                <td colspan="3">Ruptura de stock de ARVs</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >INJ</td>
+                <td >Injectável</td>
+                <td class="centralizetext" >H</td>
+                <td >Depressão e/ou ansiedade</td>
+                <td class="centralizetext" >Q</td>
+                <td >Uso abusivo de álcool ou drogas</td>
+                <td class="centralizetext" >HG</td>
+                <td >Hiperglicémia</td>
+                <td class="centralizetext" >SSJ</td>
+                <td >Sindroma de Stevens - Johnson</td>
+                <td class="centralizetext" >7</td>
+                <td colspan="3">Outra razão (Especificar)</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >IMP</td>
+                <td >Implante</td>
+                <td class="centralizetext" colspan="2">Sintomas de Tuberculose (C9)</td>
+                <td class="centralizetext" colspan="2">ITS (C13)</td>
+                <td class="centralizetext" >DL</td>
+                <td >Dislipidémia</td>
+                <td class="centralizetext" >HIP</td>
+                <td >Hipersensibilidade a ABC / RAL</td>
+                <td colspan="4">Só para mudança para 2a ou 3a linha</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >DIU</td>
+                <td >Dispositivo Intra-uterino</td>
+                <td class="centralizetext" >F</td>
+                <td >Febre</td>
+                <td class="centralizetext" >SIF</td>
+                <td >Sifílis</td>
+                <td class="centralizetext" >LPD</td>
+                <td >Lipodistrofia</td>
+                <td class="centralizetext" >ACL</td>
+                <td >Acidose láctica</td>
+                <td class="centralizetext" >8</td>
+                <td colspan="3">Falência clínica</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >LT</td>
+                <td >Laqueação das trompas</td>
+                <td class="centralizetext" >E</td>
+                <td >Emagrecimento recente</td>
+                <td  colspan="2">Abordagem Sindrómica</td>
+                <td colspan="2" rowspan="2"></td>
+                <td class="centralizetext" rowspan="2">ESH</td>
+                <td rowspan="2">Esteatose hepaática c/ hiperlactemia</td>
+                <td class="centralizetext" >9</td>
+                <td colspan="3">Falência imunológica</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >VAS</td>
+                <td >Vasectomia</td>
+                <td class="centralizetext" >S</td>
+                <td >Sudorese nocturna</td>
+                <td class="centralizetext" >CV</td>
+                <td >Corrimento vaginal</td>
+                <td class="centralizetext" >10</td>
+                <td colspan="3">Falência virológica</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >MAL</td>
+                <td >Método Amenorreia Lactacional</td>
+                <td class="centralizetext" >T</td>
+                <td >Tosse com / sem sangue</td>
+                <td class="centralizetext" >CUM</td>
+                <td >Corrimento uteral</td>
+                <td class="centralizetext" colspan="2">Adesão ao TARV (C20)</td>
+                <td class="centralizetext" colspan="2">Saídas TARV (C21)</td>
+                <td class="centralizetext" colspan="2">Grau toxicidade ARVs (C20)</td>
+                <td class="centralizetext" colspan="3">Grupos de Apoio (C24)</td>
+                <td class="centralizetext" colspan="4">Modelos Diferenciados de Cuidados (MDC) (C24)</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" rowspan="4"><br><br>OUT</td>
+                <td rowspan="4"><br><br>Outro<br></td>
+                <td class="centralizetext" >A</td>
+                <td >Astenia</td>
+                <td class="centralizetext" >UG</td>
+                <td >Ulcera genital</td>
+                <td class="centralizetext" >Adesão</td>
+                <td >Dias de atraso no levantamento TARV</td>
+                <td class="centralizetext" >S</td>
+                <td >Suspensão</td>
+                <td class="centralizetext" >I</td>
+                <td >Ligeiro</td>
+                <td class="centralizetext" >CR</td>
+                <td colspan="2">Crianças Reveladas</td>
+                <td class="centralizetext" >GA</td>
+                <td class="centralizetext" >GAAC</td>
+                <td class="centralizetext" >FR</td>
+                <td >Fluxo Rápido</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >C</td>
+                <td >Contacto recente com Tuberculose</td>
+                <td class="centralizetext" >DIP</td>
+                <td >DIP - dor no baixo ventre</td>
+                <td class="centralizetext" >B (Boa)</td>
+                <td >&lt;= 3 dias de atraso</td>
+                <td class="centralizetext" >A</td>
+                <td >Abandono</td>
+                <td class="centralizetext" >II</td>
+                <td >Moderado</td>
+                <td class="centralizetext" >PC</td>
+                <td  colspan="2">Pais cuidadores</td>
+                <td class="centralizetext">AF</td>
+                <td >Abordagem familiar</td>
+                <td class="centralizetext" >DT</td>
+                <td >Dispensa Trimestral</td>
+            </tr>
+            <tr>
+                <td class="centralizetext"  rowspan="2">Criança</td>
+                <td rowspan="2">Adenopatia cervical indolor</td>
+                <td class="centralizetext">ESI</td>
+                <td>Escroto inchado</td>
+                <td class="centralizetext" >R (Risco)</td>
+                <td >4 dias &lt;= R &lt;= 6 dias de atraso</td>
+                <td class="centralizetext">O</td>
+                <td >Óbito</td>
+                <td class="centralizetext" >III</td>
+                <td >Severo</td>
+                <td class="centralizetext" >AR</td>
+                <td colspan="2">Adolescentes revelados</td>
+                <td class="centralizetext" >CA</td>
+                <td >Clubes de adesão</td>
+                <td class="centralizetext">DC</td>
+                <td >Dispensa Comunitária</td>
+            </tr>
+            <tr>
+                <td class="centralizetext" >BI</td>
+                <td >Bubão inguinal</td>
+                <td class="centralizetext" >Má</td>
+                <td >7 / + dias de atraso</td>
+                <td class="centralizetext" >T</td>
+                <td >Transferido para</td>
+                <td class="centralizetext" >IV</td>
+                <td >Risco de vida</td>
+                <td class="centralizetext" >MPM</td>
+                <td  colspan="2">Mãe para Mãe</td>
+                <td class="centralizetext">PU</td>
+                <td >Paragem única</td>
+                <td class="centralizetext" >DS</td>
+                <td >Dispensa Semestral</td>
+            </tr>
+        </table>-->
+</div>
