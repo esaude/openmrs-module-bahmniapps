@@ -191,7 +191,7 @@
             <td rowspan="2">Profilaxia INH <span class="text-extrasmall">(Início / Continua / Fim - I / C / F)</span> </td>
             <td rowspan="2">Ef. Secundários</td>
             <td>ITS</td>
-            <td rowspan="4">Infecções Oportunistas,Incluindo Sarcome Kaposi, outras doenças <span class="text-extrasmall">(Não / Diagnóstico)</span></td>
+            <td rowspan="4">Infeções Oportunistas,Incluindo Sarcoma Kaposi, outras doenças <span class="text-extrasmall">(Não / Diagnóstico)</span></td>
             <td colspan="2">Investigações</td>
             <td colspan="5">TARV</td>
             <td></td>
@@ -268,9 +268,9 @@
                   <span ng-class="{'circleSelect':ps.crReq === true }">CR</span>&nbsp;{{ps.cr}}<span ng-if="ps.crReq === ''">__</span>
                   <span ng-class="{'circleSelect':ps.amReq === true }">AM</span>&nbsp;{{ps.am}}<span ng-if="ps.amReq === ''">__</span>
                   <span>O___</span></td>
-                <td rowspan="1"><span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '1' ">1ª</span>
-                  <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '2' ">2ª</span>
-                  <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '3' ">3ª</span>
+                <td rowspan="1"><span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === 'Primeira Linha' ">1ª</span>
+                  <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === 'Segunda Linha' ">2ª</span>
+                  <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === 'Terceira Linha' ">3ª</span>
                   <span ng-if="!ps.prescribedDrugs.line">_</span> Linha 
                   <span ng-class="{'circleSelect':ps.prescribedDrugs.dosing === 'Mensal'}">DM</span> <span ng-class="{'circleSelect':ps.prescribedDrugs.dosing === 'Trimestral'}">DT</span></td>
                 <td rowspan="2" style="border-style: solid; border-width: 1px;"> {{ps.prescribedDrugs.dose}} {{ps.prescribedDrugs.unit}} {{ps.prescribedDrugs.frequency}}</td>
@@ -317,7 +317,7 @@
                 <td><span ng-class="{'circleSelect':ps.spSideEffectsCTZ===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsCTZ === false}">N</span></div></td>
                 <td>{{ ps.stiDiagnosisProphylaxis }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIM }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIF }} </td>
           
-                <td><span ng-if="ps.CD4Req === true">PEDIDO</span>{{ps.CD4}}</td>
+                <td><span ng-if="ps.cd4Req === true">PEDIDO</span>{{ps.CD4}}</td>
                 <td>{{ps.prescribedDrugs.name}}</td>
                 <td>N/A</td>
                 <td> {{ps.tarvAdherence}}</td>

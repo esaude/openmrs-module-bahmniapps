@@ -363,8 +363,8 @@ angular.module('bahmni.clinical')
                 masterCardModel.patientInfo.apssDifferentiatedModelsDate = '';
                 masterCardModel.patientInfo.apssPatientCaregiverAgreement = '';
                 masterCardModel.patientInfo.apssConfidantAgreement = '';
-              
-              observationsService.fetch(patientUuid, [apssdiagnosisDisclosure, apssPreTARVCounselling, apssPreTARVCounsellingComments,
+
+                observationsService.fetch(patientUuid, [apssdiagnosisDisclosure, apssPreTARVCounselling, apssPreTARVCounsellingComments,
                     apssSectionIDetails, psychosocialFactors, apssSectionIIform, apssPPSexualBehavior, apssPPHIVDisclosure,
                     apssPPImportanceAdherence, apssPPSexuallyTransmittedInfections, apssPPFamilyPlanning, apssPPAlcoholOtherDrugsConsumption,
                     apssPPNeedCommunitySupport, apssPPAdherenceFollowUpHasInformedSomeone, apssPPAdherenceFollowUpHasInformedSomeoneRelationship,
@@ -1882,8 +1882,8 @@ angular.module('bahmni.clinical')
                                 masterCardModel.patientInfo.resultAlt = temp1[i];
                             }
                         }
-                      
-                      if (temp[i] === "LO_AST") {
+
+                        if (temp[i] === "LO_AST") {
                             if (temp[i] === null) {
                                 masterCardModel.patientInfo.resultAst = null;
                             } else {
@@ -1899,8 +1899,8 @@ angular.module('bahmni.clinical')
                 masterCardModel.regimeChangeName = '';
                 masterCardModel.regimeStartDate = '';
                 masterCardModel.regimeChangeDate = '';
-              
-              return new Promise(function (resolve, reject) {
+
+                return new Promise(function (resolve, reject) {
                     treatmentService.getActiveDrugOrders(patientUuid, null, null).then(function (response) {
                         var drugarr = [];
                         for (var i = response.length - 1; i >= 0; i--) {
