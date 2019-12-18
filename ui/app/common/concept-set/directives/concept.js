@@ -202,6 +202,18 @@ angular.module('bahmni.common.conceptSet')
                         scope.observation.disabled = true;
                     }
 
+                    if (scope.observation.concept.name.includes("HOF") && scope.patient.isMigrated) {
+                        scope.observation.disabled = true;
+                    } else
+                    if (scope.observation.concept.name.includes("HOF") && scope.patient.historyObsFirstTime == false) {
+                        scope.observation.disabled = true;
+                    } else {
+                        if (scope.observation.concept.name === "HOF_TARV_PROPHILAXIS_Patient_Type") {
+                            scope.observation.disabled = true;
+                            scope.observation.hide = true;
+                        }
+                    }
+
                     if (scope.conceptSetName === 'Group V-Screening / Prophylaxis') {
                         if (scope.observation.concept.name === 'SP_Treatment State') {
                             $rootScope.observationData = scope.observation;

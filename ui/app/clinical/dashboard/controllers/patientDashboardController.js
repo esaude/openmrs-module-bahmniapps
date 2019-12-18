@@ -2,9 +2,9 @@
 
 angular.module('bahmni.clinical')
     .controller('PatientDashboardController', ['$scope', 'clinicalAppConfigService', 'clinicalDashboardConfig', 'printer',
-        '$state', 'spinner', 'visitSummary', 'appService', '$stateParams', 'diseaseTemplateService', 'patientContext', '$location', '$filter',
+        '$state', 'spinner', 'visitSummary', 'appService', '$stateParams', 'diseaseTemplateService', 'patientContext', '$location', '$filter', 'observationsService',
         function ($scope, clinicalAppConfigService, clinicalDashboardConfig, printer,
-                  $state, spinner, visitSummary, appService, $stateParams, diseaseTemplateService, patientContext, $location, $filter) {
+                  $state, spinner, visitSummary, appService, $stateParams, diseaseTemplateService, patientContext, $location, $filter, observationsService) {
             $scope.patient = patientContext.patient;
             $scope.activeVisit = $scope.visitHistory.activeVisit;
             $scope.activeVisitData = {};
@@ -14,6 +14,16 @@ angular.module('bahmni.clinical')
             $scope.enrollment = $stateParams.enrollment;
             $scope.isDashboardPrinting = false;
             var programConfig = appService.getAppDescriptor().getConfigValue("program") || {};
+
+            $scope.getClinicalHistoryObservationForm = function () {
+                observationsService.fetch($scope.patient.uuid, 'Clinical_History_Obs_Form', undefined, 2).then(function (response) {
+                    if (response.data.length > 0) {
+                        $scope.patient.historyObsFirstTime = false;
+                    } else {
+                        $scope.patient.historyObsFirstTime = true;
+                    }
+                });
+            };
 
             $scope.stateChange = function () {
                 return $state.current.name === 'patient.dashboard.show';
@@ -79,6 +89,7 @@ angular.module('bahmni.clinical')
                 $scope.currentDashboardTemplateUrl = $state.current.views['dashboard-content'] ?
                     $state.current.views['dashboard-content'].templateUrl : $state.current.views['dashboard-content'];
             };
+            $scope.getClinicalHistoryObservationForm();
 
             $scope.init(getCurrentTab());
         }]);
