@@ -3,6 +3,9 @@
         border-collapse: collapse;
         border-spacing: 0;
         font-size: 6px;
+        margin-right: 10px;
+        height: 100%;
+        width: 100%;
     }
 
     .sampleTable-a {
@@ -10,7 +13,20 @@
         border-spacing: 0;
         padding: 0 1px 0 1px;
         text-align: center;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
     }
+
+    .sampleTable-a td {
+        border-style: dashed dashed solid dashed;
+        border-width: 1px;
+    }
+
+    /*.sampleTable-a tr {
+        border-style: dashed;
+        border-width: 1px;
+    }*/
 
     .table-small-a {
       border-collapse: collapse; 
@@ -19,9 +35,10 @@
       border-color: black;
       width: 10%;
       font-size: 6;
-      margin-left: 0%;
+      margin-left: 10px;
+      /*margin-left: 0%;
       margin-right: auto;
-      margin-top:3px;
+      margin-top:3px;*/
     }
 
     .table-small-b {
@@ -31,8 +48,10 @@
       border-color: black;
       width: 20%;
       font-size: 6;
-      margin-left: auto;
-      margin-right: -4px;
+      float: right;
+      margin-left:20px;
+      /*margin-left: auto;
+      margin-right: -4px;*/
     }
 
     .text-uptop {
@@ -87,9 +106,10 @@
     }
 
     .align-content-vertical {
-        transform:translate(-949px,-700px) rotate(90deg) scale(0.9);
+        /*transform:translate(50px,500px) rotate(90deg);
         position:fixed;
-        height:185%;
+        height:500px;*/
+        writing-mode: vertical-rl;
     }
 
     .circleSelect {
@@ -156,7 +176,7 @@
             <td colspan="2">24</td>
             <td></td>
         </tr>
-        <tr>
+        <tr style="border-style: solid solid solid solid; border-width: 1px;">
             <td rowspan="4" class="text-small" style="transform: rotate(-90deg)">Processo X</td>
             <td rowspan="2">Consulta Actual / Outros <span class="text-extrasmall">(d/ m/ a)</span></td>
             <td rowspan="2">Idade <span class="text-extrasmall">(Se ≥ 5 anos em metros; se ≤ 5 anos em cm)</span></td>
@@ -177,7 +197,7 @@
             <td colspan="3">Referência para:</td>
             <td rowspan='4' class="text-small" style="transform: rotate(-90deg)">RUBRICA</td>
         </tr>
-        <tr>
+        <tr style="border-style: solid; border-width: 1px;">
             <td rowspan="3">Comprimento / Altura <span class="text-extrasmall">(Se ≥ 5 anos em metros; se ≤ 5 anos em cm)</span> </td>
             <td rowspan="2">Tem sintomas?<span class="text-extrasmall">(S / N)</span></td>
             <td rowspan="2">Diagnóstico TB activa <span class="text-extrasmall">(S / N)</span></td>
@@ -196,7 +216,7 @@
             <td>Grupo de Apoio <span class="text-extrasmall">(Código)</span></td>
             <td>Modelo Diferenciado de Cuidados <span class="text-extrasmall">(MDC) Código</span></td>
         </tr>
-        <tr>
+        <tr style="border-style: solid; border-width: 1px;">
             <td rowspan="2">Próxima Consulta <span class="text-extrasmall">(d/ m/ a)</span></td>
             <td rowspan="2">Tensão Arterial</td>
             <td rowspan="2">Plan. Familiar <span class="text-extrasmall">(Não / Método)</span></td>
@@ -206,7 +226,7 @@
             <td>INH <span class="text-extrasmall">(S / N)</span></td>
             <td colspan="2">Elegível <span class="text-extrasmall">(S / N)</span></td>
         </tr>
-        <tr>
+        <tr style="border-style: solid; border-width: 1px;">
             <td>IMC <span class="text-extrasmall">(Kg / m2)</span></td>
             <td>Grau <span class="text-extrasmall">(Normal / Ligeira / DAM / DAG)</span></td>
             <td>Quantidade </td>
@@ -221,7 +241,7 @@
             <td colspan="2">Início / Continua / Fim <span class="text-extrasmall">(I / C / F)</span></td>
         </tr>
         <tr ng-repeat-start="ps in masterCardData.patientInfo.psychosocialFactors track by $index">
-                <td rowspan="2"></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
                 <td rowspan="1">{{ ps.actualVisit | date:'d/MM/yy' }}</td>
                 <td rowspan="1">{{ ps.ageAtVisit }}</td>
                 <td rowspan="1"><span ng-if="ps.pregnancyYesNo">G</span> <span ng-if="ps.lastMenstruationDate">/ {{ ps.lastMenstruationDate | date:'d/MM/yy' }}</span> <span ng-if="ps.breastFeeding"> / L</span></td>
@@ -237,9 +257,9 @@
                 <td rowspan="1"><span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Início'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Em Curso'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.stateProphylaxisINH == 'Fim'}">F</span></td>
                 <td rowspan="1"><span ng-class="{'circleSelect':ps.spSideEffectsINH===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsINH === false}">N</span></td>
                 <td rowspan="1"><span ng-class="{'circleSelect':ps.hasSTISymptoms===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.hasSTISymptoms === false}">N</span></td>
-                <td rowspan="2"><span ng-repeat='con in ps.otherCondition track by $index'>{{con}}</span></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"><span ng-repeat='con in ps.otherCondition track by $index'>{{con}}</span></td>
                 <td rowspan="1"><span ng-if="ps.viralLoadReq === true">PEDIDO</span>{{ps.viralLoad}}</td>
-                <td rowspan="2">
+                <td rowspan="2" style="border-style: solid; border-width: 1px;">
                   <span ng-class="{'circleSelect':ps.hgbReq === true }">Hb</span>&nbsp;{{ps.hgb}} <span ng-if="ps.hgbReq === ''">__</span> 
                   <span ng-class="{'circleSelect':ps.altReq === true }">ALT</span>&nbsp;{{ps.alt}}<span ng-if="ps.altReq === ''">__</span>
                   <span ng-class="{'circleSelect':ps.astReq === true}">AST</span>&nbsp;{{ps.ast}}<span ng-if="ps.astReq === ''">__</span>
@@ -252,17 +272,17 @@
                   <span ng-if="ps.prescribedDrugs.line && ps.prescribedDrugs.line === '3' ">3ª</span>
                   <span ng-if="!ps.prescribedDrugs.line">_</span> Linha 
                   <span ng-class="{'circleSelect':ps.prescribedDrugs.dosing === 'Mensal'}">DM</span> <span ng-class="{'circleSelect':ps.prescribedDrugs.dosing === 'Trimestral'}">DT</span></td>
-                <td rowspan="2"> {{ps.prescribedDrugs.dose}} {{ps.prescribedDrugs.unit}} {{ps.prescribedDrugs.frequency}}</td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"> {{ps.prescribedDrugs.dose}} {{ps.prescribedDrugs.unit}} {{ps.prescribedDrugs.frequency}}</td>
                 <td rowspan="1">N/A</td>
                 <td rowspan="1">{{ps.tarvSideEffects}}</td>
-                <td rowspan="2"><span ng-class="{'circleSelect':ps.statusState === 'ACTIVE-TARV_RESTART'}">R</span><br>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"><span ng-class="{'circleSelect':ps.statusState === 'ACTIVE-TARV_RESTART'}">R</span><br>
                   <span ng-class="{'circleSelect':ps.statusState === 'ACTIVE-TARV_TREATMENT_SUSPENDED' || ps.statusState === 'INACTIVE_SUSPENDED-TARV' }">S</span>&nbsp; 
                   <span ng-class="{'circleSelect':ps.statusState === 'ACTIVE-TARV'}">A</span><br>
                    <span ng-class="{'circleSelect':ps.statusState === 'INACTIVE-DEATH-TARV'}">O</span>&nbsp;
                     <span ng-class="{'circleSelect':ps.statusState === INACTIVE_TRANSFERED_OUT-TARV}">T</span>
                 </td>
-                <td rowspan="2"> <span ng-repeat="dr in ps.otherPerscribedDrugs track by $index"> {{dr}}</span></td>
-                <td rowspan="2"><span ng-repeat="ref in ps.referenceSectionOtherServices track by $index"> {{ref}}</span></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"> <span ng-repeat="dr in ps.otherPerscribedDrugs track by $index"> {{dr}}</span></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"><span ng-repeat="ref in ps.referenceSectionOtherServices track by $index"> {{ref}}</span></td>
                 <td rowspan="1">
                     <span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR || ps.referenceSectionSupportGroupPC || ps.referenceSectionSupportGroupAR || ps.referenceSectionSupportGroupMPS || ps.referenceSectionSupportGroup}">S</span>&nbsp;&nbsp;&nbsp; <span>N</span>
                 </td>
@@ -271,7 +291,7 @@
                 </td>
                 <td  class="text-small"rowspan="2" style="transform:rotate(-90deg)"> {{ps.provider}}</td>
               </tr>
-              <tr style="border-style: dashed solid solid solid; border-width: 1px">
+              <tr style="border-style: solid dashed solid solid; border-width: 1px;">
                 <td>{{ ps.nextVisit | date:'d/MM/yy' }}</td>
                 <td><span ng-if="ps.bloodPressureSystolicVitalS || ps.bloodPressureDiastolicVSNew">{{ps.bloodPressureSystolicVitalS}}/{{ps.bloodPressureDiastolicVSNew}}</span></td>
                 <td>
@@ -296,7 +316,7 @@
                 <td><span ng-class="{'circleSelect':ps.spSideEffectsCTZ===true}">S</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.spSideEffectsCTZ === false}">N</span></div></td>
                 <td>{{ ps.stiDiagnosisProphylaxis }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIM }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIF }} </td>
           
-                <td><span ng-if="ps.CD4 === undefined">PEDIDO</span>{{ps.CD4}}</td>
+                <td><span ng-if="ps.CD4Req === true">PEDIDO</span>{{ps.CD4}}</td>
                 <td>{{ps.prescribedDrugs.name}}</td>
                 <td>N/A</td>
                 <td> {{ps.tarvAdherence}}</td>
@@ -321,7 +341,7 @@
               </tr>
               <tr ng-repeat-end></tr>
             <tr ng-repeat-start="px in masterCardData.patientInfo.fichaClinicaEmpty track by $index">
-                <td rowspan="2"></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
                 <td>_/_/_</td>
                 <td></td>
                 <td></td>
@@ -335,21 +355,21 @@
                 <td>I&nbsp;&nbsp;&nbsp; C&nbsp;&nbsp;&nbsp; F</td>
                 <td>S&nbsp;&nbsp;&nbsp; N</td>
                 <td>S&nbsp;&nbsp;&nbsp; N</td>
-                <td rowspan="2"></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
                 <td></td>
-                <td rowspan="2">Hb__ ALT__ AST__ GL__ CR__ AM__ O____</td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;">Hb__ ALT__ AST__ GL__ CR__ AM__ O____</td>
                 <td>_Linha DM</td>
-                <td rowspan="2"></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
                 <td>N/A</td>
                 <td></td>
-                <td rowspan="2"> R<br>S&nbsp;&nbsp;&nbsp;A<br>O&nbsp;&nbsp;&nbsp;T</td>
-                <td rowspan="2"></td>
-                <td rowspan="2"></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"> R<br>S&nbsp;&nbsp;&nbsp;A<br>O&nbsp;&nbsp;&nbsp;T</td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
                 <td>S&nbsp;&nbsp;&nbsp; N</td>
                 <td>S&nbsp;&nbsp;&nbsp; N</td>
-                <td rowspan="2"></td>
+                <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
             </tr>
-            <tr>
+            <tr style="border-style: solid dashed solid solid; border-width: 1px;">
                 <td>_/_/_</td>
                 <td></td>
                 <td></td>

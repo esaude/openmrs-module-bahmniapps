@@ -515,7 +515,7 @@ angular.module('bahmni.clinical')
                                     } else if (response.data[i].concept.name === familyPlanning) {
                                         tableStructure.familyPlanning = response.data[i].value;
                                     } else if (response.data[i].concept.name === nutritionalState) {
-                                        tableStructure.nutritionalState = response.data[i].value;
+                                        tableStructure.nutritionalState = response.data[i].valueAsString;
                                     } else if (response.data[i].concept.name === lastMenstruationDate) {
                                         tableStructure.lastMenstruationDate = response.data[i].value;
                                     } else if (response.data[i].concept.name === pregnancyYesNo) {
