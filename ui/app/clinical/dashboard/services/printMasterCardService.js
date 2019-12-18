@@ -650,12 +650,14 @@ angular.module('bahmni.clinical')
                                         }
                                     });
                                     obsTable.forEach(function (obs) {
-                                        var observationDate = (new Date(obs.actualVisit).getFullYear() + '-' + (new Date(obs.actualVisit).getMonth() + 1) + '-' + ('0' + (new Date(obs.actualVisit).getDate())).slice(-2));
-                                        var diagnosisDate = (new Date(masterCardModel.medicalConditions.other.date).getFullYear() + '-' + (new Date(masterCardModel.medicalConditions.other.date).getMonth() + 1) + '-' + ('0' + (new Date(masterCardModel.medicalConditions.other.date).getDate())).slice(-2));
-                                        var conditions = [];
-                                        if (observationDate === diagnosisDate) {
-                                            conditions.push(masterCardModel.medicalConditions.other.name);
-                                            obs.otherCondition = conditions;
+                                        if (masterCardModel.medicalConditions.other) {
+                                            var observationDate = (new Date(obs.actualVisit).getFullYear() + '-' + (new Date(obs.actualVisit).getMonth() + 1) + '-' + ('0' + (new Date(obs.actualVisit).getDate())).slice(-2));
+                                            var diagnosisDate = (new Date(masterCardModel.medicalConditions.other.date).getFullYear() + '-' + (new Date(masterCardModel.medicalConditions.other.date).getMonth() + 1) + '-' + ('0' + (new Date(masterCardModel.medicalConditions.other.date).getDate())).slice(-2));
+                                            var conditions = [];
+                                            if (observationDate === diagnosisDate) {
+                                                conditions.push(masterCardModel.medicalConditions.other.name);
+                                                obs.otherCondition = conditions;
+                                            }
                                         }
                                     });
                                 } else {
@@ -978,12 +980,15 @@ angular.module('bahmni.clinical')
                                                 }
                                             });
                                             obsTable.forEach(function (obs) {
-                                                var observationDate = (new Date(obs.actualVisit).getFullYear() + '-' + (new Date(obs.actualVisit).getMonth() + 1) + '-' + ('0' + (new Date(obs.actualVisit).getDate())).slice(-2));
-                                                var diagnosisDate = (new Date(masterCardModel.medicalConditions.other.date).getFullYear() + '-' + (new Date(masterCardModel.medicalConditions.other.date).getMonth() + 1) + '-' + ('0' + (new Date(masterCardModel.medicalConditions.other.date).getDate())).slice(-2));
-                                                var conditions = [];
-                                                if (observationDate === diagnosisDate) {
-                                                    conditions.push(masterCardModel.medicalConditions.other.name);
-                                                    obs.otherCondition = conditions;
+                                                if (masterCardModel.medicalConditions.other) {
+                                                    console.log(masterCardModel.medicalConditions.other);
+                                                    var observationDate = (new Date(obs.actualVisit).getFullYear() + '-' + (new Date(obs.actualVisit).getMonth() + 1) + '-' + ('0' + (new Date(obs.actualVisit).getDate())).slice(-2));
+                                                    var diagnosisDate = (new Date(masterCardModel.medicalConditions.other.date).getFullYear() + '-' + (new Date(masterCardModel.medicalConditions.other.date).getMonth() + 1) + '-' + ('0' + (new Date(masterCardModel.medicalConditions.other.date).getDate())).slice(-2));
+                                                    var conditions = [];
+                                                    if (observationDate === diagnosisDate) {
+                                                        conditions.push(masterCardModel.medicalConditions.other.name);
+                                                        obs.otherCondition = conditions;
+                                                    }
                                                 }
                                             });
                                         }
