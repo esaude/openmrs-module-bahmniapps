@@ -262,7 +262,6 @@ angular.module('bahmni.clinical')
                                         }
                                     });
                                 });
-
                             }
                         }
                         resolve();
