@@ -1528,6 +1528,7 @@ angular.module('bahmni.clinical')
                                 if (response && response.length > 0) {
                                     response.forEach(function (prescriptions) {
                                         if (prescriptions.data && prescriptions.data.length > 0) {
+                                            var count = obsTable.length;
                                             prescriptions.data.forEach(function (prescription) {
                                                 for (var i = 0; i < obsTable.length; i++) {
                                                     var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
@@ -1553,7 +1554,7 @@ angular.module('bahmni.clinical')
                                                                 obsTable[i].otherPerscribedDrugs.push(prescription.name);
                                                             }
                                                         }
-                                                    } else if (i === (obsTable.length - 1)) {
+                                                    } else if (i === (count - 1)) {
                                                         if (prescription.category === 'ARV') {
                                                             obsTable.push({
                                                                 actualVisit: new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2),
