@@ -1,4 +1,5 @@
 <style type="text/css">
+
     .sampleTable {
         border-collapse: collapse;
         border-spacing: 0;
@@ -8,25 +9,21 @@
         width: 100%;
     }
 
-    .sampleTable-a {
+    .sampleTb {
         border-collapse: collapse;
         border-spacing: 0;
-        padding: 0 1px 0 1px;
+        padding: 1px 1px 1px 1px;
         text-align: center;
         overflow: hidden;
         height: 100%;
         width: 100%;
     }
 
-    .sampleTable-a td {
+    .sampleTb td {
         border-style: dashed dashed solid dashed;
         border-width: 1px;
+        font-size: 8;
     }
-
-    /*.sampleTable-a tr {
-        border-style: dashed;
-        border-width: 1px;
-    }*/
 
     .table-small-a {
       border-collapse: collapse; 
@@ -34,11 +31,8 @@
       border-width: 1px;
       border-color: black;
       width: 10%;
-      font-size: 8;
+      font-size: 9;
       margin-left: 10px;
-      /*margin-left: 0%;
-      margin-right: auto;
-      margin-top:3px;*/
     }
 
     .table-small-b {
@@ -50,20 +44,18 @@
       font-size: 8;
       float: right;
       margin-left:20px;
-      /*margin-left: auto;
-      margin-right: -4px;*/
     }
 
-    .text-uptop {
+    .texto-uptop {
       font-size: 8;
     }
 
-    .text-small {
+    .texto-small {
         font-size: 8;
         display: "inline";
     }
 
-    .text-extrasmall {
+    .texto-extrasmall {
         font-size: 7;
         display: "inline";
     }
@@ -106,9 +98,6 @@
     }
 
     .align-content-vertical {
-        /*transform:translate(50px,500px) rotate(90deg);
-        position:fixed;
-        height:500px;*/
         writing-mode: vertical-rl;
         margin-inline-start: 160px;
     }
@@ -127,24 +116,25 @@
     <span>
     <table class="table-small-a">
         <th>Ficha Clinica</th>
-    </table>
+    </table> 
+    <span style="font-size: 8;"> Nome: {{patient.name}}</span>
     <table class="table-small-b">
         <tr>
-            <td>População Chave - HSH<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_PID'">
-                PID<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_HSH'">
-                REC<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_REC'">
-                MTS<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_MTS'">
-                Outro<input type="checkbox" ng-checked="ps.keyPopulation == 'PP_Key_population_Other'"></td>
+            <td>População Chave - HSH<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_PID'">
+                PID<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_HSH'">
+                REC<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_REC'">
+                MTS<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_MTS'">
+                Outro<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_Other'"></td>
         </tr>
         <tr>
-            <td>População Vulnerável: {{ps.vulPopulation}}</td>
+            <td>População Vulnerável: {{masterCardData.patientInfo.vulPopulation}}</td>
         </tr>
     </table>
 </span>
-<div><span class="text-uptop"> Nome: {{patient.name}}</span><br>
-<span class="text-uptop">NID (US / Anual / Individual): {{patient.identifier}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-uptop">TARV-Coorte (Mês / Ano):{{ps.treatmentStartDate | date:'MMM/yy'}} </span>
+<div><br>
+<span style="font-size: 8;">NID (US / Anual / Individual): {{patient.identifier}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 8;">TARV-Coorte (Mês / Ano):{{ps.treatmentStartDate | date:'MMM/yy'}} </span>
 </div>            
-    <table class="sampleTable-a" align="center">
+    <table class="sampleTb" align="center">
         <colgroup>
             <col class="cells">
         </colgroup>
@@ -178,72 +168,72 @@
             <td></td>
         </tr>
         <tr style="border-style: solid solid solid solid; border-width: 1px;">
-            <td rowspan="4" class="text-small" style="transform: rotate(-90deg)">Processo X</td>
-            <td rowspan="2">Consulta Actual / Outros <span class="text-extrasmall">(d/ m/ a)</span></td>
-            <td rowspan="2">Idade <span class="text-extrasmall">(Se ≥ 5 anos em metros; se ≤ 5 anos em cm)</span></td>
-            <td rowspan="2">Gravidez / Data Última Menstruação / Lactante <span class="text-extrasmall">(G - Data DUM/ L)</span></td>
-            <td rowspan="2">Estadio OMS <span class="text-extrasmall">(I, II, III, IV)</span></td>
+            <td rowspan="4" class="texto-small" style="transform: rotate(-90deg)">Processo X</td>
+            <td rowspan="2">Consulta Atual / Outros <span class="texto-extrasmall">(d/ m/ a)</span></td>
+            <td rowspan="2">Idade <span class="texto-extrasmall">(Se >= 5 em anos; se &lt;= 5 anos em meses)</span></td>
+            <td rowspan="2">Gravidez / Data Última Menstruação / Lactante <span class="texto-extrasmall">(G - Data DUM/ L)</span></td>
+            <td rowspan="2">Estadio OMS <span class="texto-extrasmall">(I, II, III, IV)</span></td>
             <td>Peso(kg)</td>
-            <td rowspan="3">PB <span class="text-extrasmall">(Grávida; 6 meses do pós-parto; Criança de 6-59 meses)</span></td>
+            <td rowspan="3">PB <span class="texto-extrasmall">(Grávida; 6 meses do pós-parto; Criança de 6-59 meses)</span></td>
             <td rowspan="2">Avaliação Nutricional</td>
-            <td rowspan="3">Recebeu Apoio / Educação nutricional <span class="text-extrasmall">(Não / Tipo)</span></td>
+            <td rowspan="3">Recebeu Apoio / Educação nutricional <span class="texto-extrasmall">(Não / Tipo)</span></td>
             <td colspan="2">Tuberculose</td>
-            <td rowspan="2">Profilaxia INH <span class="text-extrasmall">(Início / Continua / Fim - I / C / F)</span> </td>
+            <td rowspan="2">Profilaxia INH <span class="texto-extrasmall">(Início / Continua / Fim - I / C / F)</span> </td>
             <td rowspan="2">Ef. Secundários</td>
             <td>ITS</td>
-            <td rowspan="4">Infeções Oportunistas,Incluindo Sarcoma Kaposi, outras doenças <span class="text-extrasmall">(Não / Diagnóstico)</span></td>
+            <td rowspan="4">Infeções Oportunistas,Incluindo Sarcoma Kaposi, Outras doenças <span class="texto-extrasmall">(Não / Diagnóstico)</span></td>
             <td colspan="2">Investigações</td>
             <td colspan="5">TARV</td>
             <td></td>
             <td colspan="3">Referência para:</td>
-            <td rowspan='4' class="text-small" style="transform: rotate(-90deg)">RUBRICA</td>
+            <td rowspan='4' class="texto-small" style="transform: rotate(-90deg)">RUBRICA</td>
         </tr>
         <tr style="border-style: solid; border-width: 1px;">
-            <td rowspan="3">Comprimento / Altura <span class="text-extrasmall">(Se ≥ 5 anos em metros; se ≤ 5 anos em cm)</span> </td>
-            <td rowspan="2">Tem sintomas?<span class="text-extrasmall">(S / N)</span></td>
-            <td rowspan="2">Diagnóstico TB activa <span class="text-extrasmall">(S / N)</span></td>
-            <td rowspan="2">Tem sintomas? <span class="text-extrasmall">(S / N)</span></td>
-            <td rowspan="2">Carga Viral <span class="text-extrasmall">(Pedido / Cópias / ml)</span></td>
+            <td rowspan="3">Comprimento / Altura <span class="texto-extrasmall">(Se >= 5 anos em metros; se &lt;= 5 anos em cm)</span> </td>
+            <td rowspan="2">Tem sintomas?<span class="texto-extrasmall">(S / N)</span></td>
+            <td rowspan="2">Diagnóstico TB activa <span class="texto-extrasmall">(S / N)</span></td>
+            <td rowspan="2">Tem sintomas? <span class="texto-extrasmall">(S / N)</span></td>
+            <td rowspan="2">Carga Viral <span class="texto-extrasmall">(Pedido / Cópias / ml)</span></td>
             <td rowspan="3">Hemoglobina (Hg) /Transaminases (AST / ALT) / Glicemia (GL) Creatinina (CR) / Amilase (AM) / Outros (O)
-                <span class="text-extrasmall">(<span style="text-decoration:underline">Pedido</span> - Marcar com círculo;
+                <span class="texto-extrasmall">(<span style="text-decoration:underline">Pedido</span> - Marcar com círculo;
                 <span style="text-decoration:underline">Resultado</span> - Valor)</span></td>
-            <td rowspan="2">Linha - Dispensa mensal / Trimestral <span class="text-extrasmall">(1ª / 2ª / 3ª Linha - DM/ DT)</span></td>
-            <td rowspan="3"><span style="text-decoration:underline">Para cada ARV</span> Posologia de cada dose e № de doses /dia</td>
-            <td rowspan="2">Alternativa ou Mudança linha? <span class="text-extrasmall">(Não / A - M)</span></td>
-            <td rowspan="2">Efeitos Secundários <span class="text-extrasmall">(Não / Código - Grau)</span></td>
+            <td rowspan="2">Linha - Dispensa mensal / Trimestral <span class="texto-extrasmall">(1ª / 2ª / 3ª Linha - DM/ DT)</span></td>
+            <td rowspan="3"><span style="text-decoration:underline">Para cada ARV</span> Posologia de cada dose e &#8470; de doses /dia</td>
+            <td rowspan="2">Alternativa ou Mudança linha? <span class="texto-extrasmall">(Não / A - M)</span></td>
+            <td rowspan="2">Efeitos Secundários <span class="texto-extrasmall">(Não / Código - Grau)</span></td>
             <td rowspan="3">Mudança Estado Permanência&nbsp;&nbsp;TARV</span><br>R<br>S&nbsp;&nbsp;&nbsp;A<br>O&nbsp;&nbsp;&nbsp;T</td>
-            <td rowspan="3">Outras prescrições<span class="text-extrasmall">(Excluir TPI, TPC e ARVs)</span></td>
+            <td rowspan="3">Outras prescrições<span class="texto-extrasmall">(Excluir TPI, TPC e ARVs)</span></td>
             <td rowspan="3">TB / PTV / PF /APSS e PP /Revelação Diagnóstica /Internamento / Outro</span></td>
-            <td>Grupo de Apoio <span class="text-extrasmall">(Código)</span></td>
-            <td>Modelo Diferenciado de Cuidados <span class="text-extrasmall">(MDC) Código</span></td>
+            <td>Grupo Apoio <span class="texto-extrasmall">(Código)</span></td>
+            <td>Modelo Diferenciado de Cuidados <span class="texto-extrasmall">(MDC) Código</span></td>
         </tr>
         <tr style="border-style: solid; border-width: 1px;">
-            <td rowspan="2">Próxima Consulta <span class="text-extrasmall">(d/ m/ a)</span></td>
+            <td rowspan="2">Próxima Consulta <span class="texto-extrasmall">(d/ m/ a)</span></td>
             <td rowspan="2">Tensão Arterial</td>
-            <td rowspan="2">Plan. Familiar <span class="text-extrasmall">(Não / Método)</span></td>
-            <td rowspan="2">Criança Edemas <span class="text-extrasmall"></span>(o / + ++  +++)</td>
-            <td>Indicador <span class="text-extrasmall">(IMC; PB; IMC / Idade; P / E)</span></td>
-            <td rowspan="2">Profilaxia CTZ <span class="text-extrasmall">(Início / Continua / Fim - I / C / F)</span></td>
-            <td>INH <span class="text-extrasmall">(S / N)</span></td>
-            <td colspan="2">Elegível <span class="text-extrasmall">(S / N)</span></td>
+            <td rowspan="2">Plan. Familiar <span class="texto-extrasmall">(Não / Método)</span></td>
+            <td rowspan="2">Criança Edemas <span class="texto-extrasmall"></span>(o / + a +++)</td>
+            <td>Indicador <span class="texto-extrasmall">(IMC; PB; IMC / Idade; P / E)</span></td>
+            <td rowspan="2">Profilaxia CTZ <span class="texto-extrasmall">(Início / Continua / Fim - I / C / F)</span></td>
+            <td>INH <span class="texto-extrasmall">(S / N)</span></td>
+            <td colspan="2">Elegível <span class="texto-extrasmall">(S / N)</span></td>
         </tr>
         <tr style="border-style: solid; border-width: 1px;">
-            <td>IMC <span class="text-extrasmall">(Kg / m2)</span></td>
-            <td>Grau <span class="text-extrasmall">(Normal / Ligeira / DAM / DAG)</span></td>
+            <td>IMC <span class="texto-extrasmall">(Kg / m2)</span></td>
+            <td>Grau <span class="texto-extrasmall">(Normal / Ligeira / DAM / DAG)</span></td>
             <td>Quantidade </td>
-            <td>Quais sintomas? <span class="text-extrasmall">(FESTAC; adenopatias)</span></td>
-            <td>Tratamento TB <span class="text-extrasmall">(cartão / TB - Data de Início e Fim) (Início / Continua / Fim) (d / m / a - I / C / F)</span></td>
-            <td>CTZ <span class="text-extrasmall">(S / N)</span></td>
-            <td>Diagnóstico ITS <span class="text-extrasmall">(Código)</span></td>
-            <td>CD4 <span class="text-extrasmall">(Pedido / se ≤  5A - CD4%)</span></td>
-            <td>Regime <span class="text-extrasmall">(Siglas)</span></td>
-            <td>Motivo <span class="text-extrasmall">(Código)</span></td>
-            <td>Adesão <span class="text-extrasmall">(Boa / Risco / Má - B / R / M)</span></td>
-            <td colspan="2">Início / Continua / Fim <span class="text-extrasmall">(I / C / F)</span></td>
+            <td>Quais sintomas? <span class="texto-extrasmall">(FESTAC; adenopatias)</span></td>
+            <td>Tratamento TB <span class="texto-extrasmall">(Cartão TB - Data de Início e Fim) (Início / Continua / Fim) (d / m / a - I / C / F)</span></td>
+            <td>CTZ <span class="texto-extrasmall">(S / N)</span></td>
+            <td>Diagnóstico ITS <span class="texto-extrasmall">(Código)</span></td>
+            <td>CD4 <span class="texto-extrasmall">(Pedido / se &lt;  5A - CD4%)</span></td>
+            <td>Regime <span class="texto-extrasmall">(Siglas)</span></td>
+            <td>Motivo <span class="texto-extrasmall">(Código)</span></td>
+            <td>Adesão <span class="texto-extrasmall">(Boa / Risco / Má - B / R / M)</span></td>
+            <td colspan="2">Início / Continua / Fim <span class="texto-extrasmall">(I / C / F)</span></td>
         </tr>
-        <tr ng-repeat-start="ps in masterCardData.patientInfo.psychosocialFactors track by $index">
+        <tr ng-repeat-start="ps in masterCardData.patientInfo.ClinicalFactors track by $index">
                 <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
-                <td rowspan="1">{{ ps.actualVisit | date:'d/MM/yy' }}</td>
+                <td rowspan="1">{{ ps.actualVisitClinical | date:'d/MM/yy' }}</td>
                 <td rowspan="1">{{ ps.ageAtVisit }}</td>
                 <td rowspan="1"><span ng-if="ps.pregnancyYesNo">G</span> <span ng-if="ps.lastMenstruationDate">/ {{ ps.lastMenstruationDate | date:'d/MM/yy' }}</span> <span ng-if="ps.breastFeeding"> / L</span></td>
                 <td rowspan="1">{{ ps.whoStaging }}</td>
@@ -290,10 +280,10 @@
                 <td rowspan="1">
                     <span ng-class="{'circleSelect':ps.referenceMDCSectionAF || ps.referenceMDCSectionDT || ps.referenceMDCSectionGA || ps.referenceMDCSectionCA || ps.referenceMDCSectionPU || ps.referenceMDCSectionFR || ps.referenceMDCSectionDC || ps.referenceMDCSectionOther }">S</span>&nbsp;&nbsp;&nbsp; <span>N</span>
                 </td>
-                <td  class="text-small"rowspan="2" style="transform:rotate(-90deg)"> {{ps.provider}}</td>
+                <td  class="texto-small"rowspan="2" style="transform:rotate(-90deg)"> {{ps.provider}}</td>
               </tr>
               <tr style="border-style: solid dashed solid solid; border-width: 1px;">
-                <td>{{ ps.nextVisit | date:'d/MM/yy' }}</td>
+                <td>{{ ps.nextVisitClinical | date:'d/MM/yy' }}</td>
                 <td><span ng-if="ps.bloodPressureSystolicVitalS || ps.bloodPressureDiastolicVSNew">{{ps.bloodPressureSystolicVitalS}}/{{ps.bloodPressureDiastolicVSNew}}</span></td>
                 <td>
                  <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_PRES_Condom_button_Yes')===true">PRES</span>
@@ -320,7 +310,7 @@
                 <td><span ng-if="ps.cd4Req === true">PEDIDO</span>{{ps.CD4}}</td>
                 <td>{{ps.prescribedDrugs.name}}</td>
                 <td>N/A</td>
-                <td> {{ps.tarvAdherence}}</td>
+                <td> <span ng-class="{'circleSelect':ps.tarvAdherence==='Good_ana'}">B</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.tarvAdherence === 'Bad_ana'}">R</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.tarvAdherence === 'Bad_ana'}">M</span></td>
           
                 <td>
                   <span ng-if="ps.referenceSectionSupportGroupCR">CR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_End'}">F</span></span>
