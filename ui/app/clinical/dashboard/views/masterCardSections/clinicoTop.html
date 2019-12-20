@@ -22,7 +22,7 @@
     .sampleTb td {
         border-style: dashed dashed solid dashed;
         border-width: 1px;
-        font-size: 8;
+        font-size: 8px;
     }
 
     .table-small-a {
@@ -31,7 +31,7 @@
       border-width: 1px;
       border-color: black;
       width: 10%;
-      font-size: 9;
+      font-size: 12px;
       margin-left: 10px;
     }
 
@@ -41,22 +41,23 @@
       border-width: 1px;
       border-color: black;
       width: 20%;
-      font-size: 8;
+      font-size: 8px;
       float: right;
-      margin-left:20px;
+      margin-left:10px;
     }
 
     .texto-uptop {
-      font-size: 8;
+      font-size: 10px;
+      font-weight: bold;
     }
 
     .texto-small {
-        font-size: 8;
+        font-size: 9px;
         display: "inline";
     }
 
     .texto-extrasmall {
-        font-size: 7;
+        font-size: 7px;
         display: "inline";
     }
 
@@ -110,6 +111,15 @@
         padding-top: 1px;
         padding-bottom: 1px;
     }
+
+    .rotate{
+    display: inline-block;
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    }
 </style>
 
 <div class="align-content-vertical">
@@ -117,22 +127,23 @@
     <table class="table-small-a">
         <th>Ficha Clinica</th>
     </table> 
-    <span style="font-size: 8;"> Nome: {{patient.name}}</span>
+
     <table class="table-small-b">
         <tr>
-            <td>População Chave - HSH<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_PID'">
-                PID<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_HSH'">
-                REC<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_REC'">
-                MTS<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_MTS'">
-                Outro<input type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_Other'"></td>
+            <td>População Chave - HSH<input class="rotate" type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_PID'">
+                PID<input class="rotate" type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_HSH'">
+                REC<input class="rotate" type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_REC'">
+                MTS<input class="rotate" type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_MTS'">
+                Outro<input class="rotate" type="checkbox" ng-checked="masterCardData.patientInfo.keyPopulation == 'PP_Key_population_Other'"></td>
         </tr>
         <tr>
             <td>População Vulnerável: {{masterCardData.patientInfo.vulPopulation}}</td>
         </tr>
     </table>
 </span>
-<div><br>
-<span style="font-size: 8;">NID (US / Anual / Individual): {{patient.identifier}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 8;">TARV-Coorte (Mês / Ano):{{ps.treatmentStartDate | date:'MMM/yy'}} </span>
+<div>
+<span class="texto-uptop"> Nome: {{patient.name}}</span><br>
+<span class="texto-uptop">NID (US / Anual / Individual): {{patient.identifier}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="texto-uptop">TARV-Coorte (Mês / Ano):{{ps.treatmentStartDate | date:'MMM/yy'}} </span>
 </div>            
     <table class="sampleTb" align="center">
         <colgroup>
@@ -170,11 +181,11 @@
         <tr style="border-style: solid solid solid solid; border-width: 1px;">
             <td rowspan="4" class="texto-small" style="transform: rotate(-90deg)">Processo X</td>
             <td rowspan="2">Consulta Atual / Outros <span class="texto-extrasmall">(d/ m/ a)</span></td>
-            <td rowspan="2">Idade <span class="texto-extrasmall">(Se >= 5 em anos; se &lt;= 5 anos em meses)</span></td>
+            <td rowspan="2">Idade <span class="texto-extrasmall">(Se >= 5 em anos; se &lt; 5 anos em meses)</span></td>
             <td rowspan="2">Gravidez / Data Última Menstruação / Lactante <span class="texto-extrasmall">(G - Data DUM/ L)</span></td>
             <td rowspan="2">Estadio OMS <span class="texto-extrasmall">(I, II, III, IV)</span></td>
             <td>Peso(kg)</td>
-            <td rowspan="3">PB <span class="texto-extrasmall">(Grávida; 6 meses do pós-parto; Criança de 6-59 meses)</span></td>
+            <td rowspan="3">PB <span class="texto-extrasmall">(Grávida; 6 meses do PÓS-PARTO; Criança de 6-59 meses)</span></td>
             <td rowspan="2">Avaliação Nutricional</td>
             <td rowspan="3">Recebeu Apoio / Educação nutricional <span class="texto-extrasmall">(Não / Tipo)</span></td>
             <td colspan="2">Tuberculose</td>
@@ -189,7 +200,7 @@
             <td rowspan='4' class="texto-small" style="transform: rotate(-90deg)">RUBRICA</td>
         </tr>
         <tr style="border-style: solid; border-width: 1px;">
-            <td rowspan="3">Comprimento / Altura <span class="texto-extrasmall">(Se >= 5 anos em metros; se &lt;= 5 anos em cm)</span> </td>
+            <td rowspan="3">Comprimento / Altura <span class="texto-extrasmall">(Se >= 5 anos em metros; se &lt; 5 anos em cm)</span> </td>
             <td rowspan="2">Tem sintomas?<span class="texto-extrasmall">(S / N)</span></td>
             <td rowspan="2">Diagnóstico TB activa <span class="texto-extrasmall">(S / N)</span></td>
             <td rowspan="2">Tem sintomas? <span class="texto-extrasmall">(S / N)</span></td>
@@ -198,7 +209,7 @@
                 <span class="texto-extrasmall">(<span style="text-decoration:underline">Pedido</span> - Marcar com círculo;
                 <span style="text-decoration:underline">Resultado</span> - Valor)</span></td>
             <td rowspan="2">Linha - Dispensa mensal / Trimestral <span class="texto-extrasmall">(1ª / 2ª / 3ª Linha - DM/ DT)</span></td>
-            <td rowspan="3"><span style="text-decoration:underline">Para cada ARV</span> Posologia de cada dose e &#8470; de doses /dia</td>
+            <td rowspan="3"><span style="text-decoration:underline">Para cada ARV</span> Posologia de cada dose e <span class="rotate">&#8470;</span> de doses /dia</td>
             <td rowspan="2">Alternativa ou Mudança linha? <span class="texto-extrasmall">(Não / A - M)</span></td>
             <td rowspan="2">Efeitos Secundários <span class="texto-extrasmall">(Não / Código - Grau)</span></td>
             <td rowspan="3">Mudança Estado Permanência&nbsp;&nbsp;TARV</span><br>R<br>S&nbsp;&nbsp;&nbsp;A<br>O&nbsp;&nbsp;&nbsp;T</td>
@@ -310,7 +321,7 @@
                 <td><span ng-if="ps.cd4Req === true">PEDIDO</span>{{ps.CD4}}</td>
                 <td>{{ps.prescribedDrugs.name}}</td>
                 <td>N/A</td>
-                <td> <span ng-class="{'circleSelect':ps.tarvAdherence==='Good_ana'}">B</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.tarvAdherence === 'Bad_ana'}">R</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.tarvAdherence === 'Bad_ana'}">M</span></td>
+                <td><span ng-class="{'circleSelect':ps.tarvAdherence.name==='Good_ana'}">B</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.tarvAdherence.name === 'Bad_ana'}">R</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.tarvAdherence.name === 'Bad_ana'}">M</span></td>
           
                 <td>
                   <span ng-if="ps.referenceSectionSupportGroupCR">CR:&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_Start'}">I</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_In_Progress'}">C</span>&nbsp;&nbsp;&nbsp;<span ng-class="{'circleSelect':ps.referenceSectionSupportGroupCR == 'Reference_End'}">F</span></span>
