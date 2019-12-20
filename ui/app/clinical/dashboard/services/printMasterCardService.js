@@ -400,17 +400,13 @@ angular.module('bahmni.clinical')
                                     } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                         tableStructure.referenceMDCSectionOtherComments = response.data[i].value;
                                     } else if (response.data[i].concept.name === apssPatientCaregiverAgreement) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                         masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === apssAgreementContactType) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                         masterCardModel.termsOfConsent.caregiverAgreement.type = response.data[i].value.name;
                                         masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                     } else if (response.data[i].concept.name === apssConfidantAgreement) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                         masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === apssConfidantAgreementContactType) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                         masterCardModel.termsOfConsent.confidantAgreement.type = response.data[i].value.name;
                                         masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                     } else if (response.data[i].value.name) {
@@ -463,18 +459,13 @@ console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartD
                                             } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                                 obsTable[j].referenceMDCSectionOtherComments = response.data[i].value;
                                             } else if (response.data[i].concept.name === apssPatientCaregiverAgreement) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                                 masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === apssAgreementContactType) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                                 masterCardModel.termsOfConsent.caregiverAgreement.type = response.data[i].value.name;
                                                 masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
-console.info(masterCardModel.termsOfConsent);
                                             } else if (response.data[i].concept.name === apssConfidantAgreement) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                                 masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === apssConfidantAgreementContactType) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                                 masterCardModel.termsOfConsent.confidantAgreement.type = response.data[i].value.name;
                                                 masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                             } else if (response.data[i].value.name) {
@@ -525,17 +516,13 @@ console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartD
                                             } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                                 tableStructure.referenceMDCSectionOtherComments = response.data[i].value;
                                             } else if (response.data[i].concept.name === apssPatientCaregiverAgreement) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                                 masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === apssAgreementContactType) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                                 masterCardModel.termsOfConsent.caregiverAgreement.type = response.data[i].value.name;
                                                 masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                             } else if (response.data[i].concept.name === apssConfidantAgreement) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                                 masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === apssConfidantAgreementContactType) {
-console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartDateTime.split('T')[0]);
                                                 masterCardModel.termsOfConsent.confidantAgreement.type = response.data[i].value.name;
                                                 masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                             } else if (response.data[i].value.name) {
@@ -586,7 +573,6 @@ console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartD
                                     }
                                 }
                                 if (!masterCardModel.patientInfo.apssAgreementContactType) {
-//console.info(masterCardModel.patientInfo.psychosocialFactors[h]);
                                     if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATTCPhone)) {
                                         masterCardModel.patientInfo.apssAgreementContactType = apssATTCPhone;
                                     } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATTCSMS)) {
@@ -596,7 +582,6 @@ console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartD
                                     }
                                 }
                                 if (!masterCardModel.patientInfo.apssConfidantAgreementContactType) {
-//console.info(masterCardModel.patientInfo.psychosocialFactors[h]);
                                     if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACTPhone)) {
                                         masterCardModel.patientInfo.apssConfidantAgreementContactType = apssATCACTPhone;
                                     } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACTSMS)) {
@@ -767,11 +752,8 @@ console.info(response.data[i].value.name + ' :: ' + response.data[i].visitStartD
                         masterCardModel.patientInfo.closeOf = response.data.person.preferredAddress.postalCode;
                         masterCardModel.patientInfo.province = addressMap.stateProvince;
                         masterCardModel.patientInfo.registrationDate = response.data.person.auditInfo.dateCreated;
-//console.info($rootScope.patient.patientState);
                         response.data.person.attributes.forEach(function (attribute) {
-//console.info(attribute);
                             if (attribute.attributeType.display === 'TYPE_OF_REGISTRATION') {
-//console.info(attribute.value.display);
                                 masterCardModel.healthFacilityInfo.regType = attribute.value.display;
                             }
                             if (attribute.attributeType.display === 'HEALTH_FACILITY_NAME') {
