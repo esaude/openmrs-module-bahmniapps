@@ -18,6 +18,14 @@ angular.module('bahmni.clinical')
                     healthFacilityDistrict: '',
                     healthFacilityProvince: ''
                 },
+                hivTest: {
+                    date: '',
+                    sector: '',
+                    testType: '',
+                    healthFacilityName: '',
+                    healthFacilityDistrict: '',
+                    healthFacilityProvince: ''
+                },
                 dest: '',
                 patientInfo: {
                     mainContact: '',
@@ -72,8 +80,6 @@ angular.module('bahmni.clinical')
                     condName: '',
                     diagnosisName: '',
                     dateofHIVDiagnosis: '',
-                    sectorSelect: '',
-                    typeOfTest: '',
                     pastName: '',
                     notARV: '',
                     isARV: '',
@@ -104,7 +110,8 @@ angular.module('bahmni.clinical')
                 healthFacilityInfo: {
                     name: '',
                     district: '',
-                    province: ''
+                    province: '',
+                    regType: ''
                 },
                 confident: {
                     name: '',
@@ -117,6 +124,18 @@ angular.module('bahmni.clinical')
                     locality: '',
                     street: '',
                     closeOf: ''
+                },
+                termsOfConsent: {
+                    caregiverAgreement: {
+                        agrees: '',
+                        type: '',
+                        date: ''
+                    },
+                    confidantAgreement: {
+                        agrees: '',
+                        type: '',
+                        date: ''
+                    }
                 },
                 familySituation: [],
                 allergyHistory: [],
@@ -305,7 +324,6 @@ angular.module('bahmni.clinical')
 
                 masterCardModel.patientInfo.address = '';
                 masterCardModel.patientInfo.labOrderResult = '';
-                masterCardModel.patientInfo.typeOfTest = '';
                 masterCardModel.patientInfo.pastName = '';
                 masterCardModel.patientInfo.keyPopulation = '';
                 masterCardModel.patientInfo.psychosocialFactors = '';
@@ -313,7 +331,6 @@ angular.module('bahmni.clinical')
                 masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [];
                 masterCardModel.patientInfo.psychosocialFactorsOther = '';
                 masterCardModel.patientInfo.apssPreTARVCounselling = [];
-                masterCardModel.patientInfo.apssPreTARVCounsellingComments = '';
                 masterCardModel.patientInfo.apssDifferentiatedModelsDate = '';
                 masterCardModel.patientInfo.apssPatientCaregiverAgreement = '';
                 masterCardModel.patientInfo.apssConfidantAgreement = '';
@@ -407,6 +424,16 @@ angular.module('bahmni.clinical')
                                         tableStructure.referenceMDCSectionOther = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                         tableStructure.referenceMDCSectionOtherComments = response.data[i].value.name;
+                                    } else if (response.data[i].concept.name === apssPatientCaregiverAgreement) {
+                                        masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                    } else if (response.data[i].concept.name === apssAgreementContactType) {
+                                        masterCardModel.termsOfConsent.caregiverAgreement.type = response.data[i].value.name;
+                                        masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
+                                    } else if (response.data[i].concept.name === apssConfidantAgreement) {
+                                        masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                    } else if (response.data[i].concept.name === apssConfidantAgreementContactType) {
+                                        masterCardModel.termsOfConsent.confidantAgreement.type = response.data[i].value.name;
+                                        masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                     } else if (response.data[i].value.name) {
                                         tableStructure.values.push(response.data[i].value.name);
                                     }
@@ -456,6 +483,16 @@ angular.module('bahmni.clinical')
                                                 obsTable[j].referenceMDCSectionOther = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                                 obsTable[j].referenceMDCSectionOtherComments = response.data[i].value;
+                                            } else if (response.data[i].concept.name === apssPatientCaregiverAgreement) {
+                                                masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                            } else if (response.data[i].concept.name === apssAgreementContactType) {
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type = response.data[i].value.name;
+                                                masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
+                                            } else if (response.data[i].concept.name === apssConfidantAgreement) {
+                                                masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                            } else if (response.data[i].concept.name === apssConfidantAgreementContactType) {
+                                                masterCardModel.termsOfConsent.confidantAgreement.type = response.data[i].value.name;
+                                                masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                             } else if (response.data[i].value.name) {
                                                 obsTable[j].values.push(response.data[i].value.name);
                                             }
@@ -503,6 +540,16 @@ angular.module('bahmni.clinical')
                                                 tableStructure.referenceMDCSectionOther = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                                 tableStructure.referenceMDCSectionOtherComments = response.data[i].value;
+                                            } else if (response.data[i].concept.name === apssPatientCaregiverAgreement) {
+                                                masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                            } else if (response.data[i].concept.name === apssAgreementContactType) {
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type = response.data[i].value.name;
+                                                masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
+                                            } else if (response.data[i].concept.name === apssConfidantAgreement) {
+                                                masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                            } else if (response.data[i].concept.name === apssConfidantAgreementContactType) {
+                                                masterCardModel.termsOfConsent.confidantAgreement.type = response.data[i].value.name;
+                                                masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                             } else if (response.data[i].value.name) {
                                                 tableStructure.values.push(response.data[i].value.name);
                                             }
@@ -565,7 +612,7 @@ angular.module('bahmni.clinical')
                                     } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACTSMS)) {
                                         masterCardModel.patientInfo.apssConfidantAgreementContactType = apssATCACTSMS;
                                     } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATCACTVisit)) {
-                                        masterCardModel.patientInfo.apssAgreementContactType = apssATCACTVisit;
+                                        masterCardModel.patientInfo.apssConfidantAgreementContactType = apssATCACTVisit;
                                     }
                                 }
                             }
@@ -1638,6 +1685,7 @@ angular.module('bahmni.clinical')
                 masterCardModel.patientInfo.closeOf = '';
                 masterCardModel.patientInfo.province = '';
                 masterCardModel.patientInfo.registrationDate = '';
+                masterCardModel.healthFacilityInfo.regType = '';
                 masterCardModel.healthFacilityInfo.name = '';
                 masterCardModel.healthFacilityInfo.district = '';
                 masterCardModel.healthFacilityInfo.province = '';
@@ -1645,6 +1693,7 @@ angular.module('bahmni.clinical')
                 masterCardModel.transference.healthFacilityName = '';
                 masterCardModel.transference.healthFacilityDistrict = '';
                 masterCardModel.transference.healthFacilityProvince = '';
+                masterCardModel.transferOut.date = '';
                 masterCardModel.transferOut.healthFacilityName = '';
                 masterCardModel.transferOut.healthFacilityDistrict = '';
                 masterCardModel.transferOut.healthFacilityProvince = '';
@@ -1653,9 +1702,14 @@ angular.module('bahmni.clinical')
                 masterCardModel.patientInfo.alternativeContact1 = '';
                 masterCardModel.patientInfo.alternativeContact2 = '';
                 masterCardModel.patientInfo.dateofHIVDiagnosis = '';
-                masterCardModel.patientInfo.sectorSelect = '';
                 masterCardModel.patientInfo.deathDate = '';
                 masterCardModel.patientInfo.causeOfDeath = '';
+                masterCardModel.hivTest.date = '';
+                masterCardModel.hivTest.sector = '';
+                masterCardModel.hivTest.testType = '';
+                masterCardModel.hivTest.healthFacilityName = '';
+                masterCardModel.hivTest.healthFacilityDistrict = '';
+                masterCardModel.hivTest.healthFacilityProvince = '';
 
                 return new Promise(function (resolve, reject) {
                     patientService.getPatient(patientUuid).then(function (response) {
@@ -1720,6 +1774,9 @@ angular.module('bahmni.clinical')
                         if ($rootScope.patient && $rootScope.patient.patientStatus) {
                             masterCardModel.patientInfo.isTARV = $rootScope.patient.patientStatus;
                         }
+                        if ($rootScope.healthFacility && $rootScope.healthFacility.name) {
+                            masterCardModel.healthFacilityInfo.name = $rootScope.healthFacility.name;
+                        }
                         var addressMap = patient.address;
                         masterCardModel.patientInfo.town = addressMap.address1;
                         masterCardModel.patientInfo.district = addressMap.address2;
@@ -1730,14 +1787,23 @@ angular.module('bahmni.clinical')
                         masterCardModel.patientInfo.registrationDate = response.data.person.auditInfo.dateCreated;
 
                         response.data.person.attributes.forEach(function (attribute) {
+                            if (attribute.attributeType.display === 'TYPE_OF_REGISTRATION') {
+                                masterCardModel.healthFacilityInfo.regType = attribute.value.display;
+                            }
                             if (attribute.attributeType.display === 'HEALTH_FACILITY_NAME') {
-                                masterCardModel.healthFacilityInfo.name = attribute.value.split(' -')[0];
+                                masterCardModel.hivTest.healthFacilityName = attribute.value.split(' -')[0];
                             }
                             if (attribute.attributeType.display === 'HEALTH_FACILITY_DISTRICT') {
-                                masterCardModel.healthFacilityInfo.district = attribute.value;
+                                masterCardModel.hivTest.healthFacilityDistrict = attribute.value;
                             }
                             if (attribute.attributeType.display === 'HEALTH_FACILITY_PROVINCE') {
-                                masterCardModel.healthFacilityInfo.province = attribute.value;
+                                masterCardModel.hivTest.healthFacilityProvince = attribute.value;
+                            }
+                            if (attribute.attributeType.display === 'SECTOR_SELECT') {
+                                masterCardModel.hivTest.sector = attribute.value.display;
+                            }
+                            if (attribute.attributeType.display === 'Typeoftest') {
+                                masterCardModel.hivTest.testType = attribute.value.display;
                             }
                             if (attribute.attributeType.display === 'US_REG_DATE') {
                                 masterCardModel.transference.date = attribute.value.split('T')[0];
@@ -1752,13 +1818,19 @@ angular.module('bahmni.clinical')
                                 masterCardModel.transference.healthFacilityProvince = attribute.value;
                             }
                             if (attribute.attributeType.display === 'TRANSFER_OUT_NAME') {
-                                masterCardModel.transferOut.healthFacilityName = attribute.value.split(' -')[0];
+                                if ($rootScope.patient.patientState === 'INACTIVE_TRANSFERRED_OUT') {
+                                    masterCardModel.transferOut.healthFacilityName = attribute.value.split(' -')[0];
+                                }
                             }
                             if (attribute.attributeType.display === 'TRANSFER_OUT_DISTRICT') {
-                                masterCardModel.transferOut.healthFacilityDistrict = attribute.value;
+                                if ($rootScope.patient.patientState === 'INACTIVE_TRANSFERRED_OUT') {
+                                    masterCardModel.transferOut.healthFacilityDistrict = attribute.value;
+                                }
                             }
                             if (attribute.attributeType.display === 'TRANSFER_OUT_PROVINCE') {
-                                masterCardModel.transferOut.healthFacilityProvince = attribute.value;
+                                if ($rootScope.patient.patientState === 'INACTIVE_TRANSFERRED_OUT') {
+                                    masterCardModel.transferOut.healthFacilityProvince = attribute.value;
+                                }
                             }
                             if (attribute.attributeType.display === 'Transfer_Date') {
                                 masterCardModel.transferOut.date = attribute.value.split('T')[0];
@@ -1770,21 +1842,13 @@ angular.module('bahmni.clinical')
                                 masterCardModel.patientInfo.education = attribute.value.display;
                             }
                             if (attribute.attributeType.display === 'ALTERNATIVE_CONTACT_NUMBER_1') {
-                                if (attribute.value !== attribute.value) {
-                                    masterCardModel.patientInfo.alternativeContact1 = attribute.value;
-                                }
+                                masterCardModel.patientInfo.alternativeContact1 = attribute.value;
                             }
                             if (attribute.attributeType.display === 'ALTERNATIVE_CONTACT_NUMBER_2') {
                                 masterCardModel.patientInfo.alternativeContact2 = attribute.value;
                             }
                             if (attribute.attributeType.display === 'DateofHIVDiagnosis') {
                                 masterCardModel.patientInfo.dateofHIVDiagnosis = attribute.value;
-                            }
-                            if (attribute.attributeType.display === 'SECTOR_SELECT') {
-                                masterCardModel.patientInfo.sectorSelect = attribute.value.display;
-                            }
-                            if (attribute.attributeType.display === 'Typeoftest') {
-                                masterCardModel.patientInfo.typeOfTest = attribute.value.display;
                             }
                             if (attribute.attributeType.display === 'DATE_OF_DEATH') {
                                 masterCardModel.patientInfo.deathDate = attribute.value;
