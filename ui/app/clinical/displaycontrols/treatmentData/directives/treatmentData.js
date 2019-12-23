@@ -62,7 +62,7 @@ angular.module('bahmni.clinical')
                             for (var i = 0; i < drugOrdersData.length; i++) {
                                 for (var j = 0; j < drugOrderResponse[key].length; j++) {
                                     if (drugOrdersData[i].uuid === drugOrderResponse[key][j].drug.uuid) {
-                                        drugOrderResponse[key][j].treatment_line = drugOrdersData[i].treatment_line;
+                                        drugOrderResponse[key][j].line_treatment = drugOrdersData[i].line_treatment;
                                         drugOrderResponse[key][j].dispensed_date = drugOrdersData[i].dispensed_date;
                                     }
                                 }
