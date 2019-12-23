@@ -13,7 +13,6 @@ angular.module('bahmni.common.displaycontrol.drugOrderDetails')
                         };
                         var drugOrderResponse = results[0];
                         var drugOrdersData = results[2].data;
-                        console.log(drugOrdersData);
                         var drugOrders = drugOrderResponse.map(createDrugOrder);
                         for (var i = 0; i < drugOrdersData.length; i++) {
                             for (var j = 0; j < drugOrders.length; j++) {
