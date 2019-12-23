@@ -561,5 +561,10 @@
     "MASTERCARD_RECEPTION_LABEL_Y": "Y",
     "MASTERCARD_RECEPTION_LABEL_DAY": "Day",
     "MASTERCARD_RECEPTION_LABEL_MOTH": "Moth",
-    "MASTERCARD_RECEPTION_LABEL_YEAR": "Year"
+    "MASTERCARD_RECEPTION_LABEL_YEAR": "Year",
+    "LINE_TREATMENT": "Line treatment",
+    "MONTHLY": "Month",
+    "TRIMESTER": "Trimester",
+    "SEMIANNUAL": "Semiannual",
+    "DRUG_DETAILS_DISPENSED_DATE": "Dispensed date"
 }

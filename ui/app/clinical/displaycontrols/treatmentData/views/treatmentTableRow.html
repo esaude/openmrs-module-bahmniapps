@@ -5,14 +5,16 @@
             {{::orderAttribute.name.substring(0,1)}}
         </span>
     </td>
-    <td class="dosage" >
+    <td class="dosage">
+        <span>{{::drugOrder.line_treatment}},</span>
         <span ng-if="::(params.showRoute == true)" ng-class="::{'strike-text':drugOrder.isDiscontinuedOrStopped()}">{{::drugOrder.getDescriptionWithoutDuration()}}</span>
         <span ng-if="::!(params.showRoute == true)" ng-class="::{'strike-text':drugOrder.isDiscontinuedOrStopped()}">{{::drugOrder.getDescriptionWithoutRouteAndDuration()}}</span>
         <span>{{::drugOrder.getSpanDetails()}}</span>
         <span ng-if="::drugOrder.isDiscontinuedOrStopped()" ng-class="::{'discontinued-text':drugOrder.isDiscontinuedOrStopped()}">{{'MEDICATION_STOPPED_ON'|translate}} {{::drugOrder.effectiveStopDate | bahmniDate}}</span>
     </td>
     <td class="days">
-        <span class="fr">{{::drugOrder.effectiveStartDate | bahmniDate}}</span>
+        <span style="font-size: 8px; color: red; font-weight: bold;">P</span> <span style="font-size: 9px;">{{::drugOrder.effectiveStartDate | bahmniDate}}</span>
+        <span ng-if="drugOrder.dispensed_date !== ''" style="font-size: 8px; font-weight: bold; color: red;">D</span> <span style="font-size: 9px;">{{::drugOrder.dispensed_date | bahmniDate}}</span>
     </td>
 
     <td class="toggle-btn" toggle="drugOrder.showDetails" ng-if="::((params.showDetailsButton == true) && !drugOrder.additionalInstructions)">
