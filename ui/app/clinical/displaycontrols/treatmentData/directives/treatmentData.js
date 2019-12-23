@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bahmni.clinical')
-    .directive('treatmentData', ['treatmentService', 'appService', 'spinner', '$stateParams', '$q', 'treatmentConfig', function (treatmentService, appService, spinner, $stateParams, $q, treatmentConfig) {
+    .directive('treatmentData', ['treatmentService', 'appService', 'spinner', '$stateParams', '$q', 'treatmentConfig', '$http', function (treatmentService, appService, spinner, $stateParams, $q, treatmentConfig, $http) {
         var controller = function ($scope) {
             var Constants = Bahmni.Clinical.Constants;
             var defaultParams = {
@@ -29,16 +29,44 @@ angular.module('bahmni.clinical')
                     getEffectiveOrdersOnly = true;
                 }
 
+                var getDrugLine = function () {
+                    var params = {
+                        q: "bahmni.sqlGet.patientPrescriptions",
+                        v: "full",
+                        lang_unit: "pt",
+                        lang_route: "pt",
+                        lang_treatmentLine: "pt",
+                        lang_frequency: "pt",
+                        patientUuid: $scope.params.patientUuid
+                    };
+                    return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                        method: "GET",
+                        params: params,
+                        withCredentials: true
+                    });
+                };
+
                 return $q.all([treatmentConfig(), treatmentService.getPrescribedAndActiveDrugOrders($scope.params.patientUuid, $scope.params.numberOfVisits,
-                    $scope.params.showOtherActive, $scope.params.visitUuids || [], startDate, endDate, getEffectiveOrdersOnly)])
+                    $scope.params.showOtherActive, $scope.params.visitUuids || [], startDate, endDate, getEffectiveOrdersOnly), getDrugLine()])
                     .then(function (results) {
+                        var drugOrdersData = results[2].data;
                         var config = results[0];
                         var drugOrderResponse = results[1].data;
+
                         var createDrugOrderViewModel = function (drugOrder) {
                             return Bahmni.Clinical.DrugOrderViewModel.createFromContract(drugOrder, config);
                         };
+
                         for (var key in drugOrderResponse) {
                             drugOrderResponse[key] = drugOrderResponse[key].map(createDrugOrderViewModel);
+                            for (var i = 0; i < drugOrdersData.length; i++) {
+                                for (var j = 0; j < drugOrderResponse[key].length; j++) {
+                                    if (drugOrdersData[i].uuid === drugOrderResponse[key][j].drug.uuid) {
+                                        drugOrderResponse[key][j].line_treatment = drugOrdersData[i].line_treatment;
+                                        drugOrderResponse[key][j].dispensed_date = drugOrdersData[i].dispensed_date;
+                                    }
+                                }
+                            }
                         }
 
                         var groupedByVisit = _.groupBy(drugOrderResponse.visitDrugOrders, function (drugOrder) {
