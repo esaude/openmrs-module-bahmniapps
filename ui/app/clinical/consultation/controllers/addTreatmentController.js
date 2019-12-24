@@ -545,8 +545,10 @@ angular.module('bahmni.clinical')
                 var drugOrderRelationShip = {};
                 drugOrderRelationShip.drugUuid = $scope.treatment.drug.uuid;
                 drugOrderRelationShip.categoryUuid = $scope.selectedCategory.uuid;
-                if ($scope.selectedTreatmentLine == null || $scope.selectedTreatmentLine == "" || $scope.selectedTreatmentLine === undefined) {
-                    drugOrderRelationShip.treatmentLineUuid = "e53fd4bf-b89c-4f97-9c82-120038ea435c";
+                console.log($scope.selectedTreatmentLine);
+                if ($scope.selectedTreatmentLine == null || $scope.selectedTreatmentLine == "" || $scope.selectedTreatmentLine === undefined || $scope.selectedTreatmentLine.uuid === "e53fd4bf-b89c-4f97-9c82-120038ea435c"
+                ) {
+                    drugOrderRelationShip.treatmentLineUuid = "c7767178-2652-11ea-978f-2e728ce88125";
                 } else {
                     drugOrderRelationShip.treatmentLineUuid = $scope.selectedTreatmentLine.uuid;
                 }
