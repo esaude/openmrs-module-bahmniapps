@@ -981,9 +981,11 @@ angular.module('bahmni.clinical')
                                     obsTable.forEach(function (obs) {
                                         if (masterCardModel.patientInfo.age > 5) {
                                             obs.ageAtVisit = new Date(obs.actualVisitClinical).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                            if (obs.ageAtVisit > masterCardModel.patientInfo.age) { obs.ageAtVisit = masterCardModel.patientInfo.age; }
                                             obs.indicator = 'BMI';
                                         } else {
-                                            var age = new Date(obs.actualVisit).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                            var age = new Date(obs.actualVisitClinical).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                            if (age > masterCardModel.patientInfo.age) { age = masterCardModel.patientInfo.age; }
                                             obs.ageAtVisit = age * 12;
                                             obs.indicator = 'BP';
                                         }
@@ -1287,9 +1289,11 @@ angular.module('bahmni.clinical')
                                             obsTable.forEach(function (obs) {
                                                 if (masterCardModel.patientInfo.age > 5) {
                                                     obs.ageAtVisit = new Date(obs.actualVisitClinical).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                                    if (obs.ageAtVisit > masterCardModel.patientInfo.age) { obs.ageAtVisit = masterCardModel.patientInfo.age; }
                                                     obs.indicator = 'BMI';
                                                 } else {
                                                     var age = new Date(obs.actualVisitClinical).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
+                                                    if (age > masterCardModel.patientInfo.age) { age = masterCardModel.patientInfo.age; }
                                                     obs.ageAtVisit = age * 12;
                                                     obs.indicator = 'BP';
                                                 }
