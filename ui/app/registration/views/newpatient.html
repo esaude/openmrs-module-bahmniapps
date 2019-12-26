@@ -114,7 +114,7 @@
                             <span class="add-on">{{ ::'REGISTRATION_SEQUENTIAL_CODE' | translate}}</span>
                             <input type="text" name="sequentialCode" id="sequentialCode" ng-model="NID.sequentialCode"
                                 pattern-validate focus-on="patient.primaryIdentifier.hasOldIdentifier"
-                                ng-blur="buildFinalNID()" minlength="5" ng-pattern="regexDigits" maxlength="5" size="8"
+                                ng-blur="buildFinalNID()" minlength="1" ng-pattern="regexDigits" maxlength="5" size="8"
                                 required
                                 placeholder="{{::'REGISTRATION_PLACEHOLDER_FOR_NID_SEQUENCIAL_CODE' | translate}}"
                                 ng-class="{'illegalValue' : submitted && this.myForms.myForm.sequentialCode.$invalid || !this.myForms.myForm.sequentialCode.$pristine && this.myForms.myForm.sequentialCode.$invalid || this.myForms.myForm.sequentialCode.$error.pattern || this.myForms.myForm.sequentialCode.$error.minlength}">
