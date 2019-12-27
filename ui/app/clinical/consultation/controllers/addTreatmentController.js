@@ -362,7 +362,6 @@ angular.module('bahmni.clinical')
             };
 
             $scope.refillDrug = function (drugOrder, alreadyActiveSimilarOrder) {
-                console.log("starting refill");
                 $scope.bulkSelectCheckbox = false;
                 var existingOrderStopDate = alreadyActiveSimilarOrder ? alreadyActiveSimilarOrder.effectiveStopDate : null;
                 var refillDrugOrder = drugOrder.refill(existingOrderStopDate);
