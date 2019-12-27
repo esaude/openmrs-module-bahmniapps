@@ -362,6 +362,7 @@ angular.module('bahmni.clinical')
             };
 
             $scope.refillDrug = function (drugOrder, alreadyActiveSimilarOrder) {
+                console.log("starting refill");
                 $scope.bulkSelectCheckbox = false;
                 var existingOrderStopDate = alreadyActiveSimilarOrder ? alreadyActiveSimilarOrder.effectiveStopDate : null;
                 var refillDrugOrder = drugOrder.refill(existingOrderStopDate);
@@ -679,6 +680,9 @@ angular.module('bahmni.clinical')
                     $scope.selectedTreatmentLine = treatment.treatmentLine;
                 }
                 $scope.isARV = $scope.selectedCategory.display === "ARV" || $scope.selectedCategory.display === getTranslatedMessage("ARV_KEY");
+                if (drugOrder.drug.form && drugOrder.drug.form === "ARV") {
+                    $scope.isARV = true;
+                }
                 markEitherVariableDrugOrUniformDrug(treatment);
                 treatment.isBeingEdited = true;
                 $scope.treatment = treatment.cloneForEdit(index, treatmentConfig);
