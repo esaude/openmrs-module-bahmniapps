@@ -549,7 +549,6 @@ angular.module('bahmni.clinical')
                 if ($scope.selectedTreatmentLine == null || $scope.selectedTreatmentLine == "" || $scope.selectedTreatmentLine === undefined || $scope.selectedTreatmentLine.uuid === "e53fd4bf-b89c-4f97-9c82-120038ea435c"
                 ) {
                     drugOrderRelationShip.treatmentLineUuid = "f2355233-c552-4cd6-802f-0c7c75221f03";
-                    console.log("Entrou..",  drugOrderRelationShip);
                 } else {
                     drugOrderRelationShip.treatmentLineUuid = $scope.selectedTreatmentLine.uuid;
                 }
