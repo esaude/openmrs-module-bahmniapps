@@ -53,8 +53,24 @@ angular.module('bahmni.registration')
                 });
             };
             splitNID();
+            var splitNIDss = function () {
+                var nidYear = $scope.NID.year;
+                if (!nidYear) {
+                    var currentDate = new Date();
+                    var currentYear = currentDate.getFullYear();
+                    $scope.NID.year = currentYear;
+                }
+            };
 
+            splitNIDss();
             $scope.buildFinalNID = function () {
+                var seqCode = $scope.NID.sequentialCode;
+                if (seqCode) {
+                    while (seqCode.length < 5) {
+                        seqCode = '0' + seqCode;
+                    }
+                    $scope.NID.sequentialCode = seqCode;
+                }
                 if (!$scope.patient.primaryIdentifier) {
                     return;
                 }
@@ -124,16 +140,14 @@ angular.module('bahmni.registration')
                 var nationalityVar = function () {
                     if ($scope.patient.NATIONALITY == undefined) {
                         $scope.patient.NATIONALITY = "";
-                    }
-                    else {
+                    } else {
                         $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
                         if ($scope.nationalityChoice == 'Moçambicana' || $scope.nationalityChoice == 'Mozambican') {
                             var mozAttributes = ['REGISTRATION_OPTION_NONE', 'BI', 'CARTAO_DE_ELEITOR', 'CEDULA_DE_NASCIMENTO', 'NUIT', 'NUIC'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = mozAttributes;
                             $scope.existDocs = $scope.nationalityDocs;
-                        }
-                        else if ($scope.nationalityChoice == 'Outra' || $scope.nationalityChoice == 'Other') {
+                        } else if ($scope.nationalityChoice == 'Outra' || $scope.nationalityChoice == 'Other') {
                             var foreignAttributes = ['REGISTRATION_OPTION_NONE', 'DIRE', 'NUIT', 'PASSAPORTE_ESTRANGEIRO'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = foreignAttributes;
@@ -147,14 +161,12 @@ angular.module('bahmni.registration')
                     if ($scope.nationalityDocs == undefined) {
                         $scope.nationalityDocs = "";
                         return;
-                    }
-                    else {
+                    } else {
                         for (var i = -1; i <= $scope.nationalityDocs.length; i++) {
                             _.each($scope.nationalityDocs, function (doc) {
                                 if ($scope.patient[doc] == undefined) {
                                     return;
-                                }
-                                else {
+                                } else {
                                     if ($scope.patient[doc].length > 0) {
                                         $scope.editPatientDocuments.push(doc);
                                         $scope.existDocs.splice($scope.existDocs.indexOf(doc), 1);
@@ -169,16 +181,14 @@ angular.module('bahmni.registration')
                 $scope.nationality = function () {
                     if ($scope.patient.NATIONALITY == undefined) {
                         $scope.patient.NATIONALITY = "";
-                    }
-                    else {
+                    } else {
                         $scope.nationalityChoice = $scope.patient.NATIONALITY.value;
                         if ($scope.nationalityChoice == 'Moçambicana' || $scope.nationalityChoice == 'Mozambican') {
                             var mozAttributes = ['REGISTRATION_OPTION_NONE', 'BI', 'CARTAO_DE_ELEITOR', 'CEDULA_DE_NASCIMENTO', 'NUIT', 'NUIC'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = mozAttributes;
                             $scope.existDocs = $scope.nationalityDocs;
-                        }
-                        else if ($scope.nationalityChoice == 'Outra' || $scope.nationalityChoice == 'Other') {
+                        } else if ($scope.nationalityChoice == 'Outra' || $scope.nationalityChoice == 'Other') {
                             var foreignAttributes = ['REGISTRATION_OPTION_NONE', 'DIRE', 'NUIT', 'PASSAPORTE_ESTRANGEIRO'];
                             $scope.nationalityDocs = [];
                             $scope.nationalityDocs = foreignAttributes;
@@ -191,8 +201,7 @@ angular.module('bahmni.registration')
                     if (newValue != oldValue) {
                         if (oldValue == undefined) {
                             nationalityVar();
-                        }
-                        else {
+                        } else {
                             for (var i = 0; i <= $scope.nationalityDocs.length; i++) {
                                 $scope.patient[$scope.nationalityDocs[i]] = "";
                             }
@@ -210,8 +219,7 @@ angular.module('bahmni.registration')
                 $scope.addEditDocRow = function () {
                     if ($scope.editPatientDocuments.includes($scope.attributeChoice) || $scope.attributeChoice == undefined || !$scope.nationalityDocs.includes($scope.attributeChoice)) {
                         alert("Selecione outro documento");
-                    }
-                    else {
+                    } else {
                         $scope.editPatientDocuments.push($scope.attributeChoice);
                         $scope.existDocs.splice($scope.existDocs.indexOf($scope.attributeChoice), 1);
                         $scope.attributeChoice = "";
@@ -222,8 +230,7 @@ angular.module('bahmni.registration')
                         $scope.editPatientDocuments.splice($scope.editPatientDocuments.indexOf(docu), 1);
                         $scope.existDocs.push(docu);
                         $scope.patient[docu] = "";
-                    }
-                    else {
+                    } else {
                         alert("Remova outro documento");
                     }
                 };
@@ -268,9 +275,9 @@ angular.module('bahmni.registration')
             });
 
             var validFields = function () {
-                if ($scope.myForms.myForm.healthFacilityCode.$invalid || $scope.myForms.myForm.nidYear.$invalid || $scope.myForms.myForm.sequentialCode.$invalid || $scope.myForms.myForm.givenName.$invalid
-                    || $scope.myForms.myForm.familyName.$invalid || $scope.myForms.myForm.gender.$invalid || $scope.myForms.myForm.ageYear.$invalid
-                    || $scope.myForms.myForm.birthdate.$invalid) {
+                if ($scope.myForms.myForm.healthFacilityCode.$invalid || $scope.myForms.myForm.nidYear.$invalid || $scope.myForms.myForm.sequentialCode.$invalid || $scope.myForms.myForm.givenName.$invalid ||
+                    $scope.myForms.myForm.familyName.$invalid || $scope.myForms.myForm.gender.$invalid || $scope.myForms.myForm.ageYear.$invalid ||
+                    $scope.myForms.myForm.birthdate.$invalid) {
                     return false;
                 }
                 return true;
@@ -318,7 +325,9 @@ angular.module('bahmni.registration')
                         var patientProfileData = result[0].data;
                         if (!patientProfileData.error) {
                             successCallBack(patientProfileData);
-                            $state.go($state.current, {}, {reload: true});
+                            $state.go($state.current, {}, {
+                                reload: true
+                            });
                             $scope.actions.followUpAction(patientProfileData);
                         }
                     }));
@@ -355,10 +364,10 @@ angular.module('bahmni.registration')
             $scope.handleSectorChange = function () {
                 if ($scope.patient['SECTOR_SELECT'].value == 'ATIP') {
                     $scope.isATIPSelectShown = true;
-                }
-                else {
+                } else {
                     $scope.isATIPSelectShown = false;
                     $scope.patient['ATIP_SELECT'] = null;
                 }
             };
-        }]);
+        }
+    ]);
