@@ -1580,7 +1580,6 @@ angular.module('bahmni.clinical')
                                     response.forEach(function (prescriptions) {
                                         if (prescriptions.data && prescriptions.data.length > 0) {
                                             var count = obsTable.length;
-                                            console.log(prescriptions);
                                             prescriptions.data.forEach(function (prescription) {
                                                 for (var i = 0; i < obsTable.length; i++) {
                                                     var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + ('0' + (new Date(prescription.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
@@ -1637,7 +1636,6 @@ angular.module('bahmni.clinical')
                                     });
                                 }
                             });
-                            console.log(obsTable);
                             var slicedTable = obsTable.slice(0, 12);
 
                             masterCardModel.patientInfo.ClinicalFactors = slicedTable.reverse();
