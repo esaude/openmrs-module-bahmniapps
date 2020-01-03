@@ -122,7 +122,7 @@
                 <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
                 <td rowspan="1">{{ ps.actualVisitClinical | date:'d/MM/yy' }}</td>
                 <td rowspan="1">{{ ps.ageAtVisit }}</td>
-                <td rowspan="1"><span ng-if="ps.pregnancyYesNo">G</span> <span ng-if="ps.lastMenstruationDate">/ {{ ps.lastMenstruationDate | date:'d/MM/yy' }}</span> <span ng-if="ps.breastFeeding"> / L</span></td>
+                <td rowspan="1"><span ng-if="ps.pregnancyYesNo == 'Sim'">G</span> <span ng-if="ps.lastMenstruationDate">/ {{ ps.lastMenstruationDate | date:'d/MM/yy' }}</span> <span ng-if="ps.breastFeeding"> / L</span></td>
                 <td rowspan="1">{{ ps.whoStaging }}</td>
                 <td rowspan="1">{{ ps.weight }}</td>
                 <td rowspan="1">{{ ps.brachialPerimeter }}</td>
