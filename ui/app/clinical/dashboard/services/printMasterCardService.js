@@ -1300,7 +1300,7 @@ angular.module('bahmni.clinical')
                                             });
                                             obsTable.forEach(function (obs) {
                                                 if (masterCardModel.medicalConditions.other) {
-                                                    var observationDate = (new Date(obs.actualVisitClinical).getFullYear() + '-' + (new Date(obs.actualVisitClinical).getMonth() + 1) + '-' + ('0' + (new Date(obs.actualVisitClinical).getDate())).slice(-2));
+                                                    var observationDate = (new Date(obs.actualVisitClinical).getFullYear() + '-' + ('0' + (new Date(obs.actualVisitClinical).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(obs.actualVisitClinical).getDate())).slice(-2));
                                                     var diagnosisDate = (new Date(masterCardModel.medicalConditions.other.date).getFullYear() + '-' + (new Date(masterCardModel.medicalConditions.other.date).getMonth() + 1) + '-' + ('0' + (new Date(masterCardModel.medicalConditions.other.date).getDate())).slice(-2));
                                                     var conditions = [];
                                                     if (observationDate === diagnosisDate) {
@@ -1460,7 +1460,7 @@ angular.module('bahmni.clinical')
                                 if (response[0] && response[0].data.length > 0) {
                                     for (var i = 0; i < response[0].data.length; i++) {
                                         var encounterProvider = response[0].data[i];
-                                        var actualVisit = new Date(encounterProvider.date_created).getFullYear() + '-' + (new Date(encounterProvider.date_created).getMonth() + 1) + '-' + ('0' + (new Date(encounterProvider.date_created).getDate())).slice(-2);
+                                        var actualVisit = new Date(encounterProvider.date_created).getFullYear() + '-' + ('0' + (new Date(encounterProvider.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(encounterProvider.date_created).getDate())).slice(-2);
 
                                         obsTable.forEach(function (obs) {
                                             if (obs.actualVisitClinical === actualVisit) {
@@ -1486,7 +1486,7 @@ angular.module('bahmni.clinical')
                             $q.all([populatePatientStatusStateHist()]).then(function (response) {
                                 for (var i = 0; i < response[0].data.length; i++) {
                                     var statusState = response[0].data[i];
-                                    var actualVisit = new Date(statusState.date_created).getFullYear() + '-' + (new Date(statusState.date_created).getMonth() + 1) + '-' + ('0' + (new Date(statusState.date_created).getDate())).slice(-2);
+                                    var actualVisit = new Date(statusState.date_created).getFullYear() + '-' + ('0' + (new Date(statusState.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(statusState.date_created).getDate())).slice(-2);
                                     var lastState = response[0].data[0];
                                     var lastObs = obsTable[0];
 
@@ -1582,8 +1582,7 @@ angular.module('bahmni.clinical')
                                             var count = obsTable.length;
                                             prescriptions.data.forEach(function (prescription) {
                                                 for (var i = 0; i < obsTable.length; i++) {
-                                                    var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
-
+                                                    var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + ('0' + (new Date(prescription.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
                                                     if (obsTable[i].actualVisitClinical === actualVisit) {
                                                         if (prescription.category === 'ARV') {
                                                             obsTable[i].prescribedDrugs = {};
@@ -1608,7 +1607,7 @@ angular.module('bahmni.clinical')
                                                     } else if (i === (count - 1)) {
                                                         if (prescription.category === 'ARV') {
                                                             obsTable.push({
-                                                                actualVisit: new Date(prescription.date_created).getFullYear() + '-' + (new Date(prescription.date_created).getMonth() + 1) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2),
+                                                                actualVisit: new Date(prescription.date_created).getFullYear() + '-' + ('0' + (new Date(prescription.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2),
                                                                 prescribedDrugs: {
                                                                     dose: prescription.dose,
                                                                     name: prescription.name,
