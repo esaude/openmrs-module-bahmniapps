@@ -17,6 +17,13 @@ angular.module('bahmni.clinical')
             var createPrescriptionGroups = function (activeAndScheduledDrugOrders) {
                 $scope.consultation.drugOrderGroups = [];
                 createPrescribedDrugOrderGroups();
+                for (var i = 0; i < drugOrdersData.length; i++) {
+                    for (var j = 0; j < activeAndScheduledDrugOrders.length; j++) {
+                        if (drugOrdersData[i].uuid === activeAndScheduledDrugOrders[j].drug.uuid) {
+                            activeAndScheduledDrugOrders[j].line_treatment = drugOrdersData[i].line_treatment;
+                        }
+                    } 
+                }
                 createRecentDrugOrderGroup(activeAndScheduledDrugOrders);
             };
 
@@ -76,7 +83,6 @@ angular.module('bahmni.clinical')
                         for (var j = 0; j < drugOrdersMap.length; j++) {
                             if (drugOrdersData[i].uuid === drugOrdersMap[j].drug.uuid) {
                                 drugOrdersMap[j].line_treatment = drugOrdersData[i].line_treatment;
-                                drugOrdersMap[j].dispensed_date = drugOrdersData[i].dispensed_date;
                             }
                         }
                     }
