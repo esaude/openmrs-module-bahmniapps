@@ -1796,7 +1796,7 @@ angular.module('bahmni.clinical')
                         masterCardModel.patientInfo.closeOf = response.data.person.preferredAddress.postalCode;
                         masterCardModel.patientInfo.province = addressMap.stateProvince;
                         masterCardModel.patientInfo.registrationDate = response.data.person.auditInfo.dateCreated;
-                        
+
                         response.data.person.attributes.forEach(function (attribute) {
                             if (attribute.attributeType.display === 'TYPE_OF_REGISTRATION') {
                                 masterCardModel.healthFacilityInfo.regType = attribute.value.display;
