@@ -8,6 +8,7 @@ angular.module('bahmni.clinical')
                 hospitalLogo: '',
                 transference: {
                     date: '',
+                    patientStatus: '',
                     healthFacilityName: '',
                     healthFacilityDistrict: '',
                     healthFacilityProvince: ''
@@ -36,6 +37,7 @@ angular.module('bahmni.clinical')
                     INH_start: '',
                     INH_end: '',
                     firstName: '',
+                    midName: '',
                     lastName: '',
                     age: '',
                     gender: '',
@@ -48,6 +50,7 @@ angular.module('bahmni.clinical')
                     district: '',
                     block: '',
                     streetHouse: '',
+                    houseNumber: '',
                     province: '',
                     education: '',
                     occupation: '',
@@ -1666,6 +1669,7 @@ angular.module('bahmni.clinical')
             var populatePatientDemographics = function () {
                 masterCardModel.patientInfo.mainContact = '';
                 masterCardModel.patientInfo.firstName = '';
+                masterCardModel.patientInfo.midName = '';
                 masterCardModel.patientInfo.lastName = '';
                 masterCardModel.patientInfo.gender = '';
                 masterCardModel.patientInfo.age = '';
@@ -1685,6 +1689,7 @@ angular.module('bahmni.clinical')
                 masterCardModel.patientInfo.district = '';
                 masterCardModel.patientInfo.block = '';
                 masterCardModel.patientInfo.streetHouse = '';
+                masterCardModel.patientInfo.houseNumber = '';
                 masterCardModel.patientInfo.closeOf = '';
                 masterCardModel.patientInfo.province = '';
                 masterCardModel.patientInfo.registrationDate = '';
@@ -1696,6 +1701,7 @@ angular.module('bahmni.clinical')
                 masterCardModel.transference.healthFacilityName = '';
                 masterCardModel.transference.healthFacilityDistrict = '';
                 masterCardModel.transference.healthFacilityProvince = '';
+                masterCardModel.transference.patientStatus = '';
                 masterCardModel.transferOut.date = '';
                 masterCardModel.transferOut.healthFacilityName = '';
                 masterCardModel.transferOut.healthFacilityDistrict = '';
@@ -1721,9 +1727,6 @@ angular.module('bahmni.clinical')
                             masterCardModel.patientInfo.mainContact = $rootScope.patient.PRIMARY_CONTACT_NUMBER_1.value;
                         }
                         var patient = patientMapper.map(response.data);
-                        masterCardModel.patientInfo.firstName = patient.givenName;
-                        masterCardModel.patientInfo.lastName = patient.familyName;
-                        masterCardModel.patientInfo.gender = patient.gender;
 
                         if ($rootScope.patient.PRIMARY_CONTACT_NUMBER_1 !== undefined) {
                             masterCardModel.patientInfo.mainContact = $rootScope.patient.PRIMARY_CONTACT_NUMBER_1.value;
@@ -1781,10 +1784,15 @@ angular.module('bahmni.clinical')
                             masterCardModel.healthFacilityInfo.name = $rootScope.healthFacility.name;
                         }
                         var addressMap = patient.address;
+                        masterCardModel.patientInfo.firstName = response.data.person.preferredName.givenName;
+                        masterCardModel.patientInfo.midName = response.data.person.preferredName.middleName;
+                        masterCardModel.patientInfo.lastName = response.data.person.preferredName.familyName;
+                        masterCardModel.patientInfo.gender = patient.gender;
                         masterCardModel.patientInfo.town = addressMap.address1;
                         masterCardModel.patientInfo.district = addressMap.address2;
                         masterCardModel.patientInfo.block = addressMap.address3;
                         masterCardModel.patientInfo.streetHouse = addressMap.address4;
+                        masterCardModel.patientInfo.houseNumber = response.data.person.addresses[0].address5;
                         masterCardModel.patientInfo.closeOf = response.data.person.preferredAddress.postalCode;
                         masterCardModel.patientInfo.province = addressMap.stateProvince;
                         masterCardModel.patientInfo.registrationDate = response.data.person.auditInfo.dateCreated;
@@ -1810,6 +1818,9 @@ angular.module('bahmni.clinical')
                             }
                             if (attribute.attributeType.display === 'US_REG_DATE') {
                                 masterCardModel.transference.date = attribute.value.split('T')[0];
+                            }
+                            if (attribute.attributeType.display === 'PATIENT_STATUS') {
+                                masterCardModel.transference.patientStatus = attribute.value.display;
                             }
                             if (attribute.attributeType.display === 'TRANSFERENCE_HF_NAME') {
                                 masterCardModel.transference.healthFacilityName = attribute.value.split(' -')[0];
