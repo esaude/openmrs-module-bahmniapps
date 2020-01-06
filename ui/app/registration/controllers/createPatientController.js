@@ -22,6 +22,9 @@ angular.module('bahmni.registration')
             $scope.myForms = {};
             $rootScope.isEligibleForVisit = true;
             $scope.typeOfRegistrationSelected = undefined;
+            var currentDate = new Date();
+            var currentYear = currentDate.getFullYear();
+            $scope.NID.year = currentYear;
             var getPersonAttributeTypes = function () {
                 return $rootScope.patientConfiguration.attributeTypes;
             };
@@ -41,6 +44,13 @@ angular.module('bahmni.registration')
             };
 
             $scope.buildFinalNID = function () {
+                var seqCode = $scope.NID.sequentialCode;
+                if (seqCode) {
+                    while (seqCode.length < 5) {
+                        seqCode = '0' + seqCode;
+                    }
+                    $scope.NID.sequentialCode = seqCode;
+                }
                 $scope.patient.primaryIdentifier.registrationNumber = $scope.NID.healthFacilityCode + '/' + $scope.NID.serviceCode + '/' + $scope.NID.year + '/' + $scope.NID.sequentialCode;
             };
             $scope.$watch('patient.primaryIdentifier.registrationNumber', function () {
@@ -161,7 +171,9 @@ angular.module('bahmni.registration')
                         var data = _.map(response.data, function (data) {
                             return {
                                 sizeOfTheJump: data.sizeOfJump,
-                                identifierName: _.find($rootScope.patientConfiguration.identifierTypes, { uuid: data.identifierType }).name
+                                identifierName: _.find($rootScope.patientConfiguration.identifierTypes, {
+                                    uuid: data.identifierType
+                                }).name
                             };
                         });
                         createPatient(true);
@@ -180,9 +192,9 @@ angular.module('bahmni.registration')
                 return deferred.promise;
             };
             var validFields = function () {
-                if ($scope.myForms.myForm.healthFacilityCode.$invalid || $scope.myForms.myForm.nidYear.$invalid || $scope.myForms.myForm.sequentialCode.$invalid || $scope.myForms.myForm.givenName.$invalid
-                    || $scope.myForms.myForm.familyName.$invalid || $scope.myForms.myForm.gender.$invalid || $scope.myForms.myForm.ageYear.$invalid
-                    || $scope.myForms.myForm.birthdate.$invalid) {
+                if ($scope.myForms.myForm.healthFacilityCode.$invalid || $scope.myForms.myForm.nidYear.$invalid || $scope.myForms.myForm.sequentialCode.$invalid || $scope.myForms.myForm.givenName.$invalid ||
+                    $scope.myForms.myForm.familyName.$invalid || $scope.myForms.myForm.gender.$invalid || $scope.myForms.myForm.ageYear.$invalid ||
+                    $scope.myForms.myForm.birthdate.$invalid) {
                     return false;
                 }
                 return true;
@@ -191,8 +203,7 @@ angular.module('bahmni.registration')
             $scope.create = function () {
                 if (!validFields() || !$rootScope.isValidFields) {
                     messagingService.showMessage("error", "REGISTRATION_REQUIRED_INVALID_FIELD");
-                }
-                else {
+                } else {
                     addNewRelationships();
                     var errorMessages = Bahmni.Common.Util.ValidationUtil.validate($scope.patient, $scope.patientConfiguration.attributeTypes);
                     if (errorMessages.length > 0) {
@@ -220,8 +231,7 @@ angular.module('bahmni.registration')
             $scope.handleSectorChange = function () {
                 if ($scope.patient['SECTOR_SELECT'].value == 'ATIP') {
                     $scope.isATIPSelectShown = true;
-                }
-                else {
+                } else {
                     $scope.isATIPSelectShown = false;
                     $scope.patient['ATIP_SELECT'] = null;
                 }

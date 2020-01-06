@@ -29,6 +29,14 @@ angular.module('bahmni.clinical')
                     }), providerService.getProviderAttributes(currentProvider.uuid)]).then(function (response) {
                         var allTemplates = response[0].data.results[0].setMembers;
 
+                        if ($scope.patient.TYPE_OF_REGISTRATION.value.display === 'NEW_PATIENT') {
+                            for (let i = 0; i < allTemplates.length; i++) {
+                                if (allTemplates[i].name.name === "Clinical_History_Obs_Form") {
+                                    allTemplates.splice(i, 1);
+                                }
+                            }
+                        }
+
                         if (response[1].data) {
                             var providerAttributes = response[1].data.results;
                         }
@@ -160,6 +168,7 @@ angular.module('bahmni.clinical')
 
             var createConceptSections = function (allTemplates, allProviderAttributes) {
                 var providerType = providerTypeService.getProviderType(allProviderAttributes)[0];
+                $rootScope.providerType = providerType;
 
                 if (providerType == "APSS") {
                     finalFormsToDisplay = APSSProviderForms;

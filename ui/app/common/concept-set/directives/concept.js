@@ -202,6 +202,18 @@ angular.module('bahmni.common.conceptSet')
                         scope.observation.disabled = true;
                     }
 
+                    if (scope.observation.concept.name.includes("HOF") && scope.patient.isMigrated) {
+                        scope.observation.disabled = true;
+                    } else
+                    if (scope.observation.concept.name.includes("HOF") && scope.patient.historyObsFirstTime == false) {
+                        scope.observation.disabled = true;
+                    } else {
+                        if (scope.observation.concept.name === "HOF_TARV_PROPHILAXIS_Patient_Type") {
+                            scope.observation.disabled = true;
+                            scope.observation.hide = true;
+                        }
+                    }
+
                     if (scope.conceptSetName === 'Group V-Screening / Prophylaxis') {
                         if (scope.observation.concept.name === 'SP_Treatment State') {
                             $rootScope.observationData = scope.observation;
@@ -219,6 +231,32 @@ angular.module('bahmni.common.conceptSet')
                                 $rootScope.flucoProphylaxisObservationData = scope.observation.groupMembers[1];
                                 prophylaxisData = $rootScope.flucoProphylaxisObservationData.possibleAnswers;
                             }
+                        }
+                    }
+
+                    if (scope.conceptSetName === 'Reference_Form' || scope.conceptSetName === 'Group_Priority_Population_obs_form') {
+                        var providerType = $rootScope.providerType;
+                        if (providerType === "APSS") {
+                            _.map(scope.rootObservation.groupMembers, function (currentObj) {
+                                if (currentObj.concept.name === 'User_type' || currentObj.concept.name === 'User_type_pop') {
+                                    _.map(currentObj.possibleAnswers, function (answers) {
+                                        if (answers.name.name === "APSS_user" || answers.name.name === "APSS_user_pop") {
+                                            currentObj.disabled = true;
+                                            currentObj.value = answers;
+                                        }
+                                    });
+                                }
+                            });
+                        } else if (providerType === "Clinical") {
+                            _.map(scope.rootObservation.groupMembers, function (currentObj) {
+                                if (currentObj.concept.name === 'User_type' || currentObj.concept.name === 'User_type_pop') {
+                                    _.map(currentObj.possibleAnswers, function (answers) {
+                                        if (answers.name.name === "Clinical_user" || answers.name.name === "Clinical_user_pop") {
+                                            currentObj.value = answers;
+                                        }
+                                    });
+                                }
+                            });
                         }
                     }
 
@@ -337,7 +375,9 @@ angular.module('bahmni.common.conceptSet')
                         return groupMember.label === observation.label && !groupMember.voided;
                     });
 
-                    lastObservationByLabel.showAddMoreButton = function () { return true; };
+                    lastObservationByLabel.showAddMoreButton = function () {
+                        return true;
+                    };
                     observation.hidden = true;
                 };
 
@@ -486,8 +526,7 @@ angular.module('bahmni.common.conceptSet')
                                 });
                             }
                         });
-                    }
-                    else {
+                    } else {
                         _.map(scope.rootObservation.groupMembers, function (currentObj) {
                             if (currentObj.concept.name == 'Nutritional_States_new') {
                                 scope.$apply(function () {
@@ -573,8 +612,7 @@ angular.module('bahmni.common.conceptSet')
 
                             getAnswerObject(key, brachialPerimeter);
                             return;
-                        }
-                        else if (bmi) {
+                        } else if (bmi) {
                             key = bmiCalculationService.getNutritionalStatusKey(patientAgeYears, bmi, gender, height, weight);
                             getAnswerObject(key, bmi);
                         }
@@ -627,4 +665,5 @@ angular.module('bahmni.common.conceptSet')
                 },
                 templateUrl: '../common/concept-set/views/observation.html'
             };
-        }]);
+        }
+    ]);

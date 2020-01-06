@@ -1,582 +1,551 @@
-<head>
-    <style>
-        @media print and (orientation: landscape) {
-            .page-break {
-                display: block;
-                page-break-before: always;
-            }
+<style>
+    @media print and (orientation: portrait) {
+        .page-break {
+            display: block;
+            page-break-before: always;
         }
-        table {
-            width: 100%
-        }
-        table,
-        td,
-        th {
-            border: 1px solid #595959;
-            border-collapse: collapse;
-            font-family: arial;
-            font-size: 10px;
-            line-height: 13.5px;
-        }
-        td,
-        th {
-            padding: 0 1px 0 1px;
-        }
-        td { word-wrap: break-word; }
-        input[type="checkbox"] {
-            vertical-align:middle;
-        }
+    }
+</style>
 
-        .center {
-            text-align: center;
-        }
-        .text-small {
-            font-size: 7px;
-        }
+<div style="font-size: 7px;">
+    <img ng-if="data.hospitalLogo" src="{{ data.hospitalLogo }}" class="align-left" style="height:30px; width:30px; margin-right:10px; margin-bottom: 5px">
+    <div class="center align-left" style="padding-top: 3px">REPÚBLICA DE MOÇAMBIQUE<br>MINISTÉRIO DA SAÚDE<br>SERVIÇO NACIONAL DE SAÚDE</div>
+</div>
 
-        .align-right {
-            float: right;
-        }
-        .circleSelect {
-            border-radius: 100%;
-            border: 1px solid #000;
-            padding-left: 2px;
-            padding-right: 2px;
-            padding-top: 1px;
-            padding-bottom: 1px;
-        }
-    </style>
-</head>
-
-<body>
-    <table>
-        <tr>
-            <td colspan="25">&nbsp;&nbsp;<b>Ficha Resumo</b></td>
-            <td colspan="35"></td>
-            <td rowspan="40" style="width: 6px"></td>
-            <td colspan="40">
-                    &nbsp;&nbsp;<b>ARVs</b> tomados anteriormente, antes do TARV actual
-                <span class="align-right">
-                    <input type="checkbox" class="text-right"/>SIM&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="checkbox" class="text-right"/>NÃO
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="25" rowspan="2">
-                &nbsp;&nbsp;<b>Data Abertura da Ficha:</b> {{ data.patientInfo.registrationDate | date:'dd/MM/yy'}}
-            </td>
-            <td colspan="35" rowspan="2">
-                &nbsp;&nbsp;<b>NID (Código da US / Annual Individual):</b> {{data.patientInfo.patientId}}
-                <br>
-                &nbsp;&nbsp;<b>LIVROS:</b>&nbsp;&nbsp;&nbsp;&nbsp;Pré-TARV:&nbsp;&nbsp;&nbsp;&nbsp;Pág:&nbsp;&nbsp;&nbsp;&nbsp;Linha:&nbsp;&nbsp;&nbsp;&nbsp;TARV:&nbsp;&nbsp;&nbsp;&nbsp;Pág:&nbsp;&nbsp;&nbsp;&nbsp;Linha:&nbsp;&nbsp;&nbsp;&nbsp;
-            </td>
-            <td colspan="16">&nbsp;&nbsp;Se SIM:</td>
-            <td colspan="8" class="center">Data</td>
-            <td colspan="8" class="center">Onde?</td>
-            <td colspan="8" class="center">ARVs</td>
-        </tr>
-        <tr>
-            <td colspan="16">
-                <input type="checkbox"/>PTV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="checkbox"/>PPE
-            </td>
-            <td colspan="8" class="center">__/__/__</td>
-            <td colspan="8"></td>
-            <td colspan="8"></td>
-        </tr>
-        <tr>
-            <td colspan="60" rowspan="6">
-                &nbsp;&nbsp;<b>Província:</b> {{ data.healthFacilityInfo.province }}&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Distrito:</b> {{ data.healthFacilityInfo.district }}&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Unidade Sanitária:</b> {{ data.healthFacilityInfo.name }}
-                <br>
-                &nbsp;&nbsp;<b>Nome Completo:</b> {{ data.patientInfo.firstName }}&nbsp&nbsp{{ data.patientInfo.lastName }}
-                <span class="align-right"><b>N&deg; de B.I.:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <br>
-                &nbsp;&nbsp;<b>Sexo:</b> {{ data.patientInfo.gender }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Data de nascimento:</b> {{ data.patientInfo.birth_date | date:'dd/MM/yyyy'}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Idade:</b> {{ data.patientInfo.age }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Tel. Cel (1):</b> {{ data.patientInfo.mainContact }}
-                <br>
-                &nbsp;&nbsp;<b>Profissão:</b> {{ data.patientInfo.occupation }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Nível de Escolaridade:</b> {{ data.patientInfo.education }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Tel. Cel (2):</b> {{ data.patientInfo.alternativeContact1 }}
-                <br>
-                &nbsp;&nbsp;<b>MORADA - Distrito / Cidade:</b> {{ data.patientInfo.district }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>{{ 'TOWN' | translate }}:</b> {{ data.patientInfo.town }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Célula / Quarteirão:</b> {{ data.patientInfo.block }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <br>
-                &nbsp;&nbsp;<b>Avenida / Rua / Casa:</b> {{ data.patientInfo.streetHouse }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Perto de:</b> {{ data.patientInfo.closeOf }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </td>
-            <td colspan="16"><input type="checkbox"/>Outros, especifique</td>
-            <td colspan="8" class="center">__/__/__</td>
-            <td colspan="8"></td>
-            <td colspan="8"></td>
-        </tr>
-        <tr>
-            <td colspan="1" rowspan="9" class="center"><div style="transform: translateX(0%) translateY(-100%) rotate(270deg);">1&ordf;<br>Linha</div></td>
-            <td colspan="39">&nbsp;&nbsp;<b>No início do TARV - TARV - Coorte (Mês/Ano):</b> </td>
-        </tr>
-        <tr>
-            <td colspan="8" rowspan="2" class="center">
-                Data<br>
-                __/__/__
-            </td>
-            <td colspan="31">
-                &nbsp;&nbsp;<b>Regime ARV inicial de 1&ordf; linha:</b> 
-            </td>
-        </tr>
-        <tr>
-            <td colspan="31">&nbsp;&nbsp;<b>Unidade Sanitária:</b></td>
-        </tr>
-        <tr>
-            <td colspan="8" rowspan="2" class="center">No início<br>TARV</td>
-            <td colspan="31">
-                &nbsp;&nbsp;Gravidez: <input type="checkbox" class="text-right"/>
-                Sim <input type="checkbox" class="text-right"/>
-                Não <input type="checkbox" class="text-right"/>
-                Lactante <input type="checkbox" class="text-right"/>
-                Sim <input type="checkbox" class="text-right"/>
-                Não <input type="checkbox" class="text-right"/>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="31">&nbsp;&nbsp;<b>Estado de OMS:</b> <span>III</span> <b>CD4 (N° / %):</b></td>
-        </tr>
-        <tr>
-            <td colspan="60" rowspan="4">
-                &nbsp;&nbsp;<u>CONFIDENTE</u> - 
-                <span class="align-right"><b>Tel. Cel (1):</b> {{ data.confident.telehone1 }}&nbsp;&nbsp;</span>
-                <br>
-                &nbsp;&nbsp;<b>Nome e Parentesco:</b> {{ data.confident.name }}&nbsp;{{ data.confident.surname }}&nbsp;<i>({{ data.confident.relationship }})</i>
-                <span class="align-right"><b>Tel. Cel (2):</b> {{ data.confident.telehone2 }}&nbsp;&nbsp;</span>
-                <br>
-                &nbsp;&nbsp;<b>MORADA - Distrito/Cidade:</b> {{ data.confident.district }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Localidade/Bairro:</b> {{ data.confident.locality }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Célula/Quarteirão:</b> {{ data.confident.block }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <br>
-                &nbsp;&nbsp;<b>Avenida/Rua/Casa:</b> {{ data.confident.street }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Perto de:</b> {{ data.confident.closeOf }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </td>
-            <td colspan="39">&nbsp;&nbsp;Alternativas à 1&ordf; linha</td>
-        </tr>
-        <tr>
-            <td colspan="8" class="center">__/__/__</td>
-            <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
-                &nbsp;&nbsp;<b>Motivo:</b>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="8" class="center">__/__/__</td>
-            <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
-                &nbsp;&nbsp;<b>Motivo:</b> 
-            </td>
-        </tr>
-        <tr>
-            <td colspan="8" class="center">__/__/__</td>
-            <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
-                &nbsp;&nbsp;<b>Motivo:</b> 
-            </td>
-        </tr>
-        <tr>
-            <td colspan="28" class="center">Situação da Família</td>
-            <td colspan="4" rowspan="9"></td>
-            <td colspan="28" class="center">Situação da Família</td>
-            <td colspan="1" rowspan="4" class="center"><div style="transform: translateX(0%) translateY(0%) rotate(270deg);">2&ordf;<br>Linha</div></td>
-            <td colspan="39">&nbsp;&nbsp;Mudança para a 2&ordf; linha (ou substituição dentro da 2&ordf; linha)</td>
-        </tr>
-        <tr>
-            <td colspan="14" class="center" style="height: 5px;">Nome</td>
-            <td colspan="2" rowspan="2" class="center" style="width: 10px;">Ida-<br>de</td>
-            <td colspan="2" rowspan="2" class="center text-small">Teste<br>HIV<br>(P/N/D)</td>
-            <td colspan="2" rowspan="2" class="center text-small">Cui-<br>dados<br>HIV<br>(S/N/A)</td>
-            <td colspan="2" rowspan="2" class="center text-small">Em<br>CCR<br>(S/N/A)</td>
-            <td colspan="6" rowspan="2" class="center" style="width: 10px;">NID</td>
-            <td colspan="14" class="center">Nome</td>
-            <td colspan="2" rowspan="2" class="center" style="width: 10px;">Ida-<br>de</td>
-            <td colspan="2" rowspan="2" class="center text-small">Teste<br>HIV<br>(P/N/D)</td>
-            <td colspan="2" rowspan="2" class="center text-small">Cui-<br>dados<br>HIV<br>(S/N/A)</td>
-            <td colspan="2" rowspan="2" class="center text-small">Em<br>CCR<br>(S/N/A)</td>
-            <td colspan="6" rowspan="2" class="center" style="width: 10px;">NID</td>
-            <td colspan="8" class="center">__/__/__</td>
-            <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> 
-                &nbsp;&nbsp;<b>Motivo:</b> 
-            </td>
-        </tr>
-        <tr>
-            <td colspan="14" class="center" style="height: 5px;">Parentesco</td>
-            <td colspan="14" class="center">Parentesco</td>
-            <td colspan="8" class="center">__/__/__</td>
-            <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;<b>Motivo:</b> 
-            </td>
-        </tr>
-        <tr>
-            <td colspan="14" class="center">{{ data.familySituation[0].name }}</td>
-            <td colspan="2" rowspan="2" class="center">
-                {{ data.familySituation[0].age }}
-                <span ng-if="data.familySituation[0].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
-                <span ng-if="data.familySituation[0].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[0].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[0].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[0].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[0].hivCare}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[0].hivCare == false}">N</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[0].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[0].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[0].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
-            </td>
-            <td colspan="6" rowspan="2" class="center">
-                <span ng-if="data.familySituation[0].nid.left && data.familySituation[0].nid.right">{{ data.familySituation[0].nid.left }}/<br>{{ data.familySituation[0].nid.right }}</span>
-            </td>
-            <td colspan="14" class="center">{{ data.familySituation[3].name }}</td>
-            <td colspan="2" rowspan="2" class="center">
-                    {{ data.familySituation[3].age }}
-                    <span ng-if="data.familySituation[3].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
-                    <span ng-if="data.familySituation[3].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
-                </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[3].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[3].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[3].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[3].hivCare}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[3].hivCare == false}">N</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[3].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[3].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[3].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
-            </td>
-            <td colspan="6" rowspan="2" class="center">
-                <span ng-if="data.familySituation[3].nid.left && data.familySituation[3].nid.right">{{ data.familySituation[3].nid.left }}/<br>{{ data.familySituation[3].nid.right }}</span>
-            </td>
-            <td colspan="8" class="center">__/__/__</td>
-            <td colspan="31">
-                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;<b>Motivo:</b> 
-            </td>
-        </tr>
-        <tr>
-            <td colspan="14" class="center">{{ data.familySituation[0].relationship }}</td>
-            <td colspan="14" class="center">{{ data.familySituation[3].relationship }}</td>
-            <td colspan="1" rowspan="3" class="center"><div style="transform: translateX(0%) translateY(0%) rotate(270deg);">3&ordf;<br>Linha</div></td>
-            <td colspan="39">&nbsp;&nbsp;Mudança para a 3&ordf; linha</td>
-        </tr>
-        <tr>
-            <td colspan="14" class="center">{{ data.familySituation[1].name }}</td>
-            <td colspan="2" rowspan="2" class="center">
-                {{ data.familySituation[1].age }}
-                <span ng-if="data.familySituation[1].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
-                <span ng-if="data.familySituation[1].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[1].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[1].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[1].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[1].hivCare}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[1].hivCare == false}">N</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[1].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[1].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[1].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
-            </td>
-            <td rowspan="2" colspan="6" class="center">
-                <span ng-if="data.familySituation[1].nid.left && data.familySituation[1].nid.right">{{ data.familySituation[1].nid.left }}/<br>{{ data.familySituation[1].nid.right }}</span>
-            </td>
-            <td colspan="14" class="center">{{ data.familySituation[4].name }}</td>
-            <td colspan="2" rowspan="2" class="center">
-                {{ data.familySituation[4].age }}
-                <span ng-if="data.familySituation[4].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
-                <span ng-if="data.familySituation[4].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[4].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[4].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[4].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[4].hivCare}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[4].hivCare == false}">N</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[4].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[4].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[4].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
-            </td>
-            <td rowspan="2" colspan="6" class="center">
-                <span ng-if="data.familySituation[4].nid.left && data.familySituation[4].nid.right">{{ data.familySituation[4].nid.left }}/<br>{{ data.familySituation[4].nid.right }}</span>
-            </td>
-            <td colspan="8" rowspan="2" class="center">__/__/__</td>
-            <td colspan="31" rowspan="2">
-                &nbsp;&nbsp;<b>Novo Regime:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;<b>Motivo:</b> 
-            </td>
-        </tr>
-        <tr>
-            <td colspan="14" class="center">{{ data.familySituation[1].relationship }}</td>
-            <td colspan="14" class="center">{{ data.familySituation[4].relationship }}</td>
-            
-        </tr>
-        <tr>
-            <td colspan="14" class="center">{{ data.familySituation[2].name }}</td>
-            <td colspan="2" rowspan="2" class="center">
-                {{ data.familySituation[2].age }}
-                <span ng-if="data.familySituation[2].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
-                <span ng-if="data.familySituation[2].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[2].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[2].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[2].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[2].hivCare}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[2].hivCare == false}">N</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[2].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[2].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[2].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
-            </td>
-            <td rowspan="2" colspan="6" class="center">
-                <span ng-if="data.familySituation[2].nid.left && data.familySituation[2].nid.right">{{ data.familySituation[2].nid.left }}/<br>{{ data.familySituation[2].nid.right }}</span>
-            </td>
-            <td colspan="14" class="center">{{ data.familySituation[5].name }}</td>
-            <td colspan="2" rowspan="2" class="center">
-                {{ data.familySituation[5].age }}
-                <span ng-if="data.familySituation[5].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
-                <span ng-if="data.familySituation[5].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[5].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[5].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[5].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[5].hivCare}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[5].hivCare == false}">N</span>&nbsp;
-            </td>
-            <td colspan="2" rowspan="2" class="center">
-                <span ng-class="{'circleSelect': data.familySituation[5].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[5].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
-                <span ng-class="{'circleSelect': data.familySituation[5].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
-            </td>
-            <td rowspan="2" colspan="6" class="center">
-                <span ng-if="data.familySituation[5].nid.left && data.familySituation[5].nid.right">{{ data.familySituation[5].nid.left }}/<br>{{ data.familySituation[5].nid.right }}</span>
-            </td>
-            <td colspan="40" class="center">Mudanças no Estado de Permanência TARV</td>
-        </tr>
-        <tr>
-            <td colspan="14" class="center">{{ data.familySituation[2].relationship }}</td>
-            <td colspan="14" class="center">{{ data.familySituation[5].relationship }}</td>
-            <td colspan="9" rowspan="2" class="center">Suspensões ou<br> Abandonos</td>
-            <td colspan="8" rowspan="2">
-                <div><input type="checkbox"/>Suspensão</div>
-                <div><input type="checkbox"/>Abandono</div>
-            </td>
-            <td colspan="8" rowspan="2">
-                <div><input type="checkbox"/>Suspensão</div>
-                <div><input type="checkbox"/>Abandono</div>
-            </td>
-            <td colspan="8" rowspan="2">
-                <div><input type="checkbox"/>Suspensão</div>
-                <div><input type="checkbox"/>Abandono</div>
-            </td>
-            <td colspan="8" rowspan="2">
-                <div><input type="checkbox"/>Suspensão</div>
-                <div><input type="checkbox"/>Abandono</div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="10" class="center">Data</td>
-            <td colspan="50" class="center">Cuidados de HIV</td>
-        </tr>
-        <tr>
-            <td colspan="10" class="center">
-                <span ng-if="!data.patientInfo.dateofHIVDiagnosis">__/__/__</span>
-                <span ng-if="data.patientInfo.dateofHIVDiagnosis">{{ data.patientInfo.dateofHIVDiagnosis | date:'dd/MM/yy'}}</span>
-            </td>
-            <td colspan="50">
-                &nbsp;&nbsp;<b>Teste HIV+:</b>
-                <input type="checkbox" ng-checked="data.patientInfo.typeOfTest ==='Rápido'">TR
-                <input type="checkbox" ng-checked="data.patientInfo.typeOfTest ==='PCR'">PCR
-                &nbsp;&nbsp;&nbsp;<b>Unidade Sanitária:</b> {{ data.healthFacilityInfo.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="checkbox" ng-checked="data.patientInfo.sectorSelect === 'ATSC'">&nbsp;<b>ATSC</b>
-            </td>
-            <td colspan="9" rowspan="2" class="center">&nbsp;&nbsp;Data</td>
-            <td colspan="8" rowspan="2"></td>
-            <td colspan="8" rowspan="2"></td>
-            <td colspan="8" rowspan="2"></td>
-            <td colspan="8" rowspan="2"></td>
-        </tr>
-        <tr>
-            <td colspan="10" class="center">
-                <span ng-if="data.patientInfo.typeOfTest !='Diagnóstico Presuntivo'">__/__/__</span>
-                <span ng-if="data.patientInfo.typeOfTest ==='Diagnóstico Presuntivo'">{{ data.patientInfo.dateofHIVDiagnosis | date:'dd/MM/yy'}}</span>
-            </td>
-            <td colspan="50">
-                <input type="checkbox" ng-checked="data.patientInfo.typeOfTest ==='Diagnóstico Presuntivo'">Diagnóstico presuntivo em crianças &lt; 18 meses
-            </td>
-        </tr>
-        <tr>
-            <td colspan="10" class="center">
-                <span ng-if="data.patientInfo.typeOfTest !='Diagnóstico Presuntivo'">__/__/__</span>
-                <span ng-if="data.patientInfo.typeOfTest ==='Diagnóstico Presuntivo'">{{ data.patientInfo.dateofHIVDiagnosis | date:'dd/MM/yy'}}</span>
-            </td>
-            <td colspan="50">
-                &nbsp;&nbsp;<b>Início Pré-TARV</b> - U.Sanitária: <span>{{ data.healthFacilityInfo.name }}</span>
-                <b>Sector:</b> <input type="checkbox"/>TB
-                <input type="checkbox"/>SAAJ
-                <input type="checkbox" ng-checked="data.patientInfo.sectorSelect === 'CPN'"/>CPN/G
-                <input type="checkbox" ng-checked="data.patientInfo.sectorSelect === 'CCR'"/>CCR/L
-                <input type="checkbox"/>Clínica
-            </td>
-            <td colspan="9" rowspan="2" class="center">&nbsp;&nbsp;Motivo</td>
-            <td colspan="8" rowspan="2"></td>
-            <td colspan="8" rowspan="2"></td>
-            <td colspan="8" rowspan="2"></td>
-            <td colspan="8" rowspan="2"></td>
-        </tr>
-        <tr>
-            <td colspan="60" >
-                <input type="checkbox" ng-checked="data.transference.healthFacilityName"/>Transferido de outra US 
-                <span>__/__/__</span>&nbsp;&nbsp;
-                <b>Unidade Sanitária</b>&nbsp;{{ data.healthFacilityInfo.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="checkbox" ng-checked="data.patientInfo.patientStatus[0] === 'Pre TARV'"/>Em Pré-TARV
-                <input type="checkbox" ng-checked="data.patientInfo.patientStatus[0] != 'Pre TARV'"/>TARV
-            </td>
-        </tr>
-        <tr>
-            <td colspan="28" class="center">Alergias e medicamentos</td>
-            <td colspan="1" class="center">Data</td>
-            <td colspan="31" class="center">Condições médicas importantes</td>
-            <td colspan="9" rowspan="2" class="center"><input type="checkbox"/><br>Reinício - Data</td>
-            <td colspan="8" rowspan="2"></td>
-            <td colspan="8" rowspan="2"></td>
-            <td colspan="8" rowspan="2"></td>
-            <td colspan="8" rowspan="2"></td>
-        </tr>
-        <tr>
-            <td colspan="28">{{ data.allergyHistory[0].name }}</td>
-            <td colspan="1" class="center">
-                <span ng-if="!data.allergyHistory[0].date">__/__/__</span>
-                <span>{{ data.allergyHistory[0].date | date:'dd/MM/yy' }}</span>
-            </td>
-            <td colspan="9">
-                <input type="checkbox" ng-checked="data.medicalConditions.hepatitis"/>Hepatite
-                <span ng-if="!data.medicalConditions.hepatitis">__/__/__</span>
-                <span ng-if="data.medicalConditions.hepatitis">{{data.medicalConditions.hepatitis | date:'dd/MM/yy'}}</span>
-            </td>
-            <td colspan="13"><input type="checkbox" ng-checked="data.medicalConditions.tb"/>TB
-                <span ng-if="!data.medicalConditions.tb">__/__/__</span>
-                <span ng-if="data.medicalConditions.tb">{{data.medicalConditions.tb | date:'dd/MM/yy'}}</span>
-            </td>
-            <td colspan="10">
-                <input type="checkbox" ng-checked="data.medicalConditions.criptococose"/>Criptococose 
-                <span ng-if="!data.medicalConditions.criptococose">__/__/__</span>
-                <span ng-if="data.medicalConditions.criptococose">{{data.medicalConditions.criptococose | date:'dd/MM/yy'}}</span>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="28">{{ data.allergyHistory[1].name }}</td>
-            <td colspan="1" class="center">
-                <span ng-if="!data.allergyHistory[1].date">__/__/__</span>
-                <span>{{ data.allergyHistory[1].date | date:'dd/MM/yy' }}</span>
-            </td>
-            <td colspan="9"><input type="checkbox" ng-checked="data.medicalConditions.diabetes"/>Diabetes
-                <span ng-if="!data.medicalConditions.diabetes">__/__/__</span>
-                <span ng-if="data.medicalConditions.diabetes">{{data.medicalConditions.diabetes | date:'dd/MM/yy'}}</span>
-            </td>
-            <td colspan="13"><input type="checkbox" ng-checked="data.medicalConditions.hta"/>HTA
-                <span ng-if="!data.medicalConditions.hta">__/__/__</span>
-                <span ng-if="data.medicalConditions.hta">{{data.medicalConditions.hta | date:'dd/MM/yy'}}</span>
-            </td>
-            <td colspan="10"><input type="checkbox" ng-checked="data.medicalConditions.kaposi"/>S. Kaposi
-                <span ng-if="!data.medicalConditions.kaposi">__/__/__</span>
-                <span ng-if="data.medicalConditions.kaposi">{{data.medicalConditions.kaposi | date:'dd/MM/yy'}}</span>
-            </td>
-            <td colspan="9"></td>
-            <td colspan="8" class="center">Data</td>
-            <td colspan="24"></td>
-        </tr>
-        <tr>
-            <td colspan="28">{{ data.allergyHistory[2].name }}</td>
-            <td colspan="1" class="center">
-                <span ng-if="!data.allergyHistory[2].date">__/__/__</span>
-                <span>{{ data.allergyHistory[2].date | date:'dd/MM/yy' }}</span>
-            </td>
-            <td colspan="31" rowspan="2" style="width: 50px"><input type="checkbox" ng-checked="data.medicalConditions.other.name"/>
-                <span ng-if="!data.medicalConditions.other.name">Outras (Especifique / Data) __/__/__</span>
-                <span ng-if="data.medicalConditions.other.name">{{data.medicalConditions.other.name}}</span>&nbsp;
-                <span ng-if="data.medicalConditions.other.date">{{data.medicalConditions.other.date | date:'dd/MM/yy'}}</span>
-            </td>
-            <td colspan="9" rowspan="2" class="center">
-                <input type="checkbox" ng-checked="data.transferOut.healthFacilityName"/><br>Transferido para
-            </td>
-            <td colspan="8" rowspan="2" class="center">
-                <span ng-if="!data.transferOut.date">__/__/__</span>
-                <span ng-if="data.transferOut.date">{{data.transferOut.date | date:'dd/MM/yy'}}</span>
-            </td>
-            <td colspan="24" rowspan="2">&nbsp;&nbsp;<b>Unidade Sanitária:</b>&nbsp;{{data.transferOut.healthFacilityName}}</td>
-        </tr>
-        <tr>
-            <td colspan="28">{{ data.allergyHistory[3].name }}</td>
-            <td colspan="1" class="center">
-                <span ng-if="!data.allergyHistory[3].date">__/__/__</span>
-                <span>{{ data.allergyHistory[3].date | date:'dd/MM/yy' }}</span>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="29">
-                &nbsp;&nbsp;<b>Último CD4</b> (Valor/Data)
-                <span class="align-right">
-                    {{data.labOrderResult.LO_CD4.testResult}} %
-                    &nbsp;&nbsp;
-                    <span ng-if="!data.labOrderResult.LO_CD4.testDate">__/__/__</span>
-                    <span ng-if="data.labOrderResult.LO_CD4.testDate">{{ data.labOrderResult.LO_CD4.testDate | date:'dd/MM/yy' }}</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </span>
-            </td>
-            <td colspan="31" rowspan="2">&nbsp;&nbsp;<b>Última Profilaxia Isoniazida</b> (Data de início)&nbsp;
-                <span ng-if="!data.patientInfo.INH_start">__/__/__</span>
-                <span ng-if="data.patientInfo.INH_start">{{ data.patientInfo.INH_start | date:'dd/MM/yy' }}</span>
-            </td>
-            <td colspan="9" rowspan="2" class="center"><input type="checkbox" ng-checked="data.patientInfo.deathDate"/><br>Óbito</td>
-            <td colspan="8" rowspan="2" class="center">
-                <span ng-if="!data.patientInfo.deathDate">__/__/__</span>
-                <span>{{ data.patientInfo.deathDate | date:'dd/MM/yy' }}</span>
-            </td>
-            <td colspan="24" rowspan="2" style="width: 50px;">&nbsp;&nbsp;{{ data.patientInfo.causeOfDeath }}</td>
-        </tr>
-        <tr>
-            <td colspan="29">
-                &nbsp;&nbsp;<b>Última Carga viral</b> (Valor/Data)
-                <span class="align-right">
-                    {{data.labOrderResult.LO_ViralLoad.testResult}}
-                    &nbsp;&nbsp;
-                    <span ng-if="!data.labOrderResult.LO_ViralLoad.testDate">__/__/__</span>
-                    <span ng-if="data.labOrderResult.LO_ViralLoad.testDate">{{data.labOrderResult.LO_ViralLoad.testDate | date:'dd/MM/yy'}}</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </span>
-            </td>
-        </tr>
-    </table>
-</body>
+<table style="line-height: 13.5px;">
+    <tr>
+        <td colspan="25">&nbsp;&nbsp;<b>Ficha Resumo</b></td>
+        <td colspan="35"></td>
+        <td rowspan="40" style="width: 6px"></td>
+        <td colspan="40">
+                &nbsp;&nbsp;<b>ARVs</b> tomados anteriormente, antes do TARV actual
+            <span class="align-right">
+                <input type="checkbox" class="text-right"/>SIM&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" class="text-right"/>NÃO
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="25" rowspan="2">
+            &nbsp;&nbsp;<b>Data Abertura da Ficha:</b> {{ data.patientInfo.registrationDate | date:'dd/MM/yy'}}
+        </td>
+        <td colspan="35" rowspan="2">
+            &nbsp;&nbsp;<b>NID (Código da US / Anual / Individual):</b> {{data.patientInfo.patientId}}
+            <br>
+            &nbsp;&nbsp;<b>LIVROS:</b>&nbsp;&nbsp;Pré-TARV:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pág:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linha:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TARV:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pág:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linha:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td colspan="16">&nbsp;&nbsp;Se SIM:</td>
+        <td colspan="8" class="center">Data</td>
+        <td colspan="8" class="center">Onde?</td>
+        <td colspan="8" class="center">ARVs</td>
+    </tr>
+    <tr>
+        <td colspan="16">
+            <input type="checkbox"/>PTV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox"/>PPE
+        </td>
+        <td colspan="8" class="center">__/__/__</td>
+        <td colspan="8"></td>
+        <td colspan="8"></td>
+    </tr>
+    <tr style="line-height: 13.5px;">
+        <td colspan="60" rowspan="6">
+            &nbsp;&nbsp;<b>Província:</b><span ng-if="data.healthFacilityInfo.province">&nbsp;{{ data.healthFacilityInfo.province }}&nbsp;&nbsp;&nbsp;</span><span ng-if="!data.healthFacilityInfo.province">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <b>Distrito:</b><span ng-if="data.healthFacilityInfo.district">&nbsp;{{ data.healthFacilityInfo.district }}&nbsp;&nbsp;&nbsp;</span><span ng-if="!data.healthFacilityInfo.district">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <b>Unidade Sanitária:</b> {{ data.healthFacilityInfo.name }}
+            <br>
+            &nbsp;&nbsp;<b>Nome Completo:</b> {{ data.patientInfo.firstName }}&nbsp;&nbsp;{{ data.patientInfo.lastName }}
+            <span class="align-right"><b>N&deg; de B.I.:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <br>
+            &nbsp;&nbsp;<b>Sexo:</b> {{ data.patientInfo.gender }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Data de nascimento:</b> {{ data.patientInfo.birth_date | date:'dd/MM/yyyy'}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Idade:</b> {{ data.patientInfo.age }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Tel. Cel (1):</b> {{ data.patientInfo.mainContact }}
+            <br>
+            &nbsp;&nbsp;<b>Profissão:</b> {{ data.patientInfo.occupation }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Nível de Escolaridade:</b>&nbsp;<span ng-if="data.patientInfo.education">{{ data.patientInfo.education }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span ng-if="!data.patientInfo.education">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <b>Tel. Cel (2):</b>&nbsp;<span ng-if="data.patientInfo.alternativeContact1">{{ data.patientInfo.alternativeContact1 }}</span>
+            <br>
+            &nbsp;&nbsp;<b>MORADA - Distrito / Cidade:</b> {{ data.patientInfo.district }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.patientInfo.district">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <b>{{ 'TOWN' | translate }}:</b> {{ data.patientInfo.town }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.patientInfo.town">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <b>Célula / Quarteirão:</b> {{ data.patientInfo.block }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.patientInfo.block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <br>
+            &nbsp;&nbsp;<b>Avenida / Rua / Casa:</b> {{ data.patientInfo.streetHouse }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.patientInfo.streetHouse">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <b>Perto de:</b> {{ data.patientInfo.closeOf }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td colspan="16"><input type="checkbox"/>Outros, especifique</td>
+        <td colspan="8" class="center">__/__/__</td>
+        <td colspan="8"></td>
+        <td colspan="8"></td>
+    </tr>
+    <tr>
+        <td colspan="1" rowspan="9" class="center"><div style="transform: translateX(0%) translateY(0%) rotate(270deg);">1&ordf;<br>Linha</div></td>
+        <td colspan="39">&nbsp;&nbsp;<b>No início do TARV - TARV - Coorte (Mês/Ano):</b> </td>
+    </tr>
+    <tr>
+        <td colspan="8" rowspan="2" class="center">
+            Data<br>
+            __/__/__
+        </td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Regime ARV inicial de 1&ordf; linha:</b> 
+        </td>
+    </tr>
+    <tr>
+        <td colspan="31">&nbsp;&nbsp;<b>Unidade Sanitária:</b></td>
+    </tr>
+    <tr>
+        <td colspan="8" rowspan="2" class="center">No início<br>TARV</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Gravidez:</b> 
+            <input type="checkbox" class="text-right"/>Sim
+            <input type="checkbox" class="text-right"/>Não
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Lactante:</b>
+            <input type="checkbox" class="text-right"/>Sim
+            <input type="checkbox" class="text-right"/>Não
+        </td>
+    </tr>
+    <tr>
+        <td colspan="31">&nbsp;&nbsp;<b>Estado de OMS:</b> <span></span> <b>CD4 (N° / %):</b></td>
+    </tr>
+    <tr>
+        <td colspan="60" rowspan="4">
+            &nbsp;&nbsp;<u>CONFIDENTE</u> - 
+            <span class="align-right"><b>Tel. Cel (1):</b><span ng-if="data.confident.telephone1"> {{ data.confident.telephone1 }}&nbsp;&nbsp;</span><span ng-if="!data.confident.telephone1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
+            <br>
+            &nbsp;&nbsp;<b>Nome e Parentesco:</b> {{ data.confident.name }}&nbsp;{{ data.confident.surname }}&nbsp;<span ng-if="data.confident.relationship">({{ data.confident.relationship }})</span>
+            <span class="align-right"><b>Tel. Cel (2):</b><span ng-if="data.confident.telephone2"> {{ data.confident.telephone2 }}&nbsp;&nbsp;</span><span ng-if="!data.confident.telephone2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
+            <br>
+            &nbsp;&nbsp;<b>MORADA - Distrito/Cidade:</b> {{ data.confident.district }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.confident.district">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <b>Localidade/Bairro:</b> {{ data.confident.locality }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.confident.locality">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <b>Célula/Quarteirão:</b> {{ data.confident.block }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.confident.block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <br>
+            &nbsp;&nbsp;<b>Avenida / Rua / Casa:</b> {{ data.confident.street }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="!data.confident.street">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <b>Perto de:</b> {{ data.confident.closeOf }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td colspan="39">&nbsp;&nbsp;Alternativas à 1&ordf; linha</td>
+    </tr>
+    <tr>
+        <td colspan="8" class="center">__/__/__</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Novo Regime:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;<b>Motivo:</b>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="8" class="center">__/__/__</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Novo Regime:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;<b>Motivo:</b> 
+        </td>
+    </tr>
+    <tr>
+        <td colspan="8" class="center">__/__/__</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Novo Regime:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;<b>Motivo:</b> 
+        </td>
+    </tr>
+    <tr>
+        <td colspan="28" class="center">Situação da Família</td>
+        <td colspan="4" rowspan="9"></td>
+        <td colspan="28" class="center">Situação da Família</td>
+        <td colspan="1" rowspan="3" class="center"><div style="transform: translateX(0%) translateY(0%) rotate(270deg);">2&ordf;<br>Linha</div></td>
+        <td colspan="39">&nbsp;&nbsp;Mudança para a 2&ordf; linha (ou substituição dentro da 2&ordf; linha)</td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center" style="height: 5px;">Nome</td>
+        <td colspan="2" rowspan="2" class="center" style="width: 10px;">Ida-<br>de</td>
+        <td colspan="2" rowspan="2" class="center text-small">Teste<br>HIV<br>(P/N/D)</td>
+        <td colspan="2" rowspan="2" class="center text-small">Cui-<br>dados<br>HIV<br>(S/N)</td>
+        <td colspan="2" rowspan="2" class="center text-small">Em<br>CCR<br>(S/N/A)</td>
+        <td colspan="6" rowspan="2" class="center" style="width: 10px;">NID</td>
+        <td colspan="14" class="center">Nome</td>
+        <td colspan="2" rowspan="2" class="center" style="width: 10px;">Ida-<br>de</td>
+        <td colspan="2" rowspan="2" class="center text-small">Teste<br>HIV<br>(P/N/D)</td>
+        <td colspan="2" rowspan="2" class="center text-small">Cui-<br>dados<br>HIV<br>(S/N)</td>
+        <td colspan="2" rowspan="2" class="center text-small">Em<br>CCR<br>(S/N/A)</td>
+        <td colspan="6" rowspan="2" class="center" style="width: 10px;">NID</td>
+        <td colspan="8" class="center">__/__/__</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Novo Regime:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;<b>Motivo:</b> 
+        </td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center" style="height: 5px;">Parentesco</td>
+        <td colspan="14" class="center">Parentesco</td>
+        <td colspan="8" class="center">__/__/__</td>
+        <td colspan="31">
+            &nbsp;&nbsp;<b>Novo Regime:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;<b>Motivo:</b> 
+        </td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">{{ data.familySituation[0].name }}<span ng-if="!data.familySituation[0].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td colspan="2" rowspan="2" class="center">
+            {{ data.familySituation[0].age }}
+            <span ng-if="data.familySituation[0].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
+            <span ng-if="data.familySituation[0].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[0].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[0].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[0].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[0].hivCare}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[0].hivCare == false}">N</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[0].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[0].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[0].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
+        </td>
+        <td colspan="6" rowspan="2" class="center">
+            <span ng-if="!data.familySituation[0].nid.left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="data.familySituation[0].nid.left && data.familySituation[0].nid.right">{{ data.familySituation[0].nid.left }}/<br>{{ data.familySituation[0].nid.right }}</span>
+        </td>
+        <td colspan="14" class="center">{{ data.familySituation[3].name }}<span ng-if="!data.familySituation[3].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td colspan="2" rowspan="2" class="center">
+                {{ data.familySituation[3].age }}
+                <span ng-if="data.familySituation[3].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
+                <span ng-if="data.familySituation[3].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
+            </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[3].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[3].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[3].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[3].hivCare}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[3].hivCare == false}">N</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[3].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[3].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[3].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
+        </td>
+        <td colspan="6" rowspan="2" class="center">
+            <span ng-if="!data.familySituation[3].nid.left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="data.familySituation[3].nid.left && data.familySituation[3].nid.right">{{ data.familySituation[3].nid.left }}/<br>{{ data.familySituation[3].nid.right }}</span>
+        </td>
+        <td colspan="39"></td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">{{ data.familySituation[0].relationship }}<span ng-if="!data.familySituation[0].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td colspan="14" class="center">{{ data.familySituation[3].relationship }}<span ng-if="!data.familySituation[3].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td colspan="1" rowspan="3" class="center"><div style="transform: translateX(0%) translateY(0%) rotate(270deg);">3&ordf;<br>Linha</div></td>
+        <td colspan="39">&nbsp;&nbsp;Mudança para a 3&ordf; linha</td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">{{ data.familySituation[1].name }}<span ng-if="!data.familySituation[1].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td colspan="2" rowspan="2" class="center">
+            {{ data.familySituation[1].age }}
+            <span ng-if="data.familySituation[1].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
+            <span ng-if="data.familySituation[1].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[1].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[1].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[1].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[1].hivCare}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[1].hivCare == false}">N</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[1].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[1].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[1].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
+        </td>
+        <td rowspan="2" colspan="6" class="center">
+            <span ng-if="!data.familySituation[1].nid.left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="data.familySituation[1].nid.left && data.familySituation[1].nid.right">{{ data.familySituation[1].nid.left }}/<br>{{ data.familySituation[1].nid.right }}</span>
+        </td>
+        <td colspan="14" class="center">{{ data.familySituation[4].name }}<span ng-if="!data.familySituation[4].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td colspan="2" rowspan="2" class="center">
+            {{ data.familySituation[4].age }}
+            <span ng-if="data.familySituation[4].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
+            <span ng-if="data.familySituation[4].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[4].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[4].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[4].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[4].hivCare}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[4].hivCare == false}">N</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[4].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[4].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[4].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
+        </td>
+        <td rowspan="2" colspan="6" class="center">
+            <span ng-if="!data.familySituation[4].nid.left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="data.familySituation[4].nid.left && data.familySituation[4].nid.right">{{ data.familySituation[4].nid.left }}/<br>{{ data.familySituation[4].nid.right }}</span>
+        </td>
+        <td colspan="8" rowspan="2" class="center">__/__/__</td>
+        <td colspan="31" rowspan="2">
+            &nbsp;&nbsp;<b>Novo Regime:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;<b>Motivo:</b> 
+        </td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">{{ data.familySituation[1].relationship }}<span ng-if="!data.familySituation[1].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td colspan="14" class="center">{{ data.familySituation[4].relationship }}<span ng-if="!data.familySituation[4].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        
+    </tr>
+    <tr>
+        <td colspan="14" class="center">{{ data.familySituation[2].name }}<span ng-if="!data.familySituation[2].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td colspan="2" rowspan="2" class="center">
+            {{ data.familySituation[2].age }}
+            <span ng-if="data.familySituation[2].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
+            <span ng-if="data.familySituation[2].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[2].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[2].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[2].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[2].hivCare}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[2].hivCare == false}">N</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[2].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[2].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[2].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
+        </td>
+        <td rowspan="2" colspan="6" class="center">
+            <span ng-if="!data.familySituation[2].nid.left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="data.familySituation[2].nid.left && data.familySituation[2].nid.right">{{ data.familySituation[2].nid.left }}/<br>{{ data.familySituation[2].nid.right }}</span>
+        </td>
+        <td colspan="14" class="center">{{ data.familySituation[5].name }}<span ng-if="!data.familySituation[5].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td colspan="2" rowspan="2" class="center">
+            {{ data.familySituation[5].age }}
+            <span ng-if="data.familySituation[5].ageType == 'CONFIDENT_AGE_TYPE_YEARS'">A</span>
+            <span ng-if="data.familySituation[5].ageType == 'CONFIDENT_AGE_TYPE_MONTHS'">M</span>
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[5].hivTest === 'CONFIDENT_HIV_POSITIVE'}">P</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[5].hivTest === 'CONFIDENT_HIV_NEGATIVE'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[5].hivTest === 'CONFIDENT_UNKNOWN'}">D</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[5].hivCare}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[5].hivCare == false}">N</span>&nbsp;
+        </td>
+        <td colspan="2" rowspan="2" class="center">
+            <span ng-class="{'circleSelect': data.familySituation[5].ccr === 'CONFIDENT_YES'}">S</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[5].ccr === 'CONFIDENT_NO'}">N</span>&nbsp;
+            <span ng-class="{'circleSelect': data.familySituation[5].ccr === 'CONFIDENT_DISCHARGED'}">A</span>&nbsp;
+        </td>
+        <td rowspan="2" colspan="6" class="center">
+            <span ng-if="!data.familySituation[5].nid.left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="data.familySituation[5].nid.left && data.familySituation[5].nid.right">{{ data.familySituation[5].nid.left }}/<br>{{ data.familySituation[5].nid.right }}</span>
+        </td>
+        <td colspan="40" class="center">Mudanças no Estado de Permanência TARV</td>
+    </tr>
+    <tr>
+        <td colspan="14" class="center">{{ data.familySituation[2].relationship }}<span ng-if="!data.familySituation[2].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td colspan="14" class="center">{{ data.familySituation[5].relationship }}<span ng-if="!data.familySituation[5].name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td colspan="9" rowspan="2" class="center">Suspensões ou<br> Abandonos</td>
+        <td colspan="8" rowspan="2">
+            <div><input type="checkbox"/>Suspensão</div>
+            <div><input type="checkbox"/>Abandono</div>
+        </td>
+        <td colspan="8" rowspan="2">
+            <div><input type="checkbox"/>Suspensão</div>
+            <div><input type="checkbox"/>Abandono</div>
+        </td>
+        <td colspan="8" rowspan="2">
+            <div><input type="checkbox"/>Suspensão</div>
+            <div><input type="checkbox"/>Abandono</div>
+        </td>
+        <td colspan="8" rowspan="2">
+            <div><input type="checkbox"/>Suspensão</div>
+            <div><input type="checkbox"/>Abandono</div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="10" class="center">Data</td>
+        <td colspan="50" class="center">Cuidados de HIV</td>
+    </tr>
+    <tr>
+        <td colspan="10" class="center">
+            <span ng-if="!data.patientInfo.dateofHIVDiagnosis">__/__/__</span>
+            <span ng-if="data.patientInfo.dateofHIVDiagnosis">{{ data.patientInfo.dateofHIVDiagnosis | date:'dd/MM/yy'}}</span>
+        </td>
+        <td colspan="50">
+            &nbsp;&nbsp;<b>Teste HIV+:</b>
+            <input type="checkbox" ng-checked="data.hivTest.testType ==='Rápido'">TR
+            <input type="checkbox" ng-checked="data.hivTest.testType ==='PCR'">PCR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Unidade Sanitária:</b> {{ data.hivTest.healthFacilityName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span ng-if="!data.healthFacilityInfo.name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <input type="checkbox" ng-checked="data.hivTest.sector === 'ATSC'">&nbsp;<b>ATSC</b>
+        </td>
+        <td colspan="9" rowspan="2" class="center">&nbsp;&nbsp;Data</td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="10" class="center">
+            <span ng-if="data.hivTest.testType != 'Diagnóstico Presuntivo'">__/__/__</span>
+            <span ng-if="data.hivTest.testType ==='Diagnóstico Presuntivo'">{{ data.patientInfo.dateofHIVDiagnosis | date:'dd/MM/yy'}}</span>
+        </td>
+        <td colspan="50">
+            <input type="checkbox" ng-checked="data.hivTest.testType ==='Diagnóstico Presuntivo'">Diagnóstico presuntivo em crianças &lt; 18 meses
+        </td>
+    </tr>
+    <tr>
+        <td colspan="10" class="center">
+            <span ng-if="data.hivTest.testType !='Diagnóstico Presuntivo'">__/__/__</span>
+            <span ng-if="data.hivTest.testType ==='Diagnóstico Presuntivo'">{{ data.patientInfo.dateofHIVDiagnosis | date:'dd/MM/yy'}}</span>
+        </td>
+        <td colspan="50">
+            &nbsp;&nbsp;<b>Início Pré-TARV</b>&nbsp;&nbsp;&nbsp;- U. Sanitária: <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sector:</b> <input type="checkbox"/>TB
+            <input type="checkbox"/>SAAJ
+            <input type="checkbox"/>CPN/G
+            <input type="checkbox"/>CCR/L
+            <input type="checkbox"/>Clínica
+        </td>
+        <td colspan="9" rowspan="2" class="center">&nbsp;&nbsp;Motivo</td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="60" >
+            <input type="checkbox" ng-checked="data.transference.healthFacilityName"/><b>Transferido de outra US: </b>
+            <span ng-if="data.transference.healthFacilityName">{{ data.transference.date | date:'dd/MM/yy' }}</span><span ng-if="!data.transference.date">__/__/__</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Unidade Sanitária:</b>&nbsp;{{ data.transference.healthFacilityName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" ng-checked="data.patientInfo.patientStatus[0] === 'Pre TARV'"/>Em Pré-TARV
+            <input type="checkbox" ng-checked="data.patientInfo.patientStatus[0] != 'Pre TARV'"/>TARV
+        </td>
+    </tr>
+    <tr>
+        <td colspan="28" class="center">Alergias a medicamentos</td>
+        <td colspan="1" class="center">Data</td>
+        <td colspan="31" class="center">Condições médicas importantes</td>
+        <td colspan="9" rowspan="2" class="center"><input type="checkbox"/><br>Reinício - Data</td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+        <td colspan="8" rowspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="28">{{ data.allergyHistory[0].name }}</td>
+        <td colspan="1" class="center">
+            <span ng-if="!data.allergyHistory[0].date">__/__/__</span>
+            <span>{{ data.allergyHistory[0].date | date:'dd/MM/yy' }}</span>
+        </td>
+        <td colspan="9">
+            <input type="checkbox" ng-checked="data.medicalConditions.hepatitis"/>Hepatite
+            <span ng-if="!data.medicalConditions.hepatitis">__/__/__</span>
+            <span ng-if="data.medicalConditions.hepatitis">{{data.medicalConditions.hepatitis | date:'dd/MM/yy'}}</span>
+        </td>
+        <td colspan="13"><input type="checkbox" ng-checked="data.medicalConditions.tb"/>TB
+            <span ng-if="!data.medicalConditions.tb">__/__/__</span>
+            <span ng-if="data.medicalConditions.tb">{{data.medicalConditions.tb | date:'dd/MM/yy'}}</span>
+        </td>
+        <td colspan="10">
+            <input type="checkbox" ng-checked="data.medicalConditions.criptococose"/>Criptococose 
+            <span ng-if="!data.medicalConditions.criptococose">__/__/__</span>
+            <span ng-if="data.medicalConditions.criptococose">{{data.medicalConditions.criptococose | date:'dd/MM/yy'}}</span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="28">{{ data.allergyHistory[1].name }}</td>
+        <td colspan="1" class="center">
+            <span ng-if="!data.allergyHistory[1].date">__/__/__</span>
+            <span>{{ data.allergyHistory[1].date | date:'dd/MM/yy' }}</span>
+        </td>
+        <td colspan="9"><input type="checkbox" ng-checked="data.medicalConditions.diabetes"/>Diabetes
+            <span ng-if="!data.medicalConditions.diabetes">__/__/__</span>
+            <span ng-if="data.medicalConditions.diabetes">{{data.medicalConditions.diabetes | date:'dd/MM/yy'}}</span>
+        </td>
+        <td colspan="13"><input type="checkbox" ng-checked="data.medicalConditions.hta"/>HTA
+            <span ng-if="!data.medicalConditions.hta">__/__/__</span>
+            <span ng-if="data.medicalConditions.hta">{{data.medicalConditions.hta | date:'dd/MM/yy'}}</span>
+        </td>
+        <td colspan="10"><input type="checkbox" ng-checked="data.medicalConditions.kaposi"/>S. Kaposi
+            <span ng-if="!data.medicalConditions.kaposi">__/__/__</span>
+            <span ng-if="data.medicalConditions.kaposi">{{data.medicalConditions.kaposi | date:'dd/MM/yy'}}</span>
+        </td>
+        <td colspan="9"></td>
+        <td colspan="8" class="center">Data</td>
+        <td colspan="24"></td>
+    </tr>
+    <tr>
+        <td colspan="28">{{ data.allergyHistory[2].name }}</td>
+        <td colspan="1" class="center">
+            <span ng-if="!data.allergyHistory[2].date">__/__/__</span>
+            <span>{{ data.allergyHistory[2].date | date:'dd/MM/yy' }}</span>
+        </td>
+        <td colspan="31" rowspan="2" style="width: 50px"><input type="checkbox" ng-checked="data.medicalConditions.other.name"/>
+            <span ng-if="!data.medicalConditions.other.name">Outras (Especifique / Data) __/__/__</span>
+            <span ng-if="data.medicalConditions.other.name">Outras ({{data.medicalConditions.other.name}}</span>
+            <span ng-if="data.medicalConditions.other.date">/&nbsp;{{data.medicalConditions.other.date | date:'dd/MM/yy'}})</span>
+        </td>
+        <td colspan="9" rowspan="2" class="center">
+            <input type="checkbox" ng-checked="data.transferOut.healthFacilityName"/><br>Transferido para
+        </td>
+        <td colspan="8" rowspan="2" class="center">
+            <span ng-if="!data.transferOut.date">__/__/__</span>
+            <span ng-if="data.transferOut.date">{{data.transferOut.date | date:'dd/MM/yy'}}</span>
+        </td>
+        <td colspan="24" rowspan="2">&nbsp;&nbsp;<b>Unidade Sanitária:</b>&nbsp;{{data.transferOut.healthFacilityName}}</td>
+    </tr>
+    <tr>
+        <td colspan="28">{{ data.allergyHistory[3].name }}</td>
+        <td colspan="1" class="center">
+            <span ng-if="!data.allergyHistory[3].date">__/__/__</span>
+            <span>{{ data.allergyHistory[3].date | date:'dd/MM/yy' }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="29">
+            &nbsp;&nbsp;<b>Último CD4</b> (Valor/Data)
+            <span class="align-right">
+                <span ng-if="data.labOrderResult.LO_CD4.testResult">{{data.labOrderResult.LO_CD4.testResult}} %</span>&nbsp;&nbsp;
+                <span ng-if="!data.labOrderResult.LO_CD4.testDate">__/__/__</span>
+                <span ng-if="data.labOrderResult.LO_CD4.testDate">{{ data.labOrderResult.LO_CD4.testDate | date:'dd/MM/yy' }}</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+        </td>
+        <td colspan="31" rowspan="2">
+            &nbsp;&nbsp;<b>Última Profilaxia Isoniazida</b> (Data de início):&nbsp;
+            <span ng-if="!data.patientInfo.INH_start">__/__/__</span>
+            <span ng-if="data.patientInfo.INH_start">{{ data.patientInfo.INH_start | date:'dd/MM/yy' }}</span>
+            <br>
+            &nbsp;&nbsp;<b>Última Profilaxia Isoniazida</b> (Data de fim):&nbsp;
+            <span ng-if="!data.patientInfo.INH_end">&nbsp;&nbsp;&nbsp;__/__/__</span>
+            <span ng-if="data.patientInfo.INH_end">{{ data.patientInfo.INH_end | date:'dd/MM/yy' }}</span>
+        </td>
+        <td colspan="9" rowspan="2" class="center"><input type="checkbox" ng-checked="data.patientInfo.deathDate"/><br>Óbito</td>
+        <td colspan="8" rowspan="2" class="center">
+            <span ng-if="!data.patientInfo.deathDate">__/__/__</span>
+            <span>{{ data.patientInfo.deathDate | date:'dd/MM/yy' }}</span>
+        </td>
+        <td colspan="24" rowspan="2" style="width: 50px;">&nbsp;&nbsp;{{ data.patientInfo.causeOfDeath }}</td>
+    </tr>
+    <tr>
+        <td colspan="29">
+            &nbsp;&nbsp;<b>Última Carga viral</b> (Valor/Data)
+            <span class="align-right">
+                {{data.labOrderResult.LO_ViralLoad.testResult}}
+                &nbsp;&nbsp;
+                <span ng-if="!data.labOrderResult.LO_ViralLoad.testDate">__/__/__</span>
+                <span ng-if="data.labOrderResult.LO_ViralLoad.testDate">{{data.labOrderResult.LO_ViralLoad.testDate | date:'dd/MM/yy'}}</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+        </td>
+    </tr>
+</table>
