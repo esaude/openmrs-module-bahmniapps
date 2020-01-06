@@ -22,7 +22,7 @@ angular.module('bahmni.clinical')
                         if (drugOrdersData[i].uuid === activeAndScheduledDrugOrders[j].drug.uuid) {
                             activeAndScheduledDrugOrders[j].line_treatment = drugOrdersData[i].line_treatment;
                         }
-                    } 
+                    }
                 }
                 createRecentDrugOrderGroup(activeAndScheduledDrugOrders);
             };
