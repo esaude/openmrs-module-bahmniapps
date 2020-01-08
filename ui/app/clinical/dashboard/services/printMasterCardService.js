@@ -1457,20 +1457,6 @@ angular.module('bahmni.clinical')
                                     withCredentials: true
                                 });
                             };
-                            /* $q.all([populateEncounterProvider()]).then(function (response) {
-                                if (response[0] && response[0].data.length > 0) {
-                                    for (var i = 0; i < response[0].data.length; i++) {
-                                        var encounterProvider = response[0].data[i];
-                                        var actualVisit = new Date(encounterProvider.date_created).getFullYear() + '-' + ('0' + (new Date(encounterProvider.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(encounterProvider.date_created).getDate())).slice(-2);
-
-                                        obsTable.forEach(function (obs) {
-                                            if (obs.actualVisitClinical === actualVisit) {
-                                                obs.provider = encounterProvider.given_name + '-' + encounterProvider.family_name;
-                                            }
-                                        });
-                                    }
-                                }
-                            }); */
 
                             var populatePatientStatusStateHist = function () {
                                 var params = {
@@ -1484,23 +1470,6 @@ angular.module('bahmni.clinical')
                                     withCredentials: true
                                 });
                             };
-                            /* $q.all([populatePatientStatusStateHist()]).then(function (response) {
-                                for (var i = 0; i < response[0].data.length; i++) {
-                                    var statusState = response[0].data[i];
-                                    var actualVisit = new Date(statusState.date_created).getFullYear() + '-' + ('0' + (new Date(statusState.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(statusState.date_created).getDate())).slice(-2);
-                                    var lastState = response[0].data[0];
-                                    var lastObs = obsTable[0];
-
-                                    obsTable.forEach(function (obs) {
-                                        if (obs.actualVisitClinical === actualVisit) {
-                                            obs.statusState = statusState.patient_state + '-' + statusState.patient_status;
-                                        } else { obs.statusState = lastState.patient_state + '-' + lastState.patient_status; }
-                                    });
-                                    if (lastObs.statusState.length === 0) {
-                                        lastObs.statusState = lastState.patient_state + '-' + lastState.patient_status;
-                                    }
-                                }
-                            }); */
 
                             var getUpcomingAppointments = function () {
                                 var params = {
@@ -1550,26 +1519,26 @@ angular.module('bahmni.clinical')
                                         if (prescriptions.data && prescriptions.data.length > 0) {
                                             var count = obsTable.length;
                                             prescriptions.data.forEach(function (prescription) {
-                                                for (var i = 0; i < obsTable.length; i++) {
+                                                var obsArr = obsTable.reverse();
+                                                for (var i = 0; i < obsArr.length; i++) {
                                                     var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + ('0' + (new Date(prescription.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
-
                                                     if (prescription.category === 'ARV') {
-                                                        if (actualVisit === obsTable[i].actualVisitClinical) {
-                                                            obsTable[i].prescribedDrugs = {};
-                                                            obsTable[i].prescribedDrugs.dose = prescription.dose;
-                                                            obsTable[i].prescribedDrugs.name = prescription.name;
-                                                            obsTable[i].prescribedDrugs.unit = prescription.unit;
-                                                            obsTable[i].prescribedDrugs.route = prescription.route;
-                                                            obsTable[i].prescribedDrugs.category = prescription.category;
-                                                            obsTable[i].prescribedDrugs.first_arv = prescription.first_arv;
-                                                            obsTable[i].prescribedDrugs.line = prescription.line_treatment;
-                                                            obsTable[i].prescribedDrugs.arv_dispensed = prescription.arv_dispensed;
-                                                            obsTable[i].prescribedDrugs.drug_dispensed = prescription.drug_dispensed;
-                                                            obsTable[i].prescribedDrugs.dispensed_date = prescription.dispensed_date;
-                                                            obsTable[i].prescribedDrugs.dosing = angular.fromJson(prescription.dosing_instructions).instructions;
-                                                            obsTable[i].prescribedDrugs.frequency = prescription.frequency;
-                                                            // break;
-                                                        } else if (i === (count - 1)) {
+                                                        if (obsArr[i].actualVisitClinical === actualVisit) {
+                                                            obsArr[i].prescribedDrugs = {};
+                                                            obsArr[i].prescribedDrugs.dose = prescription.dose;
+                                                            obsArr[i].prescribedDrugs.name = prescription.name;
+                                                            obsArr[i].prescribedDrugs.unit = prescription.unit;
+                                                            obsArr[i].prescribedDrugs.route = prescription.route;
+                                                            obsArr[i].prescribedDrugs.category = prescription.category;
+                                                            obsArr[i].prescribedDrugs.first_arv = prescription.first_arv;
+                                                            obsArr[i].prescribedDrugs.line = prescription.line_treatment;
+                                                            obsArr[i].prescribedDrugs.arv_dispensed = prescription.arv_dispensed;
+                                                            obsArr[i].prescribedDrugs.drug_dispensed = prescription.drug_dispensed;
+                                                            obsArr[i].prescribedDrugs.dispensed_date = prescription.dispensed_date;
+                                                            obsArr[i].prescribedDrugs.dosing = angular.fromJson(prescription.dosing_instructions).instructions;
+                                                            obsArr[i].prescribedDrugs.frequency = prescription.frequency;
+                                                            break;
+                                                        } else if (i === (count - 1) && obsArr[i].actualVisitClinical !== actualVisit) {
                                                             obsTable.push({
                                                                 actualVisitClinical: new Date(prescription.date_created).getFullYear() + '-' + ('0' + (new Date(prescription.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2),
                                                                 prescribedDrugs: {
@@ -1590,13 +1559,13 @@ angular.module('bahmni.clinical')
                                                             });
                                                         }
                                                     } else if (prescription.category !== 'ARV' && prescription.category !== 'Prophylaxis') {
-                                                        if (actualVisit === obsTable[i].actualVisitClinical) {
-                                                            if (obsTable[i].otherPerscribedDrugs) {
-                                                                obsTable[i].otherPerscribedDrugs.push(prescription.name);
+                                                        if (obsArr[i].actualVisitClinical === actualVisit) {
+                                                            if (obsArr[i].otherPerscribedDrugs) {
+                                                                obsArr[i].otherPerscribedDrugs.push(prescription.name);
                                                             }
                                                         } else if (i === (count - 1)) {
-                                                            if (obsTable.otherPerscribedDrugs) {
-                                                                if (actualVisit !== obsTable[i].actualVisitClinical) {
+                                                            if (obsArr[i].otherPerscribedDrugs) {
+                                                                if (obsArr[i].actualVisitClinical !== actualVisit) {
                                                                     obsTable.actualVisitClinical = new Date(prescription.date_created).getFullYear() + '-' + ('0' + (new Date(prescription.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
                                                                 }
                                                                 obsTable.otherPerscribedDrugs.push(prescription.name);
@@ -1674,7 +1643,7 @@ angular.module('bahmni.clinical')
                                 return obsTable;
                             }).then(function (response) {
                                 masterCardModel.patientInfo.clinicalObs = response.slice(0, 12);
-                                masterCardModel.patientInfo.ClinicalFactors = masterCardModel.patientInfo.clinicalObs/* .reverse() */;
+                                masterCardModel.patientInfo.ClinicalFactors = masterCardModel.patientInfo.clinicalObs.reverse();
                             });
 
                             if (masterCardModel.patientInfo.ClinicalFactors.length < 12) {
