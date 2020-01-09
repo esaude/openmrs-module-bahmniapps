@@ -274,7 +274,6 @@
         <colgroup>
             <col class="cells">
         </colgroup>
-
         <tr>
             <th class="th" rowspan="4">
                 {{'MASTERCARD_RECEPTION_LABEL' | translate}}<br>{{'MASTERCARD_RECEPTION_LABEL_PICKED_DRUG' | translate}}
@@ -284,26 +283,26 @@
             </th>
             <th ng-repeat="n in pickupARVDColumn" class="th">
                 <span
-                    ng-class="{'circleSelect': dispensedDrug[n].dispensed}">{{'MASTERCARD_RECEPTION_LABEL_Y' | translate}}&nbsp;&nbsp;</span>
+                    ng-class="{'circleSelect': dispensedDrug[n]}">{{'MASTERCARD_RECEPTION_LABEL_Y' | translate}}&nbsp;&nbsp;</span>
                 <span>&nbsp;&nbsp;{{'MASTERCARD_RECEPTION_LABEL_N' | translate}}</span>
             </th>
         </tr>
         <tr>
             <td class="td">{{'MASTERCARD_RECEPTION_LABEL_DAY' | translate}}</td>
             <td ng-repeat="n in pickupARVDColumn" class="td">
-                <span>{{dispensedDrug[n].dispensed_date | date:'dd'}}</span>
+                <span>{{dispensedDrug[n] | date:'dd'}}</span>
             </td>
         </tr>
         <tr>
             <td class="td">{{'MASTERCARD_RECEPTION_LABEL_MOTH' | translate}}</td>
             <td ng-repeat="n in pickupARVDColumn" class="td">
-                <span>{{dispensedDrug[n].dispensed_date | date:'MM'}}</span>
+                <span>{{dispensedDrug[n] | date:'MM'}}</span>
             </td>
         </tr>
         <tr>
             <td class="td">{{'MASTERCARD_RECEPTION_LABEL_YEAR' | translate}}</td>
             <td ng-repeat="n in pickupARVDColumn" class="td">
-                <span>{{dispensedDrug[n].dispensed_date | date:'yy'}}</span>
+                <span>{{dispensedDrug[n] | date:'yy'}}</span>
             </td>
         </tr>
     </table>

@@ -159,6 +159,30 @@ angular.module('bahmni.clinical')
 
             var patientUuid = '';
             var dispensedDrug = [];
+            var prescribedDrugOrders = [];
+
+            var getDrugLine = function () {
+                var params = {
+                    q: "bahmni.sqlGet.patientPrescriptions",
+                    v: "full",
+                    lang_unit: "pt",
+                    lang_route: "pt",
+                    lang_treatmentLine: "pt",
+                    lang_frequency: "pt",
+                    patientUuid: patientUuid
+                };
+                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                    method: "GET",
+                    params: params,
+                    withCredentials: true
+                });
+            };
+
+            var prescribedDrugOrdes = function () {
+                Promise.all([getDrugLine()]).then(function (data) {
+                    prescribedDrugOrders = data[0].data;
+                });
+            };
 
             var dispenseddrug = function () {
                 $http.get(Bahmni.Common.Constants.dispenseDrugOrderUrl, {
@@ -185,13 +209,41 @@ angular.module('bahmni.clinical')
                             }
                         }
                     }
-                    $rootScope.dispensedDrug = dispensedDrug;
+                    var newDispensedDrugDates = [];
+                    for (let k = 0; k < dispensedDrug.length; k++) {
+                        for (let l = 0; l < prescribedDrugOrders.length; l++) {
+                            if (dispensedDrug[k].uuid === prescribedDrugOrders[l].erp_uuid) {
+                                dispensedDrug[k].duration = prescribedDrugOrders[l].duration;
+                                var currentMonth = dispensedDrug[k].dispensed_date;
+                                var newDate = new Date(dispensedDrug[k].dispensed_date);
+
+                                if (dispensedDrug[k].duration > 30 && dispensedDrug[k].duration <= 90) {
+                                    var secondMonth = newDate.setMonth(1);
+                                    var thirdMonth = newDate.setMonth(2);
+                                    newDispensedDrugDates.push(currentMonth, secondMonth, thirdMonth);
+                                }
+                                if (dispensedDrug[k].duration <= 30) {
+                                    newDispensedDrugDates.push(currentMonth);
+                                }
+                                if (dispensedDrug[k].duration > 90 && dispensedDrug[k].duration <= 180) {
+                                    var secondMonth = newDate.setMonth(1);
+                                    var thirdMonth = newDate.setMonth(2);
+                                    var foutthMonth = newDate.setMonth(3);
+                                    var fifhMonth = newDate.setMonth(4);
+                                    var sixthdMonth = newDate.setMonth(5);
+                                    newDispensedDrugDates.push(currentMonth, secondMonth, thirdMonth, foutthMonth, fifhMonth, sixthdMonth);
+                                }
+                            }
+                        }
+                    }
+                    $rootScope.dispensedDrug = newDispensedDrugDates;
                 });
             };
 
             this.getReportModel = function (_patientUuid) {
                 patientUuid = _patientUuid;
                 return new Promise(function (resolve, reject) {
+                    var p0 = prescribedDrugOrdes();
                     var p1 = populatePatientDemographics();
                     var p2 = populatePatientWeightAndHeight();
                     var p3 = populateLocationAndDrugOrders(0);
@@ -220,7 +272,7 @@ angular.module('bahmni.clinical')
                     var p26 = populateVulPopulation();
                     var p27 = populateClinicalFactors();
 
-                    Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27]).then(function () {
+                    Promise.all([p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27]).then(function () {
                         resolve(masterCardModel);
                     }).catch(function (error) {
                         reject(error);
