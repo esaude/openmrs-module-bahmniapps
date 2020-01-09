@@ -716,9 +716,9 @@
 					</div>
 				</td>
 				<td colspan="11" class="center"><b>Contacto:</b>
-					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type == 'Apss_Agreement_Terms_Type_Contact_Phone_call'">&nbsp;Telefone
-					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type == 'Apss_Agreement_Terms_Type_Contact_SMS'">&nbsp;SMS
-					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type == 'Apss_Agreement_Terms_Type_Contact_House_Visits'">&nbsp;Domiciliar</td>
+					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type_contact.phone == 'Apss_Agreement_Terms_Type_Contact_Phone_call'">&nbsp;Telefone
+					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type_contact.sms == 'Apss_Agreement_Terms_Type_Contact_SMS'">&nbsp;SMS
+					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type_contact.visit == 'Apss_Agreement_Terms_Type_Contact_House_Visits'">&nbsp;Domiciliar</td>
 				<!--<td colspan="3"></td>-->
 				<td colspan="2" class="center" class="center">
 					<b>Data:</b>&nbsp;{{ data.termsOfConsent.caregiverAgreement.date | date:'dd/MM/yy' }} 
@@ -731,9 +731,9 @@
 					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.agrees == 'Apss_Agreement_Terms_Confidant_agrees_contacted_Yes'">Sim&nbsp;&nbsp; 
 				</td>
 				<td colspan="11" class="center"><b>Contacto:</b>
-					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Phone_call'">&nbsp;Telefone 
-					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_SMS'">&nbsp;SMS 
-					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Visits'">&nbsp;Domiciliar</td>
+					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type_contact.phone == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Phone_call'">&nbsp;Telefone 
+					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type_contact.sms == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_SMS'">&nbsp;SMS 
+					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type_contact.visit == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Visits'">&nbsp;Domiciliar</td>
 				<!--<td colspan="3"></td>-->
 				<td colspan="2" class="center">
 					<b>Data:</b>&nbsp;{{ data.termsOfConsent.confidantAgreement.date | date:'dd/MM/yy' }} 
