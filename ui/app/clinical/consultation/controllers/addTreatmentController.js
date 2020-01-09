@@ -545,8 +545,10 @@ angular.module('bahmni.clinical')
                 var drugOrderRelationShip = {};
                 drugOrderRelationShip.drugUuid = $scope.treatment.drug.uuid;
                 drugOrderRelationShip.categoryUuid = $scope.selectedCategory.uuid;
-                if ($scope.selectedTreatmentLine == null || $scope.selectedTreatmentLine == "" || $scope.selectedTreatmentLine === undefined) {
-                    drugOrderRelationShip.treatmentLineUuid = "e53fd4bf-b89c-4f97-9c82-120038ea435c";
+                console.log($scope.selectedTreatmentLine);
+                if ($scope.selectedTreatmentLine == null || $scope.selectedTreatmentLine == "" || $scope.selectedTreatmentLine === undefined || $scope.selectedTreatmentLine.uuid === "e53fd4bf-b89c-4f97-9c82-120038ea435c"
+                ) {
+                    drugOrderRelationShip.treatmentLineUuid = "f2355233-c552-4cd6-802f-0c7c75221f03";
                 } else {
                     drugOrderRelationShip.treatmentLineUuid = $scope.selectedTreatmentLine.uuid;
                 }
@@ -677,6 +679,9 @@ angular.module('bahmni.clinical')
                     $scope.selectedTreatmentLine = treatment.treatmentLine;
                 }
                 $scope.isARV = $scope.selectedCategory.display === "ARV" || $scope.selectedCategory.display === getTranslatedMessage("ARV_KEY");
+                if (drugOrder.drug.form && drugOrder.drug.form === "ARV") {
+                    $scope.isARV = true;
+                }
                 markEitherVariableDrugOrUniformDrug(treatment);
                 treatment.isBeingEdited = true;
                 $scope.treatment = treatment.cloneForEdit(index, treatmentConfig);
