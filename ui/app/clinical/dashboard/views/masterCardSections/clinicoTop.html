@@ -120,7 +120,7 @@
         </tr>
         <tr ng-repeat-start="ps in masterCardData.patientInfo.ClinicalFactors track by $index">
                 <td rowspan="2" style="border-style: solid; border-width: 1px;"></td>
-                <td rowspan="1">{{ ps.actualVisitClinical | date:'d/MM/yy' }}</td>
+                <td rowspan="1">{{ ps.actualVisitClinical | date:'dd/MM/yy' }}</td>
                 <td rowspan="1">{{ ps.ageAtVisit }}</td>
                 <td rowspan="1"><span ng-if="ps.pregnancyYesNo == 'Sim'">G</span> <span ng-if="ps.lastMenstruationDate">/ {{ ps.lastMenstruationDate | date:'d/MM/yy' }}</span> <span ng-if="ps.breastFeeding"> / L</span></td>
                 <td rowspan="1">{{ ps.whoStaging }}</td>
@@ -170,7 +170,7 @@
                 <td rowspan="2" style="transform:rotate(-90deg); font-size: 7px"> {{ps.provider}}</td>
               </tr>
               <tr style="border-style: solid dashed solid solid; border-width: 1px;">
-                <td><span ng-if="ps.nextVisitClinical">{{ ps.nextVisitClinical | date:'d/MM/yy' }}</span><span ng-if="!ps.nextVisitClinical">_/_/_</span></td>
+                <td><span ng-if="ps.nextVisitClinical">{{ ps.nextVisitClinical | date:'dd/MM/yy' }}</span><span ng-if="!ps.nextVisitClinical">_/_/_</span></td>
                 <td><span ng-if="ps.bloodPressureSystolicVitalS || ps.bloodPressureDiastolicVSNew">{{ps.bloodPressureSystolicVitalS}}/{{ps.bloodPressureDiastolicVSNew}}</span></td>
                 <td>
                  <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_PRES_Condom_button_Yes')===true">PRES</span>
@@ -184,7 +184,7 @@
                   <span ng-if="ps.familyPlanningMethods.includes('Family_Planning_Contraceptive_Methods_OUT_Other_button_Yes') ">Outro</span>
                 </td>
                 <td>{{ ps.infantsOdemaProphylaxis }}</td>
-                <td><span ng-if='masterCardData.patientInfo.age> 5'>{{ ps.height/100 }}</span><span ng-if='masterCardData.patientInfo.age < 5 || masterCardData.patientInfo.age === 5 '>{{ ps.height }}</span></td>
+                <td><span ng-if='ps.height && masterCardData.patientInfo.age > 5'>{{ ps.height/100 }}</span><span ng-if='ps.height && masterCardData.patientInfo.age < 5 || masterCardData.patientInfo.age === 5 '>{{ ps.height }}</span></td>
                 <td>{{ ps.bmi }}</td>
                 <td>{{ ps.nutritionalState }}</td>
                 <td> {{ ps.nutritionalSupplementQt }} {{ps.nutritionalSupplementMeasurementUnit}}</td>
