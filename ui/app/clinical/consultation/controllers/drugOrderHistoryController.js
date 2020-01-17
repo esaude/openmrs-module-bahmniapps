@@ -122,6 +122,7 @@ angular.module('bahmni.clinical')
                     prescribedDrugOrders = data[0];
                     drugOrdersData = data[1].data;
                     createPrescriptionGroups($scope.consultation.activeAndScheduledDrugOrders);
+                    $scope.$apply($scope.consultation.drugOrderGroups);
                 });
             };
             $scope.getOrderReasonConcept = function (drugOrder) {
