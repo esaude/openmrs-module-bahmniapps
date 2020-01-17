@@ -1092,12 +1092,12 @@ angular.module('bahmni.clinical')
                                         if (masterCardModel.patientInfo.age > 5) {
                                             obs.ageAtVisit = new Date(obs.actualVisitClinical).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
                                             if (obs.ageAtVisit > masterCardModel.patientInfo.age) { obs.ageAtVisit = masterCardModel.patientInfo.age; }
-                                            obs.indicator = 'BMI';
+                                            obs.indicator = 'IMC';
                                         } else {
                                             var age = new Date(obs.actualVisitClinical).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
                                             if (age > masterCardModel.patientInfo.age) { age = masterCardModel.patientInfo.age; }
                                             obs.ageAtVisit = age * 12;
-                                            obs.indicator = 'BP';
+                                            obs.indicator = 'PB';
                                         }
                                     });
                                     obsTable.forEach(function (obs) {
