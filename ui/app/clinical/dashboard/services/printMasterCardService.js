@@ -1628,7 +1628,9 @@ angular.module('bahmni.clinical')
                                         if (prescriptions.data && prescriptions.data.length > 0) {
                                             var count = obsTable.length;
                                             var prescDrugsArr = [];
+
                                             prescriptions.data.forEach(function (prescription) {
+                                                var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + ('0' + (new Date(prescription.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
                                                 var obsArr = obsTable.reverse();
                                                 var obsDates = [];
 
@@ -1637,10 +1639,9 @@ angular.module('bahmni.clinical')
                                                 });
 
                                                 for (var i = 0; i < obsArr.length; i++) {
-                                                    var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + ('0' + (new Date(prescription.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
                                                     if (prescription.category === 'ARV') {
                                                         console.log(prescription);
-                                                        if (obsArr[i].actualVisitClinical === actualVisit) {
+                                                        if (actualVisit === obsArr[i].actualVisitClinical) {
                                                             obsArr[i].prescribedDrugs = {};
                                                             obsArr[i].prescribedDrugsArr = [];
                                                             obsArr[i].prescribedDrugs.dose = prescription.dose;
@@ -1656,7 +1657,7 @@ angular.module('bahmni.clinical')
                                                             obsArr[i].prescribedDrugs.dosing = angular.fromJson(prescription.dosing_instructions).instructions;
                                                             obsArr[i].prescribedDrugs.frequency = prescription.frequency;
                                                             prescDrugsArr.push(prescription);
-                                                            console.log(prescDrugsArr);
+                                                            console.log(prescription);
                                                             obsArr[i].prescribedDrugsArr = prescDrugsArr;
                                                             break;
                                                         } else if (i === (count - 1) && obsDates.includes(actualVisit) === false) {
