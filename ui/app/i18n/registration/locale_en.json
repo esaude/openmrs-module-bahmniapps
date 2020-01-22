@@ -233,5 +233,6 @@
   "PA_DEATH": "Death",
   "PA_SUSPENDED": "Suspended",
   "PA_TRANSFERRED": "Transferred Out",
-  "TARV_TREATMENT_SUSPENDED": "TARV - Suspensed"
+  "TARV_TREATMENT_SUSPENDED": "TARV - Suspensed",
+  "NICKNAME_OR_ADDITIONAL_IDS": "NickName/Additional IDs"
 }
