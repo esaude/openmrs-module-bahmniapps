@@ -195,7 +195,7 @@
                 <td>{{ ps.stiDiagnosisProphylaxis }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIM }}&nbsp;&nbsp;&nbsp;{{ ps.syndromicApproachSTIF }} </td>
           
                 <td><span ng-if="ps.cd4Req === true">PEDIDO</span>{{ps.CD4}}</td>
-                <td>{{ps.prescribedDrugs.name}}</td>
+                <td> <span ng-repeat="ar in ps.otherARV track by $index"> {{ar}}</span></td>
                 <td>N/A</td>
                 <td><span ng-class="{'circleSelect':ps.tarvAdherence.name==='Good_ana'}">B</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.tarvAdherence.name === 'Risk_ana'}">R</span>&nbsp;&nbsp;&nbsp; <span ng-class="{'circleSelect':ps.tarvAdherence.name === 'Bad_ana'}">M</span></td>
           

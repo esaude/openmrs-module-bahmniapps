@@ -110,7 +110,8 @@ angular.module('bahmni.clinical')
                     apssPatientCaregiverAgreement: '',
                     apssConfidantAgreement: '',
                     deathDate: '',
-                    causeOfDeath: ''
+                    causeOfDeath: '',
+                    ARVarr: []
                 },
                 healthFacilityInfo: {
                     name: '',
@@ -942,7 +943,8 @@ angular.module('bahmni.clinical')
                                     ageAtVisit: '',
                                     otherPerscribedDrugs: [],
                                     otherCondition: [],
-                                    provider: ''
+                                    provider: '',
+                                    otherARV: []
                                 };
 
                                 if (obsTable.length === 0) {
@@ -1400,12 +1402,12 @@ angular.module('bahmni.clinical')
                                                 if (masterCardModel.patientInfo.age > 5) {
                                                     obs.ageAtVisit = new Date(obs.actualVisitClinical).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
                                                     if (obs.ageAtVisit > masterCardModel.patientInfo.age) { obs.ageAtVisit = masterCardModel.patientInfo.age; }
-                                                    obs.indicator = 'BMI';
+                                                    obs.indicator = 'IMC';
                                                 } else {
                                                     var age = new Date(obs.actualVisitClinical).getFullYear() - new Date(masterCardModel.patientInfo.birth_date).getFullYear();
                                                     if (age > masterCardModel.patientInfo.age) { age = masterCardModel.patientInfo.age; }
                                                     obs.ageAtVisit = age * 12;
-                                                    obs.indicator = 'BP';
+                                                    obs.indicator = 'PB';
                                                 }
                                             });
                                             obsTable.forEach(function (obs) {
@@ -1627,9 +1629,9 @@ angular.module('bahmni.clinical')
                                     response.forEach(function (prescriptions) {
                                         if (prescriptions.data && prescriptions.data.length > 0) {
                                             var count = obsTable.length;
-                                            var prescDrugsArr = [];
 
                                             prescriptions.data.forEach(function (prescription) {
+                                                masterCardModel.patientInfo.ARVarr.push(prescription);
                                                 var actualVisit = new Date(prescription.date_created).getFullYear() + '-' + ('0' + (new Date(prescription.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
                                                 var obsArr = obsTable.reverse();
                                                 var obsDates = [];
@@ -1640,7 +1642,6 @@ angular.module('bahmni.clinical')
 
                                                 for (var i = 0; i < obsArr.length; i++) {
                                                     if (prescription.category === 'ARV') {
-                                                        console.log(prescription);
                                                         if (actualVisit === obsArr[i].actualVisitClinical) {
                                                             obsArr[i].prescribedDrugs = {};
                                                             obsArr[i].prescribedDrugsArr = [];
@@ -1656,9 +1657,6 @@ angular.module('bahmni.clinical')
                                                             obsArr[i].prescribedDrugs.dispensed_date = prescription.dispensed_date;
                                                             obsArr[i].prescribedDrugs.dosing = angular.fromJson(prescription.dosing_instructions).instructions;
                                                             obsArr[i].prescribedDrugs.frequency = prescription.frequency;
-                                                            prescDrugsArr.push(prescription);
-                                                            console.log(prescription);
-                                                            obsArr[i].prescribedDrugsArr = prescDrugsArr;
                                                             break;
                                                         } else if (i === (count - 1) && obsDates.includes(actualVisit) === false) {
                                                             obsTable.push({
@@ -1688,9 +1686,9 @@ angular.module('bahmni.clinical')
                                                         } else if (i === (count - 1)) {
                                                             if (obsArr[i].otherPerscribedDrugs) {
                                                                 if (obsDates.includes(actualVisit) === false) {
-                                                                    obsTable.actualVisitClinical = new Date(prescription.date_created).getFullYear() + '-' + ('0' + (new Date(prescription.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
+                                                                    obsArr[i].actualVisitClinical = new Date(prescription.date_created).getFullYear() + '-' + ('0' + (new Date(prescription.date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(prescription.date_created).getDate())).slice(-2);
                                                                 }
-                                                                obsTable.otherPerscribedDrugs.push(prescription.name);
+                                                                obsArr[i].otherPerscribedDrugs.push(prescription.name);
                                                             }
                                                         }
                                                     }
@@ -1762,7 +1760,23 @@ angular.module('bahmni.clinical')
                                         }
                                     }
                                 });
-                                console.log(obsTable);
+
+                                obsTable.forEach(function (obs) {
+                                    if (masterCardModel.patientInfo.ARVarr) {
+                                        var allARVarr = masterCardModel.patientInfo.ARVarr;
+                                        var allARV = [];
+                                        for (var i = 0; i <= allARVarr.length; i++) {
+                                            if (allARVarr[i] !== undefined) {
+                                                var drugDate = (new Date(allARVarr[i].date_created).getFullYear() + '-' + ('0' + (new Date(allARVarr[i].date_created).getMonth() + 1)).slice(-2) + '-' + ('0' + (new Date(allARVarr[i].date_created).getDate())).slice(-2));
+                                                if (obs.actualVisitClinical === drugDate) {
+                                                    allARV.push(allARVarr[i].name);
+                                                    obs.otherARV = allARV;
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+
                                 return obsTable;
                             }).then(function (response) {
                                 masterCardModel.patientInfo.clinicalObs = response.slice(0, 12);
