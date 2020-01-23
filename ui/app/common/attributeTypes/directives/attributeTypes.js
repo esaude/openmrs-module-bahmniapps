@@ -118,7 +118,18 @@ angular.module('bahmni.common.attributeTypes', []).directive('attributeTypes', [
                 }
             };
 
+            $scope.onOccupationChange = function (object) {
+                if (object === '') {
+                    $rootScope.hasOtherOccupation = false;
+                }
+            };
+
             $scope.hideSuggestions = function (object) {
+                if (object.description === 'Outra' || object.description === 'Other') {
+                    $rootScope.hasOtherOccupation = true;
+                } else {
+                    $rootScope.hasOtherOccupation = false;
+                }
                 $scope.targetModel[$scope.attribute.name] = object;
                 $scope.targetModel[$scope.attribute.name].value = object.description;
                 $scope.targetModel[$scope.attribute.name].conceptUuid = object.conceptId;

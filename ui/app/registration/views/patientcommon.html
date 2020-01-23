@@ -349,6 +349,17 @@
                     </article>
                 </section>
 
+                <section class="form-field-inline clearfix"
+                         ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">
+                    <article class="form-field" ng-repeat="attribute in ::attributeRow"
+                             ng-class="::{'right-form-field' : $index%2 != 0}" ng-if="attribute.name === 'PATIENT_OTHER_OCCUPATION'">
+                        <attribute-types target-model="patient" attribute="::attribute" ng-hide="!hasOtherOccupation"
+                                         field-validation="::fieldValidation" is-auto-complete="isAutoComplete"
+                                         get-auto-complete-list="getAutoCompleteList" get-data-results="getDataResults"
+                                         is-read-only="isReadOnly" handle-update="handleUpdate">
+                        </attribute-types>
+                    </article>
+                </section>
             </section>
         </section>
 

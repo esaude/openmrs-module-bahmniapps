@@ -1,4 +1,4 @@
-<div class="field-attribute" ng-if = "attribute.name != 'NICK_NAME'">
+<div class="field-attribute" ng-if = "attribute.name != 'NICK_NAME' && attribute.name != 'PATIENT_OTHER_OCCUPATION'">
     <label for="{{::attribute.name | translate}}">{{::attribute.description | translate}} <span ng-show="isForm">:</span>
 
         <span class="asterick" ng-show="{{::attribute.required}}">*</span></label>
@@ -14,7 +14,7 @@
 
             <input data-ng-switch-default
                    ng-if = "attribute.name != 'NICK_NAME' && attribute.name != 'PRIMARY_CONTACT_NUMBER_1' && attribute.name != 'ALTERNATIVE_CONTACT_NUMBER_1' &&
-                   attribute.name != 'ALTERNATIVE_CONTACT_NUMBER_2'"
+                   attribute.name != 'ALTERNATIVE_CONTACT_NUMBER_2' && attribute.name != 'PATIENT_OTHER_OCCUPATION'"
                    type="text" pattern-validate id="{{::attribute.name}}"
                    ng-model="targetModel[attribute.name]" data-item-type="personAttribute"
                    ng-disabled="::isReadOnly(attribute.name)" ng-required="{{::attribute.required}}" ng-blur="::handleUpdate(attribute.name)">
@@ -45,8 +45,9 @@
     <div class="left" data-ng-switch-when="org.openmrs.Concept" ng-if="attribute.name == 'PATIENT_OCCUPATION'" style="position: absolute">
         <input type="text" autocomplete="off"
                class="ui-autocomplete-input"
-               id="{{::attribute.name}}"
+               id="patient_occupation_id"
                name="{{::attribute.name}}"
+               ng-change="onOccupationChange(targetModel[attribute.name].value)"
                ng-model="targetModel[attribute.name].value"
                ng-keyup="suggest(targetModel[attribute.name])"
                ng-blur="validateField(false,attribute.name)"
@@ -59,6 +60,15 @@
                 <a class="ui-corner-all" tabindex="-1">{{info.description}}</a>
             </li>
         </ul>
+    </div>
+
+    <div class="field-attribute" data-ng-switch-when="java.lang.String" ng-if="attribute.name == 'PATIENT_OTHER_OCCUPATION'">
+        <label>{{::attribute.description | translate}}</label>
+        <input type="text" autocomplete="off"
+               class="ui-autocomplete-input"
+               name="{{::attribute.name}}"
+               ng-model="targetModel[attribute.name]"
+               ng-style="{'border': borderColor}">
     </div>
 
     <div class="left" data-ng-switch-when="org.openmrs.Concept" ng-if="attribute.name == 'CAUSE_OF_DEATH'" style="position: absolute">
@@ -90,7 +100,6 @@
                ng-model="targetModel[attribute.name]"
                ng-style="{'border': borderColor}">
     </div>
-
 
     <div class="left" data-ng-switch-when="org.openmrs.Concept" ng-if="attribute.name != 'LOCATION_OF_TEST' && attribute.name != 'SECTOR_SELECT' && attribute.name != 'PATIENT_OCCUPATION' && attribute.name != 'TYPE_OF_REGISTRATION' && attribute.name != 'PATIENT_STATUS' && attribute.name != 'PATIENT_STATE_CHANGE'
      && attribute.name != 'CAUSE_OF_DEATH'">
