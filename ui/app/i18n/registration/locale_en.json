@@ -234,6 +234,6 @@
   "PA_SUSPENDED": "Suspended",
   "PA_TRANSFERRED": "Transferred Out",
   "TARV_TREATMENT_SUSPENDED": "TARV - Suspensed",
-  "NICKNAME_OR_ADDITIONAL_IDS": "NickName/Additional IDs",
+  "ADDITIONAL_IDS": "Additional IDs",
   "PATIENT_OTHER_OCCUPATION": "Other Occupation"
 }
