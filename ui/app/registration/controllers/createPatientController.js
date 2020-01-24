@@ -25,6 +25,7 @@ angular.module('bahmni.registration')
             var currentDate = new Date();
             var currentYear = currentDate.getFullYear();
             $scope.NID.year = currentYear;
+            $rootScope.hasOtherOccupation = false;
             var getPersonAttributeTypes = function () {
                 return $rootScope.patientConfiguration.attributeTypes;
             };

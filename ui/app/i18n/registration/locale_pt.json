@@ -208,5 +208,6 @@
     "TARV_RESTART": "TARV - Reinício",
     "Pre TARV":"Pré-TARV",
     "TARV_TREATMENT_SUSPENDED": "TARV-Tratamento Suspenso",
-    "NICKNAME_OR_ADDITIONAL_IDS": "Alcunha/ID Adicional"
+    "NICKNAME_OR_ADDITIONAL_IDS": "Alcunha/ID Adicional",
+    "PATIENT_OTHER_OCCUPATION": "Outra Ocupação"
 }

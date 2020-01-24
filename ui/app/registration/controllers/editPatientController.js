@@ -100,9 +100,14 @@ angular.module('bahmni.registration')
                         $scope.patient.primaryIdentifier.generate();
                     });
                 }
-
                 $scope.openMRSPatient = openmrsPatient["patient"];
                 $scope.patient = openmrsPatientMapper.map(openmrsPatient);
+
+                if ($scope.patient.PATIENT_OCCUPATION) {
+                    if ($scope.patient.PATIENT_OCCUPATION.value === 'Outra' || $scope.patient.PATIENT_OCCUPATION.value === 'Other') {
+                        $rootScope.hasOtherOccupation = true;
+                    }
+                }
                 patientService.getPatientStatusState(uuid).then(function (response) {
                     $scope.patient.patientStatus = response.data[0].patient_status;
                     $scope.patient.patientState = response.data[0].patient_state;
