@@ -12,4 +12,5 @@
        non-blank
        required
 />
-<i class="fa fa-search search-icon-app" aria-hidden="true"></i>
+<i class="fa fa-close" ng-show="patient.length > 0" aria-hidden="true" ng-click="patient = ''" style="cursor: pointer;"></i>
+<i class="fa fa-search search-icon-app" ng-hide="patient.length > 0" aria-hidden="true"></i>

@@ -30,7 +30,8 @@
                            ng-disabled="isEditMode()"
                            required
                     />
-                    <i class="fa fa-search search-icon-app" aria-hidden="true"></i>
+                    <i class="fa fa-search search-icon-app" ng-hide="appointment.patient.label.length > 0" aria-hidden="true"></i>
+                    <i class="fa fa-close search-icon-app" ng-show="appointment.patient.label.length > 0" ng-click="appointment.patient.label = ''" style="cursor: pointer;" aria-hidden="true"></i>
                 </p>
 
                 <p ng-show="enableSpecialities">
