@@ -109,8 +109,11 @@ angular.module('bahmni.clinical')
                     apssDifferentiatedModelsDate: '',
                     apssPatientCaregiverAgreement: '',
                     apssConfidantAgreement: '',
+                    apssStartTARVProvider: '',
                     deathDate: '',
                     causeOfDeath: '',
+                    pastAppointments: [],
+                    upcomingAppointments: [],
                     ARVarr: []
                 },
                 healthFacilityInfo: {
@@ -171,6 +174,56 @@ angular.module('bahmni.clinical')
             var dispensedDrug = [];
             var prescribedDrugOrders = [];
 
+            var populateEncounterProvider = function () {
+                var params = {
+                    q: "bahmni.sqlGet.patientEncounterProvider",
+                    v: "full",
+                    patientUuid: patientUuid
+                };
+                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                    method: "GET",
+                    params: params,
+                    withCredentials: true
+                });
+            };
+
+            var populatePatientStatusStateHist = function () {
+                var params = {
+                    q: "bahmni.sqlGet.getPatientStatusState",
+                    v: "full",
+                    patientUuid: patientUuid
+                };
+                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                    method: "GET",
+                    params: params,
+                    withCredentials: true
+                });
+            };
+
+            var getUpcomingAppointments = function () {
+                var params = {
+                    q: "bahmni.sqlGet.upComingAppointments",
+                    v: "full",
+                    patientUuid: patientUuid
+                };
+                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                    method: "GET",
+                    params: params,
+                    withCredentials: true
+                });
+            };
+            var getPastAppointments = function () {
+                var params = {
+                    q: "bahmni.sqlGet.pastAppointments",
+                    v: "full",
+                    patientUuid: patientUuid
+                };
+                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
+                    method: "GET",
+                    params: params,
+                    withCredentials: true
+                });
+            };
             var getDrugLine = function () {
                 var params = {
                     q: "bahmni.sqlGet.patientPrescriptions",
@@ -253,40 +306,64 @@ angular.module('bahmni.clinical')
             this.getReportModel = function (_patientUuid) {
                 patientUuid = _patientUuid;
                 return new Promise(function (resolve, reject) {
-                    var p0 = prescribedDrugOrdes();
-                    var p1 = populatePatientDemographics();
-                    var p2 = populatePatientWeightAndHeight();
-                    var p3 = populateLocationAndDrugOrders(0);
-                    var p4 = populateHospitalNameAndLogo();
-                    var p5 = populatePatientHeight();
-                    var p6 = populateBMI();
-                    var p7 = populatePriorityPopulation();
-                    var p8 = populateTbDetails();
-                    var p9 = populateTbEndDate();
-                    var p10 = populateTbBackground();
-                    var p11 = populatePreg();
-                    var p12 = populateBrestFeeding();
-                    var p13 = populateWhoStage();
-                    var p14 = populateModels();
-                    var p15 = populateProf();
-                    var p16 = populateLabResult();
-                    var p17 = populateARV();
-                    var p18 = populateARTDetails();
-                    var p19 = populatePatientLabResults();
-                    var p20 = populatePsychosocialFactors();
-                    var p21 = populateConfidentDetails();
-                    var p22 = populateFamilySituation();
-                    var p23 = populateAllergyToMedications();
-                    var p24 = populateMedicalConditions();
-                    var p25 = dispenseddrug();
-                    var p26 = populateVulPopulation();
-                    var p27 = populateClinicalFactors();
+                    var p0 = populateAppointments();
+                    var p1 = prescribedDrugOrdes();
+                    var p2 = populatePatientDemographics();
+                    var p3 = populatePatientWeightAndHeight();
+                    var p4 = populateLocationAndDrugOrders(0);
+                    var p5 = populateHospitalNameAndLogo();
+                    var p6 = populatePatientHeight();
+                    var p7 = populateBMI();
+                    var p8 = populatePriorityPopulation();
+                    var p9 = populateTbDetails();
+                    var p10 = populateTbEndDate();
+                    var p11 = populateTbBackground();
+                    var p12 = populatePreg();
+                    var p13 = populateBrestFeeding();
+                    var p14 = populateWhoStage();
+                    var p15 = populateModels();
+                    var p16 = populateProf();
+                    var p17 = populateLabResult();
+                    var p18 = populateARV();
+                    var p19 = populateARTDetails();
+                    var p20 = populatePatientLabResults();
+                    var p21 = populatePsychosocialFactors();
+                    var p22 = populateConfidentDetails();
+                    var p23 = populateFamilySituation();
+                    var p24 = populateAllergyToMedications();
+                    var p25 = populateMedicalConditions();
+                    var p26 = dispenseddrug();
+                    var p27 = populateVulPopulation();
+                    var p28 = populateClinicalFactors();
 
-                    Promise.all([p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27]).then(function () {
+                    Promise.all([p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28]).then(function () {
                         resolve(masterCardModel);
                     }).catch(function (error) {
                         reject(error);
                     });
+                });
+            };
+
+            var populateAppointments = function () {
+                $q.all([getUpcomingAppointments(), getPastAppointments()]).then(function (response) {
+                    masterCardModel.patientInfo.pastAppointments.apss = [];
+                    masterCardModel.patientInfo.upcomingAppointments.apss = [];
+                    for (let i = 0; i < response[0].data.length; i++) {
+                        if (response[0].data[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'APSS&PP') {
+                            var newDate = response[0].data[i].DASHBOARD_APPOINTMENTS_DATE_KEY.split("/");
+                            masterCardModel.patientInfo.upcomingAppointments.apss.push({
+                                date: newDate[0] + '/' + newDate[1] + '/' + newDate[2].slice(-2)
+                            });
+                        }
+                    }
+                    for (let i = 0; i < response[1].data.length; i++) {
+                        if (response[1].data[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'APSS&PP') {
+                            var newDate = response[1].data[i].DASHBOARD_APPOINTMENTS_DATE_KEY.split("/");
+                            masterCardModel.patientInfo.pastAppointments.apss.push({
+                                date: newDate[0] + '/' + newDate[1] + '/' + newDate[2].slice(-2)
+                            });
+                        }
+                    }
                 });
             };
 
@@ -413,6 +490,7 @@ angular.module('bahmni.clinical')
                 masterCardModel.patientInfo.apssDifferentiatedModelsDate = '';
                 masterCardModel.patientInfo.apssPatientCaregiverAgreement = '';
                 masterCardModel.patientInfo.apssConfidantAgreement = '';
+                masterCardModel.patientInfo.apssStartTARVProvider = '';
                 masterCardModel.termsOfConsent.caregiverAgreement.date = '';
                 masterCardModel.termsOfConsent.caregiverAgreement.agrees = '';
                 masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = '';
@@ -483,6 +561,7 @@ angular.module('bahmni.clinical')
                                         tableStructure.apssAdherenceFollowUpWhoAdministersRelationship = response.data[i].value.shortName;
                                     } else if (response.data[i].concept.name === apssDifferentiatedModelsDate) {
                                         tableStructure.apssDifferentiatedModelsDate = response.data[i].value;
+                                        masterCardModel.patientInfo.apssStartTARVProvider = response.data[i].providers[0].name;
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroupCR) {
                                         tableStructure.referenceSectionSupportGroupCR = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === referenceSectionSupportGroupPC) {
@@ -554,6 +633,7 @@ angular.module('bahmni.clinical')
                                                 obsTable[j].apssAdherenceFollowUpWhoAdministersRelationship = response.data[i].value.shortName;
                                             } else if (response.data[i].concept.name === apssDifferentiatedModelsDate) {
                                                 obsTable[j].apssDifferentiatedModelsDate = response.data[i].value;
+                                                masterCardModel.patientInfo.apssStartTARVProvider = response.data[i].providers[0].name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupCR) {
                                                 obsTable[j].referenceSectionSupportGroupCR = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupPC) {
@@ -623,6 +703,7 @@ angular.module('bahmni.clinical')
                                                 tableStructure.apssAdherenceFollowUpWhoAdministersRelationship = response.data[i].value.shortName;
                                             } else if (response.data[i].concept.name === apssDifferentiatedModelsDate) {
                                                 tableStructure.apssDifferentiatedModelsDate = response.data[i].value;
+                                                masterCardModel.patientInfo.apssStartTARVProvider = response.data[i].providers[0].name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupCR) {
                                                 tableStructure.referenceSectionSupportGroupCR = response.data[i].value.name;
                                             } else if (response.data[i].concept.name === referenceSectionSupportGroupPC) {
@@ -735,9 +816,11 @@ angular.module('bahmni.clinical')
                             }
 
                             for (var l = 0; l < masterCardModel.patientInfo.psychosocialFactors.length; l++) {
-                                if (masterCardModel.patientInfo.psychosocialFactors[l + 1] && (masterCardModel.patientInfo.psychosocialFactors.length - 1) !== l) {
-                                    masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = masterCardModel.patientInfo.psychosocialFactors[l + 1].actualVisit;
-                                } else if ((masterCardModel.patientInfo.psychosocialFactors.length - 1) === l) {
+                                if (masterCardModel.patientInfo.pastAppointments.apss[l] && masterCardModel.patientInfo.pastAppointments.apss[l].date) {
+                                    masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = masterCardModel.patientInfo.pastAppointments.apss[l].date;
+                                } else if (masterCardModel.patientInfo.upcomingAppointments && masterCardModel.patientInfo.upcomingAppointments.apss[0] && (masterCardModel.patientInfo.psychosocialFactors.length - 1) === l) {
+                                    masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = masterCardModel.patientInfo.upcomingAppointments.apss[0].date;
+                                } else {
                                     masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = '__/__/__';
                                 }
                             }
@@ -1556,74 +1639,6 @@ angular.module('bahmni.clinical')
                                 }
                             });
 
-                            var populateEncounterProvider = function () {
-                                var params = {
-                                    q: "bahmni.sqlGet.patientEncounterProvider",
-                                    v: "full",
-                                    patientUuid: patientUuid
-                                };
-                                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
-                                    method: "GET",
-                                    params: params,
-                                    withCredentials: true
-                                });
-                            };
-
-                            var populatePatientStatusStateHist = function () {
-                                var params = {
-                                    q: "bahmni.sqlGet.getPatientStatusState",
-                                    v: "full",
-                                    patientUuid: patientUuid
-                                };
-                                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
-                                    method: "GET",
-                                    params: params,
-                                    withCredentials: true
-                                });
-                            };
-
-                            var getUpcomingAppointments = function () {
-                                var params = {
-                                    q: "bahmni.sqlGet.upComingAppointments",
-                                    v: "full",
-                                    patientUuid: patientUuid
-                                };
-                                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
-                                    method: "GET",
-                                    params: params,
-                                    withCredentials: true
-                                });
-                            };
-                            var getPastAppointments = function () {
-                                var params = {
-                                    q: "bahmni.sqlGet.pastAppointments",
-                                    v: "full",
-                                    patientUuid: patientUuid
-                                };
-                                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
-                                    method: "GET",
-                                    params: params,
-                                    withCredentials: true
-                                });
-                            };
-
-                            var getDrugLine = function () {
-                                var params = {
-                                    q: "bahmni.sqlGet.patientPrescriptions",
-                                    v: "full",
-                                    lang_unit: "pt",
-                                    lang_route: "pt",
-                                    lang_treatmentLine: "pt",
-                                    lang_frequency: "pt",
-                                    patientUuid: patientUuid
-                                };
-                                return $http.get('/openmrs/ws/rest/v1/bahmnicore/sql', {
-                                    method: "GET",
-                                    params: params,
-                                    withCredentials: true
-                                });
-                            };
-
                             $q.all([getDrugLine()]).then(function (response) {
                                 if (response && response.length > 0) {
                                     response.forEach(function (prescriptions) {
@@ -1705,7 +1720,7 @@ angular.module('bahmni.clinical')
 
                                             obsTable.forEach(function (obs) {
                                                 if (obs.actualVisitClinical === actualVisit) {
-                                                    obs.provider = encounterProvider.given_name + '-' + encounterProvider.family_name;
+                                                    obs.provider = encounterProvider.given_name + '-' + encounterProvider.family_name + ' - ';
                                                 }
                                             });
                                         }
@@ -2368,8 +2383,7 @@ angular.module('bahmni.clinical')
 
                         if (arrDate === undefined || arrDate.length === 0) {
                             masterCardModel.patientInfo.modelDate = null;
-                        }
-                        else if (arrDate.length >= 1) {
+                        } else if (arrDate.length >= 1) {
                             var ddate = arrDate.length - 1;
                             masterCardModel.patientInfo.modelDate = arrDate[ddate].observationDateTime;
                         }
