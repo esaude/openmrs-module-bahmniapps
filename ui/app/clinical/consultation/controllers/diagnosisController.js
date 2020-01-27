@@ -61,6 +61,10 @@ angular.module('bahmni.clinical')
                 return diagnosisService.getAllFor(params.term).then(mapConcept);
             };
 
+            $scope.getDiagnosisWithName = function (term) {
+                return diagnosisService.getAllFor(term).then(mapConcept);
+            };
+
             $scope.getConditions = function (params) {
                 return diagnosisService.getAllConditionsFor(params.term).then(mapConcept);
             };
@@ -77,6 +81,22 @@ angular.module('bahmni.clinical')
                     }
                 });
                 return canAdd;
+            };
+
+            $scope.diagnosisEntered = function (diagnosisAtIndex) {
+                $scope.getDiagnosisWithName(diagnosisAtIndex.codedAnswer.name).then(function (data) {
+                    if (data.length > 0) {
+                        var item = data[0];
+                        var concept = item.lookup;
+                        var index = $scope.consultation.newlyAddedDiagnoses.indexOf(diagnosisAtIndex);
+                        var diagnosisBeingEdited = $scope.consultation.newlyAddedDiagnoses[index];
+                        var diagnosis = new Bahmni.Common.Domain.Diagnosis(concept, diagnosisBeingEdited.order,
+                            diagnosisBeingEdited.certainty, diagnosisBeingEdited.existingObs);
+                        if (_canAdd(diagnosis)) {
+                            $scope.consultation.newlyAddedDiagnoses.splice(index, 1, diagnosis);
+                        }
+                    }
+                });
             };
 
             $scope.getAddNewDiagnosisMethod = function (diagnosisAtIndex) {
