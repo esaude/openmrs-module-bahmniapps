@@ -75,8 +75,8 @@
 				<td colspan="15">&nbsp;&nbsp;Educação básica sobre HIV (Prevenção: Transmissão; Progressão<br>&nbsp;&nbsp;da doença) e ADESÃO 
 					(Preparação; Necessidade de adesão; Plano<br>&nbsp;&nbsp;de Tratamento) (S / N)</td> 
 				<td class="center" colspan="2" ng-repeat="n in [1,2,3]">
-					<span ng-class="{'circleSelect': data.patientInfo.apssPreTARVCounselling[$index] === 'Apss_Pre_TARV_counselling_Yes'}">S</span>
-					<span ng-class="{'circleSelect': data.patientInfo.apssPreTARVCounselling[$index] === 'Apss_Pre_TARV_counselling_NO'}">N</span>
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Pre_TARV_counselling_Yes')}">S</span>&nbsp;
+					<span ng-class="{'circleSelect': data.patientInfo.psychosocialFactors[$index].values.includes('Apss_Pre_TARV_counselling_NO')}">N</span>&nbsp;
 				</td>
 				<td colspan="18">Comentários:&nbsp;<span>{{ data.patientInfo.apssPreTARVCounsellingComments }}</span></td>
 			</tr>
@@ -716,9 +716,9 @@
 					</div>
 				</td>
 				<td colspan="11" class="center"><b>Contacto:</b>
-					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type_contact.phone == 'Apss_Agreement_Terms_Type_Contact_Phone_call'">&nbsp;Telefone
-					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type_contact.sms == 'Apss_Agreement_Terms_Type_Contact_SMS'">&nbsp;SMS
-					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type_contact.visit == 'Apss_Agreement_Terms_Type_Contact_House_Visits'">&nbsp;Domiciliar</td>
+					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type_contact.phone == 'Apss_Agreement_Terms_Type_Contact_Phone_call' && data.termsOfConsent.caregiverAgreement.agrees == 'Apss_Agreement_Terms_Patient_Caregiver_agrees_contacted_Yes'">&nbsp;Telefone
+					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type_contact.sms == 'Apss_Agreement_Terms_Type_Contact_SMS' && data.termsOfConsent.caregiverAgreement.agrees == 'Apss_Agreement_Terms_Patient_Caregiver_agrees_contacted_Yes'">&nbsp;SMS
+					<input type="checkbox" ng-checked="data.termsOfConsent.caregiverAgreement.type_contact.visit == 'Apss_Agreement_Terms_Type_Contact_House_Visits' && data.termsOfConsent.caregiverAgreement.agrees == 'Apss_Agreement_Terms_Patient_Caregiver_agrees_contacted_Yes'">&nbsp;Domiciliar</td>
 				<!--<td colspan="3"></td>-->
 				<td colspan="2" class="center" class="center">
 					<b>Data:</b>&nbsp;{{ data.termsOfConsent.caregiverAgreement.date | date:'dd/MM/yy' }} 
@@ -731,9 +731,9 @@
 					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.agrees == 'Apss_Agreement_Terms_Confidant_agrees_contacted_Yes'">Sim&nbsp;&nbsp; 
 				</td>
 				<td colspan="11" class="center"><b>Contacto:</b>
-					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type_contact.phone == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Phone_call'">&nbsp;Telefone 
-					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type_contact.sms == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_SMS'">&nbsp;SMS 
-					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type_contact.visit == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Visits'">&nbsp;Domiciliar</td>
+					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type_contact.phone == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Phone_call' && data.termsOfConsent.confidantAgreement.agrees == 'Apss_Agreement_Terms_Confidant_agrees_contacted_Yes'">&nbsp;Telefone 
+					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type_contact.sms == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_SMS' && data.termsOfConsent.confidantAgreement.agrees == 'Apss_Agreement_Terms_Confidant_agrees_contacted_Yes'">&nbsp;SMS 
+					<input type="checkbox" ng-checked="data.termsOfConsent.confidantAgreement.type_contact.visit == 'Apss_Agreement_Terms_Confidant_agrees_contacted_TC_Visits' && data.termsOfConsent.confidantAgreement.agrees == 'Apss_Agreement_Terms_Confidant_agrees_contacted_Yes'">&nbsp;Domiciliar</td>
 				<!--<td colspan="3"></td>-->
 				<td colspan="2" class="center">
 					<b>Data:</b>&nbsp;{{ data.termsOfConsent.confidantAgreement.date | date:'dd/MM/yy' }} 

@@ -104,7 +104,6 @@ angular.module('bahmni.clinical')
                     fichaClinicaEmpty: [],
                     fichaClinicaNextEmpty: [],
                     psychosocialFactorsOther: '',
-                    apssPreTARVCounselling: [],
                     apssPreTARVCounsellingComments: '',
                     apssDifferentiatedModelsDate: '',
                     apssPatientCaregiverAgreement: '',
@@ -350,17 +349,21 @@ angular.module('bahmni.clinical')
                     masterCardModel.patientInfo.upcomingAppointments.apss = [];
                     for (let i = 0; i < response[0].data.length; i++) {
                         if (response[0].data[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'APSS&PP') {
-                            var newDate = response[0].data[i].DASHBOARD_APPOINTMENTS_DATE_KEY.split("/");
+                            var dateKey = response[0].data[i].DASHBOARD_APPOINTMENTS_DATE_KEY.split("/");
+                            var dateCreated = response[0].data[i].DASHBOARD_APPOINTMENTS_DATE_CREATED.split("/");
                             masterCardModel.patientInfo.upcomingAppointments.apss.push({
-                                date: newDate[0] + '/' + newDate[1] + '/' + newDate[2].slice(-2)
+                                date: dateKey[0] + '/' + dateKey[1] + '/' + dateKey[2].slice(-2),
+                                dateCreated: dateCreated[2] + '-' + dateCreated[1] + '-' + dateCreated[0]
                             });
                         }
                     }
                     for (let i = 0; i < response[1].data.length; i++) {
                         if (response[1].data[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'APSS&PP') {
-                            var newDate = response[1].data[i].DASHBOARD_APPOINTMENTS_DATE_KEY.split("/");
+                            var dateKey = response[1].data[i].DASHBOARD_APPOINTMENTS_DATE_KEY.split("/");
+                            var dateCreated = response[1].data[i].DASHBOARD_APPOINTMENTS_DATE_CREATED.split("/");
                             masterCardModel.patientInfo.pastAppointments.apss.push({
-                                date: newDate[0] + '/' + newDate[1] + '/' + newDate[2].slice(-2)
+                                date: dateKey[0] + '/' + dateKey[1] + '/' + dateKey[2].slice(-2),
+                                dateCreated: dateCreated[2] + '-' + dateCreated[1] + '-' + dateCreated[0]
                             });
                         }
                     }
@@ -486,7 +489,6 @@ angular.module('bahmni.clinical')
                 masterCardModel.patientInfo.psychosocialFactorsActualEmpty = [];
                 masterCardModel.patientInfo.psychosocialFactorsNextEmpty = [];
                 masterCardModel.patientInfo.psychosocialFactorsOther = '';
-                masterCardModel.patientInfo.apssPreTARVCounselling = [];
                 masterCardModel.patientInfo.apssDifferentiatedModelsDate = '';
                 masterCardModel.patientInfo.apssPatientCaregiverAgreement = '';
                 masterCardModel.patientInfo.apssConfidantAgreement = '';
@@ -593,27 +595,78 @@ angular.module('bahmni.clinical')
                                     } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                         tableStructure.referenceMDCSectionOtherComments = response.data[i].value.name;
                                     } else if (response.data[i].concept.name === apssPatientCaregiverAgreement) {
-                                        masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                        if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                            masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                        } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                            masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                            masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                        }
                                     } else if (response.data[i].concept.name === apssAgreementContactType) {
                                         if (response.data[i].value.name === apssATTCPhone) {
                                             masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = response.data[i].value.name;
+                                            if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = response.data[i].value.name;
+                                            } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                                masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = response.data[i].value.name;
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = '';
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = '';
+                                            }
                                         } else if (response.data[i].value.name === apssATTCSMS) {
-                                            masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = response.data[i].value.name;
+                                            if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = response.data[i].value.name;
+                                            } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                                masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = response.data[i].value.name;
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = '';
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = '';
+                                            }
                                         } else if (response.data[i].value.name === apssATTCVisit) {
-                                            masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = response.data[i].value.name;
+                                            if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = response.data[i].value.name;
+                                            } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                                masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = response.data[i].value.name;
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = '';
+                                                masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = '';
+                                            }
                                         }
-                                        masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                     } else if (response.data[i].concept.name === apssConfidantAgreement) {
-                                        masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                        if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                            masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                        } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                            masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                            masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                        }
                                     } else if (response.data[i].concept.name === apssConfidantAgreementContactType) {
                                         if (response.data[i].value.name === apssATCACTPhone) {
-                                            masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = response.data[i].value.name;
+                                            if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = response.data[i].value.name;
+                                            } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                                masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = response.data[i].value.name;
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = '';
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = '';
+                                            }
                                         } else if (response.data[i].value.name === apssATCACTSMS) {
-                                            masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = response.data[i].value.name;
+                                            if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = response.data[i].value.name;
+                                            } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                                masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = response.data[i].value.name;
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = '';
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = '';
+                                            }
                                         } else if (response.data[i].value.name === apssATCACTVisit) {
-                                            masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
+                                            if (masterCardModel.termsOfConsent.confidantAgreement.date && new Date(masterCardModel.termsOfConsent.confidantAgreement.date) === new Date(response.data[i].observationDateTime)) {
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
+                                            } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                                masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = '';
+                                                masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = '';
+                                            }
                                         }
-                                        masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                     } else if (response.data[i].value.name) {
                                         tableStructure.values.push(response.data[i].value.name);
                                     }
@@ -665,27 +718,77 @@ angular.module('bahmni.clinical')
                                             } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                                 obsTable[j].referenceMDCSectionOtherComments = response.data[i].value;
                                             } else if (response.data[i].concept.name === apssPatientCaregiverAgreement) {
-                                                masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                                if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                    masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                                } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                                    masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                                    masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                                }
                                             } else if (response.data[i].concept.name === apssAgreementContactType) {
                                                 if (response.data[i].value.name === apssATTCPhone) {
-                                                    masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = '';
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = '';
+                                                    }
                                                 } else if (response.data[i].value.name === apssATTCSMS) {
-                                                    masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = '';
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = '';
+                                                    }
                                                 } else if (response.data[i].value.name === apssATTCVisit) {
-                                                    masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = '';
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = '';
+                                                    }
                                                 }
-                                                masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                             } else if (response.data[i].concept.name === apssConfidantAgreement) {
-                                                masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                                if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                    masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                                } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                                    masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                                    masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                                }
                                             } else if (response.data[i].concept.name === apssConfidantAgreementContactType) {
                                                 if (response.data[i].value.name === apssATCACTPhone) {
-                                                    masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = '';
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = '';
+                                                    }
                                                 } else if (response.data[i].value.name === apssATCACTSMS) {
-                                                    masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = '';
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = '';
+                                                    }
                                                 } else if (response.data[i].value.name === apssATCACTVisit) {
-                                                    masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.confidantAgreement.date && new Date(masterCardModel.termsOfConsent.confidantAgreement.date) === new Date(response.data[i].observationDateTime)) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = '';
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = '';
+                                                    }
                                                 }
-                                                masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                             } else if (response.data[i].value.name) {
                                                 obsTable[j].values.push(response.data[i].value.name);
                                             }
@@ -735,27 +838,79 @@ angular.module('bahmni.clinical')
                                             } else if (response.data[i].concept.name === referenceMDCSectionOtherComments) {
                                                 tableStructure.referenceMDCSectionOtherComments = response.data[i].value;
                                             } else if (response.data[i].concept.name === apssPatientCaregiverAgreement) {
-                                                masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                                if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                    masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                                } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                                    masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                                    masterCardModel.termsOfConsent.caregiverAgreement.agrees = response.data[i].value.name;
+                                                }
                                             } else if (response.data[i].concept.name === apssAgreementContactType) {
                                                 if (response.data[i].value.name === apssATTCPhone) {
                                                     masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = response.data[i].value.name;
+                                                    masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = '';
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = '';
+                                                    }
                                                 } else if (response.data[i].value.name === apssATTCSMS) {
-                                                    masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = '';
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = '';
+                                                    }
                                                 } else if (response.data[i].value.name === apssATTCVisit) {
-                                                    masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.caregiverAgreement.date && masterCardModel.termsOfConsent.caregiverAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.caregiverAgreement.date) {
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.visit = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.sms = '';
+                                                        masterCardModel.termsOfConsent.caregiverAgreement.type_contact.phone = '';
+                                                    }
                                                 }
-                                                masterCardModel.termsOfConsent.caregiverAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                             } else if (response.data[i].concept.name === apssConfidantAgreement) {
-                                                masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                                if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                    masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                                } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                                    masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                                    masterCardModel.termsOfConsent.confidantAgreement.agrees = response.data[i].value.name;
+                                                }
                                             } else if (response.data[i].concept.name === apssConfidantAgreementContactType) {
                                                 if (response.data[i].value.name === apssATCACTPhone) {
-                                                    masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = '';
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = '';
+                                                    }
                                                 } else if (response.data[i].value.name === apssATCACTSMS) {
-                                                    masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = '';
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = '';
+                                                    }
                                                 } else if (response.data[i].value.name === apssATCACTVisit) {
-                                                    masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
+                                                    if (masterCardModel.termsOfConsent.confidantAgreement.date && new Date(masterCardModel.termsOfConsent.confidantAgreement.date) === new Date(response.data[i].observationDateTime)) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
+                                                    } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
+                                                        masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.sms = '';
+                                                        masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = '';
+                                                    }
                                                 }
-                                                masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].visitStartDateTime.split('T')[0];
                                             } else if (response.data[i].value.name) {
                                                 tableStructure.values.push(response.data[i].value.name);
                                             }
@@ -768,13 +923,6 @@ angular.module('bahmni.clinical')
 
                             masterCardModel.patientInfo.psychosocialFactors = slicedTable.reverse();
                             for (var h = 0; h < masterCardModel.patientInfo.psychosocialFactors.length; h++) {
-                                if (masterCardModel.patientInfo.apssPreTARVCounselling.length < 4) {
-                                    if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssPTCYes)) {
-                                        masterCardModel.patientInfo.apssPreTARVCounselling.push(apssPTCYes);
-                                    } else if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssPTCNo)) {
-                                        masterCardModel.patientInfo.apssPreTARVCounselling.push(apssPTCNo);
-                                    }
-                                }
                                 if (masterCardModel.patientInfo.apssPatientCaregiverAgreement.length < 1) {
                                     if (masterCardModel.patientInfo.psychosocialFactors[h].values.includes(apssATPCACYes)) {
                                         masterCardModel.patientInfo.apssPatientCaregiverAgreement = apssATPCACYes;
@@ -816,13 +964,17 @@ angular.module('bahmni.clinical')
                             }
 
                             for (var l = 0; l < masterCardModel.patientInfo.psychosocialFactors.length; l++) {
-                                if (masterCardModel.patientInfo.pastAppointments.apss[l] && masterCardModel.patientInfo.pastAppointments.apss[l].date) {
-                                    masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = masterCardModel.patientInfo.pastAppointments.apss[l].date;
-                                } else if (masterCardModel.patientInfo.upcomingAppointments && masterCardModel.patientInfo.upcomingAppointments.apss[0] && (masterCardModel.patientInfo.psychosocialFactors.length - 1) === l) {
-                                    masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = masterCardModel.patientInfo.upcomingAppointments.apss[0].date;
-                                } else {
-                                    masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = '__/__/__';
-                                }
+                                masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = '__/__/__';
+                                masterCardModel.patientInfo.pastAppointments.apss.forEach(function (pastAppointment) {
+                                    if (masterCardModel.patientInfo.psychosocialFactors[l].actualVisit === pastAppointment.dateCreated) {
+                                        masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = pastAppointment.date;
+                                    }
+                                });
+                                masterCardModel.patientInfo.upcomingAppointments.apss.forEach(function (upcomingAppointment) {
+                                    if (masterCardModel.patientInfo.psychosocialFactors[l].actualVisit === upcomingAppointment.dateCreated) {
+                                        masterCardModel.patientInfo.psychosocialFactors[l].nextVisit = upcomingAppointment.date;
+                                    }
+                                });
                             }
                             if (masterCardModel.patientInfo.psychosocialFactors.length < 12) {
                                 masterCardModel.patientInfo.psychosocialFactorsActualEmpty = [];
