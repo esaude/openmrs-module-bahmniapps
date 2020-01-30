@@ -3,10 +3,10 @@
 angular.module('bahmni.clinical')
     .controller('AddTreatmentController', ['$scope', '$rootScope', 'contextChangeHandler', 'treatmentConfig', 'drugService',
         '$timeout', 'clinicalAppConfigService', 'ngDialog', '$window', 'messagingService', 'appService', 'activeDrugOrders',
-        'orderSetService', '$q', 'locationService', 'localeService', 'spinner', '$translate', 'conceptSetService',
+        'orderSetService', '$q', 'locationService', 'localeService', 'treatmentService', 'spinner', '$translate', 'conceptSetService',
         function ($scope, $rootScope, contextChangeHandler, treatmentConfig, drugService, $timeout,
                   clinicalAppConfigService, ngDialog, $window, messagingService, appService, activeDrugOrders,
-                  orderSetService, $q, locationService, localeService, spinner, $translate, conceptSetService) {
+                  orderSetService, $q, locationService, localeService, treatmentService, spinner, $translate, conceptSetService) {
             var DateUtil = Bahmni.Common.Util.DateUtil;
             var DrugOrderViewModel = Bahmni.Clinical.DrugOrderViewModel;
             var scrollTop = _.partial($window.scrollTo, 0, 0);
@@ -361,7 +361,24 @@ angular.module('bahmni.clinical')
                 }
             };
 
+            var getDrugOrderRelationships = function () {
+                Promise.all([treatmentService.getDrugOrderRelationships($rootScope.patient.uuid)]).then(function (data) {
+                    $scope.drugOrderRelationShip = {};
+                    $scope.results = data[0].data;
+                });
+            };
+
             $scope.refillDrug = function (drugOrder, alreadyActiveSimilarOrder) {
+                var drugOrderRelationship = {};
+                for (var i = 0; i < $scope.results.length; i++) {
+                    if ($scope.results[i].order_uuid === drugOrder.uuid) {
+                        drugOrderRelationship.categoryUuid = $scope.results[i].category_uuid;
+                        drugOrderRelationship.treatmentLineUuid = $scope.results[i].treatment_line_uuid;
+                        drugOrderRelationship.drugUuid = drugOrder.drug.uuid;
+                        $scope.drugOrderRelationShipList.push(drugOrderRelationship);
+                    }
+                }
+
                 $scope.bulkSelectCheckbox = false;
                 var existingOrderStopDate = alreadyActiveSimilarOrder ? alreadyActiveSimilarOrder.effectiveStopDate : null;
                 var refillDrugOrder = drugOrder.refill(existingOrderStopDate);
@@ -449,6 +466,15 @@ angular.module('bahmni.clinical')
 
             var refillDrugOrders = function (drugOrders) {
                 drugOrders.forEach(function (drugOrder) {
+                    var drugOrderRelationship = {};
+                    for (var i = 0; i < $scope.results.length; i++) {
+                        if ($scope.results[i].order_uuid === drugOrder.uuid) {
+                            drugOrderRelationship.categoryUuid = $scope.results[i].category_uuid;
+                            drugOrderRelationship.treatmentLineUuid = $scope.results[i].treatment_line_uuid;
+                            drugOrderRelationship.drugUuid = drugOrder.drug.uuid;
+                            $scope.drugOrderRelationShipList.push(drugOrderRelationship);
+                        }
+                    }
                     setNonCodedDrugConcept(drugOrder);
                     if (drugOrder.effectiveStopDate) {
                         var refill = drugOrder.refill();
@@ -545,7 +571,6 @@ angular.module('bahmni.clinical')
                 var drugOrderRelationShip = {};
                 drugOrderRelationShip.drugUuid = $scope.treatment.drug.uuid;
                 drugOrderRelationShip.categoryUuid = $scope.selectedCategory.uuid;
-                console.log($scope.selectedTreatmentLine);
                 if ($scope.selectedTreatmentLine == null || $scope.selectedTreatmentLine == "" || $scope.selectedTreatmentLine === undefined || $scope.selectedTreatmentLine.uuid === "e53fd4bf-b89c-4f97-9c82-120038ea435c"
                 ) {
                     drugOrderRelationShip.treatmentLineUuid = "f2355233-c552-4cd6-802f-0c7c75221f03";
@@ -1042,6 +1067,7 @@ angular.module('bahmni.clinical')
                 $scope.consultation.activeAndScheduledDrugOrders = getActiveDrugOrders(activeDrugOrders);
 
                 mergeActiveAndScheduledWithDiscontinuedOrders();
+                getDrugOrderRelationships();
 
                 $scope.treatmentConfig = treatmentConfig;// $scope.treatmentConfig used only in UI
             };

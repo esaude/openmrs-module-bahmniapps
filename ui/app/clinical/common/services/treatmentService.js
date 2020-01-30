@@ -35,6 +35,19 @@ angular.module('bahmni.clinical')
             });
         };
 
+        var getDrugOrderRelationships = function (patientUuid) {
+            var params = {
+                q: "bahmni.sqlGet.getDrugOrderRelationships",
+                v: "full",
+                patientUuid: patientUuid
+            };
+            return $http.get("/openmrs/ws/rest/v1/bahmnicore/sql", {
+                method: "GET",
+                params: params,
+                withCredentials: true
+            });
+        };
+
         var getConfig = function () {
             return $http.get(Bahmni.Common.Constants.drugOrderConfigurationUrl, {
                 withCredentials: true
@@ -136,6 +149,7 @@ angular.module('bahmni.clinical')
 
         return {
             getActiveDrugOrders: getActiveDrugOrders,
+            getDrugOrderRelationships: getDrugOrderRelationships,
             getConfig: getConfig,
             getPrescribedDrugOrders: getPrescribedDrugOrders,
             getPrescribedAndActiveDrugOrders: getPrescribedAndActiveDrugOrders,
