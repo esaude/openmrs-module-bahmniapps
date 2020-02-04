@@ -14,13 +14,14 @@ angular.module('bahmni.common.displaycontrol.drugOrderDetails')
                         var drugOrderResponse = results[0];
                         var drugOrdersData = results[2].data;
                         var drugOrders = drugOrderResponse.map(createDrugOrder);
-                        for (var i = 0; i < drugOrdersData.length; i++) {
-                            for (var j = 0; j < drugOrders.length; j++) {
+
+                        for (var j = 0; j < drugOrders.length; j++) {
+                            for (var i = 0; i < drugOrdersData.length; i++) {
                                 if (drugOrdersData[i].uuid === drugOrders[j].drug.uuid) {
                                     drugOrders[j].line_treatment = drugOrdersData[i].line_treatment;
-                                    drugOrders[j].dispensed_date = drugOrdersData[i].dispensed_date;
                                 }
                             }
+                            drugOrders[j].dispensed_date = drugOrdersData[j].dispensed_date;
                         }
                         $scope.drugOrders = sortOrders(drugOrders);
                         if (_.isEmpty($scope.drugOrders)) {
