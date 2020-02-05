@@ -658,7 +658,7 @@ angular.module('bahmni.clinical')
                                                 masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = '';
                                             }
                                         } else if (response.data[i].value.name === apssATCACTVisit) {
-                                            if (masterCardModel.termsOfConsent.confidantAgreement.date && new Date(masterCardModel.termsOfConsent.confidantAgreement.date) === new Date(response.data[i].observationDateTime)) {
+                                            if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
                                                 masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
                                             } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
                                                 masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
@@ -780,7 +780,7 @@ angular.module('bahmni.clinical')
                                                         masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = '';
                                                     }
                                                 } else if (response.data[i].value.name === apssATCACTVisit) {
-                                                    if (masterCardModel.termsOfConsent.confidantAgreement.date && new Date(masterCardModel.termsOfConsent.confidantAgreement.date) === new Date(response.data[i].observationDateTime)) {
+                                                    if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
                                                         masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
                                                     } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
                                                         masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
@@ -902,7 +902,7 @@ angular.module('bahmni.clinical')
                                                         masterCardModel.termsOfConsent.confidantAgreement.type_contact.phone = '';
                                                     }
                                                 } else if (response.data[i].value.name === apssATCACTVisit) {
-                                                    if (masterCardModel.termsOfConsent.confidantAgreement.date && new Date(masterCardModel.termsOfConsent.confidantAgreement.date) === new Date(response.data[i].observationDateTime)) {
+                                                    if (masterCardModel.termsOfConsent.confidantAgreement.date && masterCardModel.termsOfConsent.confidantAgreement.date.split('T')[0] === response.data[i].observationDateTime.split('T')[0]) {
                                                         masterCardModel.termsOfConsent.confidantAgreement.type_contact.visit = response.data[i].value.name;
                                                     } else if (!masterCardModel.termsOfConsent.confidantAgreement.date || new Date(masterCardModel.termsOfConsent.confidantAgreement.date) < new Date(response.data[i].observationDateTime)) {
                                                         masterCardModel.termsOfConsent.confidantAgreement.date = response.data[i].observationDateTime;
