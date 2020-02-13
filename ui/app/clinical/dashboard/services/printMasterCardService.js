@@ -521,8 +521,6 @@ angular.module('bahmni.clinical')
                                 var tableStructure = {
                                     actualVisit: '',
                                     nextVisit: '',
-                                    actualVisitClinical: '',
-                                    nextVisitClinical: '',
                                     values: [],
                                     apssSectionIDetails: '',
                                     apssPreTARVCounsellingComments: '',
@@ -1845,7 +1843,7 @@ angular.module('bahmni.clinical')
                                                                 values: []
                                                             });
                                                         }
-                                                    } else if (prescription.category !== 'ARV' && prescription.category !== 'Prophylaxis') {
+                                                    } else if (prescription.category !== 'ARV' && prescription.category !== 'Prophylaxis' && obsArr[i].otherPerscribedDrugs.includes(prescription.name) === false) {
                                                         if (obsArr[i].actualVisitClinical === actualVisit) {
                                                             if (obsArr[i].otherPerscribedDrugs) {
                                                                 obsArr[i].otherPerscribedDrugs.push(prescription.name);
