@@ -61,7 +61,7 @@ angular.module('bahmni.clinical')
                             drugOrderResponse[key] = drugOrderResponse[key].map(createDrugOrderViewModel);
                             for (var i = 0; i < drugOrdersData.length; i++) {
                                 for (var j = 0; j < drugOrderResponse[key].length; j++) {
-                                    if (drugOrdersData[i].uuid === drugOrderResponse[key][j].drug.uuid) {
+                                    if (drugOrdersData[i].uuid === drugOrderResponse[key][j].drug.uuid && drugOrdersData[i].visit_uuid === drugOrderResponse[key][j].visit.uuid) {
                                         drugOrderResponse[key][j].line_treatment = drugOrdersData[i].line_treatment;
                                         drugOrderResponse[key][j].dispensed_date = drugOrdersData[i].dispensed_date;
                                     }
