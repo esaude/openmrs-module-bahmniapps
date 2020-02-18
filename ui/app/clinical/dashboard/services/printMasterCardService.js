@@ -1850,7 +1850,6 @@ angular.module('bahmni.clinical')
                                                                 },
                                                                 values: []
                                                             });
-                                                            console.log(obsArr);
                                                         }
                                                     } else if (prescription.category !== 'ARV' && prescription.category !== 'Prophylaxis' && obsArr[i].otherPerscribedDrugs) {
                                                         if (obsArr[i].actualVisitClinical === actualVisit) {
@@ -1900,15 +1899,11 @@ angular.module('bahmni.clinical')
                                     var upcoming = response[0].data;
                                     var past = response[1].data;
                                     for (let i = 0; i <= upcoming.length; i++) {
-                                        console.log(upcoming[i]);
                                         if (upcoming[i] && upcoming[i].DASHBOARD_APPOINTMENTS_SERVICE_KEY === 'Consulta Clínica') {
                                             obsTable.forEach(function (obs) {
                                                 var newDate = '';
                                                 var observationDate = (new Date(obs.actualVisitClinical).getDate() + '/' + ('0' + (new Date(obs.actualVisitClinical).getMonth() + 1)).slice(-2) + '/' + new Date(obs.actualVisitClinical).getFullYear());
                                                 if (upcoming[i].DASHBOARD_APPOINTMENTS_DATE_CREATED === observationDate) {
-                                                    newDate = upcoming[i].DASHBOARD_APPOINTMENTS_DATE_KEY.split("/");
-                                                    obs.nextVisitClinical = newDate[0] + '/' + newDate[1] + '/' + newDate[2].slice(-2);
-                                                } else if (upcoming[i].DASHBOARD_APPOINTMENTS_DATE_KEY > observationDate) {
                                                     newDate = upcoming[i].DASHBOARD_APPOINTMENTS_DATE_KEY.split("/");
                                                     obs.nextVisitClinical = newDate[0] + '/' + newDate[1] + '/' + newDate[2].slice(-2);
                                                 }
