@@ -17,7 +17,6 @@
             </span>
             </a>
 
-
             <ul class="header-tabs consultation-tabs">
                 <li class="tab-item" ng-repeat="board in availableBoards track by $index" ng-class="{'tab-selected':board.isSelectedTab}">
                     <div ng-show="filterTabByProviderType($index)">
@@ -29,14 +28,15 @@
             <button class="toggle-patient" ng-click="toggleControlPanel()" ng-class="{'shift': showControlPanel, 'hide-ipad': availableBoards }">
                 <i class="fa fa-bars fa-white fa-large"></i>
             </button>
-            <button class="confirm save-consultation" ng-show="availableBoards" single-click="save()" accesskey="{{'SAVE_ACCESS_KEY' | translate}}" ng-class="{'hideSaveText':availableBoards.length > 6}">
-                <i class="fa fa-save"></i>
-                <span class="text" ng-bind-html="'CLINICAL_SAVE_TRANSLATION_KEY'| translate"></span>
-            </button>
+            <span ng-hide="currentUser.username !== 'superman'">
+                <button class="confirm save-consultation" ng-show="availableBoards" single-click="save()" accesskey="{{'SAVE_ACCESS_KEY' | translate}}" ng-class="{'hideSaveText':availableBoards.length > 6}">
+                    <i class="fa fa-save"></i>
+                    <span class="text" ng-bind-html="'CLINICAL_SAVE_TRANSLATION_KEY'| translate"></span>
+                </button>
+            </span>
         </div>
     </div>
 </div>
-
 
 <div ng-show="stateChange()" confirm-on-exit>
     <div bindonce class="dashboard-header opd-header-wrapper">

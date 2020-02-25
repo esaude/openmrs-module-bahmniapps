@@ -1,4 +1,4 @@
-<div class="submit-btn-container clearfix">
+<div class="submit-btn-container clearfix" ng-hide="currentUser.username !== 'superman'">
     <span ng-switch="forwardActionKey">
         <span ng-if="isEligibleForVisit()" data-ng-switch-when="enterVisitDetails">
             <button type="submit" class="right confirm"
